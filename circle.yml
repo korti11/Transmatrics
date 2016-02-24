@@ -3,6 +3,6 @@ dependencies:
     - chmod +x gradlew
 
   post:
-    - gradlew clean
-    - graldew build
+    - gradle clean
+    - gralde build
     - mv build/libs/*.jar $CIRCLE_ARTIFACTS/builds
