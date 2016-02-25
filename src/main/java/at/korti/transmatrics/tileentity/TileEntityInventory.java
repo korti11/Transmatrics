@@ -4,8 +4,8 @@ import at.korti.transmatrics.api.Constants;
 import at.korti.transmatrics.util.helper.TextHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;
@@ -70,6 +70,10 @@ public class TileEntityInventory extends TileEntity implements IInventory{
     public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
         super.onDataPacket(net, pkt);
         readFromNBT(pkt.getNbtCompound());
+    }
+
+    public void dropItems() {
+        InventoryHelper.dropInventoryItems(worldObj, pos, this);
     }
 
     //region IInventory

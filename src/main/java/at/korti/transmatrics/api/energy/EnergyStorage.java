@@ -86,6 +86,15 @@ public class EnergyStorage implements IEnergyStorage {
         return tagCompound;
     }
 
+    public void modifyEnergy(int energy) {
+        this.energy += energy;
+        if (this.energy > this.capacity) {
+            this.energy = this.capacity;
+        } else if (this.energy < 0) {
+            this.energy = 0;
+        }
+    }
+
     //region IEnergyStorage
     @Override
     public int receiveEnergy(int energy) {

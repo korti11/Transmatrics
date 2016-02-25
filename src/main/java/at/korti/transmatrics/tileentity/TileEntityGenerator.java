@@ -13,13 +13,9 @@ public abstract class TileEntityGenerator extends TileEntity implements IEnergyP
     private int energyPerTick;
     private EnergyStorage energyStorage;
 
-    public TileEntityGenerator(int energyPerTick, int capacity, int maxReceive, int maxExtract) {
+    public TileEntityGenerator(int energyPerTick, int capacity, int maxExtract) {
         this.energyPerTick = energyPerTick;
-        this.energyStorage = new EnergyStorage(capacity, maxReceive, maxExtract);
-    }
-
-    public TileEntityGenerator(int energyPerTick, int capacity, int transfer) {
-        this(energyPerTick, capacity, transfer, transfer);
+        this.energyStorage = new EnergyStorage(capacity, 0, maxExtract);
     }
 
     public TileEntityGenerator(int energyPerTick, int maxValue) {
@@ -29,7 +25,7 @@ public abstract class TileEntityGenerator extends TileEntity implements IEnergyP
     @Override
     public void update() {
         if (canProduceEnergy()) {
-            energyStorage.receiveEnergy(energyPerTick);
+            energyStorage.modifyEnergy(energyPerTick);
         }
     }
 

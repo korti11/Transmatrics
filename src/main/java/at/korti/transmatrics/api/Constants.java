@@ -27,6 +27,13 @@ public final class Constants {
         public static final String ENERGY = "energy";
     }
 
+    public static class Energy{
+        //Solar Panel
+        public static final int SOLAR_PANEL_GENERATE = 1;
+        public static final int SOLAR_PANEL_CAPACITY = 1000;
+        public static final int SOLAR_PANEL_EXTRACTION = 10;
+    }
+
     public enum TransmatricsBlock {
         SOLAR_PANEL("SolarPanel");
 
