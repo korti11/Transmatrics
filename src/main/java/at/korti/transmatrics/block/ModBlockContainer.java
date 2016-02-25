@@ -21,7 +21,7 @@ public abstract class ModBlockContainer extends BlockContainer {
         this.tileEntityClass = tileEntityClass;
 
         setCreativeTab(Transmatrics.creativeTab);
-        setUnlocalizedName(name);
+        setUnlocalizedName(Constants.Mod.MODID + "." + name);
         setRegistryName(Constants.Mod.MODID, name);
     }
 

@@ -16,7 +16,7 @@ public class ModBlock extends Block {
         super(material, mapColor);
 
         setCreativeTab(Transmatrics.creativeTab);
-        setUnlocalizedName(name);
+        setUnlocalizedName(Constants.Mod.MODID + "." + name);
         setRegistryName(Constants.Mod.MODID, name);
     }
 
