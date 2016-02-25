@@ -18,9 +18,13 @@ public final class Constants {
         public static final String CREATIVE_TAB_LABEL = "transmatrics";
     }
 
-    public static class NBT{
+    public static class NBT {
+        //Inventory
         public static final String SLOT = "slot";
         public static final String INVENTORY = "inventory";
+
+        //Energy
+        public static final String ENERGY = "energy";
     }
 
     public enum TransmatricsBlock {
