@@ -10,5 +10,7 @@ public class SolarPanel extends ModBlockContainer{
 
     public SolarPanel() {
         super(Material.iron, "SolarPanel", TileEntitySolarPanel.class);
+
+        setBlockBounds(0f, 0f, 0f, 1f, 0.25f, 1f);
     }
 }

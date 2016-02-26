@@ -1,0 +1,22 @@
+{
+	"textures": {
+		"SolarPanelTop": "transmatrics:blocks/SolarPanelTop",
+		"SolarPanelSide": "transmatrics:blocks/SolarPanelSide",
+		"SolarPanelBottom": "transmatrics:blocks/SolarPanelBottom"
+	},
+	"elements": [ 
+		{
+			"__comment": "SolarPanel",
+			"from": [ 0, 0, 0 ],
+			"to": [ 16, 4, 16 ],
+			"faces": {
+				"down":  { "uv": [ 16, 16, 0, 0 ], "texture": "#SolarPanelBottom" },
+				"up":    { "uv": [ 0, 0, 16, 16 ], "texture": "#SolarPanelTop" },
+				"north": { "uv": [ 0, 12, 16, 16 ], "texture": "#SolarPanelSide" },
+				"south": { "uv": [ 0, 12, 16, 16 ], "texture": "#SolarPanelSide" },
+				"west":  { "uv": [ 0, 12, 16, 16 ], "texture": "#SolarPanelSide" },
+				"east":  { "uv": [ 0, 12, 16, 16 ], "texture": "#SolarPanelSide" }
+			}
+		}
+	]
+}

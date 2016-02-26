@@ -40,4 +40,9 @@ public abstract class ModBlockContainer extends BlockContainer {
         }
         return null;
     }
+
+    @Override
+    public int getRenderType() {
+        return 3;
+    }
 }

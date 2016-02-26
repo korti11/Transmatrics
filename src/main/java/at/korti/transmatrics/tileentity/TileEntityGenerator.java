@@ -2,6 +2,7 @@ package at.korti.transmatrics.tileentity;
 
 import at.korti.transmatrics.api.energy.EnergyStorage;
 import at.korti.transmatrics.api.energy.IEnergyProducer;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;
 
@@ -20,6 +21,18 @@ public abstract class TileEntityGenerator extends TileEntity implements IEnergyP
 
     public TileEntityGenerator(int energyPerTick, int maxValue) {
         this(energyPerTick, maxValue, maxValue);
+    }
+
+    @Override
+    public void writeToNBT(NBTTagCompound compound) {
+        super.writeToNBT(compound);
+        energyStorage.writeToNBT(compound);
+    }
+
+    @Override
+    public void readFromNBT(NBTTagCompound compound) {
+        super.readFromNBT(compound);
+        energyStorage.readFromNBT(compound);
     }
 
     @Override

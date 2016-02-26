@@ -38,7 +38,7 @@ public class Transmatrics {
 
     @Mod.EventHandler
     public static void init(FMLInitializationEvent event) {
-
+        ModBlock.registerBlockTextures();
     }
 
     @Mod.EventHandler
