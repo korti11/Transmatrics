@@ -1,5 +1,6 @@
 package at.korti.transmatrics.api;
 
+import at.korti.transmatrics.api.Constants.TransmatricsBlock;
 import net.minecraft.block.Block;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
@@ -12,8 +13,8 @@ public class TransmatricsApi {
         return GameRegistry.findBlock(Constants.Mod.MODID, name);
     }
 
-    public static Block getBlock(Constants.TransmatricsBlock block) {
-        return getBlock(block.regName);
+    public static Block getBlock(TransmatricsBlock block) {
+        return getBlock(block.getRegName());
     }
 
 }

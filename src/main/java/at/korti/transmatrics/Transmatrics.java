@@ -3,6 +3,7 @@ package at.korti.transmatrics;
 import at.korti.transmatrics.api.Constants;
 import at.korti.transmatrics.block.ModBlock;
 import at.korti.transmatrics.proxy.CommonProxy;
+import at.korti.transmatrics.registry.TileEntities;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -34,6 +35,7 @@ public class Transmatrics {
     @Mod.EventHandler
     public static void preInit(FMLPreInitializationEvent event) {
         ModBlock.registerBlocks();
+        TileEntities.registerTileEntities();
     }
 
     @Mod.EventHandler

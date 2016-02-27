@@ -1,3 +1,4 @@
 itemGroup.transmatrics=Transmatrics
 
 tile.Transmatrics.SolarPanel.name=Solar Panel
+tile.Transmatrics.LavaGenerator.name=Lava Generator

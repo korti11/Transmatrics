@@ -3,6 +3,8 @@ package at.korti.transmatrics.block;
 import at.korti.transmatrics.Transmatrics;
 import at.korti.transmatrics.api.Constants;
 import at.korti.transmatrics.api.Constants.TransmatricsBlock;
+import at.korti.transmatrics.block.generator.LavaGenerator;
+import at.korti.transmatrics.block.generator.SolarPanel;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
@@ -30,10 +32,12 @@ public class ModBlock extends Block {
 
     public static void registerBlocks() {
         GameRegistry.registerBlock(new SolarPanel());
+        GameRegistry.registerBlock(new LavaGenerator());
     }
 
     public static void registerBlockTextures() {
         registerBlockTexture(TransmatricsBlock.SOLAR_PANEL.getBlock());
+        registerBlockTexture(TransmatricsBlock.LAVA_GENERATOR.getBlock());
     }
 
     private static void registerBlockTexture(Block block) {

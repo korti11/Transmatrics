@@ -1,6 +1,8 @@
 package at.korti.transmatrics.api;
 
 import net.minecraft.block.Block;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
 
 /**
  * Created by Korti on 24.02.2016.
@@ -32,19 +34,51 @@ public final class Constants {
         public static final int SOLAR_PANEL_GENERATE = 1;
         public static final int SOLAR_PANEL_CAPACITY = 1000;
         public static final int SOLAR_PANEL_EXTRACTION = 10;
+
+        //Lava Generator
+        public static final int LAVA_GENERATOR_GENERATE = 3;
+        public static final int LAVA_GENERATOR_FLUID_USE = 10;
+        public static final int LAVA_GENERATOR_CAPACITY = 2500;
+        public static final int LAVA_GENERATOR_EXTRACTION = 25;
+    }
+
+    public static class Tanks{
+        //Lava Generator
+        public static final int LAVA_GENERATOR_CAPACITY = 10000;
+        public static final Fluid LAVA_GENERATOR_FLUID = FluidRegistry.LAVA;
     }
 
     public enum TransmatricsBlock {
-        SOLAR_PANEL("SolarPanel");
+        SOLAR_PANEL("SolarPanel"),
+        LAVA_GENERATOR("LavaGenerator");
 
-        public final String regName;
+        private final String regName;
 
-        private TransmatricsBlock(String regName) {
+        TransmatricsBlock(String regName) {
             this.regName = regName;
         }
 
         public Block getBlock() {
             return TransmatricsApi.getBlock(regName);
+        }
+
+        public String getRegName() {
+            return regName;
+        }
+    }
+
+    public enum TransmatricsTileEntity{
+        SOLAR_PANEL("TileSolarPanel"),
+        LAVA_GENERATOR("TileLavaGenerator");
+
+        private final String regName;
+
+        TransmatricsTileEntity(String regName) {
+            this.regName = regName;
+        }
+
+        public String getRegName() {
+            return regName;
         }
     }
 }
