@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "particle": "transmatrics:blocks/LavaGeneratorNormal",
+    "down": "transmatrics:blocks/LavaGeneratorNormal",
+    "up": "transmatrics:blocks/LavaGeneratorTop",
+    "north": "transmatrics:blocks/LavaGeneratorFrontActive",
+    "south": "transmatrics:blocks/LavaGeneratorNormal",
+    "west": "transmatrics:blocks/LavaGeneratorNormal",
+    "east": "transmatrics:blocks/LavaGeneratorNormal"
+  }
+}

@@ -1,5 +1,6 @@
 {
 	"textures": {
+        "particle": "transmatrics:blocks/SolarPanelTop",
 		"SolarPanelTop": "transmatrics:blocks/SolarPanelTop",
 		"SolarPanelSide": "transmatrics:blocks/SolarPanelSide",
 		"SolarPanelBottom": "transmatrics:blocks/SolarPanelBottom"
