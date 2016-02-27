@@ -18,7 +18,7 @@ import net.minecraft.util.IChatComponent;
 /**
  * Created by Korti on 25.02.2016.
  */
-public class TileEntityInventory extends TileEntity implements IInventory{
+public abstract class TileEntityInventory extends TileEntity implements IInventory{
 
     private ItemStack[] inventory;
     private int stackLimit;

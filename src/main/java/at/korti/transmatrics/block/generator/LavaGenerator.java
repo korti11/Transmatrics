@@ -4,7 +4,7 @@ import at.korti.transmatrics.api.Constants.TransmatricsBlock;
 import at.korti.transmatrics.block.ModBlockContainer;
 import at.korti.transmatrics.tileentity.TileEntityFluidGenerator;
 import at.korti.transmatrics.tileentity.TileEntityLavaGenerator;
-import at.korti.transmatrics.util.helper.InventoryHelper;
+import at.korti.transmatrics.util.helper.ItemStackHelper;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -46,7 +46,7 @@ public class LavaGenerator extends ModBlockContainer {
                                 if (!playerIn.inventory.addItemStackToInventory(FluidContainerRegistry.drainFluidContainer(currentStack))) {
                                     playerIn.dropPlayerItemWithRandomChoice(FluidContainerRegistry.drainFluidContainer(currentStack), false);
                                 }
-                                playerIn.inventory.setInventorySlotContents(playerIn.inventory.currentItem, InventoryHelper.consumeStack(currentStack));
+                                playerIn.inventory.setInventorySlotContents(playerIn.inventory.currentItem, ItemStackHelper.consumeStack(currentStack));
                             }else {
                                 playerIn.inventory.setInventorySlotContents(playerIn.inventory.currentItem, FluidContainerRegistry.drainFluidContainer(currentStack));
                             }
@@ -66,10 +66,10 @@ public class LavaGenerator extends ModBlockContainer {
                                         if (!playerIn.inventory.addItemStackToInventory(filled)) {
                                             return false;
                                         } else {
-                                            playerIn.inventory.setInventorySlotContents(playerIn.inventory.currentItem, InventoryHelper.consumeStack(currentStack));
+                                            playerIn.inventory.setInventorySlotContents(playerIn.inventory.currentItem, ItemStackHelper.consumeStack(currentStack));
                                         }
                                     }else {
-                                        playerIn.inventory.setInventorySlotContents(playerIn.inventory.currentItem, InventoryHelper.consumeStack(currentStack));
+                                        playerIn.inventory.setInventorySlotContents(playerIn.inventory.currentItem, ItemStackHelper.consumeStack(currentStack));
                                         playerIn.inventory.setInventorySlotContents(playerIn.inventory.currentItem, filled);
                                     }
                                 }
