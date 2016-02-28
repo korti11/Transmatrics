@@ -1,11 +1,13 @@
 package at.korti.transmatrics.block.generator;
 
 import at.korti.transmatrics.api.Constants.TransmatricsBlock;
+import at.korti.transmatrics.block.ActiveMachineBlock;
 import at.korti.transmatrics.block.MachineBlock;
 import at.korti.transmatrics.tileentity.TileEntityFluidGenerator;
 import at.korti.transmatrics.tileentity.TileEntityLavaGenerator;
 import at.korti.transmatrics.util.helper.ItemStackHelper;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -20,7 +22,7 @@ import net.minecraftforge.fluids.IFluidContainerItem;
 /**
  * Created by Korti on 27.02.2016.
  */
-public class LavaGenerator extends MachineBlock{
+public class LavaGenerator extends ActiveMachineBlock{
 
     public LavaGenerator() {
         super(Material.iron, TransmatricsBlock.LAVA_GENERATOR.getRegName(), TileEntityLavaGenerator.class);
