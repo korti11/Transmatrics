@@ -23,4 +23,14 @@ public class SolarPanel extends MachineBlock {
     public boolean isRotatable() {
         return false;
     }
+
+    @Override
+    public boolean isFullCube() {
+        return false;
+    }
+
+    @Override
+    public boolean isOpaqueCube() {
+        return false;
+    }
 }
