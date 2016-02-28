@@ -8,7 +8,11 @@ import at.korti.transmatrics.api.Constants.Energy;
 public class TileEntitySolarPanel extends TileEntityGenerator {
 
     public TileEntitySolarPanel() {
-        super(Energy.SOLAR_PANEL_GENERATE, Energy.SOLAR_PANEL_CAPACITY, Energy.SOLAR_PANEL_EXTRACTION);
+        this(Energy.SOLAR_PANEL_GENERATE, Energy.SOLAR_PANEL_CAPACITY, Energy.SOLAR_PANEL_EXTRACTION);
+    }
+
+    protected TileEntitySolarPanel(int energyPerTick, int capacity, int maxExtract) {
+        super(energyPerTick, capacity, maxExtract);
     }
 
     @Override
