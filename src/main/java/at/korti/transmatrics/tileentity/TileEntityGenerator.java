@@ -61,4 +61,9 @@ public abstract class TileEntityGenerator extends TileEntity implements IEnergyP
     public boolean canProvideEnergy() {
         return energyStorage.getEnergyStored() > 0;
     }
+
+    @Override
+    public boolean canProduceEnergy() {
+        return getEnergyStored() < getMaxEnergyStored();
+    }
 }
