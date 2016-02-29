@@ -5,12 +5,19 @@ package at.korti.transmatrics.api.energy;
  */
 public interface IEnergyProvider {
 
-    int getEnergyPerTick();
-
+    /**
+     * @return Can provide energy at the moment.
+     */
     boolean canProvideEnergy();
 
+    /**
+     * @return Current amount that can provided.
+     */
     int getEnergyStored();
 
+    /**
+     * @return Max amount that can provided.
+     */
     int getMaxEnergyStored();
 
 }

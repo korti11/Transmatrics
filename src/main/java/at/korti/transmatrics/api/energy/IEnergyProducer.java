@@ -5,6 +5,14 @@ package at.korti.transmatrics.api.energy;
  */
 public interface IEnergyProducer extends IEnergyProvider {
 
+    /**
+     * @return Amount of energy can generated per tick.
+     */
+    int getEnergyPerTick();
+
+    /**
+     * @return Can energy produced.
+     */
     boolean canProduceEnergy();
 
 }
