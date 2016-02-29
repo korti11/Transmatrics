@@ -5,9 +5,9 @@ package at.korti.transmatrics.api.energy;
  */
 public interface IEnergyStorage {
 
-    int receiveEnergy(int energy);
+    int receiveEnergy(int energy, boolean simulate);
 
-    int extractEnergy(int energy);
+    int extractEnergy(int energy, boolean simulate);
 
     int getEnergyStored();
 

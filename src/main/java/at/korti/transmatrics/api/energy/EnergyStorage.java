@@ -97,16 +97,20 @@ public class EnergyStorage implements IEnergyStorage {
 
     //region IEnergyStorage
     @Override
-    public int receiveEnergy(int energy) {
+    public int receiveEnergy(int energy, boolean simulate) {
         int toStore = Math.min(Math.min(energy, maxReceive), this.capacity - this.energy);
-        this.energy += toStore;
+        if(!simulate) {
+            this.energy += toStore;
+        }
         return toStore;
     }
 
     @Override
-    public int extractEnergy(int energy) {
+    public int extractEnergy(int energy, boolean simulate) {
         int toExtract = Math.min(Math.min(energy, maxExtract), this.energy);
-        this.energy -= toExtract;
+        if(!simulate) {
+            this.energy -= toExtract;
+        }
         return toExtract;
     }
 
