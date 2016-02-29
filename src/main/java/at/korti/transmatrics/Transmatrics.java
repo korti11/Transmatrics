@@ -1,11 +1,12 @@
 package at.korti.transmatrics;
 
 import at.korti.transmatrics.api.Constants;
+import at.korti.transmatrics.api.Constants.TransmatricsItem;
 import at.korti.transmatrics.block.ModBlock;
 import at.korti.transmatrics.proxy.CommonProxy;
+import at.korti.transmatrics.registry.Items;
 import at.korti.transmatrics.registry.TileEntities;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -28,18 +29,20 @@ public class Transmatrics {
     public static CreativeTabs creativeTab = new CreativeTabs(Constants.Mod.CREATIVE_TAB_LABEL) {
         @Override
         public Item getTabIconItem() {
-            return Items.redstone;
+            return TransmatricsItem.WRENCH.getItem();
         }
     };
 
     @Mod.EventHandler
     public static void preInit(FMLPreInitializationEvent event) {
+        Items.register();
         ModBlock.registerBlocks();
         TileEntities.registerTileEntities();
     }
 
     @Mod.EventHandler
     public static void init(FMLInitializationEvent event) {
+        Items.registerItemTextures();
         ModBlock.registerBlockTextures();
     }
 

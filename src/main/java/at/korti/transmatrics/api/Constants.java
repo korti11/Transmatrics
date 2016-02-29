@@ -1,6 +1,7 @@
 package at.korti.transmatrics.api;
 
 import net.minecraft.block.Block;
+import net.minecraft.item.Item;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 
@@ -66,6 +67,24 @@ public final class Constants {
 
         public Block getBlock() {
             return TransmatricsApi.getBlock(regName);
+        }
+
+        public String getRegName() {
+            return regName;
+        }
+    }
+
+    public enum TransmatricsItem {
+        WRENCH("Wrench");
+
+        private final String regName;
+
+        TransmatricsItem(String regName) {
+            this.regName = regName;
+        }
+
+        public Item getItem() {
+            return TransmatricsApi.getItem(regName);
         }
 
         public String getRegName() {

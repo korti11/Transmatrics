@@ -99,7 +99,7 @@ public abstract class MachineBlock extends ModBlockContainer implements IDismant
 
     @Override
     public void dismantleBlock(EntityPlayer playerIn, World worldIn, BlockPos pos, IBlockState state) {
-        if(isDismantable()) {
+        if(isDismantable() && !worldIn.isRemote) {
             ItemStack stack = new ItemStack(this, 1);
             TileEntity tileEntity = worldIn.getTileEntity(pos);
             if (tileEntity instanceof TileEntityInventory) {
@@ -111,6 +111,7 @@ public abstract class MachineBlock extends ModBlockContainer implements IDismant
             tileEntity.writeToNBT(stack.getTagCompound());
             WorldHelper.spawnItem(worldIn, stack, pos);
             breakBlock(worldIn, pos, state);
+            worldIn.setBlockToAir(pos);
         }
     }
 
@@ -121,14 +122,15 @@ public abstract class MachineBlock extends ModBlockContainer implements IDismant
 
     @Override
     public void rotate(World worldIn, EntityPlayer playerIn, BlockPos posIn, IBlockState stateIn) {
-        if (isRotatable()) {
-            IBlockState defaultState = stateIn.getBlock().getDefaultState();
+        if (isRotatable() && !worldIn.isRemote) {
             TileEntity tileEntity = worldIn.getTileEntity(posIn);
+            EnumFacing facing = getFacing(stateIn);
+            EnumFacing oppositeLookFacing = playerIn.getHorizontalFacing().getOpposite();
 
-            if (playerIn.isSneaking()) {
-               stateIn = defaultState.withProperty(FACING, playerIn.getHorizontalFacing());
+            if (facing.equals(oppositeLookFacing)) {
+               stateIn = stateIn.withProperty(FACING, playerIn.getHorizontalFacing());
             } else {
-               stateIn = defaultState.withProperty(FACING, playerIn.getHorizontalFacing().getOpposite());
+               stateIn = stateIn.withProperty(FACING, oppositeLookFacing);
             }
 
             worldIn.setBlockState(posIn, stateIn, 3);
