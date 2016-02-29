@@ -2,6 +2,7 @@ package at.korti.transmatrics.block;
 
 import at.korti.transmatrics.api.block.IDismantable;
 import at.korti.transmatrics.api.block.IRotatable;
+import at.korti.transmatrics.tileentity.TileEntityInventory;
 import at.korti.transmatrics.util.helper.WorldHelper;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
@@ -12,6 +13,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
@@ -42,9 +44,26 @@ public abstract class MachineBlock extends ModBlockContainer implements IDismant
 
     @Override
     public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+        IBlockState state = null;
+
         if(isRotatable()) {
-            return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
+            state = this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
         }
+
+        if (isDismantable()) {
+            ItemStack stack = placer.getHeldItem();
+            if (stack != null && stack.getTagCompound() != null) {
+                TileEntity tileEntity = worldIn.getTileEntity(pos);
+                if (tileEntity != null) {
+                    tileEntity.readFromNBT(stack.getTagCompound());
+                }
+            }
+        }
+
+        if (state != null) {
+            return state;
+        }
+
         return super.onBlockPlaced(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer);
     }
 
@@ -82,6 +101,14 @@ public abstract class MachineBlock extends ModBlockContainer implements IDismant
     public void dismantleBlock(EntityPlayer playerIn, World worldIn, BlockPos pos, IBlockState state) {
         if(isDismantable()) {
             ItemStack stack = new ItemStack(this, 1);
+            TileEntity tileEntity = worldIn.getTileEntity(pos);
+            if (tileEntity instanceof TileEntityInventory) {
+                ((TileEntityInventory) tileEntity).dropItems();
+            }
+            if (stack.getTagCompound() == null) {
+                stack.setTagCompound(new NBTTagCompound());
+            }
+            tileEntity.writeToNBT(stack.getTagCompound());
             WorldHelper.spawnItem(worldIn, stack, pos);
             breakBlock(worldIn, pos, state);
         }
