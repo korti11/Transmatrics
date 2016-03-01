@@ -2,9 +2,13 @@ package at.korti.transmatrics.tileentity;
 
 import at.korti.transmatrics.api.energy.EnergyStorage;
 import at.korti.transmatrics.api.energy.IEnergyProducer;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.ITickable;
+import net.minecraft.world.World;
 
 /**
  * Created by Korti on 25.02.2016.
@@ -37,9 +41,14 @@ public abstract class TileEntityGenerator extends TileEntity implements IEnergyP
 
     @Override
     public void update() {
-        if (canProduceEnergy()) {
+        if (canProduceEnergy() && !worldObj.isRemote) {
             energyStorage.modifyEnergy(energyPerTick);
         }
+    }
+
+    @Override
+    public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
+        return newState.getBlock() == Blocks.air;
     }
 
     @Override

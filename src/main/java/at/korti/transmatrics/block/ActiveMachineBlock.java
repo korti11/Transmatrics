@@ -6,8 +6,10 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
 /**
@@ -38,19 +40,16 @@ public abstract class ActiveMachineBlock extends MachineBlock {
     public static void setState(boolean active, World worldIn, BlockPos posIn) {
         IBlockState state = worldIn.getBlockState(posIn);
         IBlockState defaultState = state.getBlock().getDefaultState();
-        TileEntity tileEntity = worldIn.getTileEntity(posIn);
 
         worldIn.setBlockState(posIn, defaultState.withProperty(FACING, state.getValue(FACING)).withProperty(ACTIVE, Boolean.valueOf(active)), 3);
-
-        if (tileEntity != null) {
-            worldIn.removeTileEntity(posIn);
-            tileEntity.validate();
-            worldIn.setTileEntity(posIn, tileEntity);
-        }
     }
 
     public static boolean isActive(World worldIn, BlockPos posIn) {
         return worldIn.getBlockState(posIn).getValue(ACTIVE).booleanValue();
+    }
+
+    public static boolean isActive(IBlockState blockState) {
+        return blockState.getValue(ACTIVE).booleanValue();
     }
 
     @Override

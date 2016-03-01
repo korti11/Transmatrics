@@ -123,22 +123,16 @@ public abstract class MachineBlock extends ModBlockContainer implements IDismant
     @Override
     public void rotate(World worldIn, EntityPlayer playerIn, BlockPos posIn, IBlockState stateIn) {
         if (isRotatable() && !worldIn.isRemote) {
-            TileEntity tileEntity = worldIn.getTileEntity(posIn);
             EnumFacing facing = getFacing(stateIn);
             EnumFacing oppositeLookFacing = playerIn.getHorizontalFacing().getOpposite();
 
             if (facing.equals(oppositeLookFacing)) {
-               stateIn = stateIn.withProperty(FACING, playerIn.getHorizontalFacing());
+                stateIn = stateIn.withProperty(FACING, playerIn.getHorizontalFacing());
             } else {
-               stateIn = stateIn.withProperty(FACING, oppositeLookFacing);
+                stateIn = stateIn.withProperty(FACING, oppositeLookFacing);
             }
 
             worldIn.setBlockState(posIn, stateIn, 3);
-
-            if (tileEntity != null) {
-                tileEntity.validate();
-                worldIn.setTileEntity(posIn, tileEntity);
-            }
         }
     }
 }
