@@ -35,9 +35,9 @@ public abstract class TileEntityHeightGenerator extends TileEntityGenerator {
     @Override
     public boolean canProduceEnergy() {
         if (direction.equals(AxisDirection.POSITIVE)) {
-            return pos.getY() >= minHeight && pos.getY() <= maxHeight;
+            return pos.getY() >= minHeight && pos.getY() <= maxHeight && super.canProduceEnergy();
         } else if (direction.equals(AxisDirection.NEGATIVE)) {
-            return pos.getY() <= minHeight && pos.getY() >= maxHeight;
+            return pos.getY() <= minHeight && pos.getY() >= maxHeight && super.canProduceEnergy();
         }
         return false;
     }
