@@ -13,7 +13,7 @@ public final class Items {
 
     private static ItemWrench wrench;
 
-    public static void register() {
+    public static void registerItems() {
         GameRegistry.registerItem(wrench = new ItemWrench());
     }
 

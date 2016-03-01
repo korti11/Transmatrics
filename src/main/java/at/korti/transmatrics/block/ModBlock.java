@@ -31,19 +31,4 @@ public class ModBlock extends Block {
         this(materialIn, materialIn.getMaterialMapColor(), name);
     }
 
-    public static void registerBlocks() {
-        GameRegistry.registerBlock(new SolarPanel());
-        GameRegistry.registerBlock(new AdvancedSolarPanel());
-        GameRegistry.registerBlock(new LavaGenerator());
-    }
-
-    public static void registerBlockTextures() {
-        registerBlockTexture(TransmatricsBlock.SOLAR_PANEL.getBlock());
-        registerBlockTexture(TransmatricsBlock.ADVANCED_SOLAR_PANEL.getBlock());
-        registerBlockTexture(TransmatricsBlock.LAVA_GENERATOR.getBlock());
-    }
-
-    private static void registerBlockTexture(Block block) {
-        Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(block), 0, new ModelResourceLocation(block.getRegistryName(), "inventory"));
-    }
 }
