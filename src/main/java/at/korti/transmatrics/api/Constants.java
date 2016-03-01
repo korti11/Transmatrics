@@ -46,6 +46,14 @@ public final class Constants {
         public static final int LAVA_GENERATOR_FLUID_USE = 10;
         public static final int LAVA_GENERATOR_CAPACITY = 2500;
         public static final int LAVA_GENERATOR_EXTRACTION = 25;
+
+        //Thermal Generator
+        public static final int THERMAL_GENERATOR_MIN_GENERATE = 10;
+        public static final int THERMAL_GENERATOR_MAX_GENERATE = 100;
+        public static final int THERMAL_GENERATOR_MIN_HEIGHT = 64;
+        public static final int THERMAL_GENERATOR_MAX_HEIGHT = 12;
+        public static final int THERMAL_GENERATOR_CAPACITY = 10000;
+        public static final int THERMAL_GENERATOR_EXTRACTION = 100;
     }
 
     public static class Tanks{
@@ -57,7 +65,8 @@ public final class Constants {
     public enum TransmatricsBlock {
         SOLAR_PANEL("SolarPanel"),
         ADVANCED_SOLAR_PANEL("AdvancedSolarPanel"),
-        LAVA_GENERATOR("LavaGenerator");
+        LAVA_GENERATOR("LavaGenerator"),
+        THERMAL_GENERATOR("ThermalGenerator");
 
         private final String regName;
 
@@ -95,7 +104,8 @@ public final class Constants {
     public enum TransmatricsTileEntity{
         SOLAR_PANEL("TileSolarPanel"),
         ADVANCED_SOLAR_PANEL("TileAdvancedSolarPanel"),
-        LAVA_GENERATOR("TileLavaGenerator");
+        LAVA_GENERATOR("TileLavaGenerator"),
+        THERMAL_GENERATOR("TileThermalGenerator");
 
         private final String regName;
 
