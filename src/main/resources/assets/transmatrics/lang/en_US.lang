@@ -1,5 +1,9 @@
 itemGroup.transmatrics=Transmatrics
 
+#Blocks
 tile.Transmatrics.SolarPanel.name=Solar Panel
 tile.Transmatrics.AdvancedSolarPanel.name=Advanced Solar Panel
 tile.Transmatrics.LavaGenerator.name=Lava Generator
+
+#Items
+item.Transmatrics.Wrench.name=Wrench
