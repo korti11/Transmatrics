@@ -29,6 +29,11 @@ public class SolarPanel extends MachineBlock {
     }
 
     @Override
+    public boolean shouldSaveBlockNBT() {
+        return false;
+    }
+
+    @Override
     public boolean isFullCube() {
         return false;
     }

@@ -42,6 +42,13 @@ public abstract class MachineBlock extends ModBlockContainer implements IDismant
         return true;
     }
 
+    /**
+     * @return If the tile entity nbt should saved on dismantleBlock.
+     */
+    public boolean shouldSaveBlockNBT() {
+        return true;
+    }
+
     @Override
     public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
         IBlockState state = null;
@@ -101,14 +108,16 @@ public abstract class MachineBlock extends ModBlockContainer implements IDismant
     public void dismantleBlock(EntityPlayer playerIn, World worldIn, BlockPos pos, IBlockState state) {
         if(isDismantable() && !worldIn.isRemote) {
             ItemStack stack = new ItemStack(this, 1);
-            TileEntity tileEntity = worldIn.getTileEntity(pos);
-            if (tileEntity instanceof TileEntityInventory) {
-                ((TileEntityInventory) tileEntity).dropItems();
+            if(shouldSaveBlockNBT()) {
+                TileEntity tileEntity = worldIn.getTileEntity(pos);
+                if (tileEntity instanceof TileEntityInventory) {
+                    ((TileEntityInventory) tileEntity).dropItems();
+                }
+                if (stack.getTagCompound() == null) {
+                    stack.setTagCompound(new NBTTagCompound());
+                }
+                tileEntity.writeToNBT(stack.getTagCompound());
             }
-            if (stack.getTagCompound() == null) {
-                stack.setTagCompound(new NBTTagCompound());
-            }
-            tileEntity.writeToNBT(stack.getTagCompound());
             WorldHelper.spawnItem(worldIn, stack, pos);
             breakBlock(worldIn, pos, state);
             worldIn.setBlockToAir(pos);
