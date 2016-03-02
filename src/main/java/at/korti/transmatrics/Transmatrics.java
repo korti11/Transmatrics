@@ -3,6 +3,7 @@ package at.korti.transmatrics;
 import at.korti.transmatrics.api.Constants;
 import at.korti.transmatrics.api.Constants.TransmatricsItem;
 import at.korti.transmatrics.block.ModBlock;
+import at.korti.transmatrics.modintegration.ModIntegrationManager;
 import at.korti.transmatrics.proxy.CommonProxy;
 import at.korti.transmatrics.registry.Blocks;
 import at.korti.transmatrics.registry.Items;
@@ -36,20 +37,23 @@ public class Transmatrics {
 
     @Mod.EventHandler
     public static void preInit(FMLPreInitializationEvent event) {
+        ModIntegrationManager.initManager();
         Items.registerItems();
         Blocks.registerBlocks();
         TileEntities.registerTileEntities();
+        ModIntegrationManager.preInit();
     }
 
     @Mod.EventHandler
     public static void init(FMLInitializationEvent event) {
         Items.registerItemTextures();
         Blocks.registerBlockTextures();
+        ModIntegrationManager.init();
     }
 
     @Mod.EventHandler
     public static void postInit(FMLPostInitializationEvent event) {
-
+        ModIntegrationManager.postInit();
     }
 
 }

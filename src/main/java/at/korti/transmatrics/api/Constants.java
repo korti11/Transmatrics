@@ -21,6 +21,10 @@ public final class Constants {
         public static final String CREATIVE_TAB_LABEL = "transmatrics";
     }
 
+    public static class ModIntegrationIds{
+        public static final String WAILA = "Waila";
+    }
+
     public static class NBT {
         //Inventory
         public static final String SLOT = "slot";
@@ -28,6 +32,7 @@ public final class Constants {
 
         //Energy
         public static final String ENERGY = "energy";
+        public static final String CAPACITY = "capacity";
     }
 
     public static class Energy{

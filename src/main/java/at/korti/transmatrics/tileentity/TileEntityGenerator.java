@@ -1,6 +1,7 @@
 package at.korti.transmatrics.tileentity;
 
 import at.korti.transmatrics.api.energy.EnergyStorage;
+import at.korti.transmatrics.api.energy.IEnergyInfo;
 import at.korti.transmatrics.api.energy.IEnergyProducer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -13,7 +14,7 @@ import net.minecraft.world.World;
 /**
  * Created by Korti on 25.02.2016.
  */
-public abstract class TileEntityGenerator extends TileEntity implements IEnergyProducer, ITickable {
+public abstract class TileEntityGenerator extends TileEntity implements IEnergyProducer, IEnergyInfo, ITickable {
 
     protected int energyPerTick;
     private EnergyStorage energyStorage;
