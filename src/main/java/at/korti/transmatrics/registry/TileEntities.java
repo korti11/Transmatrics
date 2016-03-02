@@ -1,10 +1,10 @@
 package at.korti.transmatrics.registry;
 
 import at.korti.transmatrics.api.Constants.TransmatricsTileEntity;
-import at.korti.transmatrics.tileentity.TileEntityAdvancedSolarPanel;
-import at.korti.transmatrics.tileentity.TileEntityLavaGenerator;
-import at.korti.transmatrics.tileentity.TileEntitySolarPanel;
-import at.korti.transmatrics.tileentity.TileEntityThermalGenerator;
+import at.korti.transmatrics.tileentity.generator.TileEntityAdvancedSolarPanel;
+import at.korti.transmatrics.tileentity.generator.TileEntityLavaGenerator;
+import at.korti.transmatrics.tileentity.generator.TileEntitySolarPanel;
+import at.korti.transmatrics.tileentity.generator.TileEntityThermalGenerator;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 /**

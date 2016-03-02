@@ -2,11 +2,8 @@ package at.korti.transmatrics.block.generator;
 
 import at.korti.transmatrics.api.Constants.TransmatricsBlock;
 import at.korti.transmatrics.block.MachineBlock;
-import at.korti.transmatrics.block.ModBlockContainer;
-import at.korti.transmatrics.tileentity.TileEntitySolarPanel;
+import at.korti.transmatrics.tileentity.generator.TileEntitySolarPanel;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.BlockState;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
 
 /**

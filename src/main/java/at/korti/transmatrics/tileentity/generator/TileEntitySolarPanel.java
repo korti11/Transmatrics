@@ -1,6 +1,7 @@
-package at.korti.transmatrics.tileentity;
+package at.korti.transmatrics.tileentity.generator;
 
 import at.korti.transmatrics.api.Constants.Energy;
+import at.korti.transmatrics.tileentity.TileEntityGenerator;
 
 /**
  * Created by Korti on 25.02.2016.

@@ -2,7 +2,7 @@ package at.korti.transmatrics.block.generator;
 
 import at.korti.transmatrics.api.Constants.TransmatricsBlock;
 import at.korti.transmatrics.block.ActiveMachineBlock;
-import at.korti.transmatrics.tileentity.TileEntityThermalGenerator;
+import at.korti.transmatrics.tileentity.generator.TileEntityThermalGenerator;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.BlockPos;

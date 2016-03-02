@@ -1,7 +1,8 @@
-package at.korti.transmatrics.tileentity;
+package at.korti.transmatrics.tileentity.generator;
 
 import at.korti.transmatrics.api.Constants.Energy;
 import at.korti.transmatrics.block.ActiveMachineBlock;
+import at.korti.transmatrics.tileentity.TileEntityHeightGenerator;
 import net.minecraft.util.EnumFacing.AxisDirection;
 
 /**

@@ -1,4 +1,4 @@
-package at.korti.transmatrics.tileentity;
+package at.korti.transmatrics.tileentity.generator;
 
 import at.korti.transmatrics.api.Constants.Energy;
 
