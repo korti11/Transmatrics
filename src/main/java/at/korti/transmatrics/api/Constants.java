@@ -122,4 +122,18 @@ public final class Constants {
             return regName;
         }
     }
+
+    public enum TransmatricsFluid{
+        HYDROGEN_GAS("HydrogenGas");
+
+        private final String regName;
+
+        TransmatricsFluid(String regName) {
+            this.regName = regName;
+        }
+
+        public String getRegName() {
+            return regName;
+        }
+    }
 }

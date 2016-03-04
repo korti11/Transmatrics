@@ -6,10 +6,12 @@ import at.korti.transmatrics.block.ModBlock;
 import at.korti.transmatrics.modintegration.ModIntegrationManager;
 import at.korti.transmatrics.proxy.CommonProxy;
 import at.korti.transmatrics.registry.Blocks;
+import at.korti.transmatrics.registry.Fluids;
 import at.korti.transmatrics.registry.Items;
 import at.korti.transmatrics.registry.TileEntities;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -28,6 +30,10 @@ public class Transmatrics {
     @SidedProxy(clientSide = Constants.Mod.CLIENT_PROXY, serverSide = Constants.Mod.COMMON_PROXY)
     public static CommonProxy proxy;
 
+    static {
+        FluidRegistry.enableUniversalBucket();
+    }
+
     public static CreativeTabs creativeTab = new CreativeTabs(Constants.Mod.CREATIVE_TAB_LABEL) {
         @Override
         public Item getTabIconItem() {
@@ -40,7 +46,9 @@ public class Transmatrics {
         ModIntegrationManager.initManager();
         Items.registerItems();
         Blocks.registerBlocks();
+        Fluids.registerFluids();
         TileEntities.registerTileEntities();
+        proxy.preInit(event);
         ModIntegrationManager.preInit();
     }
 
@@ -48,11 +56,13 @@ public class Transmatrics {
     public static void init(FMLInitializationEvent event) {
         Items.registerItemTextures();
         Blocks.registerBlockTextures();
+        proxy.init(event);
         ModIntegrationManager.init();
     }
 
     @Mod.EventHandler
     public static void postInit(FMLPostInitializationEvent event) {
+        proxy.postInit(event);
         ModIntegrationManager.postInit();
     }
 
