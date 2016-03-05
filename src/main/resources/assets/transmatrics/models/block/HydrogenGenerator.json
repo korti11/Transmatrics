@@ -1,6 +1,6 @@
 {
   "parent": "transmatrics:block/Generator",
   "textures": {
-    "north": "transmatrics:blocks/LavaGeneratorFrontActive"
+    "north": "transmatrics:blocks/HydrogenGeneratorFrontActive"
   }
 }

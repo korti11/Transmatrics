@@ -1,0 +1,34 @@
+{
+  "forge_marker": 1,
+  "variants": {
+    "facing": {
+      "north": {
+        "model": "transmatrics:HydrogenGenerator"
+      },
+      "south": {
+        "model": "transmatrics:HydrogenGenerator",
+        "y": 180
+      },
+      "west": {
+        "model": "transmatrics:HydrogenGenerator",
+        "y": 270
+      },
+      "east": {
+        "model": "transmatrics:HydrogenGenerator",
+        "y": 90
+      }
+    },
+    "active": {
+      "true":{
+        "textures":{
+          "north": "transmatrics:blocks/HydrogenGeneratorFrontActive"
+        }
+      },
+      "false":{
+        "textures":{
+          "north": "transmatrics:blocks/HydrogenGeneratorFrontDeactivate"
+        }
+      }
+    }
+  }
+}

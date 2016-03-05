@@ -59,19 +59,30 @@ public final class Constants {
         public static final int THERMAL_GENERATOR_MAX_HEIGHT = 12;
         public static final int THERMAL_GENERATOR_CAPACITY = 10000;
         public static final int THERMAL_GENERATOR_EXTRACTION = 100;
+
+        //Hydrogen Generator
+        public static final int HYDROGEN_GENERATOR_GENERATE = 75;
+        public static final int HYDROGEN_GENERATOR_FLUID_USE = 100;
+        public static final int HYDROGEN_GENERATOR_CAPACITY = 10000;
+        public static final int HYDROGEN_GENERATOR_EXTRACTION = 75;
     }
 
     public static class Tanks{
         //Lava Generator
         public static final int LAVA_GENERATOR_CAPACITY = 10000;
         public static final Fluid LAVA_GENERATOR_FLUID = FluidRegistry.LAVA;
+
+        //Hydrogen Generator
+        public static final int HYDROGEN_GENERATOR_CAPACITY = 10000;
+        public static final Fluid HYDROGEN_GENERATOR_FLUID = TransmatricsFluid.HYDROGEN_GAS.getFluid();
     }
 
     public enum TransmatricsBlock {
         SOLAR_PANEL("SolarPanel"),
         ADVANCED_SOLAR_PANEL("AdvancedSolarPanel"),
         LAVA_GENERATOR("LavaGenerator"),
-        THERMAL_GENERATOR("ThermalGenerator");
+        THERMAL_GENERATOR("ThermalGenerator"),
+        HYDROGEN_GENERATOR("HydrogenGenerator");
 
         private final String regName;
 
@@ -110,7 +121,8 @@ public final class Constants {
         SOLAR_PANEL("TileSolarPanel"),
         ADVANCED_SOLAR_PANEL("TileAdvancedSolarPanel"),
         LAVA_GENERATOR("TileLavaGenerator"),
-        THERMAL_GENERATOR("TileThermalGenerator");
+        THERMAL_GENERATOR("TileThermalGenerator"),
+        HYDROGEN_GENERATOR("TileHydrogenGenerator");
 
         private final String regName;
 
@@ -130,6 +142,10 @@ public final class Constants {
 
         TransmatricsFluid(String regName) {
             this.regName = regName;
+        }
+
+        public Fluid getFluid() {
+            return TransmatricsApi.getFluid(regName);
         }
 
         public String getRegName() {

@@ -1,5 +1,5 @@
 {
-  "parent": "transmatrics:block/LavaGenerator",
+  "parent": "transmatrics:block/Generator",
   "textures": {
     "north": "transmatrics:blocks/ThermalGeneratorFrontActive"
   }

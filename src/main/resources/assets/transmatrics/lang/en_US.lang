@@ -5,10 +5,11 @@ tile.Transmatrics.SolarPanel.name=Solar Panel
 tile.Transmatrics.AdvancedSolarPanel.name=Advanced Solar Panel
 tile.Transmatrics.LavaGenerator.name=Lava Generator
 tile.Transmatrics.ThermalGenerator.name=Thermal Generator
-tile.Transmatrics.hydrogengas.name=Hydrogen
+tile.Transmatrics.HydrogenGenerator.name=Hydrogen Generator
 
 #Items
 item.Transmatrics.Wrench.name=Wrench
 
 #Fluids
 fluid.Transmatrics.hydrogengas.name=Hydrogen
+tile.Transmatrics.hydrogengas.name=Hydrogen

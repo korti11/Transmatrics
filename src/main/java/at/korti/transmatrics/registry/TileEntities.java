@@ -1,10 +1,7 @@
 package at.korti.transmatrics.registry;
 
 import at.korti.transmatrics.api.Constants.TransmatricsTileEntity;
-import at.korti.transmatrics.tileentity.generator.TileEntityAdvancedSolarPanel;
-import at.korti.transmatrics.tileentity.generator.TileEntityLavaGenerator;
-import at.korti.transmatrics.tileentity.generator.TileEntitySolarPanel;
-import at.korti.transmatrics.tileentity.generator.TileEntityThermalGenerator;
+import at.korti.transmatrics.tileentity.generator.*;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 /**
@@ -17,6 +14,7 @@ public final class TileEntities {
         GameRegistry.registerTileEntity(TileEntityAdvancedSolarPanel.class, TransmatricsTileEntity.ADVANCED_SOLAR_PANEL.getRegName());
         GameRegistry.registerTileEntity(TileEntityLavaGenerator.class, TransmatricsTileEntity.LAVA_GENERATOR.getRegName());
         GameRegistry.registerTileEntity(TileEntityThermalGenerator.class, TransmatricsTileEntity.THERMAL_GENERATOR.getRegName());
+        GameRegistry.registerTileEntity(TileEntityHydrogenGenerator.class, TransmatricsTileEntity.HYDROGEN_GENERATOR.getRegName());
     }
 
 }

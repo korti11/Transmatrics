@@ -1,0 +1,6 @@
+{
+  "parent": "transmatrics:block/Machine",
+  "textures":{
+    "up": "transmatrics:blocks/GeneratorTop"
+  }
+}

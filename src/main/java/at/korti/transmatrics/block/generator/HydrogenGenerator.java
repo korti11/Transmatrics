@@ -1,34 +1,24 @@
 package at.korti.transmatrics.block.generator;
 
 import at.korti.transmatrics.api.Constants.TransmatricsBlock;
-import at.korti.transmatrics.block.ActiveMachineBlock;
-import at.korti.transmatrics.tileentity.TileEntityFluidGenerator;
-import at.korti.transmatrics.tileentity.generator.TileEntityLavaGenerator;
-import at.korti.transmatrics.util.helper.ItemStackHelper;
+import at.korti.transmatrics.tileentity.generator.TileEntityHydrogenGenerator;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.FluidContainerRegistry;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.IFluidContainerItem;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.Random;
 
 /**
- * Created by Korti on 27.02.2016.
+ * Created by Korti on 04.03.2016.
  */
-public class LavaGenerator extends FluidGeneratorBlock{
+public class HydrogenGenerator extends FluidGeneratorBlock {
 
-    public LavaGenerator() {
-        super(Material.iron, TransmatricsBlock.LAVA_GENERATOR.getRegName(), TileEntityLavaGenerator.class);
+    public HydrogenGenerator() {
+        super(Material.iron, TransmatricsBlock.HYDROGEN_GENERATOR.getRegName(), TileEntityHydrogenGenerator.class);
     }
 
     @SideOnly(Side.CLIENT)
@@ -42,4 +32,5 @@ public class LavaGenerator extends FluidGeneratorBlock{
             worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0, d1 + 1, d2, 0, 0, 0);
         }
     }
+
 }

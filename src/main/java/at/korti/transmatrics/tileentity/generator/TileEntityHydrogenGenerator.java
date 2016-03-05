@@ -6,13 +6,13 @@ import at.korti.transmatrics.block.ActiveMachineBlock;
 import at.korti.transmatrics.tileentity.TileEntityFluidGenerator;
 
 /**
- * Created by Korti on 27.02.2016.
+ * Created by Korti on 04.03.2016.
  */
-public class TileEntityLavaGenerator extends TileEntityFluidGenerator {
+public class TileEntityHydrogenGenerator extends TileEntityFluidGenerator {
 
-    public TileEntityLavaGenerator() {
-        super(Energy.LAVA_GENERATOR_GENERATE, Energy.LAVA_GENERATOR_CAPACITY, Energy.LAVA_GENERATOR_EXTRACTION,
-                Tanks.LAVA_GENERATOR_CAPACITY, Energy.LAVA_GENERATOR_FLUID_USE, Tanks.LAVA_GENERATOR_FLUID);
+    public TileEntityHydrogenGenerator() {
+        super(Energy.HYDROGEN_GENERATOR_GENERATE, Energy.HYDROGEN_GENERATOR_CAPACITY, Energy.HYDROGEN_GENERATOR_EXTRACTION,
+                Tanks.HYDROGEN_GENERATOR_CAPACITY, Energy.HYDROGEN_GENERATOR_FLUID_USE, Tanks.HYDROGEN_GENERATOR_FLUID);
     }
 
     @Override
@@ -24,4 +24,5 @@ public class TileEntityLavaGenerator extends TileEntityFluidGenerator {
             ActiveMachineBlock.setState(false, worldObj, pos);
         }
     }
+
 }
