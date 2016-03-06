@@ -53,7 +53,7 @@ public final class Constants {
         public static final String SUCCESSFUL_RECONNECTED = "network.successful_reconnected.message";
         public static final String CAN_NOT_CONNECTED = "network.can_not_connected.message";
         public static final String OUT_OF_RANGE = "network.out_of_range.message";
-        public static final String SAME_NODE = "networl.same_node.message";
+        public static final String SAME_NODE = "network.same_node.message";
         public static final String ALREADY_CONNECTED = "network.already_connected.message";
     }
 

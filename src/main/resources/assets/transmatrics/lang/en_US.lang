@@ -19,6 +19,13 @@ fluid.Transmatrics.hydrogengas.name=Hydrogen
 tile.Transmatrics.hydrogengas.name=Hydrogen
 
 #Network
-network.max_connections.message=The max connection points are reached. Max connections: %d
-network.machines_can_not_connected.message=Machines can't connected to this node.
-network.successful_connected.message=The nodes are successful connected.
+network.max_connections.message=[Network] The max connection points are reached. Max connections: %d
+network.machines_can_not_connected.message=[Network] Machines can't connected to this node.
+network.successful_connected.message=[Network] The nodes are successful connected.
+network.not_connected.message=[Network] The nodes are not connected.
+network.successful_disconnected.message=[Network] The nodes are successful disconnected.
+network.successful_reconnected.message=[Network] The node is successful reconnected.
+network.can_not_connected.message=[Network] The node can't connect.
+network.out_of_range.message=[Network] The nodes are out of range.
+network.same_node.message=[Network] Can't connect to the same node.
+network.already_connected.message=[Network] The nodes are already connected.

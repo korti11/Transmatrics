@@ -7,6 +7,7 @@ import at.korti.transmatrics.api.network.INetworkNode;
 import at.korti.transmatrics.api.network.INetworkSwitch;
 import at.korti.transmatrics.api.network.IOperationMessage;
 import at.korti.transmatrics.item.ModItem;
+import at.korti.transmatrics.util.helper.ChatHelper;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -31,34 +32,37 @@ public class ItemConnector extends ModItem {
 
     @Override
     public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
-        TileEntity te = world.getTileEntity(pos);
-        if (te instanceof INetworkNode) {
-            INetworkNode networkNode = (INetworkNode) te;
-            if (hasNetworkNodeStored(stack)) {
-                NBTTagCompound tagCompound = stack.getTagCompound();
-                int x = tagCompound.getInteger(NBT.NETWORK_X);
-                int y = tagCompound.getInteger(NBT.NETWORK_Y);
-                int z = tagCompound.getInteger(NBT.NETWORK_Z);
-                BlockPos blockPos = new BlockPos(x, y, z);
-                TileEntity savedTile = world.getTileEntity(blockPos);
-                if (savedTile instanceof INetworkNode) {
-                    INetworkNode savedNode = (INetworkNode) savedTile;
-                    IOperationMessage message;
-                    if (savedNode instanceof INetworkSwitch) {
-                        message = savedNode.connectToNode(networkNode);
-                    } else {
-                        message = networkNode.connectToNode(savedNode);
+        if(!world.isRemote) {
+            TileEntity te = world.getTileEntity(pos);
+            if (te instanceof INetworkNode) {
+                INetworkNode networkNode = (INetworkNode) te;
+                if (hasNetworkNodeStored(stack)) {
+                    NBTTagCompound tagCompound = stack.getTagCompound();
+                    int x = tagCompound.getInteger(NBT.NETWORK_X);
+                    int y = tagCompound.getInteger(NBT.NETWORK_Y);
+                    int z = tagCompound.getInteger(NBT.NETWORK_Z);
+                    BlockPos blockPos = new BlockPos(x, y, z);
+                    TileEntity savedTile = world.getTileEntity(blockPos);
+                    if (savedTile instanceof INetworkNode) {
+                        INetworkNode savedNode = (INetworkNode) savedTile;
+                        IOperationMessage message;
+                        if (savedNode instanceof INetworkSwitch) {
+                            message = savedNode.connectToNode(networkNode);
+                        } else {
+                            message = networkNode.connectToNode(savedNode);
+                        }
+                        if (message.isSuccessful()) {
+                            stack.setTagCompound(new NBTTagCompound());
+                        }
+                        ChatHelper.sendNoSpam(player, message.getMessage());
                     }
-                    if (message.isSuccessful()) {
+                } else {
+                    if (stack.getTagCompound() == null) {
                         stack.setTagCompound(new NBTTagCompound());
                     }
+                    networkNode.writeSelfToNBT(stack.getTagCompound());
+                    stack.getTagCompound().setBoolean(NBT.CLEAR_STORED_NETWORK, false);
                 }
-            } else {
-                if (stack.getTagCompound() == null) {
-                    stack.setTagCompound(new NBTTagCompound());
-                }
-                networkNode.writeSelfToNBT(stack.getTagCompound());
-                stack.getTagCompound().setBoolean(NBT.CLEAR_STORED_NETWORK, false);
             }
         }
         return super.onItemUseFirst(stack, player, world, pos, side, hitX, hitY, hitZ);

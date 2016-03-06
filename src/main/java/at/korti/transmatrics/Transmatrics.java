@@ -4,6 +4,7 @@ import at.korti.transmatrics.api.Constants;
 import at.korti.transmatrics.api.Constants.TransmatricsItem;
 import at.korti.transmatrics.block.ModBlock;
 import at.korti.transmatrics.modintegration.ModIntegrationManager;
+import at.korti.transmatrics.network.TransmatricsPacketHandler;
 import at.korti.transmatrics.proxy.CommonProxy;
 import at.korti.transmatrics.registry.Blocks;
 import at.korti.transmatrics.registry.Fluids;
@@ -57,6 +58,7 @@ public class Transmatrics {
         Items.registerItemTextures();
         Blocks.registerBlockTextures();
         proxy.init(event);
+        TransmatricsPacketHandler.init();
         ModIntegrationManager.init();
     }
 
