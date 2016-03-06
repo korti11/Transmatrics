@@ -1,9 +1,17 @@
 package at.korti.transmatrics.api.energy;
 
 /**
- * Created by Korti on 25.02.2016.
+ * Created by Korti on 06.03.2016.
  */
-public interface IEnergyProvider {
+public interface IEnergyHandler extends IEnergyProvider, IEnergyConsumer{
+
+    /**
+     * Store energy.
+     * @param energy How much should store.
+     * @param simulate Only calculate how much actual could store.
+     * @return How much actual stored.
+     */
+    int receiveEnergy(int energy, boolean simulate);
 
     /**
      * Extract energy.
@@ -12,11 +20,6 @@ public interface IEnergyProvider {
      * @return How much could actual extracted.
      */
     int extractEnergy(int energy, boolean simulate);
-
-    /**
-     * @return Can provide energy at the moment.
-     */
-    boolean canProvideEnergy();
 
     /**
      * @return Current amount that can provided.
