@@ -15,3 +15,8 @@ item.Transmatrics.Wrench.name=Wrench
 #Fluids
 fluid.Transmatrics.hydrogengas.name=Hydrogen
 tile.Transmatrics.hydrogengas.name=Hydrogen
+
+#Network
+network.max_connections.message=The max connection points are reached. Max connections: %d
+network.machines_can_not_connected.message=Machines can't connected to this node.
+network.successful_connected.message=The nodes are successful connected.

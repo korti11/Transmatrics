@@ -35,6 +35,16 @@ public final class Constants {
         public static final String CAPACITY = "capacity";
     }
 
+    public static class NetworkMessages{
+        public static final String MAX_CONNECTIONS = "network.max_connections.message";
+        public static final String MACHINES_CAN_NOT_CONNECTED = "network.machines_can_not_connected.message";
+        public static final String SUCCESSFUL_CONNECTED = "network.successful_connected.message";
+        public static final String NOT_CONNECTED = "network.not_connected.message";
+        public static final String SUCCESSFUL_DISCONNECTED = "network.successful_disconnected.message";
+        public static final String SUCCESSFUL_RECONNECTED = "network.successful_reconnected.message";
+        public static final String CAN_NOT_CONNECTED = "network.can_not_connected.message";
+    }
+
     public static class Energy{
         //Solar Panel
         public static final int SOLAR_PANEL_GENERATE = 1;
