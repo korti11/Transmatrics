@@ -56,7 +56,6 @@ public abstract class TileEntityFluidGenerator extends TileEntityGenerator imple
 
     @Override
     public int fill(EnumFacing from, FluidStack resource, boolean doFill) {
-        System.out.println("Current Amount: " + (internalTank.getFluidAmount() + resource.amount));
         return internalTank.fill(resource, doFill);
     }
 

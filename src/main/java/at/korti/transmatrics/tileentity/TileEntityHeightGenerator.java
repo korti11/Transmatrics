@@ -29,6 +29,7 @@ public abstract class TileEntityHeightGenerator extends TileEntityGenerator {
 
     @Override
     public void onLoad() {
+        super.onLoad();
         super.energyPerTick = calcEnergyPerTick(minEnergyPerTick, maxEnergyPerTick, pos.getY(), minHeight, maxHeight, direction);
     }
 

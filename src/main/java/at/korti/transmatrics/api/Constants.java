@@ -37,6 +37,10 @@ public final class Constants {
         //Network
         public static final String NETWORK_CONNECTIONS = "network_connections";
         public static final String MAX_NETWORK_CONNECTIONS = "max_network_connections";
+        public static final String NETWORK_X = "nx";
+        public static final String NETWORK_Y = "ny";
+        public static final String NETWORK_Z = "nz";
+        public static final String NETWORK_NODES = "network_nodes";
     }
 
     public static class NetworkMessages{
@@ -48,6 +52,8 @@ public final class Constants {
         public static final String SUCCESSFUL_RECONNECTED = "network.successful_reconnected.message";
         public static final String CAN_NOT_CONNECTED = "network.can_not_connected.message";
         public static final String OUT_OF_RANGE = "network.out_of_range.message";
+        public static final String SAME_NODE = "networl.same_node.message";
+        public static final String ALREADY_CONNECTED = "network.already_connected.message";
     }
 
     public static class Energy{
@@ -142,7 +148,8 @@ public final class Constants {
     }
 
     public enum TransmatricsItem {
-        WRENCH("Wrench");
+        WRENCH("Wrench"),
+        CONNECTOR("Connector");
 
         private final String regName;
 

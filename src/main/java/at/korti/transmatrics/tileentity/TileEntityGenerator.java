@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 /**
  * Created by Korti on 25.02.2016.
  */
-public abstract class TileEntityGenerator extends TileEntity implements IEnergyProducer, IEnergyInfo, ITickable {
+public abstract class TileEntityGenerator extends TileEntityNetworkNode implements IEnergyProducer, IEnergyInfo, ITickable {
 
     protected int energyPerTick;
     private EnergyStorage energyStorage;
@@ -44,7 +44,6 @@ public abstract class TileEntityGenerator extends TileEntity implements IEnergyP
     public void update() {
         if (canProduceEnergy() && !worldObj.isRemote) {
             energyStorage.modifyEnergy(energyPerTick);
-            System.out.println("Stored energy: " + energyStorage.getEnergyStored());
         }
     }
 

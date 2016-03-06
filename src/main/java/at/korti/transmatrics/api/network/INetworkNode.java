@@ -1,5 +1,7 @@
 package at.korti.transmatrics.api.network;
 
+import net.minecraft.nbt.NBTTagCompound;
+
 /**
  * Created by Korti on 06.03.2016.
  */
@@ -18,6 +20,12 @@ public interface INetworkNode {
      * @return If the node is successful disconnected.
      */
     IOperationMessage disconnectFromNode(INetworkNode node);
+
+    void writeNodeToNBT(NBTTagCompound tagCompound);
+
+    void readNodeFromNBT(NBTTagCompound tagCompound);
+
+    void writeSelfToNBT(NBTTagCompound tagCompound);
 
     /**
      * Disconnect from the connected network node.

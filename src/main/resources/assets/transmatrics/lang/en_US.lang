@@ -12,6 +12,7 @@ tile.Transmatrics.SmallSwitch.name=Small Switch
 
 #Items
 item.Transmatrics.Wrench.name=Wrench
+item.Transmatrics.Connector.name=Connector
 
 #Fluids
 fluid.Transmatrics.hydrogengas.name=Hydrogen
