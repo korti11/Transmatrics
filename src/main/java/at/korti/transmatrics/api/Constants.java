@@ -41,6 +41,7 @@ public final class Constants {
         public static final String NETWORK_Y = "ny";
         public static final String NETWORK_Z = "nz";
         public static final String NETWORK_NODES = "network_nodes";
+        public static final String CLEAR_STORED_NETWORK = "clear_stored_network";
     }
 
     public static class NetworkMessages{

@@ -21,6 +21,8 @@ public class ItemWrench extends ModItem {
 
     public ItemWrench() {
         super(TransmatricsItem.WRENCH.getRegName(), EnumChatFormatting.YELLOW);
+
+        setMaxStackSize(1);
     }
 
     @Override

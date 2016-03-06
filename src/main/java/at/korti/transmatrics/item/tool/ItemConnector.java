@@ -25,6 +25,8 @@ public class ItemConnector extends ModItem {
 
     public ItemConnector() {
         super(TransmatricsItem.CONNECTOR.getRegName(), EnumChatFormatting.YELLOW);
+
+        setMaxStackSize(1);
     }
 
     @Override
@@ -56,6 +58,7 @@ public class ItemConnector extends ModItem {
                     stack.setTagCompound(new NBTTagCompound());
                 }
                 networkNode.writeSelfToNBT(stack.getTagCompound());
+                stack.getTagCompound().setBoolean(NBT.CLEAR_STORED_NETWORK, false);
             }
         }
         return super.onItemUseFirst(stack, player, world, pos, side, hitX, hitY, hitZ);
@@ -67,5 +70,14 @@ public class ItemConnector extends ModItem {
         } else {
             return stack.getTagCompound().hasKey(NBT.NETWORK_X);
         }
+    }
+
+    @Override
+    public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) {
+        if (playerIn.isSneaking() && itemStackIn.getTagCompound().getBoolean(NBT.CLEAR_STORED_NETWORK)) {
+            itemStackIn.setTagCompound(new NBTTagCompound());
+        }
+        itemStackIn.getTagCompound().setBoolean(NBT.CLEAR_STORED_NETWORK, true);
+        return super.onItemRightClick(itemStackIn, worldIn, playerIn);
     }
 }
