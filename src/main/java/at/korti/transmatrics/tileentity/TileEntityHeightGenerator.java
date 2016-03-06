@@ -7,10 +7,10 @@ import net.minecraft.util.EnumFacing.AxisDirection;
  */
 public abstract class TileEntityHeightGenerator extends TileEntityGenerator {
 
-    private int minHeight;
-    private int maxHeight;
-    private int minEnergyPerTick;
-    private int maxEnergyPerTick;
+    protected int minHeight;
+    protected int maxHeight;
+    protected int minEnergyPerTick;
+    protected int maxEnergyPerTick;
     private AxisDirection direction;
 
     public TileEntityHeightGenerator(int minEnergyPerTick, int maxEnergyPerTick, int capacity, int maxExtract, int minHeight, int maxHeight, AxisDirection direction) {

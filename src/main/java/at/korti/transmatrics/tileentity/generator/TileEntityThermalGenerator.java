@@ -15,6 +15,17 @@ public class TileEntityThermalGenerator extends TileEntityHeightGenerator {
     }
 
     @Override
+    public void onLoad() {
+        int seaLevel = worldObj.getSeaLevel();
+        if (minHeight > seaLevel) {
+            int diff = minHeight - seaLevel;
+            minHeight = seaLevel;
+            maxHeight = Math.max(maxHeight - diff, 0);
+        }
+        super.onLoad();
+    }
+
+    @Override
     public void update() {
         super.update();
         if (canProduceEnergy() && !ActiveMachineBlock.isActive(worldObj, pos) && !worldObj.isRemote) {

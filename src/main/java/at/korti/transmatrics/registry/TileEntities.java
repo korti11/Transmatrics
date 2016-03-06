@@ -15,6 +15,7 @@ public final class TileEntities {
         GameRegistry.registerTileEntity(TileEntityLavaGenerator.class, TransmatricsTileEntity.LAVA_GENERATOR.getRegName());
         GameRegistry.registerTileEntity(TileEntityThermalGenerator.class, TransmatricsTileEntity.THERMAL_GENERATOR.getRegName());
         GameRegistry.registerTileEntity(TileEntityHydrogenGenerator.class, TransmatricsTileEntity.HYDROGEN_GENERATOR.getRegName());
+        GameRegistry.registerTileEntity(TileEntityWindmill.class, TransmatricsTileEntity.WINDMILL.getRegName());
     }
 
 }
