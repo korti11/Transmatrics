@@ -8,6 +8,7 @@ tile.Transmatrics.ThermalGenerator.name=Thermal Generator
 tile.Transmatrics.HydrogenGenerator.name=Hydrogen Generator
 tile.Transmatrics.Windmill.name=Windmill
 tile.Transmatrics.Watermill.name=Watermill
+tile.Transmatrics.SmallSwitch.name=Small Switch
 
 #Items
 item.Transmatrics.Wrench.name=Wrench

@@ -2,10 +2,7 @@ package at.korti.transmatrics.tileentity;
 
 import at.korti.transmatrics.api.Constants;
 import at.korti.transmatrics.api.Constants.NetworkMessages;
-import at.korti.transmatrics.api.network.INetworkNode;
-import at.korti.transmatrics.api.network.INetworkSwitch;
-import at.korti.transmatrics.api.network.IOperationMessage;
-import at.korti.transmatrics.api.network.OperationMessage;
+import at.korti.transmatrics.api.network.*;
 import net.minecraft.tileentity.TileEntity;
 
 import java.util.ArrayList;
@@ -16,7 +13,7 @@ import static at.korti.transmatrics.util.helper.TextHelper.localize;
 /**
  * Created by Korti on 06.03.2016.
  */
-public abstract class TileEntityNetworkSwitch extends TileEntity implements INetworkSwitch{
+public abstract class TileEntityNetworkSwitch extends TileEntity implements INetworkSwitch, INetworkSwitchInfo{
 
     protected List<INetworkNode> networkNodes;
     protected final int maxConnections;
@@ -78,5 +75,15 @@ public abstract class TileEntityNetworkSwitch extends TileEntity implements INet
     @Override
     public INetworkNode getConnection() {
         throw new UnsupportedOperationException("Method getConnection is not allowed in class TileEntityNetworkSwitch");
+    }
+
+    @Override
+    public int getNetworkConnections() {
+        return networkNodes.size();
+    }
+
+    @Override
+    public int getMaxNetworkConnections() {
+        return maxConnections;
     }
 }

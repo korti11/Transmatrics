@@ -33,6 +33,10 @@ public final class Constants {
         //Energy
         public static final String ENERGY = "energy";
         public static final String CAPACITY = "capacity";
+
+        //Network
+        public static final String NETWORK_CONNECTIONS = "network_connections";
+        public static final String MAX_NETWORK_CONNECTIONS = "max_network_connections";
     }
 
     public static class NetworkMessages{
@@ -89,6 +93,10 @@ public final class Constants {
         public static final int HYDROGEN_GENERATOR_FLUID_USE = 100;
         public static final int HYDROGEN_GENERATOR_CAPACITY = 10000;
         public static final int HYDROGEN_GENERATOR_EXTRACTION = 75;
+
+        //Small Switch
+        public static final int SMALL_SWITCH_CAPACITY = 1250;
+        public static final int SMALL_SWITCH_TRANSFER = 125;
     }
 
     public static class Tanks{
@@ -101,6 +109,13 @@ public final class Constants {
         public static final Fluid HYDROGEN_GENERATOR_FLUID = TransmatricsFluid.HYDROGEN_GAS.getFluid();
     }
 
+    public static class Network{
+        //Small Switch
+        public static final int SMALL_SWITCH_MAX_CONNECTIONS = 8;
+        public static final boolean SMALL_SWITCH_MACHINES_CONNECT = true;
+        public static final int SMALL_SWITCH_RANGE = 16;
+    }
+
     public enum TransmatricsBlock {
         SOLAR_PANEL("SolarPanel"),
         ADVANCED_SOLAR_PANEL("AdvancedSolarPanel"),
@@ -108,7 +123,8 @@ public final class Constants {
         THERMAL_GENERATOR("ThermalGenerator"),
         HYDROGEN_GENERATOR("HydrogenGenerator"),
         WINDMILL("Windmill"),
-        WATERMILL("Watermill");
+        WATERMILL("Watermill"),
+        SMALL_SWITCH("SmallSwitch");
 
         private final String regName;
 
@@ -143,14 +159,15 @@ public final class Constants {
         }
     }
 
-    public enum TransmatricsTileEntity{
+    public enum TransmatricsTileEntity {
         SOLAR_PANEL("TileSolarPanel"),
         ADVANCED_SOLAR_PANEL("TileAdvancedSolarPanel"),
         LAVA_GENERATOR("TileLavaGenerator"),
         THERMAL_GENERATOR("TileThermalGenerator"),
         HYDROGEN_GENERATOR("TileHydrogenGenerator"),
-        WINDMILL("Windmill"),
-        WATERMILL("Watermill");
+        WINDMILL("TileWindmill"),
+        WATERMILL("TileWatermill"),
+        SMALL_SWITCH("TileSmallSwitch");
 
         private final String regName;
 

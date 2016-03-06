@@ -1,6 +1,7 @@
 package at.korti.transmatrics.registry;
 
 import at.korti.transmatrics.block.generator.*;
+import at.korti.transmatrics.block.network.SmallSwitch;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.model.ModelResourceLocation;
@@ -19,6 +20,7 @@ public final class Blocks {
     private static HydrogenGenerator hydrogenGenerator;
     private static Windmill windmill;
     private static Watermill watermill;
+    private static SmallSwitch smallSwitch;
 
     public static void registerBlocks() {
         GameRegistry.registerBlock(solarPanel = new SolarPanel());
@@ -28,6 +30,7 @@ public final class Blocks {
         GameRegistry.registerBlock(hydrogenGenerator = new HydrogenGenerator());
         GameRegistry.registerBlock(windmill = new Windmill());
         GameRegistry.registerBlock(watermill = new Watermill());
+        GameRegistry.registerBlock(smallSwitch = new SmallSwitch());
     }
 
     public static void registerBlockTextures() {
@@ -38,6 +41,7 @@ public final class Blocks {
         registerBlockTexture(hydrogenGenerator);
         registerBlockTexture(windmill);
         registerBlockTexture(watermill);
+        registerBlockTexture(smallSwitch);
     }
 
     private static void registerBlockTexture(Block block) {
