@@ -3,6 +3,7 @@ package at.korti.transmatrics.tileentity;
 import at.korti.transmatrics.api.energy.EnergyStorage;
 import at.korti.transmatrics.api.energy.IEnergyHandler;
 import at.korti.transmatrics.api.energy.IEnergyInfo;
+import net.minecraft.nbt.NBTTagCompound;
 
 /**
  * Created by Korti on 06.03.2016.
@@ -21,6 +22,18 @@ public abstract class TileEntityEnergyNode extends TileEntityNetworkNode impleme
 
     public TileEntityEnergyNode(int maxEnergy) {
         this(maxEnergy, maxEnergy);
+    }
+
+    @Override
+    public void writeToNBT(NBTTagCompound compound) {
+        super.writeToNBT(compound);
+        energyStorage.writeToNBT(compound);
+    }
+
+    @Override
+    public void readFromNBT(NBTTagCompound compound) {
+        super.readFromNBT(compound);
+        energyStorage.readFromNBT(compound);
     }
 
     @Override

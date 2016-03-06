@@ -1,6 +1,8 @@
 package at.korti.transmatrics.tileentity;
 
+import at.korti.transmatrics.api.TransmatricsApi;
 import at.korti.transmatrics.api.energy.EnergyStorage;
+import at.korti.transmatrics.api.energy.IEnergyConsumer;
 import at.korti.transmatrics.api.energy.IEnergyInfo;
 import at.korti.transmatrics.api.energy.IEnergyProducer;
 import net.minecraft.block.state.IBlockState;
@@ -42,8 +44,14 @@ public abstract class TileEntityGenerator extends TileEntityNetworkNode implemen
 
     @Override
     public void update() {
-        if (canProduceEnergy() && !worldObj.isRemote) {
-            energyStorage.modifyEnergy(energyPerTick);
+        if(!worldObj.isRemote) {
+            if (canProduceEnergy()) {
+                energyStorage.modifyEnergy(energyPerTick);
+            }
+            if (networkNode instanceof IEnergyConsumer && canProvideEnergy()) {
+                IEnergyConsumer consumer = (IEnergyConsumer) networkNode;
+                TransmatricsApi.transferEnergy(this, consumer);
+            }
         }
     }
 

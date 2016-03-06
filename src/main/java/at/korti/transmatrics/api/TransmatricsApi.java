@@ -4,6 +4,8 @@ import at.korti.transmatrics.api.Constants.Mod;
 import at.korti.transmatrics.api.Constants.TransmatricsBlock;
 import at.korti.transmatrics.api.Constants.TransmatricsFluid;
 import at.korti.transmatrics.api.Constants.TransmatricsItem;
+import at.korti.transmatrics.api.energy.IEnergyConsumer;
+import at.korti.transmatrics.api.energy.IEnergyProvider;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraftforge.fluids.Fluid;
@@ -37,6 +39,12 @@ public class TransmatricsApi {
 
     public static Fluid getFluid(TransmatricsFluid fluid) {
         return getFluid(fluid.getRegName());
+    }
+
+    public static void transferEnergy(IEnergyProvider provider, IEnergyConsumer consumer) {
+        int energy = provider.extractEnergy(provider.getEnergyStored(), true);
+        energy = consumer.receiveEnergy(energy, false);
+        provider.extractEnergy(energy, false);
     }
 
 }
