@@ -11,17 +11,17 @@ public abstract class TileEntityEnergySwitch extends TileEntityNetworkSwitch imp
 
     protected EnergyStorage energyStorage;
 
-    public TileEntityEnergySwitch(int maxConnections, boolean canConnectToMachines, int capacity, int maxReceive, int maxExtract) {
-        super(maxConnections, canConnectToMachines);
+    public TileEntityEnergySwitch(int maxConnections, boolean canConnectToMachines, int range, int capacity, int maxReceive, int maxExtract) {
+        super(maxConnections, canConnectToMachines, range);
         energyStorage = new EnergyStorage(capacity, maxReceive, maxExtract);
     }
 
-    public TileEntityEnergySwitch(int maxConnections, boolean canConnectToMachines, int capacity, int transfer) {
-        this(maxConnections, canConnectToMachines, capacity, transfer, transfer);
+    public TileEntityEnergySwitch(int maxConnections, boolean canConnectToMachines, int range, int capacity, int transfer) {
+        this(maxConnections, canConnectToMachines, range, capacity, transfer, transfer);
     }
 
-    public TileEntityEnergySwitch(int maxConnections, boolean canConnectToMachines, int maxEnergy) {
-        this(maxConnections, canConnectToMachines, maxEnergy, maxEnergy);
+    public TileEntityEnergySwitch(int maxConnections, boolean canConnectToMachines, int range, int maxEnergy) {
+        this(maxConnections, canConnectToMachines, range, maxEnergy, maxEnergy);
     }
 
     @Override

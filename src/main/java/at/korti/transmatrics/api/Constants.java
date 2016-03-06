@@ -43,6 +43,7 @@ public final class Constants {
         public static final String SUCCESSFUL_DISCONNECTED = "network.successful_disconnected.message";
         public static final String SUCCESSFUL_RECONNECTED = "network.successful_reconnected.message";
         public static final String CAN_NOT_CONNECTED = "network.can_not_connected.message";
+        public static final String OUT_OF_RANGE = "network.out_of_range.message";
     }
 
     public static class Energy{

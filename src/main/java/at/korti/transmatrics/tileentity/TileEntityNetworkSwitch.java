@@ -21,11 +21,13 @@ public abstract class TileEntityNetworkSwitch extends TileEntity implements INet
     protected List<INetworkNode> networkNodes;
     protected final int maxConnections;
     protected final boolean canConnectToMachines;
+    protected final int range;
 
-    public TileEntityNetworkSwitch(int maxConnections, boolean canConnectToMachines) {
+    public TileEntityNetworkSwitch(int maxConnections, boolean canConnectToMachines, int range) {
         this.networkNodes = new ArrayList<>();
         this.maxConnections = maxConnections;
         this.canConnectToMachines = canConnectToMachines;
+        this.range = range;
     }
 
     @Override
@@ -39,6 +41,13 @@ public abstract class TileEntityNetworkSwitch extends TileEntity implements INet
             return new OperationMessage(localize(NetworkMessages.MAX_CONNECTIONS, maxConnections), false);
         } else if (false) {     //TODO: Check if the node is a machine
             return new OperationMessage(localize(NetworkMessages.MACHINES_CAN_NOT_CONNECTED), false);
+        }
+        if (node instanceof TileEntity) {
+            TileEntity te = (TileEntity) node;
+            double distance = Math.sqrt(te.getDistanceSq(pos.getX(), pos.getY(), pos.getZ()));
+            if (distance > (range / 2)) {
+                return new OperationMessage(localize(NetworkMessages.OUT_OF_RANGE), false);
+            }
         }
         IOperationMessage message = node.connectToNode(this);
         if (!message.isSuccessful()) {
