@@ -54,6 +54,11 @@ public abstract class TileEntityGenerator extends TileEntity implements IEnergyP
     }
 
     @Override
+    public int extractEnergy(int energy, boolean simulate) {
+        return energyStorage.extractEnergy(energy, simulate);
+    }
+
+    @Override
     public int getEnergyPerTick() {
         return energyPerTick;
     }
