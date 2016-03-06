@@ -18,6 +18,7 @@ public final class Blocks {
     private static ThermalGenerator thermalGenerator;
     private static HydrogenGenerator hydrogenGenerator;
     private static Windmill windmill;
+    private static Watermill watermill;
 
     public static void registerBlocks() {
         GameRegistry.registerBlock(solarPanel = new SolarPanel());
@@ -26,6 +27,7 @@ public final class Blocks {
         GameRegistry.registerBlock(thermalGenerator = new ThermalGenerator());
         GameRegistry.registerBlock(hydrogenGenerator = new HydrogenGenerator());
         GameRegistry.registerBlock(windmill = new Windmill());
+        GameRegistry.registerBlock(watermill = new Watermill());
     }
 
     public static void registerBlockTextures() {
@@ -35,6 +37,7 @@ public final class Blocks {
         registerBlockTexture(thermalGenerator);
         registerBlockTexture(hydrogenGenerator);
         registerBlockTexture(windmill);
+        registerBlockTexture(watermill);
     }
 
     private static void registerBlockTexture(Block block) {

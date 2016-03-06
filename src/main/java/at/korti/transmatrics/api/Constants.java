@@ -60,6 +60,11 @@ public final class Constants {
         public static final int WINDMILL_CAPACITY = 2000;
         public static final int WINDMILL_EXTRACTION = 20;
 
+        //Watermill
+        public static final int WATERMILL_GENERATE = 1;
+        public static final int WATERMILL_CAPACITY = 1000;
+        public static final int WATERMILL_EXTRACTION = 10;
+
         //Thermal Generator
         public static final int THERMAL_GENERATOR_MIN_GENERATE = 10;
         public static final int THERMAL_GENERATOR_MAX_GENERATE = 100;
@@ -91,7 +96,8 @@ public final class Constants {
         LAVA_GENERATOR("LavaGenerator"),
         THERMAL_GENERATOR("ThermalGenerator"),
         HYDROGEN_GENERATOR("HydrogenGenerator"),
-        WINDMILL("Windmill");
+        WINDMILL("Windmill"),
+        WATERMILL("Watermill");
 
         private final String regName;
 
@@ -132,7 +138,8 @@ public final class Constants {
         LAVA_GENERATOR("TileLavaGenerator"),
         THERMAL_GENERATOR("TileThermalGenerator"),
         HYDROGEN_GENERATOR("TileHydrogenGenerator"),
-        WINDMILL("Windmill");
+        WINDMILL("Windmill"),
+        WATERMILL("Watermill");
 
         private final String regName;
 

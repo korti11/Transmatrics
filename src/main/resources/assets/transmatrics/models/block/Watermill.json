@@ -1,0 +1,8 @@
+{
+  "parent": "transmatrics:block/Generator",
+  "textures": {
+    "north": "transmatrics:blocks/WatermillFront",
+    "up": "transmatrics:blocks/MachineSide",
+    "south": "transmatrics:blocks/WatermillBack"
+  }
+}
