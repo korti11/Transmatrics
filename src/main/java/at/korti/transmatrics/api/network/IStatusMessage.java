@@ -3,7 +3,7 @@ package at.korti.transmatrics.api.network;
 /**
  * Created by Korti on 06.03.2016.
  */
-public interface IOperationMessage {
+public interface IStatusMessage {
 
     /**
      * @return Get a message about what went wrong or just the operation was successful.

@@ -1,6 +1,5 @@
 package at.korti.transmatrics.tileentity;
 
-import at.korti.transmatrics.api.Constants;
 import at.korti.transmatrics.api.Constants.NBT;
 import at.korti.transmatrics.api.Constants.NetworkMessages;
 import at.korti.transmatrics.api.network.*;
@@ -69,46 +68,46 @@ public abstract class TileEntityNetworkSwitch extends TileEntity implements INet
     }
 
     @Override
-    public IOperationMessage connectToNode(INetworkNode node) {
+    public IStatusMessage connectToNode(INetworkNode node) {
         if (networkNodes.size() == maxConnections) {
-            return new OperationMessage(localize(NetworkMessages.MAX_CONNECTIONS, maxConnections), false);
+            return new StatusMessage(localize(NetworkMessages.MAX_CONNECTIONS, maxConnections), false);
         } else if (false) {     //TODO: Check if the node is a machine
-            return new OperationMessage(localize(NetworkMessages.MACHINES_CAN_NOT_CONNECTED), false);
+            return new StatusMessage(localize(NetworkMessages.MACHINES_CAN_NOT_CONNECTED), false);
         } else if (this == node) {
-            return new OperationMessage(localize(NetworkMessages.SAME_NODE), false);
+            return new StatusMessage(localize(NetworkMessages.SAME_NODE), false);
         } else if (networkNodes.contains(node)) {
-            return new OperationMessage(localize(NetworkMessages.ALREADY_CONNECTED), false);
+            return new StatusMessage(localize(NetworkMessages.ALREADY_CONNECTED), false);
         }
         if (node instanceof TileEntity) {
             TileEntity te = (TileEntity) node;
             double distance = Math.sqrt(te.getDistanceSq(pos.getX(), pos.getY(), pos.getZ()));
             if (distance > (range / 2)) {
-                return new OperationMessage(localize(NetworkMessages.OUT_OF_RANGE), false);
+                return new StatusMessage(localize(NetworkMessages.OUT_OF_RANGE), false);
             }
         }
-        IOperationMessage message = node.connectToNode(this);
+        IStatusMessage message = node.connectToNode(this);
         if (!message.isSuccessful()) {
             return message;
         }
         networkNodes.add(node);
-        return new OperationMessage(localize(NetworkMessages.SUCCESSFUL_CONNECTED), true);
+        return new StatusMessage(localize(NetworkMessages.SUCCESSFUL_CONNECTED), true);
     }
 
     @Override
-    public IOperationMessage disconnectFromNode(INetworkNode node) {
+    public IStatusMessage disconnectFromNode(INetworkNode node) {
         if (!networkNodes.contains(node)) {
-            return new OperationMessage(localize(NetworkMessages.NOT_CONNECTED), false);
+            return new StatusMessage(localize(NetworkMessages.NOT_CONNECTED), false);
         }
-        IOperationMessage message = node.disconnectFromNode(node);
+        IStatusMessage message = node.disconnectFromNode(node);
         if (!message.isSuccessful()) {
             return message;
         }
         networkNodes.remove(node);
-        return new OperationMessage(localize(NetworkMessages.SUCCESSFUL_DISCONNECTED), true);
+        return new StatusMessage(localize(NetworkMessages.SUCCESSFUL_DISCONNECTED), true);
     }
 
     @Override
-    public IOperationMessage disconnectFromNode() {
+    public IStatusMessage disconnectFromNode() {
         throw new UnsupportedOperationException("Method disconnectFromNode is not allowed in class TileEntityNetworkSwitch");
     }
 

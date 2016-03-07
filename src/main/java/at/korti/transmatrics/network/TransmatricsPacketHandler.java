@@ -1,7 +1,7 @@
 package at.korti.transmatrics.network;
 
 import at.korti.transmatrics.api.Constants;
-import at.korti.transmatrics.util.helper.ChatHelper;
+import at.korti.transmatrics.util.helper.MessageHelper;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
@@ -18,7 +18,7 @@ public class TransmatricsPacketHandler {
     private static int id = 0;
 
     public static void init() {
-        NETWORK_WRAPPER.registerMessage(ChatHelper.PacketNoSpamChat.Handler.class, ChatHelper.PacketNoSpamChat.class, id++, Side.CLIENT);
+        NETWORK_WRAPPER.registerMessage(MessageHelper.PacketStatusMessage.PacketHandler.class, MessageHelper.PacketStatusMessage.class, id++, Side.CLIENT);
     }
 
     public static void sendToAllAround(IMessage message, TileEntity tileEntity, int range) {

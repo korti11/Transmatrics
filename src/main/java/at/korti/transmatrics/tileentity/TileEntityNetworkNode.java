@@ -3,8 +3,8 @@ package at.korti.transmatrics.tileentity;
 import at.korti.transmatrics.api.Constants.NBT;
 import at.korti.transmatrics.api.Constants.NetworkMessages;
 import at.korti.transmatrics.api.network.INetworkNode;
-import at.korti.transmatrics.api.network.IOperationMessage;
-import at.korti.transmatrics.api.network.OperationMessage;
+import at.korti.transmatrics.api.network.IStatusMessage;
+import at.korti.transmatrics.api.network.StatusMessage;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
@@ -51,30 +51,30 @@ public abstract class TileEntityNetworkNode extends TileEntity implements INetwo
     }
 
     @Override
-    public IOperationMessage connectToNode(INetworkNode node) {
+    public IStatusMessage connectToNode(INetworkNode node) {
         if (networkNode != null) {
             networkNode = node;
-            return new OperationMessage(localize(NetworkMessages.SUCCESSFUL_RECONNECTED), true);
+            return new StatusMessage(localize(NetworkMessages.SUCCESSFUL_RECONNECTED), true);
         } else if (node == null) {
-            return new OperationMessage(localize(NetworkMessages.CAN_NOT_CONNECTED), false);
+            return new StatusMessage(localize(NetworkMessages.CAN_NOT_CONNECTED), false);
         } else if (this == node) {
-            return new OperationMessage(localize(NetworkMessages.SAME_NODE), false);
+            return new StatusMessage(localize(NetworkMessages.SAME_NODE), false);
         }
         networkNode = node;
-        return new OperationMessage(localize(NetworkMessages.SUCCESSFUL_CONNECTED), true);
+        return new StatusMessage(localize(NetworkMessages.SUCCESSFUL_CONNECTED), true);
     }
 
     @Override
-    public IOperationMessage disconnectFromNode(INetworkNode node) {
+    public IStatusMessage disconnectFromNode(INetworkNode node) {
         if (networkNode != node) {
-            return new OperationMessage(localize(NetworkMessages.NOT_CONNECTED), false);
+            return new StatusMessage(localize(NetworkMessages.NOT_CONNECTED), false);
         }
         networkNode = null;
-        return new OperationMessage(localize(NetworkMessages.SUCCESSFUL_DISCONNECTED), true);
+        return new StatusMessage(localize(NetworkMessages.SUCCESSFUL_DISCONNECTED), true);
     }
 
     @Override
-    public IOperationMessage disconnectFromNode() {
+    public IStatusMessage disconnectFromNode() {
         return disconnectFromNode(networkNode);
     }
 

@@ -1,15 +1,12 @@
 package at.korti.transmatrics.item.tool;
 
-import at.korti.transmatrics.api.Constants;
 import at.korti.transmatrics.api.Constants.NBT;
 import at.korti.transmatrics.api.Constants.TransmatricsItem;
 import at.korti.transmatrics.api.network.INetworkNode;
 import at.korti.transmatrics.api.network.INetworkSwitch;
-import at.korti.transmatrics.api.network.IOperationMessage;
+import at.korti.transmatrics.api.network.IStatusMessage;
 import at.korti.transmatrics.item.ModItem;
-import at.korti.transmatrics.util.helper.ChatHelper;
-import net.minecraft.block.state.BlockState;
-import net.minecraft.block.state.IBlockState;
+import at.korti.transmatrics.util.helper.MessageHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -45,7 +42,7 @@ public class ItemConnector extends ModItem {
                     TileEntity savedTile = world.getTileEntity(blockPos);
                     if (savedTile instanceof INetworkNode) {
                         INetworkNode savedNode = (INetworkNode) savedTile;
-                        IOperationMessage message;
+                        IStatusMessage message;
                         if (savedNode instanceof INetworkSwitch) {
                             message = savedNode.connectToNode(networkNode);
                         } else {
@@ -54,7 +51,7 @@ public class ItemConnector extends ModItem {
                         if (message.isSuccessful()) {
                             stack.setTagCompound(new NBTTagCompound());
                         }
-                        ChatHelper.sendNoSpam(player, message.getMessage());
+                        MessageHelper.sendMessages(player, message);
                     }
                 } else {
                     if (stack.getTagCompound() == null) {

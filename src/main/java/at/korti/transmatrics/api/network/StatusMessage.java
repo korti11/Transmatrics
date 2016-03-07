@@ -3,12 +3,12 @@ package at.korti.transmatrics.api.network;
 /**
  * Created by Korti on 06.03.2016.
  */
-public class OperationMessage implements IOperationMessage {
+public class StatusMessage implements IStatusMessage {
 
     private String message;
     private boolean successful;
 
-    public OperationMessage(String message, boolean successful) {
+    public StatusMessage(String message, boolean successful) {
         this.message = message;
         this.successful = successful;
     }
