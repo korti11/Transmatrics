@@ -68,7 +68,7 @@ public abstract class TileEntityNetworkSwitch extends TileEntity implements INet
     }
 
     @Override
-    public IStatusMessage connectToNode(INetworkNode node) {
+    public IStatusMessage connectToNode(INetworkNode node, boolean isSecond) {
         if (networkNodes.size() == maxConnections) {
             return new StatusMessage(localize(NetworkMessages.MAX_CONNECTIONS, maxConnections), false);
         } else if (false) {     //TODO: Check if the node is a machine
@@ -85,22 +85,26 @@ public abstract class TileEntityNetworkSwitch extends TileEntity implements INet
                 return new StatusMessage(localize(NetworkMessages.OUT_OF_RANGE), false);
             }
         }
-        IStatusMessage message = node.connectToNode(this);
-        if (!message.isSuccessful()) {
-            return message;
+        if(!isSecond) {
+            IStatusMessage message = node.connectToNode(this, true);
+            if (!message.isSuccessful()) {
+                return message;
+            }
         }
         networkNodes.add(node);
         return new StatusMessage(localize(NetworkMessages.SUCCESSFUL_CONNECTED), true);
     }
 
     @Override
-    public IStatusMessage disconnectFromNode(INetworkNode node) {
+    public IStatusMessage disconnectFromNode(INetworkNode node, boolean isSecond) {
         if (!networkNodes.contains(node)) {
             return new StatusMessage(localize(NetworkMessages.NOT_CONNECTED), false);
         }
-        IStatusMessage message = node.disconnectFromNode(node);
-        if (!message.isSuccessful()) {
-            return message;
+        if(!isSecond) {
+            IStatusMessage message = node.disconnectFromNode(node, true);
+            if (!message.isSuccessful()) {
+                return message;
+            }
         }
         networkNodes.remove(node);
         return new StatusMessage(localize(NetworkMessages.SUCCESSFUL_DISCONNECTED), true);

@@ -51,8 +51,9 @@ public abstract class TileEntityNetworkNode extends TileEntity implements INetwo
     }
 
     @Override
-    public IStatusMessage connectToNode(INetworkNode node) {
+    public IStatusMessage connectToNode(INetworkNode node, boolean isSecond) {
         if (networkNode != null) {
+            disconnectFromNode();
             networkNode = node;
             return new StatusMessage(localize(NetworkMessages.SUCCESSFUL_RECONNECTED), true);
         } else if (node == null) {
@@ -60,14 +61,26 @@ public abstract class TileEntityNetworkNode extends TileEntity implements INetwo
         } else if (this == node) {
             return new StatusMessage(localize(NetworkMessages.SAME_NODE), false);
         }
+        if (!isSecond) {
+            IStatusMessage message = node.connectToNode(this, true);
+            if (!message.isSuccessful()) {
+                return message;
+            }
+        }
         networkNode = node;
         return new StatusMessage(localize(NetworkMessages.SUCCESSFUL_CONNECTED), true);
     }
 
     @Override
-    public IStatusMessage disconnectFromNode(INetworkNode node) {
+    public IStatusMessage disconnectFromNode(INetworkNode node, boolean isSecond) {
         if (networkNode != node) {
             return new StatusMessage(localize(NetworkMessages.NOT_CONNECTED), false);
+        }
+        if (!isSecond) {
+            IStatusMessage message = node.disconnectFromNode(this, true);
+            if (!message.isSuccessful()) {
+                return message;
+            }
         }
         networkNode = null;
         return new StatusMessage(localize(NetworkMessages.SUCCESSFUL_DISCONNECTED), true);
@@ -75,7 +88,7 @@ public abstract class TileEntityNetworkNode extends TileEntity implements INetwo
 
     @Override
     public IStatusMessage disconnectFromNode() {
-        return disconnectFromNode(networkNode);
+        return disconnectFromNode(networkNode, false);
     }
 
     @Override

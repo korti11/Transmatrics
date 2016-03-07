@@ -12,14 +12,14 @@ public interface INetworkNode {
      * @param node Network node that want to get connected.
      * @return If the node is successful connected.
      */
-    IStatusMessage connectToNode(INetworkNode node);
+    IStatusMessage connectToNode(INetworkNode node, boolean isSecond);
 
     /**
      * Disconnect from the given network node.
      * @param node Network node that want to get disconnected.
      * @return If the node is successful disconnected.
      */
-    IStatusMessage disconnectFromNode(INetworkNode node);
+    IStatusMessage disconnectFromNode(INetworkNode node, boolean isSecond);
 
     void writeNodeToNBT(NBTTagCompound tagCompound);
 

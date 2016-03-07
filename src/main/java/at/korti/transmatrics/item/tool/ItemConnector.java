@@ -44,9 +44,9 @@ public class ItemConnector extends ModItem {
                         INetworkNode savedNode = (INetworkNode) savedTile;
                         IStatusMessage message;
                         if (savedNode instanceof INetworkSwitch) {
-                            message = savedNode.connectToNode(networkNode);
+                            message = savedNode.connectToNode(networkNode, false);
                         } else {
-                            message = networkNode.connectToNode(savedNode);
+                            message = networkNode.connectToNode(savedNode, false);
                         }
                         if (message.isSuccessful()) {
                             stack.setTagCompound(new NBTTagCompound());
