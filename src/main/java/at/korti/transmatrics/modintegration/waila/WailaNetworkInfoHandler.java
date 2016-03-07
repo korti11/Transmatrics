@@ -2,6 +2,7 @@ package at.korti.transmatrics.modintegration.waila;
 
 import at.korti.transmatrics.api.Constants;
 import at.korti.transmatrics.api.Constants.NBT;
+import at.korti.transmatrics.api.network.INetworkNodeInfo;
 import at.korti.transmatrics.api.network.INetworkSwitchInfo;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
@@ -18,7 +19,7 @@ import java.util.List;
 /**
  * Created by Korti on 06.03.2016.
  */
-public class WailaNetworkSwitchInfoHandler implements IWailaDataProvider {
+public class WailaNetworkInfoHandler implements IWailaDataProvider {
     @Override
     public ItemStack getWailaStack(IWailaDataAccessor accessor, IWailaConfigHandler config) {
         return null;
@@ -32,7 +33,12 @@ public class WailaNetworkSwitchInfoHandler implements IWailaDataProvider {
     @Override
     public List<String> getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config) {
         NBTTagCompound compound = accessor.getNBTData();
-        currenttip.add("Network connections: " + compound.getInteger(NBT.NETWORK_CONNECTIONS) + "/" + compound.getInteger(NBT.MAX_NETWORK_CONNECTIONS));
+        if(compound.hasKey(NBT.NETWORK_CONNECTIONS) && compound.hasKey(NBT.MAX_NETWORK_CONNECTIONS)) {
+            currenttip.add("Network connections: " + compound.getInteger(NBT.NETWORK_CONNECTIONS) + "/" + compound.getInteger(NBT.MAX_NETWORK_CONNECTIONS));
+        }
+        if (compound.hasKey(NBT.NETOWRK_CONNECTED)) {
+            currenttip.add(compound.getBoolean(NBT.NETOWRK_CONNECTED) ? "Connected!" : "Not Connected!");
+        }
         return currenttip;
     }
 
@@ -47,6 +53,10 @@ public class WailaNetworkSwitchInfoHandler implements IWailaDataProvider {
             INetworkSwitchInfo networkInfo = (INetworkSwitchInfo) te;
             tag.setInteger(NBT.NETWORK_CONNECTIONS, networkInfo.getNetworkConnections());
             tag.setInteger(NBT.MAX_NETWORK_CONNECTIONS, networkInfo.getMaxNetworkConnections());
+        }
+        if (te instanceof INetworkNodeInfo && player.isSneaking()) {
+            INetworkNodeInfo networkInfo = (INetworkNodeInfo) te;
+            tag.setBoolean(NBT.NETOWRK_CONNECTED, networkInfo.isConnected());
         }
         return tag;
     }

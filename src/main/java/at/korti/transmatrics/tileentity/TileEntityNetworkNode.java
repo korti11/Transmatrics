@@ -3,6 +3,7 @@ package at.korti.transmatrics.tileentity;
 import at.korti.transmatrics.api.Constants.NBT;
 import at.korti.transmatrics.api.Constants.NetworkMessages;
 import at.korti.transmatrics.api.network.INetworkNode;
+import at.korti.transmatrics.api.network.INetworkNodeInfo;
 import at.korti.transmatrics.api.network.IStatusMessage;
 import at.korti.transmatrics.api.network.StatusMessage;
 import net.minecraft.block.state.IBlockState;
@@ -18,7 +19,7 @@ import static at.korti.transmatrics.util.helper.TextHelper.localize;
 /**
  * Created by Korti on 06.03.2016.
  */
-public abstract class TileEntityNetworkNode extends TileEntity implements INetworkNode, ITickable {
+public abstract class TileEntityNetworkNode extends TileEntity implements INetworkNode, ITickable, INetworkNodeInfo {
 
     protected INetworkNode networkNode;
     private NBTTagCompound tempCompound;
@@ -128,5 +129,10 @@ public abstract class TileEntityNetworkNode extends TileEntity implements INetwo
         tagCompound.setInteger(NBT.NETWORK_X, pos.getX());
         tagCompound.setInteger(NBT.NETWORK_Y, pos.getY());
         tagCompound.setInteger(NBT.NETWORK_Z, pos.getZ());
+    }
+
+    @Override
+    public boolean isConnected() {
+        return networkNode != null;
     }
 }
