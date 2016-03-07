@@ -12,4 +12,10 @@ public interface INetworkSwitch extends INetworkNode {
      */
     List<INetworkNode> getConnections();
 
+    /**
+     * Disconnected from all connected nodes.
+     * @return Message that can displayed to a player.
+     */
+    IStatusMessage disconnectedFromAllNodes();
+
 }

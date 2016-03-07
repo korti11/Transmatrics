@@ -44,6 +44,7 @@ public abstract class TileEntityGenerator extends TileEntityNetworkNode implemen
 
     @Override
     public void update() {
+        super.update();
         if(!worldObj.isRemote) {
             if (canProduceEnergy()) {
                 energyStorage.modifyEnergy(energyPerTick);

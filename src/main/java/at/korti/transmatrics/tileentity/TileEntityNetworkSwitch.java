@@ -13,6 +13,7 @@ import net.minecraft.util.ITickable;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static at.korti.transmatrics.util.helper.TextHelper.localize;
@@ -107,6 +108,19 @@ public abstract class TileEntityNetworkSwitch extends TileEntity implements INet
             }
         }
         networkNodes.remove(node);
+        return new StatusMessage(localize(NetworkMessages.SUCCESSFUL_DISCONNECTED), true);
+    }
+
+    @Override
+    public IStatusMessage disconnectedFromAllNodes() {
+        List<INetworkNode> tempNodes = new ArrayList<>(networkNodes);
+        for (INetworkNode node : tempNodes) {
+            if (node instanceof INetworkSwitch) {
+                node.disconnectFromNode(this, true);
+            } else {
+                node.disconnectFromNode();
+            }
+        }
         return new StatusMessage(localize(NetworkMessages.SUCCESSFUL_DISCONNECTED), true);
     }
 

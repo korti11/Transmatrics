@@ -2,6 +2,8 @@ package at.korti.transmatrics.block;
 
 import at.korti.transmatrics.api.block.IDismantable;
 import at.korti.transmatrics.api.block.IRotatable;
+import at.korti.transmatrics.api.network.INetworkNode;
+import at.korti.transmatrics.api.network.INetworkSwitch;
 import at.korti.transmatrics.tileentity.TileEntityInventory;
 import at.korti.transmatrics.util.helper.WorldHelper;
 import net.minecraft.block.material.MapColor;
@@ -108,20 +110,31 @@ public abstract class MachineBlock extends ModBlockContainer implements IDismant
     public void dismantleBlock(EntityPlayer playerIn, World worldIn, BlockPos pos, IBlockState state) {
         if(isDismantable() && !worldIn.isRemote) {
             ItemStack stack = new ItemStack(this, 1);
-            if(shouldSaveBlockNBT()) {
-                TileEntity tileEntity = worldIn.getTileEntity(pos);
-                if (tileEntity instanceof TileEntityInventory) {
-                    ((TileEntityInventory) tileEntity).dropItems();
-                }
-                if (stack.getTagCompound() == null) {
-                    stack.setTagCompound(new NBTTagCompound());
-                }
-                tileEntity.writeToNBT(stack.getTagCompound());
+            TileEntity tileEntity = worldIn.getTileEntity(pos);
+            if (tileEntity instanceof TileEntityInventory) {
+                ((TileEntityInventory) tileEntity).dropItems();
             }
+//            if(shouldSaveBlockNBT()) {
+//                if (stack.getTagCompound() == null) {
+//                    stack.setTagCompound(new NBTTagCompound());
+//                }
+//                tileEntity.writeToNBT(stack.getTagCompound());
+//            }
             WorldHelper.spawnItem(worldIn, stack, pos);
             breakBlock(worldIn, pos, state);
             worldIn.setBlockToAir(pos);
         }
+    }
+
+    @Override
+    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+        TileEntity tileEntity = worldIn.getTileEntity(pos);
+        if (tileEntity instanceof INetworkSwitch) {
+            ((INetworkSwitch) tileEntity).disconnectedFromAllNodes();
+        } else if (tileEntity instanceof INetworkNode) {
+            ((INetworkNode) tileEntity).disconnectFromNode();
+        }
+        super.breakBlock(worldIn, pos, state);
     }
 
     @Override
