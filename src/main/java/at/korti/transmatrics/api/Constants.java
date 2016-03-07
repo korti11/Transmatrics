@@ -105,6 +105,10 @@ public final class Constants {
         //Small Switch
         public static final int SMALL_SWITCH_CAPACITY = 1250;
         public static final int SMALL_SWITCH_TRANSFER = 125;
+
+        //Medium Switch
+        public static final int MEDIUM_SWITCH_CAPACITY = 2500;
+        public static final int MEDIUM_SWITCH_TRANSFER = 250;
     }
 
     public static class Tanks{
@@ -122,6 +126,11 @@ public final class Constants {
         public static final int SMALL_SWITCH_MAX_CONNECTIONS = 8;
         public static final boolean SMALL_SWITCH_MACHINES_CONNECT = true;
         public static final int SMALL_SWITCH_RANGE = 16;
+
+        //Medium Switch
+        public static final int MEDIUM_SWITCH_MAX_CONNECTIONS = 16;
+        public static final boolean MEDIUM_SWITCH_MACHINES_CONNECT = true;
+        public static final int MEDIUM_SWITCH_RANGE = 32;
     }
 
     public enum TransmatricsBlock {
@@ -132,7 +141,8 @@ public final class Constants {
         HYDROGEN_GENERATOR("HydrogenGenerator"),
         WINDMILL("Windmill"),
         WATERMILL("Watermill"),
-        SMALL_SWITCH("SmallSwitch");
+        SMALL_SWITCH("SmallSwitch"),
+        MEDIUM_SWITCH("MediumSwitch");
 
         private final String regName;
 
@@ -176,7 +186,8 @@ public final class Constants {
         HYDROGEN_GENERATOR("TileHydrogenGenerator"),
         WINDMILL("TileWindmill"),
         WATERMILL("TileWatermill"),
-        SMALL_SWITCH("TileSmallSwitch");
+        SMALL_SWITCH("TileSmallSwitch"),
+        MEDIUM_SWITCH("TileMediumSwitch");
 
         private final String regName;
 

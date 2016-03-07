@@ -2,6 +2,7 @@ package at.korti.transmatrics.registry;
 
 import at.korti.transmatrics.api.Constants.TransmatricsTileEntity;
 import at.korti.transmatrics.tileentity.generator.*;
+import at.korti.transmatrics.tileentity.network.TileEntityMediumSwitch;
 import at.korti.transmatrics.tileentity.network.TileEntitySmallSwitch;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
@@ -19,6 +20,7 @@ public final class TileEntities {
         GameRegistry.registerTileEntity(TileEntityWindmill.class, TransmatricsTileEntity.WINDMILL.getRegName());
         GameRegistry.registerTileEntity(TileEntityWatermill.class, TransmatricsTileEntity.WATERMILL.getRegName());
         GameRegistry.registerTileEntity(TileEntitySmallSwitch.class, TransmatricsTileEntity.SMALL_SWITCH.getRegName());
+        GameRegistry.registerTileEntity(TileEntityMediumSwitch.class, TransmatricsTileEntity.MEDIUM_SWITCH.getRegName());
     }
 
 }

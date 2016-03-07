@@ -48,7 +48,7 @@ public abstract class TileEntityEnergySwitch extends TileEntityNetworkSwitch imp
                 if (node instanceof IEnergyConsumer) {
                     IEnergyConsumer consumer = (IEnergyConsumer) node;
                     if (node instanceof TileEntityEnergySwitch) {
-                        if (consumer.getEnergyStored() >= energyStorage.getEnergyStored()) {
+                        if (consumer.getMaxEnergyStored() - consumer.getEnergyStored() <= energyStorage.getMaxEnergyStored() - energyStorage.getEnergyStored()) {
                             continue;
                         }
                     }
