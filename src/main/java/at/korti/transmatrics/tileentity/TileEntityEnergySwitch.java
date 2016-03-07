@@ -47,6 +47,11 @@ public abstract class TileEntityEnergySwitch extends TileEntityNetworkSwitch imp
             for (INetworkNode node : networkNodes) {
                 if (node instanceof IEnergyConsumer) {
                     IEnergyConsumer consumer = (IEnergyConsumer) node;
+                    if (node instanceof TileEntityEnergySwitch) {
+                        if (consumer.getEnergyStored() >= energyStorage.getEnergyStored()) {
+                            continue;
+                        }
+                    }
                     TransmatricsApi.transferEnergy(this, consumer);
                 }
             }
