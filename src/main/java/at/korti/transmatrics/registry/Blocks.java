@@ -1,6 +1,7 @@
 package at.korti.transmatrics.registry;
 
 import at.korti.transmatrics.block.generator.*;
+import at.korti.transmatrics.block.network.LargeSwitch;
 import at.korti.transmatrics.block.network.MediumSwitch;
 import at.korti.transmatrics.block.network.SmallSwitch;
 import net.minecraft.block.Block;
@@ -23,6 +24,7 @@ public final class Blocks {
     private static Watermill watermill;
     private static SmallSwitch smallSwitch;
     private static MediumSwitch mediumSwitch;
+    private static LargeSwitch largeSwitch;
 
     public static void registerBlocks() {
         GameRegistry.registerBlock(solarPanel = new SolarPanel());
@@ -34,6 +36,7 @@ public final class Blocks {
         GameRegistry.registerBlock(watermill = new Watermill());
         GameRegistry.registerBlock(smallSwitch = new SmallSwitch());
         GameRegistry.registerBlock(mediumSwitch = new MediumSwitch());
+        GameRegistry.registerBlock(largeSwitch = new LargeSwitch());
     }
 
     public static void registerBlockTextures() {
@@ -46,6 +49,7 @@ public final class Blocks {
         registerBlockTexture(watermill);
         registerBlockTexture(smallSwitch);
         registerBlockTexture(mediumSwitch);
+        registerBlockTexture(largeSwitch);
     }
 
     private static void registerBlockTexture(Block block) {

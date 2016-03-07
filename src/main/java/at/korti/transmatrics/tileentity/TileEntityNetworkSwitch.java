@@ -72,7 +72,7 @@ public abstract class TileEntityNetworkSwitch extends TileEntity implements INet
     public IStatusMessage connectToNode(INetworkNode node, boolean isSecond) {
         if (networkNodes.size() == maxConnections) {
             return new StatusMessage(localize(NetworkMessages.MAX_CONNECTIONS, maxConnections), false);
-        } else if (false) {     //TODO: Check if the node is a machine
+        } else if (!canConnectToMachines && (node instanceof TileEntityGenerator)) {     //TODO: Check if the node is a machine
             return new StatusMessage(localize(NetworkMessages.MACHINES_CAN_NOT_CONNECTED), false);
         } else if (this == node) {
             return new StatusMessage(localize(NetworkMessages.SAME_NODE), false);

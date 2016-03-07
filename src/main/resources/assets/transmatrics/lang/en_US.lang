@@ -10,6 +10,7 @@ tile.Transmatrics.Windmill.name=Windmill
 tile.Transmatrics.Watermill.name=Watermill
 tile.Transmatrics.SmallSwitch.name=Small Switch
 tile.Transmatrics.MediumSwitch.name=Medium Switch
+tile.Transmatrics.LargeSwitch.name=Large Switch
 
 #Items
 item.Transmatrics.Wrench.name=Wrench

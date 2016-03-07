@@ -1,0 +1,9 @@
+{
+  "parent": "transmatrics:block/Switch",
+  "textures":{
+    "north": "transmatrics:blocks/MediumSwitchSide",
+    "south": "transmatrics:blocks/MediumSwitchSide",
+    "east": "transmatrics:blocks/MediumSwitchSide",
+    "west": "transmatrics:blocks/MediumSwitchSide"
+  }
+}
