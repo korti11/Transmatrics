@@ -2,6 +2,7 @@ package at.korti.transmatrics.registry;
 
 import at.korti.transmatrics.api.Constants.TransmatricsTileEntity;
 import at.korti.transmatrics.tileentity.generator.*;
+import at.korti.transmatrics.tileentity.network.TileEntityController;
 import at.korti.transmatrics.tileentity.network.TileEntityLargeSwitch;
 import at.korti.transmatrics.tileentity.network.TileEntityMediumSwitch;
 import at.korti.transmatrics.tileentity.network.TileEntitySmallSwitch;
@@ -23,6 +24,7 @@ public final class TileEntities {
         GameRegistry.registerTileEntity(TileEntitySmallSwitch.class, TransmatricsTileEntity.SMALL_SWITCH.getRegName());
         GameRegistry.registerTileEntity(TileEntityMediumSwitch.class, TransmatricsTileEntity.MEDIUM_SWITCH.getRegName());
         GameRegistry.registerTileEntity(TileEntityLargeSwitch.class, TransmatricsTileEntity.LARGE_SWITCH.getRegName());
+        GameRegistry.registerTileEntity(TileEntityController.class, TransmatricsTileEntity.CONTROLLER.getRegName());
     }
 
 }

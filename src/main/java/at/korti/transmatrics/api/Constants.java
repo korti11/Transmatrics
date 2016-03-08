@@ -113,6 +113,10 @@ public final class Constants {
         //Large Switch
         public static final int LARGE_SWITCH_CAPACITY = 5000;
         public static final int LARGE_SWITCH_TRANSFER = 500;
+
+        //Controller
+        public static final int CONTROLLER_CAPACITY = 20000;
+        public static final int CONTROLLER_TRANSFER = 1000;
     }
 
     public static class Tanks{
@@ -140,6 +144,11 @@ public final class Constants {
         public static final int LARGE_SWITCH_MAX_CONNECTIONS = 32;
         public static final boolean LARGE_SWITCH_MACHINES_CONNECT = false;
         public static final int LARGE_SWITCH_RANGE = 64;
+
+        //Controller
+        public static final int CONTROLLER_MAX_CONNECTIONS = 32;
+        public static final boolean CONTROLLER_MACHINES_CONNECT = false;
+        public static final int CONTROLLER_RANGE = 32;
     }
 
     public enum TransmatricsBlock {
@@ -152,7 +161,8 @@ public final class Constants {
         WATERMILL("Watermill"),
         SMALL_SWITCH("SmallSwitch"),
         MEDIUM_SWITCH("MediumSwitch"),
-        LARGE_SWITCH("LargeSwitch");
+        LARGE_SWITCH("LargeSwitch"),
+        CONTROLLER("Controller");
 
         private final String regName;
 
@@ -198,7 +208,8 @@ public final class Constants {
         WATERMILL("TileWatermill"),
         SMALL_SWITCH("TileSmallSwitch"),
         MEDIUM_SWITCH("TileMediumSwitch"),
-        LARGE_SWITCH("TileLargeSwitch");
+        LARGE_SWITCH("TileLargeSwitch"),
+        CONTROLLER("TileController");
 
         private final String regName;
 
