@@ -4,5 +4,5 @@ dependencies:
 
 test:
   post:
-    - gradlew build
+    - gradle build
     - cp build/libs/*.jar $CIRCLE_ARTIFACTS
