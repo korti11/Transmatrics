@@ -22,7 +22,7 @@ configFile.withReader {
     project.ext.config = new ConfigSlurper().parse prop
 }
 
-version = "${config.mod_version}.${System.getenv("BUILD_NUMBER") ?: 0}-${config.release_type}"
+version = "${config.mod_version}.${System.getenv("BUILD_NUMBER") ?: System.getenv("CIRCLE_BUILD_NUM") ?: 0}-${config.release_type}"
 group= "at.korti.transmatrics"
 archivesBaseName = "Transmatrics"
 
