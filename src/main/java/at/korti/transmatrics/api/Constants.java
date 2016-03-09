@@ -42,7 +42,14 @@ public final class Constants {
         public static final String NETWORK_Z = "nz";
         public static final String NETWORK_NODES = "network_nodes";
         public static final String CLEAR_STORED_NETWORK = "clear_stored_network";
-        public static final String NETOWRK_CONNECTED = "network_connected";
+        public static final String NETWORK_CONNECTED = "network_connected";
+
+        //Controller
+        public static final String IS_MASTER = "is_master";
+        public static final String CONTROLLER_EXTENSIONS = "controller_extensions";
+        public static final String CONTROLLER_X = "cx";
+        public static final String CONTROLLER_Y = "cy";
+        public static final String CONTROLLER_Z = "cz";
     }
 
     public static class NetworkMessages{

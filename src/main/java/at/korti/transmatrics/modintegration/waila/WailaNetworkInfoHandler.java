@@ -1,7 +1,7 @@
 package at.korti.transmatrics.modintegration.waila;
 
-import at.korti.transmatrics.api.Constants;
 import at.korti.transmatrics.api.Constants.NBT;
+import at.korti.transmatrics.api.network.INetworkMultiSwitchInfo;
 import at.korti.transmatrics.api.network.INetworkNodeInfo;
 import at.korti.transmatrics.api.network.INetworkSwitchInfo;
 import mcp.mobius.waila.api.IWailaConfigHandler;
@@ -36,8 +36,8 @@ public class WailaNetworkInfoHandler implements IWailaDataProvider {
         if(compound.hasKey(NBT.NETWORK_CONNECTIONS) && compound.hasKey(NBT.MAX_NETWORK_CONNECTIONS)) {
             currenttip.add("Network connections: " + compound.getInteger(NBT.NETWORK_CONNECTIONS) + "/" + compound.getInteger(NBT.MAX_NETWORK_CONNECTIONS));
         }
-        if (compound.hasKey(NBT.NETOWRK_CONNECTED)) {
-            currenttip.add(compound.getBoolean(NBT.NETOWRK_CONNECTED) ? "Connected!" : "Not Connected!");
+        if (compound.hasKey(NBT.NETWORK_CONNECTED)) {
+            currenttip.add(compound.getBoolean(NBT.NETWORK_CONNECTED) ? "Connected!" : "Not Connected!");
         }
         return currenttip;
     }
@@ -50,13 +50,18 @@ public class WailaNetworkInfoHandler implements IWailaDataProvider {
     @Override
     public NBTTagCompound getNBTData(EntityPlayerMP player, TileEntity te, NBTTagCompound tag, World world, BlockPos pos) {
         if (te instanceof INetworkSwitchInfo) {
-            INetworkSwitchInfo networkInfo = (INetworkSwitchInfo) te;
+            INetworkSwitchInfo networkInfo;
+            if (te instanceof INetworkMultiSwitchInfo) {
+                networkInfo = ((INetworkMultiSwitchInfo) te).getMaster();
+            } else {
+                networkInfo = (INetworkSwitchInfo) te;
+            }
             tag.setInteger(NBT.NETWORK_CONNECTIONS, networkInfo.getNetworkConnections());
             tag.setInteger(NBT.MAX_NETWORK_CONNECTIONS, networkInfo.getMaxNetworkConnections());
         }
         if (te instanceof INetworkNodeInfo && player.isSneaking()) {
             INetworkNodeInfo networkInfo = (INetworkNodeInfo) te;
-            tag.setBoolean(NBT.NETOWRK_CONNECTED, networkInfo.isConnected());
+            tag.setBoolean(NBT.NETWORK_CONNECTED, networkInfo.isConnected());
         }
         return tag;
     }

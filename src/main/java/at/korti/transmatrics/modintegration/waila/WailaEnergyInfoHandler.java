@@ -2,6 +2,7 @@ package at.korti.transmatrics.modintegration.waila;
 
 import at.korti.transmatrics.api.Constants.NBT;
 import at.korti.transmatrics.api.energy.IEnergyInfo;
+import at.korti.transmatrics.api.energy.IEnergyMultiInfo;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 import mcp.mobius.waila.api.IWailaDataProvider;
@@ -45,6 +46,9 @@ public class WailaEnergyInfoHandler implements IWailaDataProvider {
     public NBTTagCompound getNBTData(EntityPlayerMP player, TileEntity te, NBTTagCompound tag, World world, BlockPos pos) {
         if (te instanceof IEnergyInfo) {
             IEnergyInfo energyInfo = (IEnergyInfo) te;
+            if (te instanceof IEnergyMultiInfo) {
+                energyInfo = ((IEnergyMultiInfo) te).getMaster();
+            }
             tag.setInteger(NBT.ENERGY, energyInfo.getEnergyStored());
             tag.setInteger(NBT.CAPACITY, energyInfo.getMaxEnergyStored());
         }

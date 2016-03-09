@@ -1,5 +1,6 @@
 package at.korti.transmatrics.util.helper;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
@@ -18,6 +19,28 @@ public class WorldHelper {
         EntityItem item = new EntityItem(worldIn, posIn.getX() + d0, posIn.getY() + d1, posIn.getZ() + d2, itemStackIn);
         item.setPickupDelay(10);
         worldIn.spawnEntityInWorld(item);
+    }
+
+    public static Block getBlock(World worldIn, BlockPos posIn) {
+        return worldIn.getBlockState(posIn).getBlock();
+    }
+
+    public static BlockPos hasNeighbor(World worldIn, BlockPos posIn, Block searchBlockIn) {
+        if (getBlock(worldIn, posIn.north()).equals(searchBlockIn)) {
+            return posIn.north();
+        } else if(getBlock(worldIn, posIn.east()).equals(searchBlockIn)) {
+            return posIn.east();
+        } else if (getBlock(worldIn, posIn.south()).equals(searchBlockIn)) {
+            return posIn.south();
+        } else if (getBlock(worldIn, posIn.west()).equals(searchBlockIn)) {
+            return posIn.west();
+        } else if (getBlock(worldIn, posIn.up()).equals(searchBlockIn)) {
+            return posIn.up();
+        } else if (getBlock(worldIn, posIn.down()).equals(searchBlockIn)) {
+            return posIn.down();
+        }
+
+        return null;
     }
 
 }

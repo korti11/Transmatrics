@@ -24,7 +24,7 @@ import static at.korti.transmatrics.util.helper.TextHelper.localize;
 public abstract class TileEntityNetworkSwitch extends TileEntity implements INetworkSwitch, INetworkSwitchInfo, ITickable{
 
     protected List<INetworkNode> networkNodes;
-    protected final int maxConnections;
+    protected int maxConnections;
     protected final boolean canConnectToMachines;
     protected final int range;
     private NBTTagCompound tempCompound;
