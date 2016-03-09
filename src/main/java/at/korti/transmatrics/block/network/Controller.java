@@ -5,11 +5,14 @@ import at.korti.transmatrics.api.network.NetworkHandler;
 import at.korti.transmatrics.block.MachineBlock;
 import at.korti.transmatrics.tileentity.network.TileEntityController;
 import at.korti.transmatrics.util.helper.WorldHelper;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 /**
  * Created by Korti on 08.03.2016.
@@ -25,13 +28,28 @@ public class Controller extends MachineBlock{
         TileEntity te = worldIn.getTileEntity(pos);
         if (te instanceof TileEntityController) {
             TileEntityController controller = (TileEntityController) te;
-            BlockPos neighborPos = WorldHelper.hasNeighbor(worldIn, pos, TransmatricsBlock.CONTROLLER.getBlock());
-            if (neighborPos != null) {
-                TileEntity extensionTe = worldIn.getTileEntity(neighborPos);
-                if (extensionTe instanceof TileEntityController) {
-                    ((TileEntityController) extensionTe).addExtensions(controller);
+            List<BlockPos> neighbors = WorldHelper.hasNeighbors(worldIn, pos, TransmatricsBlock.CONTROLLER.getBlock());
+            boolean isConnected = false;
+
+            for(BlockPos neighborPos : neighbors){
+                if (neighborPos != null) {
+                    TileEntity extensionTe = worldIn.getTileEntity(neighborPos);
+                    if (extensionTe instanceof TileEntityController) {
+                        TileEntityController extensionController = (TileEntityController) extensionTe;
+                        if (extensionController.isMaster()) {
+                            extensionController.addExtensions(controller);
+                            extensionController.validateConstruction();
+                            isConnected = true;
+                        } else if (extensionController.getMaster() != null) {
+                            extensionController.addExtensions(controller);
+                            extensionController.validateConstruction();
+                            isConnected = true;
+                        }
+                    }
                 }
-            } else {
+            }
+
+            if(!isConnected){
                 controller.setIsMaster();
             }
         }
