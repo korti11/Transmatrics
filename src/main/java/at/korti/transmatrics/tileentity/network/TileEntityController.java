@@ -5,6 +5,8 @@ import at.korti.transmatrics.api.Constants.NBT;
 import at.korti.transmatrics.api.Constants.Network;
 import at.korti.transmatrics.api.energy.IEnergyMultiInfo;
 import at.korti.transmatrics.api.network.INetworkMultiSwitchInfo;
+import at.korti.transmatrics.api.network.INetworkNode;
+import at.korti.transmatrics.api.network.IStatusMessage;
 import at.korti.transmatrics.api.network.NetworkHandler;
 import at.korti.transmatrics.tileentity.TileEntityEnergySwitch;
 import net.minecraft.nbt.NBTTagCompound;
@@ -80,6 +82,15 @@ public class TileEntityController extends TileEntityEnergySwitch implements INet
         super.readFromNBT(compound);
     }
 
+    @Override
+    public IStatusMessage connectToNode(INetworkNode node, boolean isSecond) {
+        if(isMaster) {
+            return super.connectToNode(node, isSecond);
+        } else {
+            return getMaster().connectToNode(node, isSecond);
+        }
+    }
+
     public TileEntityController setIsMaster() {
         isMaster = true;
         return this;
@@ -94,6 +105,7 @@ public class TileEntityController extends TileEntityEnergySwitch implements INet
         } else {
             getController(worldObj, master).addExtensions(tile);
         }
+        markDirty();
         return this;
     }
 
@@ -107,14 +119,21 @@ public class TileEntityController extends TileEntityEnergySwitch implements INet
                 TileEntityController newMaster = getController(worldObj, extensions.get(0));
                 newMaster.setIsMaster();
                 newMaster.energyStorage.setCapacity(this.getMaxEnergyStored() - Energy.CONTROLLER_CAPACITY);
+                newMaster.energyStorage.modifyEnergy(this.getEnergyStored());
+                newMaster.networkNodes.addAll(this.networkNodes);
+                for (INetworkNode node : newMaster.networkNodes) {
+                    node.connectToNode(newMaster, true);
+                }
                 newMaster.maxConnections = this.maxConnections - Network.CONTROLLER_MAX_CONNECTIONS;
                 for (int i = 1; i < extensions.size(); i++) {
                     getController(worldObj, extensions.get(i)).master = newMaster.getPos();
+                    newMaster.extensions.add(extensions.get(i));
                 }
             }
         } else {
             getController(worldObj, master).removeExtension(this);
         }
+        markDirty();
         return this;
     }
 
