@@ -6,6 +6,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * Created by Korti on 27.02.2016.
  */
@@ -41,6 +44,29 @@ public class WorldHelper {
         }
 
         return null;
+    }
+
+    public static List<BlockPos> hasNeighbors(World worldIn, BlockPos posIn, Block searchBlockIn) {
+        List<BlockPos> neighbors = new LinkedList<>();
+        if (getBlock(worldIn, posIn.north()).equals(searchBlockIn)) {
+            neighbors.add(posIn.north());
+        }
+        if(getBlock(worldIn, posIn.east()).equals(searchBlockIn)) {
+            neighbors.add(posIn.east());
+        }
+        if (getBlock(worldIn, posIn.south()).equals(searchBlockIn)) {
+            neighbors.add(posIn.south());
+        }
+        if (getBlock(worldIn, posIn.west()).equals(searchBlockIn)) {
+            neighbors.add(posIn.west());
+        }
+        if (getBlock(worldIn, posIn.up()).equals(searchBlockIn)) {
+            neighbors.add(posIn.up());
+        }
+        if (getBlock(worldIn, posIn.down()).equals(searchBlockIn)) {
+            neighbors.add(posIn.down());
+        }
+        return neighbors;
     }
 
 }

@@ -1,14 +1,17 @@
 package at.korti.transmatrics.tileentity.network;
 
+import at.korti.transmatrics.api.Constants;
 import at.korti.transmatrics.api.Constants.Energy;
 import at.korti.transmatrics.api.Constants.NBT;
 import at.korti.transmatrics.api.Constants.Network;
+import at.korti.transmatrics.api.Constants.TransmatricsBlock;
 import at.korti.transmatrics.api.energy.IEnergyMultiInfo;
 import at.korti.transmatrics.api.network.INetworkMultiSwitchInfo;
 import at.korti.transmatrics.api.network.INetworkNode;
 import at.korti.transmatrics.api.network.IStatusMessage;
 import at.korti.transmatrics.api.network.NetworkHandler;
 import at.korti.transmatrics.tileentity.TileEntityEnergySwitch;
+import at.korti.transmatrics.util.helper.WorldHelper;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
@@ -113,6 +116,7 @@ public class TileEntityController extends TileEntityEnergySwitch implements INet
         if (isMaster) {
             if(tile != this) {
                 extensions.remove(tile.getPos());
+                tile.master = null;
                 super.energyStorage.setCapacity(this.getMaxEnergyStored() - Energy.CONTROLLER_CAPACITY);
                 super.maxConnections -= Network.CONTROLLER_MAX_CONNECTIONS;
             } else if(extensions.size() > 0) {
@@ -139,6 +143,39 @@ public class TileEntityController extends TileEntityEnergySwitch implements INet
 
     public TileEntityController removeExtension() {
         return removeExtension(this);
+    }
+
+    public void validateConstruction() {
+        if (isMaster) {
+            List<BlockPos> copy = new LinkedList<>(extensions);
+            for (BlockPos blockPos : copy) {
+                TileEntityController sub = NetworkHandler.getController(worldObj, blockPos);
+                if (sub != null) {
+                    if (!sub.isConnectedToMaster(this.pos)) {
+                        sub.removeExtension();
+                    }
+                }
+            }
+        } else {
+            getMaster().validateConstruction();
+        }
+    }
+
+    private boolean isConnectedToMaster(BlockPos executer) {
+        List<BlockPos> neighbors = WorldHelper.hasNeighbors(worldObj, pos, TransmatricsBlock.CONTROLLER.getBlock());
+        for (BlockPos neighbor : neighbors) {
+            TileEntityController controller = getController(worldObj, neighbor);
+            if (controller != null) {
+                if (controller.isMaster) {
+                    return true;
+                } else if(!controller.pos.equals(executer)) {
+                    if (controller.isConnectedToMaster(this.pos)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     public TileEntityController getMaster() {

@@ -1,6 +1,7 @@
 package at.korti.transmatrics.block.network;
 
 import at.korti.transmatrics.api.Constants.TransmatricsBlock;
+import at.korti.transmatrics.api.network.NetworkHandler;
 import at.korti.transmatrics.block.MachineBlock;
 import at.korti.transmatrics.tileentity.network.TileEntityController;
 import at.korti.transmatrics.util.helper.WorldHelper;
@@ -43,5 +44,10 @@ public class Controller extends MachineBlock{
             ((TileEntityController) te).removeExtension();
         }
         super.breakBlock(worldIn, pos, state);
+        BlockPos neighbor = WorldHelper.hasNeighbor(worldIn, pos, TransmatricsBlock.CONTROLLER.getBlock());
+        TileEntityController controller = NetworkHandler.getController(worldIn, neighbor);
+        if (controller != null) {
+            controller.validateConstruction();
+        }
     }
 }
