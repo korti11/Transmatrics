@@ -1,3 +1,8 @@
 dependencies:
   pre:
     - chmod +x gradlew
+
+test:
+  post:
+    - ./gradlew build
+    - cp build/libs/*.jar $CIRCLE_ARTIFACTS
