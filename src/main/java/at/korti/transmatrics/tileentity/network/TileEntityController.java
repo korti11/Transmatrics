@@ -1,6 +1,5 @@
 package at.korti.transmatrics.tileentity.network;
 
-import at.korti.transmatrics.api.Constants;
 import at.korti.transmatrics.api.Constants.*;
 import at.korti.transmatrics.api.network.INetworkNode;
 import at.korti.transmatrics.api.network.IStatusMessage;
@@ -19,9 +18,6 @@ import static at.korti.transmatrics.api.network.NetworkHandler.getController;
  * Created by Korti on 08.03.2016.
  */
 public class TileEntityController extends TileEntityEnergySwitch {
-
-    //TODO: Connect two controller to one if they touch each other.
-    //TODO: Separate to two controller if the lose connection.
 
     //Master
     private boolean isMaster;
@@ -299,6 +295,16 @@ public class TileEntityController extends TileEntityEnergySwitch {
                 }
             }
             energyStorage.modifyEnergy(energy);
+            for (BlockPos extension : copy) {
+                if (!extensions.contains(extension)) {
+                    TileEntityController controller = getController(worldObj, extension);
+                    if (controller != null) {
+                        controller.setIsMaster();
+                        controller.validateConstruction();
+                        break;
+                    }
+                }
+            }
         } else {
             getMaster().validateConstruction();
         }
@@ -312,8 +318,13 @@ public class TileEntityController extends TileEntityEnergySwitch {
         List<BlockPos> neighbors = WorldHelper.hasNeighbors(worldObj, pos, TransmatricsBlock.CONTROLLER.getBlock());
         for (BlockPos neighbor : neighbors) {
             TileEntityController controller = getController(worldObj, neighbor);
-            if (controller != null && !neighbor.equals(executer) && controller.getMaster() == null) {
-                controller.reconnectToMaster(master, this.pos);
+            if (controller != null) {
+                if (!neighbor.equals(master) && controller.isMaster) {
+                    controller.isMaster = false;
+                }
+                if (!neighbor.equals(executer) && controller.getMaster() == null) {
+                    controller.reconnectToMaster(master, this.pos);
+                }
             }
         }
     }
