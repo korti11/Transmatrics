@@ -1,7 +1,6 @@
 package at.korti.transmatrics.modintegration.waila;
 
 import at.korti.transmatrics.api.Constants.NBT;
-import at.korti.transmatrics.api.network.INetworkMultiSwitchInfo;
 import at.korti.transmatrics.api.network.INetworkNodeInfo;
 import at.korti.transmatrics.api.network.INetworkSwitchInfo;
 import mcp.mobius.waila.api.IWailaConfigHandler;
@@ -50,12 +49,7 @@ public class WailaNetworkInfoHandler implements IWailaDataProvider {
     @Override
     public NBTTagCompound getNBTData(EntityPlayerMP player, TileEntity te, NBTTagCompound tag, World world, BlockPos pos) {
         if (te instanceof INetworkSwitchInfo) {
-            INetworkSwitchInfo networkInfo;
-            if (te instanceof INetworkMultiSwitchInfo) {
-                networkInfo = ((INetworkMultiSwitchInfo) te).getMaster();
-            } else {
-                networkInfo = (INetworkSwitchInfo) te;
-            }
+            INetworkSwitchInfo networkInfo = (INetworkSwitchInfo) te;
             tag.setInteger(NBT.NETWORK_CONNECTIONS, networkInfo.getNetworkConnections());
             tag.setInteger(NBT.MAX_NETWORK_CONNECTIONS, networkInfo.getMaxNetworkConnections());
         }

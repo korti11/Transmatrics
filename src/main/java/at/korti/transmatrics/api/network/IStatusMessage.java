@@ -11,6 +11,11 @@ public interface IStatusMessage {
     String getMessage();
 
     /**
+     * @return Get the unlocalized message.
+     */
+    String getUnlocalizedMessage();
+
+    /**
      * @return If the operation was successful.
      */
     boolean isSuccessful();

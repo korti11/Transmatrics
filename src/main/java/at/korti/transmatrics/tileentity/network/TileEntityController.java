@@ -1,11 +1,7 @@
 package at.korti.transmatrics.tileentity.network;
 
-import at.korti.transmatrics.api.Constants.Energy;
-import at.korti.transmatrics.api.Constants.NBT;
-import at.korti.transmatrics.api.Constants.Network;
-import at.korti.transmatrics.api.Constants.TransmatricsBlock;
-import at.korti.transmatrics.api.energy.IEnergyMultiInfo;
-import at.korti.transmatrics.api.network.INetworkMultiSwitchInfo;
+import at.korti.transmatrics.api.Constants;
+import at.korti.transmatrics.api.Constants.*;
 import at.korti.transmatrics.api.network.INetworkNode;
 import at.korti.transmatrics.api.network.IStatusMessage;
 import at.korti.transmatrics.tileentity.TileEntityEnergySwitch;
@@ -22,11 +18,10 @@ import static at.korti.transmatrics.api.network.NetworkHandler.getController;
 /**
  * Created by Korti on 08.03.2016.
  */
-public class TileEntityController extends TileEntityEnergySwitch implements INetworkMultiSwitchInfo, IEnergyMultiInfo{
+public class TileEntityController extends TileEntityEnergySwitch {
 
     //TODO: Connect two controller to one if they touch each other.
     //TODO: Separate to two controller if the lose connection.
-    //TODO: Store the energy on the separate tile entities.
 
     //Master
     private boolean isMaster;
@@ -43,6 +38,7 @@ public class TileEntityController extends TileEntityEnergySwitch implements INet
         this.extensions = new LinkedList<>();
     }
 
+    //region Tile Entity
     @Override
     public void writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
@@ -66,6 +62,7 @@ public class TileEntityController extends TileEntityEnergySwitch implements INet
 
     @Override
     public void readFromNBT(NBTTagCompound compound) {
+        super.readFromNBT(compound);
         boolean isMaster = compound.getBoolean(NBT.IS_MASTER);
         if (isMaster) {
             this.isMaster = true;
@@ -75,26 +72,169 @@ public class TileEntityController extends TileEntityEnergySwitch implements INet
                 this.extensions.add(new BlockPos(extensionCompound.getInteger(NBT.CONTROLLER_X),
                         extensionCompound.getInteger(NBT.CONTROLLER_Y),
                         extensionCompound.getInteger(NBT.CONTROLLER_Z)));
-                this.maxConnections += Network.CONTROLLER_MAX_CONNECTIONS;
-                this.energyStorage.setCapacity(getMaxEnergyStored() + Energy.CONTROLLER_CAPACITY);
             }
         } else if(compound.hasKey(NBT.CONTROLLER_X)) {
             master = new BlockPos(compound.getInteger(NBT.CONTROLLER_X),
                     compound.getInteger(NBT.CONTROLLER_Y),
                     compound.getInteger(NBT.CONTROLLER_Z));
         }
-        super.readFromNBT(compound);
     }
+    //endregion
 
+    //region Tile Entity Network Switch
     @Override
-    public IStatusMessage connectToNode(INetworkNode node, boolean isSecond) {
+    public IStatusMessage connectToNode(INetworkNode node, boolean isSecond, boolean simulate) {
         if(isMaster) {
-            return super.connectToNode(node, isSecond);
+            IStatusMessage message = super.connectToNode(node, isSecond, true);     // Check if the node can connect to the master controller
+            if (!message.isSuccessful() &&
+                    !message.getUnlocalizedMessage().equals(NetworkMessages.MAX_CONNECTIONS) &&
+                    !message.getUnlocalizedMessage().equals(NetworkMessages.OUT_OF_RANGE)) {        // If the node can't connect and the message is not MAX_CONNECTIONS and OUT_OF_RANGE
+                return message;     // Return a status with unsuccessful and a message that is not MAX_CONNECTIONS and OUT_OF_RANGE
+            }
+            for (BlockPos extension : extensions) {     // Check if the node can't connect to one of the extensions
+                TileEntityController controller = getController(worldObj, extension);
+                if (controller != null) {
+                    IStatusMessage subMessage = controller.extConnectToNode(node, isSecond, true);      // Check if the node can connect to the extension controller
+                    if (!subMessage.isSuccessful() &&
+                            !subMessage.getUnlocalizedMessage().equals(NetworkMessages.MAX_CONNECTIONS) &&
+                            !subMessage.getUnlocalizedMessage().equals(NetworkMessages.OUT_OF_RANGE)) {     // If the node can't connect and the message is not MAX_CONNECTIONS and OUT_OF_RANGE
+                        return subMessage;      // Return a status with unsuccessful and a message that is not MAX_CONNECTIONS and OUT_OF_RANGE
+                    }
+                }
+            }
+            if(!simulate) {
+                message = super.connectToNode(node, isSecond, false);       // Connect to the master controller, if it is possible
+                if(!message.isSuccessful()) {       // If the node didn't connect to the master controller check the extension controllers
+                    for (BlockPos extension : extensions) {
+                        TileEntityController controller = getController(worldObj, extension);
+                        if (controller != null) {
+                            IStatusMessage subMessage = controller.extConnectToNode(node, isSecond, false);   // Connect to the extension controller, if it is possible
+                            if (subMessage.isSuccessful()) {        // If the node did connect to the extension controller, return a status with successful and a message with SUCCESSFUL_CONNECTED message. If not check the next extension controller.
+                                return subMessage;
+                            }
+                        }
+                    }
+                }
+            }
+            return message;         //Return a status if the node is connected
         } else {
-            return getMaster().connectToNode(node, isSecond);
+            return getMaster().connectToNode(node, isSecond, simulate);
         }
     }
 
+    private IStatusMessage extConnectToNode(INetworkNode node, boolean isSecond, boolean simulate) {
+        if (!isMaster) {
+            return super.connectToNode(node, isSecond, simulate);
+        }
+        return null;
+    }
+
+    @Override
+    public int getNetworkConnections() {
+        if (isMaster) {
+            int connections = super.getNetworkConnections();
+            for (BlockPos extension : extensions) {
+                TileEntityController controller = getController(worldObj, extension);
+                if (controller != null) {
+                    connections += controller.networkNodes.size();
+                }
+            }
+            return connections;
+        } else {
+            return getMaster().getNetworkConnections();
+        }
+    }
+
+    @Override
+    public int getMaxNetworkConnections() {
+        if (isMaster) {
+            int connections = super.getMaxNetworkConnections();
+            for (BlockPos extension : extensions) {
+                TileEntityController controller = getController(worldObj, extension);
+                if (controller != null) {
+                    connections += controller.maxConnections;
+                }
+            }
+            return connections;
+        } else {
+            return getMaster().getMaxNetworkConnections();
+        }
+    }
+    //endregion
+
+    //region Tile Entity Energy Switch
+    @Override
+    public int receiveEnergy(int energy, boolean simulate) {
+        int received = super.receiveEnergy(energy, simulate);
+        if (isMaster) {
+            int leftEnergy = energy - received;
+            for (BlockPos extension : extensions) {
+                TileEntityController controller = getController(worldObj, extension);
+                if (controller != null) {
+                    received += controller.receiveEnergy(leftEnergy, simulate);
+                    leftEnergy = energy - received;
+                    if (leftEnergy == 0) {
+                        break;
+                    }
+                }
+            }
+        }
+        return received;
+    }
+
+    @Override
+    public int extractEnergy(int energy, boolean simulate) {
+        int extract = super.extractEnergy(energy, simulate);
+        if (isMaster) {
+            int leftEnergy = energy - extract;
+            for (BlockPos extension : extensions) {
+                TileEntityController controller = getController(worldObj, extension);
+                if (controller != null) {
+                    extract += controller.receiveEnergy(leftEnergy, simulate);
+                    leftEnergy = energy - extract;
+                    if (leftEnergy == 0) {
+                        break;
+                    }
+                }
+            }
+        }
+        return extract;
+    }
+
+    @Override
+    public int getEnergyStored() {
+        if(isMaster) {
+            int energy = energyStorage.getEnergyStored();
+            for (BlockPos extension : extensions) {
+                TileEntityController controller = getController(worldObj, extension);
+                if (controller != null) {
+                    energy += controller.energyStorage.getEnergyStored();
+                }
+            }
+            return energy;
+        } else {
+            return getMaster().getEnergyStored();
+        }
+    }
+
+    @Override
+    public int getMaxEnergyStored() {
+        if (isMaster) {
+            int capacity = energyStorage.getMaxEnergyStored();
+            for (BlockPos extension : extensions) {
+                TileEntityController controller = getController(worldObj, extension);
+                if (controller != null) {
+                    capacity += controller.energyStorage.getMaxEnergyStored();
+                }
+            }
+            return capacity;
+        } else {
+            return getMaster().getMaxEnergyStored();
+        }
+    }
+    //endregion
+
+    //region Tile Entity Controller
     public TileEntityController setIsMaster() {
         isMaster = true;
         return this;
@@ -104,8 +244,6 @@ public class TileEntityController extends TileEntityEnergySwitch implements INet
         if(this.isMaster) {
             extensions.add(tile.pos);
             tile.master = this.pos;
-            super.energyStorage.setCapacity(this.getMaxEnergyStored() + Energy.CONTROLLER_CAPACITY);
-            super.maxConnections += Network.CONTROLLER_MAX_CONNECTIONS;
         } else {
             getController(worldObj, master).addExtensions(tile);
         }
@@ -118,18 +256,14 @@ public class TileEntityController extends TileEntityEnergySwitch implements INet
             if(tile != this) {
                 extensions.remove(tile.getPos());
                 tile.master = null;
-                super.energyStorage.setCapacity(this.getMaxEnergyStored() - Energy.CONTROLLER_CAPACITY);
-                super.maxConnections -= Network.CONTROLLER_MAX_CONNECTIONS;
             } else if(extensions.size() > 0) {
                 TileEntityController newMaster = getController(worldObj, extensions.get(0));
                 newMaster.setIsMaster();
-                newMaster.energyStorage.setCapacity(this.getMaxEnergyStored() - Energy.CONTROLLER_CAPACITY);
-                newMaster.energyStorage.modifyEnergy(this.getEnergyStored());
+                newMaster.modifyEnergy(this.getEnergyStored());
                 newMaster.networkNodes.addAll(this.networkNodes);
                 for (INetworkNode node : newMaster.networkNodes) {
-                    node.connectToNode(newMaster, true);
+                    node.connectToNode(newMaster, true, false);
                 }
-                newMaster.maxConnections = this.maxConnections - Network.CONTROLLER_MAX_CONNECTIONS;
                 for (int i = 1; i < extensions.size(); i++) {
                     getController(worldObj, extensions.get(i)).master = newMaster.getPos();
                     newMaster.extensions.add(extensions.get(i));
@@ -190,4 +324,26 @@ public class TileEntityController extends TileEntityEnergySwitch implements INet
         }
         return getController(worldObj, master);
     }
+
+    public void modifyEnergy(int energy) {
+        if(isMaster) {
+            int canStore = Math.min(energyStorage.getCapacity() - energyStorage.getEnergyStored(), energy);
+            energyStorage.modifyEnergy(canStore);
+            energy -= canStore;
+            for (BlockPos extension : extensions) {
+                TileEntityController controller = getController(worldObj, extension);
+                if (controller != null) {
+                    canStore = Math.min(controller.energyStorage.getCapacity() - energyStorage.getEnergyStored(), energy);
+                    energyStorage.modifyEnergy(canStore);
+                    energy -= canStore;
+                    if (energy == 0) {
+                        break;
+                    }
+                }
+            }
+        } else {
+            getMaster().modifyEnergy(energy);
+        }
+    }
+    //endregion
 }

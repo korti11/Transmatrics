@@ -52,47 +52,49 @@ public abstract class TileEntityNetworkNode extends TileEntity implements INetwo
     }
 
     @Override
-    public IStatusMessage connectToNode(INetworkNode node, boolean isSecond) {
+    public IStatusMessage connectToNode(INetworkNode node, boolean isSecond, boolean simulate) {
         if (networkNode != null) {
             disconnectFromNode();
             networkNode = node;
-            return new StatusMessage(localize(NetworkMessages.SUCCESSFUL_RECONNECTED), true);
+            return new StatusMessage(true, NetworkMessages.SUCCESSFUL_RECONNECTED);
         } else if (node == null) {
-            return new StatusMessage(localize(NetworkMessages.CAN_NOT_CONNECTED), false);
+            return new StatusMessage(false, NetworkMessages.CAN_NOT_CONNECTED);
         } else if (this == node) {
-            return new StatusMessage(localize(NetworkMessages.SAME_NODE), false);
+            return new StatusMessage(false, NetworkMessages.SAME_NODE);
         }
         if (!isSecond) {
-            IStatusMessage message = node.connectToNode(this, true);
+            IStatusMessage message = node.connectToNode(this, true, simulate);
             if (!message.isSuccessful()) {
                 return message;
             }
         }
-        networkNode = node;
-        return new StatusMessage(localize(NetworkMessages.SUCCESSFUL_CONNECTED), true);
+        if(!simulate) {
+            networkNode = node;
+        }
+        return new StatusMessage(true, NetworkMessages.SUCCESSFUL_CONNECTED);
     }
 
     @Override
-    public IStatusMessage disconnectFromNode(INetworkNode node, boolean isSecond) {
-        if (node == null || networkNode == null) {
-            return new StatusMessage(localize(NetworkMessages.NOT_CONNECTED), false);
+    public IStatusMessage disconnectFromNode(INetworkNode node, boolean isSecond, boolean simulate) {
+        if (node == null || networkNode == null || networkNode != node) {
+            return new StatusMessage(false, NetworkMessages.NOT_CONNECTED);
         }
-        if (networkNode != node) {
-            return new StatusMessage(localize(NetworkMessages.NOT_CONNECTED), false);
-        }
+
         if (!isSecond) {
-            IStatusMessage message = node.disconnectFromNode(this, true);
+            IStatusMessage message = node.disconnectFromNode(this, true, simulate);
             if (!message.isSuccessful()) {
                 return message;
             }
         }
-        networkNode = null;
-        return new StatusMessage(localize(NetworkMessages.SUCCESSFUL_DISCONNECTED), true);
+        if(!simulate) {
+            networkNode = null;
+        }
+        return new StatusMessage(true, NetworkMessages.SUCCESSFUL_DISCONNECTED);
     }
 
     @Override
     public IStatusMessage disconnectFromNode() {
-        return disconnectFromNode(networkNode, false);
+        return disconnectFromNode(networkNode, false, false);
     }
 
     @Override

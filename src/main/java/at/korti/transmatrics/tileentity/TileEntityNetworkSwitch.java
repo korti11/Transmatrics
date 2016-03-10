@@ -24,7 +24,7 @@ import static at.korti.transmatrics.util.helper.TextHelper.localize;
 public abstract class TileEntityNetworkSwitch extends TileEntity implements INetworkSwitch, INetworkSwitchInfo, ITickable{
 
     protected List<INetworkNode> networkNodes;
-    protected int maxConnections;
+    protected final int maxConnections;
     protected final boolean canConnectToMachines;
     protected final int range;
     private NBTTagCompound tempCompound;
@@ -69,46 +69,50 @@ public abstract class TileEntityNetworkSwitch extends TileEntity implements INet
     }
 
     @Override
-    public IStatusMessage connectToNode(INetworkNode node, boolean isSecond) {
+    public IStatusMessage connectToNode(INetworkNode node, boolean isSecond, boolean simulate) {
         if (networkNodes.size() == maxConnections) {
-            return new StatusMessage(localize(NetworkMessages.MAX_CONNECTIONS, maxConnections), false);
+            return new StatusMessage(false,NetworkMessages.MAX_CONNECTIONS, maxConnections);
         } else if (!canConnectToMachines && (node instanceof TileEntityGenerator)) {     //TODO: Check if the node is a machine
-            return new StatusMessage(localize(NetworkMessages.MACHINES_CAN_NOT_CONNECTED), false);
+            return new StatusMessage(false, NetworkMessages.MACHINES_CAN_NOT_CONNECTED);
         } else if (this == node) {
-            return new StatusMessage(localize(NetworkMessages.SAME_NODE), false);
+            return new StatusMessage(false, NetworkMessages.SAME_NODE);
         } else if (networkNodes.contains(node)) {
-            return new StatusMessage(localize(NetworkMessages.ALREADY_CONNECTED), false);
+            return new StatusMessage(false, NetworkMessages.ALREADY_CONNECTED);
         }
         if (node instanceof TileEntity) {
             TileEntity te = (TileEntity) node;
             double distance = Math.sqrt(te.getDistanceSq(pos.getX(), pos.getY(), pos.getZ()));
             if (distance > (range / 2)) {
-                return new StatusMessage(localize(NetworkMessages.OUT_OF_RANGE), false);
+                return new StatusMessage(false, NetworkMessages.OUT_OF_RANGE);
             }
         }
         if(!isSecond) {
-            IStatusMessage message = node.connectToNode(this, true);
+            IStatusMessage message = node.connectToNode(this, true, simulate);
             if (!message.isSuccessful()) {
                 return message;
             }
         }
-        networkNodes.add(node);
-        return new StatusMessage(localize(NetworkMessages.SUCCESSFUL_CONNECTED), true);
+        if(!simulate) {
+            networkNodes.add(node);
+        }
+        return new StatusMessage(true, NetworkMessages.SUCCESSFUL_CONNECTED);
     }
 
     @Override
-    public IStatusMessage disconnectFromNode(INetworkNode node, boolean isSecond) {
+    public IStatusMessage disconnectFromNode(INetworkNode node, boolean isSecond, boolean simulate) {
         if (!networkNodes.contains(node)) {
-            return new StatusMessage(localize(NetworkMessages.NOT_CONNECTED), false);
+            return new StatusMessage(false, NetworkMessages.NOT_CONNECTED);
         }
         if(!isSecond) {
-            IStatusMessage message = node.disconnectFromNode(node, true);
+            IStatusMessage message = node.disconnectFromNode(node, true, simulate);
             if (!message.isSuccessful()) {
                 return message;
             }
         }
-        networkNodes.remove(node);
-        return new StatusMessage(localize(NetworkMessages.SUCCESSFUL_DISCONNECTED), true);
+        if(!simulate) {
+            networkNodes.remove(node);
+        }
+        return new StatusMessage(true, NetworkMessages.SUCCESSFUL_DISCONNECTED);
     }
 
     @Override
@@ -116,12 +120,12 @@ public abstract class TileEntityNetworkSwitch extends TileEntity implements INet
         List<INetworkNode> tempNodes = new ArrayList<>(networkNodes);
         for (INetworkNode node : tempNodes) {
             if (node instanceof INetworkSwitch) {
-                node.disconnectFromNode(this, true);
+                node.disconnectFromNode(this, true, false);
             } else {
                 node.disconnectFromNode();
             }
         }
-        return new StatusMessage(localize(NetworkMessages.SUCCESSFUL_DISCONNECTED), true);
+        return new StatusMessage(true, NetworkMessages.SUCCESSFUL_DISCONNECTED);
     }
 
     @Override

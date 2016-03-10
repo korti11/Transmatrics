@@ -11,7 +11,7 @@ import net.minecraft.world.World;
 public final class NetworkHandler {
 
     public static TileEntityController getController(World worldIn, BlockPos posIn) {
-        if(posIn != null) {
+        if(worldIn != null && posIn != null) {
             TileEntity te = worldIn.getTileEntity(posIn);
             if (te instanceof TileEntityController) {
                 return (TileEntityController) te;
