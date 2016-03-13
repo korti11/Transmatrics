@@ -111,8 +111,7 @@ public abstract class TileEntityNetworkSwitch extends TileEntity implements INet
         if(!simulate) {
             networkNodes.add(node);
             if (node.getController() != null && this.controller == null) {
-                controller = node.getController().getPos();
-                connectionPriority = node.getConnectionPriority() + 1;
+                this.connectToController(node.getController().getMaster().pos, node.getConnectionPriority() + 1);
             }
         }
         return new StatusMessage(true, NetworkMessages.SUCCESSFUL_CONNECTED);
@@ -131,6 +130,7 @@ public abstract class TileEntityNetworkSwitch extends TileEntity implements INet
         }
         if(!simulate) {
             networkNodes.remove(node);
+            node.disconnectFromController();
         }
         return new StatusMessage(true, NetworkMessages.SUCCESSFUL_DISCONNECTED);
     }
@@ -170,6 +170,28 @@ public abstract class TileEntityNetworkSwitch extends TileEntity implements INet
     @Override
     public int getConnectionPriority() {
         return connectionPriority;
+    }
+
+    @Override
+    public void connectToController(BlockPos controllerPos, int connectionPriority) {
+        controller = controllerPos;
+        this.connectionPriority = connectionPriority;
+        for (INetworkNode node : networkNodes) {
+            if (node.getController() == null) {
+                node.connectToController(controllerPos, connectionPriority + 1);
+            }
+        }
+    }
+
+    @Override
+    public void disconnectFromController() {
+        controller = null;
+        connectionPriority = 0;
+        for (INetworkNode node : networkNodes) {
+            if(node.getController() != null) {
+                node.disconnectFromController();
+            }
+        }
     }
 
     @Override

@@ -130,6 +130,18 @@ public abstract class TileEntityNetworkNode extends TileEntity implements INetwo
     }
 
     @Override
+    public void connectToController(BlockPos controllerPos, int connectionPriority) {
+        controller = controllerPos;
+        this.connectionPriority = connectionPriority;
+    }
+
+    @Override
+    public void disconnectFromController() {
+        controller = null;
+        connectionPriority = 0;
+    }
+
+    @Override
     public void writeNodeToNBT(NBTTagCompound tagCompound) {
         if (networkNode instanceof TileEntity) {
             TileEntity te = (TileEntity) networkNode;

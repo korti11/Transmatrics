@@ -2,6 +2,7 @@ package at.korti.transmatrics.api.network;
 
 import at.korti.transmatrics.tileentity.network.TileEntityController;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.BlockPos;
 
 /**
  * Created by Korti on 06.03.2016.
@@ -42,5 +43,9 @@ public interface INetworkNode {
     TileEntityController getController();
 
     int getConnectionPriority();
+
+    void connectToController(BlockPos controllerPos, int connectionPriority);
+
+    void disconnectFromController();
 
 }

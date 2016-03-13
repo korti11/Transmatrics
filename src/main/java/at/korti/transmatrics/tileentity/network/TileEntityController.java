@@ -1,8 +1,6 @@
 package at.korti.transmatrics.tileentity.network;
 
 import at.korti.transmatrics.api.Constants.*;
-import at.korti.transmatrics.api.energy.EnergyHandler;
-import at.korti.transmatrics.api.energy.IEnergyConsumer;
 import at.korti.transmatrics.api.network.INetworkNode;
 import at.korti.transmatrics.api.network.IStatusMessage;
 import at.korti.transmatrics.tileentity.TileEntityEnergySwitch;
@@ -18,6 +16,9 @@ import java.util.List;
  * Created by Korti on 08.03.2016.
  */
 public class TileEntityController extends TileEntityEnergySwitch {
+
+    //TODO: Change node connection of sub nodes if the controller size get changed.
+    //TODO: Update controller connection of sub nodes if controller size get changed.
 
     //Master
     private boolean isMaster;
