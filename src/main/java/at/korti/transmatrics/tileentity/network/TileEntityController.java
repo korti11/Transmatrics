@@ -109,6 +109,8 @@ public class TileEntityController extends TileEntityEnergySwitch {
         if(!simulate) {
             message = super.connectToNode(node, isSecond, false);
             if (message.isSuccessful()) {
+                node.disconnectFromController();
+                node.connectToController(pos, connectionPriority + 1);
                 return message;
             }
             TileEntityController master = getMaster();
@@ -120,10 +122,15 @@ public class TileEntityController extends TileEntityEnergySwitch {
                         if (controller != null) {
                             IStatusMessage subMessage = controller.superConnectToNode(node, false, false);   // Connect to the extension controller, if it is possible
                             if (subMessage.isSuccessful()) {        // If the node did connect to the extension controller, return a status with successful and a message with SUCCESSFUL_CONNECTED message. If not check the next extension controller.
+                                node.disconnectFromController();
+                                node.connectToController(controller.pos, controller.connectionPriority + 1);
                                 return subMessage;
                             }
                         }
                     }
+                } else {
+                    node.disconnectFromController();
+                    node.connectToController(master.pos, master.connectionPriority + 1);
                 }
             }
         }
@@ -323,9 +330,6 @@ public class TileEntityController extends TileEntityEnergySwitch {
                 // If the extension to remove is not the master, remove it from the extension list and
                 // set the master of the extension to null.
                 extensions.remove(tile.getPos());
-                for (INetworkNode node : tile.networkNodes) {
-                    connectToNode(node, false, false);
-                }
                 tile.master = null;
             } else if(extensions.size() > 0) {
                 // If the extension to remove is the master and there are other extension, take the first,
@@ -335,9 +339,7 @@ public class TileEntityController extends TileEntityEnergySwitch {
                 TileEntityController newMaster = getController(extensions.get(0));
                 newMaster.setIsMaster();
                 newMaster.modifyEnergy(this.getEnergyStored());
-//                newMaster.networkNodes.addAll(this.networkNodes);
                 for (INetworkNode node : networkNodes) {
-//                    node.connectToNode(newMaster, true, false);
                     newMaster.connectToNode(node, false, false);
                 }
                 for (int i = 1; i < extensions.size(); i++) {

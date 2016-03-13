@@ -1,6 +1,7 @@
 package at.korti.transmatrics.block.network;
 
 import at.korti.transmatrics.api.Constants.TransmatricsBlock;
+import at.korti.transmatrics.api.network.INetworkNode;
 import at.korti.transmatrics.api.network.NetworkHandler;
 import at.korti.transmatrics.block.MachineBlock;
 import at.korti.transmatrics.tileentity.network.TileEntityController;
@@ -12,6 +13,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -57,13 +59,18 @@ public class Controller extends MachineBlock{
 
     @Override
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-        TileEntity te = worldIn.getTileEntity(pos);
-        if (te instanceof TileEntityController) {
-            ((TileEntityController) te).removeExtension();
-        }
+        TileEntityController controller = NetworkHandler.getController(worldIn, pos);
+        TileEntityController master = controller.getMaster();
+        List<INetworkNode> connectedNodes = new LinkedList<>(controller.getConnections());
+        controller.removeExtension();
         super.breakBlock(worldIn, pos, state);
+        if (master != null) {
+            for (INetworkNode node : connectedNodes) {
+                master.connectToNode(node, false, false);
+            }
+        }
         BlockPos neighbor = WorldHelper.hasNeighbor(worldIn, pos, TransmatricsBlock.CONTROLLER.getBlock());
-        TileEntityController controller = NetworkHandler.getController(worldIn, neighbor);
+        controller = NetworkHandler.getController(worldIn, neighbor);
         if (controller != null) {
             controller.validateConstruction();
         }
