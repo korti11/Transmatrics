@@ -127,6 +127,35 @@ public class TileEntityController extends TileEntityEnergySwitch {
     }
 
     @Override
+    public IStatusMessage disconnectFromNode(INetworkNode node, boolean isSecond, boolean simulate) {
+        if (isMaster) {
+            IStatusMessage message = super.disconnectFromNode(node, isSecond, simulate);
+            if (message.isSuccessful()) {
+                return message;
+            }
+            for (BlockPos extension : extensions) {
+                TileEntityController controller = getController(extension);
+                if (controller != null) {
+                    IStatusMessage subMessage = controller.extDisconnectFromNode(node, isSecond, simulate);
+                    if (subMessage.isSuccessful()) {
+                        return subMessage;
+                    }
+                }
+            }
+            return message;
+        } else {
+            return getMaster().disconnectFromNode(node, isSecond, simulate);
+        }
+    }
+
+    private IStatusMessage extDisconnectFromNode(INetworkNode node, boolean isSecond, boolean simulate) {
+        if (!isMaster) {
+            return super.disconnectFromNode(node, isSecond, simulate);
+        }
+        return null;
+    }
+
+    @Override
     public int getNetworkConnections() {
         if (isMaster) {
             int connections = super.getNetworkConnections();
