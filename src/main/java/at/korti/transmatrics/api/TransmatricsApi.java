@@ -41,10 +41,4 @@ public final class TransmatricsApi {
         return getFluid(fluid.getRegName());
     }
 
-    public static void transferEnergy(IEnergyProvider provider, IEnergyConsumer consumer) {
-        int energy = provider.extractEnergy(provider.getEnergyStored(), true);
-        energy = consumer.receiveEnergy(energy, false);
-        provider.extractEnergy(energy, false);
-    }
-
 }

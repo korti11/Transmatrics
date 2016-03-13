@@ -1,5 +1,6 @@
 package at.korti.transmatrics.api.network;
 
+import at.korti.transmatrics.tileentity.network.TileEntityController;
 import net.minecraft.nbt.NBTTagCompound;
 
 /**
@@ -37,5 +38,9 @@ public interface INetworkNode {
      * @return Get the connected network node.
      */
     INetworkNode getConnection();
+
+    TileEntityController getController();
+
+    int getConnectionPriority();
 
 }

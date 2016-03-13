@@ -3,6 +3,7 @@ package at.korti.transmatrics.tileentity;
 import at.korti.transmatrics.api.Constants.NBT;
 import at.korti.transmatrics.api.Constants.NetworkMessages;
 import at.korti.transmatrics.api.network.*;
+import at.korti.transmatrics.tileentity.network.TileEntityController;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
@@ -29,6 +30,8 @@ public abstract class TileEntityNetworkSwitch extends TileEntity implements INet
     protected final int range;
     private NBTTagCompound tempCompound;
     private boolean isLoaded = false;
+    private BlockPos controller;
+    protected int connectionPriority;
 
     public TileEntityNetworkSwitch(int maxConnections, boolean canConnectToMachines, int range) {
         this.networkNodes = new ArrayList<>();
@@ -41,12 +44,25 @@ public abstract class TileEntityNetworkSwitch extends TileEntity implements INet
     public void writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
         writeNodeToNBT(compound);
+        compound.setInteger(NBT.CONNECTION_PRIORITY, getConnectionPriority());
+        if(controller != null) {
+            compound.setInteger(NBT.CONTROLLER_X, controller.getX());
+            compound.setInteger(NBT.CONTROLLER_Y, controller.getY());
+            compound.setInteger(NBT.CONTROLLER_Z, controller.getZ());
+        }
     }
 
     @Override
     public void readFromNBT(NBTTagCompound compound) {
         super.readFromNBT(compound);
         tempCompound = compound;
+        connectionPriority = compound.getInteger(NBT.CONNECTION_PRIORITY);
+        if(compound.hasKey(NBT.CONTROLLER_X)) {
+            int x = compound.getInteger(NBT.CONTROLLER_X);
+            int y = compound.getInteger(NBT.CONTROLLER_Y);
+            int z = compound.getInteger(NBT.CONTROLLER_Z);
+            controller = new BlockPos(x, y, z);
+        }
     }
 
     @Override
@@ -94,6 +110,10 @@ public abstract class TileEntityNetworkSwitch extends TileEntity implements INet
         }
         if(!simulate) {
             networkNodes.add(node);
+            if (node.getController() != null && this.controller == null) {
+                controller = node.getController().getPos();
+                connectionPriority = node.getConnectionPriority() + 1;
+            }
         }
         return new StatusMessage(true, NetworkMessages.SUCCESSFUL_CONNECTED);
     }
@@ -136,6 +156,20 @@ public abstract class TileEntityNetworkSwitch extends TileEntity implements INet
     @Override
     public INetworkNode getConnection() {
         throw new UnsupportedOperationException("Method getConnection is not allowed in class TileEntityNetworkSwitch");
+    }
+
+    public TileEntityController getController(BlockPos pos) {
+        return NetworkHandler.getController(worldObj, pos);
+    }
+
+    @Override
+    public TileEntityController getController() {
+        return getController(controller);
+    }
+
+    @Override
+    public int getConnectionPriority() {
+        return connectionPriority;
     }
 
     @Override

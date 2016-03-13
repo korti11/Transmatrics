@@ -43,13 +43,17 @@ public final class Constants {
         public static final String NETWORK_NODES = "network_nodes";
         public static final String CLEAR_STORED_NETWORK = "clear_stored_network";
         public static final String NETWORK_CONNECTED = "network_connected";
+        public static final String CONNECTION_PRIORITY = "connection_priority";
+        public static final String CONTROLLER_X = "cx";
+        public static final String CONTROLLER_Y = "cy";
+        public static final String CONTROLLER_Z = "cz";
 
         //Controller
         public static final String IS_MASTER = "is_master";
         public static final String CONTROLLER_EXTENSIONS = "controller_extensions";
-        public static final String CONTROLLER_X = "cx";
-        public static final String CONTROLLER_Y = "cy";
-        public static final String CONTROLLER_Z = "cz";
+        public static final String EXT_CONTROLLER_X = "ecx";
+        public static final String EXT_CONTROLLER_Y = "ecy";
+        public static final String EXT_CONTROLLER_Z = "ecz";
     }
 
     public static class NetworkMessages{

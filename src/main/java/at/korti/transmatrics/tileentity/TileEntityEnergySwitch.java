@@ -1,10 +1,7 @@
 package at.korti.transmatrics.tileentity;
 
 import at.korti.transmatrics.api.TransmatricsApi;
-import at.korti.transmatrics.api.energy.EnergyStorage;
-import at.korti.transmatrics.api.energy.IEnergyConsumer;
-import at.korti.transmatrics.api.energy.IEnergyHandler;
-import at.korti.transmatrics.api.energy.IEnergyInfo;
+import at.korti.transmatrics.api.energy.*;
 import at.korti.transmatrics.api.network.INetworkNode;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -47,12 +44,12 @@ public abstract class TileEntityEnergySwitch extends TileEntityNetworkSwitch imp
             for (INetworkNode node : networkNodes) {
                 if (node instanceof IEnergyConsumer) {
                     IEnergyConsumer consumer = (IEnergyConsumer) node;
-                    if (node instanceof TileEntityEnergySwitch) {
+                    if (node.getConnectionPriority() > this.getConnectionPriority()) {
                         if (consumer.getMaxEnergyStored() - consumer.getEnergyStored() <= energyStorage.getMaxEnergyStored() - energyStorage.getEnergyStored()) {
                             continue;
                         }
+                        EnergyHandler.transferEnergy(this, consumer);
                     }
-                    TransmatricsApi.transferEnergy(this, consumer);
                 }
             }
         }
