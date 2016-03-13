@@ -17,7 +17,6 @@ import java.util.List;
  */
 public class TileEntityController extends TileEntityEnergySwitch {
 
-    //TODO: Change node connection of sub nodes if the controller size get changed.
     //TODO: Update controller connection of sub nodes if controller size get changed.
 
     //Master
@@ -40,10 +39,10 @@ public class TileEntityController extends TileEntityEnergySwitch {
     @Override
     public void writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
-        compound.setBoolean(NBT.IS_MASTER, isMaster);
-        if (isMaster) {
+        compound.setBoolean(NBT.IS_MASTER, isMaster);       // Set if it is the master controller tile entity.
+        if (isMaster) {         // Check if it is the master controller.
             NBTTagList extensions = new NBTTagList();
-            for (BlockPos extension : this.extensions) {
+            for (BlockPos extension : this.extensions) {        // Write all extensions to the nbt data.
                 NBTTagCompound extensionCompound = new NBTTagCompound();
                 extensionCompound.setInteger(NBT.EXT_CONTROLLER_X, extension.getX());
                 extensionCompound.setInteger(NBT.EXT_CONTROLLER_Y, extension.getY());
@@ -51,7 +50,7 @@ public class TileEntityController extends TileEntityEnergySwitch {
                 extensions.appendTag(extensionCompound);
             }
             compound.setTag(NBT.CONTROLLER_EXTENSIONS, extensions);
-        } else if(master != null) {
+        } else if(master != null) {     // If it is not the master controller and the master variable is not null save the master to the nbt data.
             compound.setInteger(NBT.EXT_CONTROLLER_X, master.getX());
             compound.setInteger(NBT.EXT_CONTROLLER_Y, master.getY());
             compound.setInteger(NBT.EXT_CONTROLLER_Z, master.getZ());
@@ -61,18 +60,18 @@ public class TileEntityController extends TileEntityEnergySwitch {
     @Override
     public void readFromNBT(NBTTagCompound compound) {
         super.readFromNBT(compound);
-        boolean isMaster = compound.getBoolean(NBT.IS_MASTER);
-        if (isMaster) {
+        boolean isMaster = compound.getBoolean(NBT.IS_MASTER);      // Get if it is tha master controller tile entity.
+        if (isMaster) {     // Check if it is the master controller.
             this.isMaster = true;
             NBTTagList extensions = compound.getTagList(NBT.CONTROLLER_EXTENSIONS, 10);
-            for (int i = 0; i < extensions.tagCount(); i++) {
+            for (int i = 0; i < extensions.tagCount(); i++) {       // Read all extensions from the nbt data.
                 NBTTagCompound extensionCompound = extensions.getCompoundTagAt(i);
                 this.extensions.add(new BlockPos(extensionCompound.getInteger(NBT.EXT_CONTROLLER_X),
                         extensionCompound.getInteger(NBT.EXT_CONTROLLER_Y),
                         extensionCompound.getInteger(NBT.EXT_CONTROLLER_Z)));
             }
-        } else if(compound.hasKey(NBT.EXT_CONTROLLER_X)) {
-            master = new BlockPos(compound.getInteger(NBT.EXT_CONTROLLER_X),
+        } else if(compound.hasKey(NBT.EXT_CONTROLLER_X)) {      // Check if there is the key EXT_CONTROLLER_X(ecx)
+            master = new BlockPos(compound.getInteger(NBT.EXT_CONTROLLER_X),      // Read the master controller from the nbt data.
                     compound.getInteger(NBT.EXT_CONTROLLER_Y),
                     compound.getInteger(NBT.EXT_CONTROLLER_Z));
         }
@@ -82,8 +81,9 @@ public class TileEntityController extends TileEntityEnergySwitch {
     //region Tile Entity Network Switch
     @Override
     public IStatusMessage connectToNode(INetworkNode node, boolean isSecond, boolean simulate) {
+        IStatusMessage message;
         if(isMaster) {
-            IStatusMessage message = super.connectToNode(node, isSecond, true);     // Check if the node can connect to the master controller
+            message = super.connectToNode(node, isSecond, true);     // Check if the node can connect to the master controller
             if (!message.isSuccessful() &&
                     !message.getUnlocalizedMessage().equals(NetworkMessages.MAX_CONNECTIONS) &&
                     !message.getUnlocalizedMessage().equals(NetworkMessages.OUT_OF_RANGE)) {        // If the node can't connect and the message is not MAX_CONNECTIONS and OUT_OF_RANGE
@@ -92,7 +92,7 @@ public class TileEntityController extends TileEntityEnergySwitch {
             for (BlockPos extension : extensions) {     // Check if the node can't connect to one of the extensions
                 TileEntityController controller = getController(extension);
                 if (controller != null) {
-                    IStatusMessage subMessage = controller.extConnectToNode(node, isSecond, true);      // Check if the node can connect to the extension controller
+                    IStatusMessage subMessage = controller.superConnectToNode(node, isSecond, true);      // Check if the node can connect to the extension controller
                     if (!subMessage.isSuccessful() &&
                             !subMessage.getUnlocalizedMessage().equals(NetworkMessages.MAX_CONNECTIONS) &&
                             !subMessage.getUnlocalizedMessage().equals(NetworkMessages.OUT_OF_RANGE)) {     // If the node can't connect and the message is not MAX_CONNECTIONS and OUT_OF_RANGE
@@ -100,13 +100,25 @@ public class TileEntityController extends TileEntityEnergySwitch {
                     }
                 }
             }
-            if(!simulate) {
-                message = super.connectToNode(node, isSecond, false);       // Connect to the master controller, if it is possible
+        } else {
+            message = getMaster().connectToNode(node, isSecond, true);
+            if (!message.isSuccessful()) {
+                return message;
+            }
+        }
+        if(!simulate) {
+            message = super.connectToNode(node, isSecond, false);
+            if (message.isSuccessful()) {
+                return message;
+            }
+            TileEntityController master = getMaster();
+            if(master != null) {
+                message = master.superConnectToNode(node, false, false);       // Connect to the master controller, if it is possible
                 if(!message.isSuccessful()) {       // If the node didn't connect to the master controller check the extension controllers
                     for (BlockPos extension : extensions) {
                         TileEntityController controller = getController(extension);
                         if (controller != null) {
-                            IStatusMessage subMessage = controller.extConnectToNode(node, isSecond, false);   // Connect to the extension controller, if it is possible
+                            IStatusMessage subMessage = controller.superConnectToNode(node, false, false);   // Connect to the extension controller, if it is possible
                             if (subMessage.isSuccessful()) {        // If the node did connect to the extension controller, return a status with successful and a message with SUCCESSFUL_CONNECTED message. If not check the next extension controller.
                                 return subMessage;
                             }
@@ -114,26 +126,22 @@ public class TileEntityController extends TileEntityEnergySwitch {
                     }
                 }
             }
-            return message;         //Return a status if the node is connected
-        } else {
-            return getMaster().connectToNode(node, isSecond, simulate);
         }
+        return message;
     }
 
-    private IStatusMessage extConnectToNode(INetworkNode node, boolean isSecond, boolean simulate) {
-        if (!isMaster) {
-            return super.connectToNode(node, isSecond, simulate);
-        }
-        return null;
+    private IStatusMessage superConnectToNode(INetworkNode node, boolean isSecond, boolean simulate) {
+        return super.connectToNode(node, isSecond, simulate);
     }
 
     @Override
     public IStatusMessage disconnectFromNode(INetworkNode node, boolean isSecond, boolean simulate) {
         if (isMaster) {
             IStatusMessage message = super.disconnectFromNode(node, isSecond, simulate);
-            if (message.isSuccessful()) {
+            if (message.isSuccessful()) {  // If the disconnect was successful return the message.
                 return message;
             }
+            // Iterate over all extensions and try disconnect the node from one of the extensions.
             for (BlockPos extension : extensions) {
                 TileEntityController controller = getController(extension);
                 if (controller != null) {
@@ -159,6 +167,7 @@ public class TileEntityController extends TileEntityEnergySwitch {
     @Override
     public int getNetworkConnections() {
         if (isMaster) {
+            // Calculate the connections of all tile entities.
             int connections = super.getNetworkConnections();
             for (BlockPos extension : extensions) {
                 TileEntityController controller = getController(extension);
@@ -175,6 +184,7 @@ public class TileEntityController extends TileEntityEnergySwitch {
     @Override
     public int getMaxNetworkConnections() {
         if (isMaster) {
+            // Calculate the max connection of all tile entities.
             int connections = super.getMaxNetworkConnections();
             for (BlockPos extension : extensions) {
                 TileEntityController controller = getController(extension);
@@ -204,7 +214,9 @@ public class TileEntityController extends TileEntityEnergySwitch {
     public int receiveEnergy(int energy, boolean simulate) {
         if (isMaster) {
             int received = super.receiveEnergy(energy, simulate);
+            // Calculate the left energy.
             int leftEnergy = energy - received;
+            // Iterate over all extensions and store the left energy in them.
             for (BlockPos extension : extensions) {
                 TileEntityController controller = getController(extension);
                 if (controller != null) {
@@ -229,7 +241,9 @@ public class TileEntityController extends TileEntityEnergySwitch {
     public int extractEnergy(int energy, boolean simulate) {
         if (isMaster) {
             int extract = super.extractEnergy(energy, simulate);
+            // Calculate the left energy.
             int leftEnergy = energy - extract;
+            // Iterate over all extensions and extract the left energy of them.
             for (BlockPos extension : extensions) {
                 TileEntityController controller = getController(extension);
                 if (controller != null) {
@@ -253,6 +267,7 @@ public class TileEntityController extends TileEntityEnergySwitch {
     @Override
     public int getEnergyStored() {
         if(isMaster) {
+            // Calculate the stored energy of all tile entities.
             int energy = energyStorage.getEnergyStored();
             for (BlockPos extension : extensions) {
                 TileEntityController controller = getController(extension);
@@ -269,6 +284,7 @@ public class TileEntityController extends TileEntityEnergySwitch {
     @Override
     public int getMaxEnergyStored() {
         if (isMaster) {
+            // Calculate the capacity of all tile entities.
             int capacity = energyStorage.getMaxEnergyStored();
             for (BlockPos extension : extensions) {
                 TileEntityController controller = getController(extension);
@@ -291,6 +307,7 @@ public class TileEntityController extends TileEntityEnergySwitch {
 
     public TileEntityController addExtensions(TileEntityController tile) {
         if(this.isMaster) {
+            // Add the extension and set the master of the extension.
             extensions.add(tile.pos);
             tile.master = this.pos;
         } else {
@@ -303,15 +320,25 @@ public class TileEntityController extends TileEntityEnergySwitch {
     public TileEntityController removeExtension(TileEntityController tile) {
         if (isMaster) {
             if(tile != this) {
+                // If the extension to remove is not the master, remove it from the extension list and
+                // set the master of the extension to null.
                 extensions.remove(tile.getPos());
+                for (INetworkNode node : tile.networkNodes) {
+                    connectToNode(node, false, false);
+                }
                 tile.master = null;
             } else if(extensions.size() > 0) {
+                // If the extension to remove is the master and there are other extension, take the first,
+                // set it to the new master, transfer the energy to it, transfer the connected nodes,
+                // connect the connected nodes to the new node, set the extensions new master and
+                // add the extensions to the new master.
                 TileEntityController newMaster = getController(extensions.get(0));
                 newMaster.setIsMaster();
                 newMaster.modifyEnergy(this.getEnergyStored());
-                newMaster.networkNodes.addAll(this.networkNodes);
-                for (INetworkNode node : newMaster.networkNodes) {
-                    node.connectToNode(newMaster, true, false);
+//                newMaster.networkNodes.addAll(this.networkNodes);
+                for (INetworkNode node : networkNodes) {
+//                    node.connectToNode(newMaster, true, false);
+                    newMaster.connectToNode(node, false, false);
                 }
                 for (int i = 1; i < extensions.size(); i++) {
                     getController(extensions.get(i)).master = newMaster.getPos();
