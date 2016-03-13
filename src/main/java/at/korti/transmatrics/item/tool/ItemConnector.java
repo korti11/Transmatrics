@@ -1,12 +1,16 @@
 package at.korti.transmatrics.item.tool;
 
+import at.korti.transmatrics.api.Constants;
 import at.korti.transmatrics.api.Constants.NBT;
+import at.korti.transmatrics.api.Constants.ToolTips;
 import at.korti.transmatrics.api.Constants.TransmatricsItem;
 import at.korti.transmatrics.api.network.INetworkNode;
 import at.korti.transmatrics.api.network.INetworkSwitch;
 import at.korti.transmatrics.api.network.IStatusMessage;
 import at.korti.transmatrics.item.ModItem;
 import at.korti.transmatrics.util.helper.MessageHelper;
+import at.korti.transmatrics.util.helper.TextHelper;
+import at.korti.transmatrics.util.helper.WorldHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -15,6 +19,8 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 /**
  * Created by Korti on 06.03.2016.
@@ -25,6 +31,20 @@ public class ItemConnector extends ModItem {
         super(TransmatricsItem.CONNECTOR.getRegName(), EnumChatFormatting.YELLOW);
 
         setMaxStackSize(1);
+    }
+
+    @Override
+    public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
+        super.addInformation(stack, playerIn, tooltip, advanced);
+
+        NBTTagCompound compound = stack.getTagCompound();
+        if(compound != null && compound.hasKey(NBT.NETWORK_BLOCK_NAME)) {
+            BlockPos blockPos = new BlockPos(compound.getInteger(NBT.NETWORK_X), compound.getInteger(NBT.NETWORK_Y),
+                    compound.getInteger(NBT.NETWORK_Z));
+            String localizedName = TextHelper.localize(compound.getString(NBT.NETWORK_BLOCK_NAME));
+            tooltip.add(TextHelper.localize(ToolTips.CONNECTION_NAME, localizedName));
+            tooltip.add(TextHelper.localize(ToolTips.CONNECTION_POS, blockPos.getX(), blockPos.getY(), blockPos.getZ()));
+        }
     }
 
     @Override
@@ -58,6 +78,7 @@ public class ItemConnector extends ModItem {
                         stack.setTagCompound(new NBTTagCompound());
                     }
                     networkNode.writeSelfToNBT(stack.getTagCompound());
+                    stack.getTagCompound().setString(NBT.NETWORK_BLOCK_NAME, WorldHelper.getBlock(world, pos).getUnlocalizedName() + ".name");
                     stack.getTagCompound().setBoolean(NBT.CLEAR_STORED_NETWORK, false);
                 }
             }

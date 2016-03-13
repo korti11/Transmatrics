@@ -40,6 +40,7 @@ public final class Constants {
         public static final String NETWORK_X = "nx";
         public static final String NETWORK_Y = "ny";
         public static final String NETWORK_Z = "nz";
+        public static final String NETWORK_BLOCK_NAME = "network_block_name";
         public static final String NETWORK_NODES = "network_nodes";
         public static final String CLEAR_STORED_NETWORK = "clear_stored_network";
         public static final String NETWORK_CONNECTED = "network_connected";
@@ -67,6 +68,12 @@ public final class Constants {
         public static final String OUT_OF_RANGE = "network.out_of_range.message";
         public static final String SAME_NODE = "network.same_node.message";
         public static final String ALREADY_CONNECTED = "network.already_connected.message";
+    }
+
+    public static class ToolTips{
+        //Connector
+        public static final String CONNECTION_NAME = "tooltip.connector.connection.name";
+        public static final String CONNECTION_POS = "tooltip.connector.connection.pos";
     }
 
     public static class Energy{
