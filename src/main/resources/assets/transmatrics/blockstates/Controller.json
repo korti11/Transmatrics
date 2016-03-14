@@ -1,0 +1,22 @@
+{
+  "forge_marker": 1,
+  "variants": {
+    "facing": {
+      "north": {
+        "model": "transmatrics:Controller"
+      },
+      "south": {
+        "model": "transmatrics:Controller",
+        "y": 180
+      },
+      "west": {
+        "model": "transmatrics:Controller",
+        "y": 270
+      },
+      "east": {
+        "model": "transmatrics:Controller",
+        "y": 90
+      }
+    }
+  }
+}
