@@ -18,6 +18,7 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Created by Korti on 24.02.2016.
@@ -30,6 +31,8 @@ public class Transmatrics {
 
     @SidedProxy(clientSide = Constants.Mod.CLIENT_PROXY, serverSide = Constants.Mod.COMMON_PROXY)
     public static CommonProxy proxy;
+
+    public static Logger logger;
 
     static {
         FluidRegistry.enableUniversalBucket();
@@ -44,6 +47,7 @@ public class Transmatrics {
 
     @Mod.EventHandler
     public static void preInit(FMLPreInitializationEvent event) {
+        logger = event.getModLog();
         ModIntegrationManager.initManager();
         Items.registerItems();
         Blocks.registerBlocks();
