@@ -17,8 +17,6 @@ import java.util.List;
  */
 public class TileEntityController extends TileEntityEnergySwitch {
 
-    //TODO: Update controller connection of sub nodes if controller size get changed.
-
     //Master
     private boolean isMaster;
     private List<BlockPos> extensions;

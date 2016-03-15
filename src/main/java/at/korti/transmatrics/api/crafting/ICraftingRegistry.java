@@ -12,6 +12,8 @@ public interface ICraftingRegistry {
 
     ICraftingEntry get(int index);
 
+    ICraftingEntry get(ItemStack... inputs);
+
     ICraftingEntry remove(int index);
 
     boolean remove(ICraftingEntry entry);

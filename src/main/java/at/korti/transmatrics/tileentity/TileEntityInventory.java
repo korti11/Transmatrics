@@ -18,13 +18,14 @@ import net.minecraft.util.IChatComponent;
 /**
  * Created by Korti on 25.02.2016.
  */
-public abstract class TileEntityInventory extends TileEntity implements IInventory{
+public abstract class TileEntityInventory extends TileEntityEnergyNode implements IInventory{
 
     private ItemStack[] inventory;
     private int stackLimit;
     private String name;
 
-    protected TileEntityInventory(int inventorySize, int stackLimit, String name) {
+    protected TileEntityInventory(int capacity, int maxReceive, int inventorySize, int stackLimit, String name) {
+        super(capacity, maxReceive, 0);
         this.inventory = new ItemStack[inventorySize];
         this.stackLimit = stackLimit;
         this.name = name;
