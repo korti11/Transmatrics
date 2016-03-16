@@ -29,6 +29,12 @@ public abstract class ActiveMachineBlock extends MachineBlock {
     }
 
     @Override
+    public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
+        super.onBlockAdded(worldIn, pos, state);
+        setState(false, worldIn, pos);
+    }
+
+    @Override
     protected BlockState createBlockState() {
         BlockState superState = super.createBlockState();
         IProperty[] properties = new IProperty[superState.getProperties().size() + 1];

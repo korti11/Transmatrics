@@ -12,6 +12,7 @@ tile.Transmatrics.SmallSwitch.name=Small Switch
 tile.Transmatrics.MediumSwitch.name=Medium Switch
 tile.Transmatrics.LargeSwitch.name=Large Switch
 tile.Transmatrics.Controller.name=Controller
+tile.Transmatrics.Pulverizer.name=Pulverizer
 
 #Items
 item.Transmatrics.Wrench.name=Wrench

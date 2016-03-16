@@ -116,14 +116,13 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
                     this.craftingTime = 0;
                     this.efficiency = Math.max(efficiency - 1, 0);
                 }
-
-                if (isCrafting && !ActiveMachineBlock.isActive(worldObj, pos)) {
-                    markDirty = true;
-                    ActiveMachineBlock.setState(true, this.worldObj, this.pos);
-                } else if(ActiveMachineBlock.isActive(worldObj, pos)) {
-                    markDirty = true;
-                    ActiveMachineBlock.setState(false, this.worldObj, this.pos);
-                }
+            }
+            if (isCrafting && !ActiveMachineBlock.isActive(worldObj, pos)) {
+                markDirty = true;
+                ActiveMachineBlock.setState(true, this.worldObj, this.pos);
+            } else if(!isCrafting && ActiveMachineBlock.isActive(worldObj, pos)) {
+                markDirty = true;
+                ActiveMachineBlock.setState(false, this.worldObj, this.pos);
             }
         }
 
