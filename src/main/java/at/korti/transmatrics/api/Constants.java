@@ -143,6 +143,7 @@ public final class Constants {
         //Pulverizer
         public static final int PULVERIZER_CAPACITY = 5000;
         public static final int PULVERIZER_RECEIVE = 500;
+        public static final int PULVERIZER_ENERGY_USE = 25;
     }
 
     public static class Tanks{

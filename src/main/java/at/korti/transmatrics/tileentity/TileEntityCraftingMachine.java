@@ -17,10 +17,12 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
     protected ICraftingRegistry craftingRegistry;
     private int craftingTime;
     private int totalCraftingTime;
+    protected int energyUse;
 
-    protected TileEntityCraftingMachine(int capacity, int maxReceive, String name, ICraftingRegistry registry) {
+    protected TileEntityCraftingMachine(int capacity, int maxReceive, int energyUse, String name, ICraftingRegistry registry) {
         super(capacity, maxReceive, registry.inventorySize(), registry.getStackLimit(), name);
         this.craftingRegistry = registry;
+        this.energyUse = energyUse;
     }
 
     @Override
@@ -89,9 +91,10 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
         }
 
         if (!this.worldObj.isRemote) {
-            if (canProvideEnergy() && !areInputSlotsEmpty()) {
+            if (this.energyStorage.getEnergyStored() - energyUse >= 0 && !areInputSlotsEmpty()) {
                 if (canCraft()) {
                     this.craftingTime++;
+                    this.energyStorage.modifyEnergy(-energyUse);
                     isCrafting = true;
                     if (this.craftingTime == this.totalCraftingTime) {
                         this.craftingTime = 0;
