@@ -1,5 +1,6 @@
 package at.korti.transmatrics.registry;
 
+import at.korti.transmatrics.block.crafting.Pulverizer;
 import at.korti.transmatrics.block.generator.*;
 import at.korti.transmatrics.block.network.Controller;
 import at.korti.transmatrics.block.network.LargeSwitch;
@@ -10,6 +11,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+
+import static net.minecraftforge.fml.common.registry.GameRegistry.registerBlock;
 
 /**
  * Created by Korti on 01.03.2016.
@@ -27,19 +30,21 @@ public final class Blocks {
     private static MediumSwitch mediumSwitch;
     private static LargeSwitch largeSwitch;
     private static Controller controller;
+    private static Pulverizer pulverizer;
 
     public static void registerBlocks() {
-        GameRegistry.registerBlock(solarPanel = new SolarPanel());
-        GameRegistry.registerBlock(advancedSolarPanel = new AdvancedSolarPanel());
-        GameRegistry.registerBlock(lavaGenerator = new LavaGenerator());
-        GameRegistry.registerBlock(thermalGenerator = new ThermalGenerator());
-        GameRegistry.registerBlock(hydrogenGenerator = new HydrogenGenerator());
-        GameRegistry.registerBlock(windmill = new Windmill());
-        GameRegistry.registerBlock(watermill = new Watermill());
-        GameRegistry.registerBlock(smallSwitch = new SmallSwitch());
-        GameRegistry.registerBlock(mediumSwitch = new MediumSwitch());
-        GameRegistry.registerBlock(largeSwitch = new LargeSwitch());
-        GameRegistry.registerBlock(controller = new Controller());
+        registerBlock(solarPanel = new SolarPanel());
+        registerBlock(advancedSolarPanel = new AdvancedSolarPanel());
+        registerBlock(lavaGenerator = new LavaGenerator());
+        registerBlock(thermalGenerator = new ThermalGenerator());
+        registerBlock(hydrogenGenerator = new HydrogenGenerator());
+        registerBlock(windmill = new Windmill());
+        registerBlock(watermill = new Watermill());
+        registerBlock(smallSwitch = new SmallSwitch());
+        registerBlock(mediumSwitch = new MediumSwitch());
+        registerBlock(largeSwitch = new LargeSwitch());
+        registerBlock(controller = new Controller());
+        registerBlock(pulverizer = new Pulverizer());
     }
 
     public static void registerBlockTextures() {
@@ -54,6 +59,7 @@ public final class Blocks {
         registerBlockTexture(mediumSwitch);
         registerBlockTexture(largeSwitch);
         registerBlockTexture(controller);
+        registerBlockTexture(pulverizer);
     }
 
     private static void registerBlockTexture(Block block) {

@@ -16,8 +16,8 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
     private int craftingTime;
     private int totalCraftingTime;
 
-    protected TileEntityCraftingMachine(int capacity, int maxReceive, int inventorySize, int stackLimit, String name, ICraftingRegistry registry) {
-        super(capacity, maxReceive, inventorySize, stackLimit, name);
+    protected TileEntityCraftingMachine(int capacity, int maxReceive, String name, ICraftingRegistry registry) {
+        super(capacity, maxReceive, registry.inventorySize(), registry.getStackLimit(), name);
         this.craftingRegistry = registry;
     }
 

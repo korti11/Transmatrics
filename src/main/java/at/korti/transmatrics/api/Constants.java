@@ -135,6 +135,10 @@ public final class Constants {
         //Controller
         public static final int CONTROLLER_CAPACITY = 20000;
         public static final int CONTROLLER_TRANSFER = 1000;
+
+        //Pulverizer
+        public static final int PULVERIZER_CAPACITY = 5000;
+        public static final int PULVERIZER_RECEIVE = 500;
     }
 
     public static class Tanks{
@@ -169,6 +173,10 @@ public final class Constants {
         public static final int CONTROLLER_RANGE = 32;
     }
 
+    public static class GuiIds{
+        public static int PULVERIZER_GUI_ID = 0;
+    }
+
     public enum TransmatricsBlock {
         SOLAR_PANEL("SolarPanel"),
         ADVANCED_SOLAR_PANEL("AdvancedSolarPanel"),
@@ -180,7 +188,8 @@ public final class Constants {
         SMALL_SWITCH("SmallSwitch"),
         MEDIUM_SWITCH("MediumSwitch"),
         LARGE_SWITCH("LargeSwitch"),
-        CONTROLLER("Controller");
+        CONTROLLER("Controller"),
+        PULVERIZER("Pulverizer");
 
         private final String regName;
 
@@ -227,7 +236,8 @@ public final class Constants {
         SMALL_SWITCH("TileSmallSwitch"),
         MEDIUM_SWITCH("TileMediumSwitch"),
         LARGE_SWITCH("TileLargeSwitch"),
-        CONTROLLER("TileController");
+        CONTROLLER("TileController"),
+        PULVERIZER("TilePulverizer");
 
         private final String regName;
 

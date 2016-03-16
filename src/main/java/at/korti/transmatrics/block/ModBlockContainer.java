@@ -16,7 +16,7 @@ import net.minecraft.world.World;
  */
 public abstract class ModBlockContainer extends BlockContainer {
 
-    private Class<? extends TileEntity> tileEntityClass;
+    protected final Class<? extends TileEntity> tileEntityClass;
 
     protected ModBlockContainer(Material material, MapColor mapColor, String name, Class<? extends TileEntity> tileEntityClass) {
         super(material, mapColor);
