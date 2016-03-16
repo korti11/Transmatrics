@@ -1,17 +1,11 @@
 package at.korti.transmatrics.client.gui;
 
-import at.korti.transmatrics.api.Constants;
 import at.korti.transmatrics.api.Constants.Mod;
-import at.korti.transmatrics.api.energy.IEnergyConsumer;
-import at.korti.transmatrics.api.energy.IEnergyHandler;
-import at.korti.transmatrics.api.energy.IEnergyProducer;
-import at.korti.transmatrics.api.energy.IEnergyProvider;
 import at.korti.transmatrics.tileentity.TileEntityCraftingMachine;
 import at.korti.transmatrics.tileentity.container.ContainerPulverizer;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
@@ -63,6 +57,9 @@ public class GuiPulverizer extends GuiContainer {
 
         int energyBar = getEnergyBar(64);
         this.drawTexturedModalRect(i + 17, j + 10 + 64 - energyBar, 176, 31 + 64 - energyBar, 16, energyBar + 1);
+
+        int efficiencyBar = getEfficiencyBar(12);
+        this.drawTexturedModalRect(i + 56, j + 46 + 12 - efficiencyBar, 176, 12 - efficiencyBar, 14, efficiencyBar);
     }
 
     private int getCraftingProgress(int pixels) {
@@ -75,6 +72,12 @@ public class GuiPulverizer extends GuiContainer {
         int energyStored = inventory.getField(2);
         int capacity = inventory.getField(3);
         return capacity != 0 && energyStored != 0 ? energyStored * pixel / capacity : 0;
+    }
+
+    private int getEfficiencyBar(int pixel) {
+        int efficiency = inventory.getField(4);
+        int maxEfficiency = inventory.getField(5);
+        return maxEfficiency != 0 && efficiency != 0 ? efficiency * pixel / maxEfficiency : 0;
     }
 
     private boolean isInRect(int posX, int posY, int startX, int startY, int endX, int endY) {

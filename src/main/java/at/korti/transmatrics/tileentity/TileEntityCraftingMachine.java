@@ -18,11 +18,14 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
     private int craftingTime;
     private int totalCraftingTime;
     protected int energyUse;
+    protected int efficiency;
+    protected int maxEfficiency;
 
     protected TileEntityCraftingMachine(int capacity, int maxReceive, int energyUse, String name, ICraftingRegistry registry) {
         super(capacity, maxReceive, registry.inventorySize(), registry.getStackLimit(), name);
         this.craftingRegistry = registry;
         this.energyUse = energyUse;
+        this.maxEfficiency = energyStorage.getCapacity() / 1000;
     }
 
     @Override
@@ -34,6 +37,10 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
             this.totalCraftingTime = entry.getCraftingTime();
             craftingTime = 0;
             this.markDirty();
+        } else if (stack == null) {
+            this.totalCraftingTime = 0;
+            this.craftingTime = 0;
+            this.efficiency = 0;
         }
     }
 
@@ -42,6 +49,7 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
         super.writeToNBT(compound);
         compound.setInteger(NBT.CRAFTING_TIME, craftingTime);
         compound.setInteger(NBT.TOTAL_CRAFTING_TIME, totalCraftingTime);
+        compound.setInteger(NBT.CRAFTING_EFFICIENCY, efficiency);
     }
 
     @Override
@@ -49,6 +57,7 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
         super.readFromNBT(compound);
         this.craftingTime = compound.getInteger(NBT.CRAFTING_TIME);
         this.totalCraftingTime = compound.getInteger(NBT.TOTAL_CRAFTING_TIME);
+        this.efficiency = compound.getInteger(NBT.CRAFTING_EFFICIENCY);
     }
 
     //region ISidedInventory
@@ -93,10 +102,11 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
         if (!this.worldObj.isRemote) {
             if (this.energyStorage.getEnergyStored() - energyUse >= 0 && !areInputSlotsEmpty()) {
                 if (canCraft()) {
-                    this.craftingTime++;
+                    this.efficiency = energyStorage.getEnergyStored() / (energyStorage.getCapacity() / maxEfficiency);
+                    this.craftingTime += efficiency;
                     this.energyStorage.modifyEnergy(-energyUse);
                     isCrafting = true;
-                    if (this.craftingTime == this.totalCraftingTime) {
+                    if (this.craftingTime >= this.totalCraftingTime) {
                         this.craftingTime = 0;
                         this.totalCraftingTime = getCraftingTime();
                         this.craftItem();
@@ -104,6 +114,7 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
                     }
                 } else {
                     this.craftingTime = 0;
+                    this.efficiency = Math.max(efficiency - 1, 0);
                 }
 
                 if (isCrafting && !ActiveMachineBlock.isActive(worldObj, pos)) {
@@ -263,6 +274,10 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
                 return getEnergyStored();
             case 3:
                 return getMaxEnergyStored();
+            case 4:
+                return efficiency;
+            case 5:
+                return maxEfficiency;
         }
         return 0;
     }

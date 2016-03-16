@@ -59,6 +59,7 @@ public final class Constants {
         //Crafting machine
         public static final String CRAFTING_TIME = "crafting_time";
         public static final String TOTAL_CRAFTING_TIME = "total_crafting_time";
+        public static final String CRAFTING_EFFICIENCY = "crafting_efficiency";
     }
 
     public static class NetworkMessages{

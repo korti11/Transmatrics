@@ -38,11 +38,13 @@ public abstract class TileEntityEnergyNode extends TileEntityNetworkNode impleme
 
     @Override
     public int receiveEnergy(int energy, boolean simulate) {
+        worldObj.markBlockForUpdate(pos);
         return energyStorage.receiveEnergy(energy, simulate);
     }
 
     @Override
     public int extractEnergy(int energy, boolean simulate) {
+        worldObj.markBlockForUpdate(pos);
         return energyStorage.extractEnergy(energy, simulate);
     }
 
