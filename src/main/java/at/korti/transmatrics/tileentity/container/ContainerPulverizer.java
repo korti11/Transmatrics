@@ -2,6 +2,7 @@ package at.korti.transmatrics.tileentity.container;
 
 import at.korti.transmatrics.api.crafting.ICraftingRegistry.ICraftingEntry;
 import at.korti.transmatrics.api.crafting.PulverizerCraftingRegistry;
+import at.korti.transmatrics.tileentity.container.slot.OutputSlot;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -21,8 +22,8 @@ public class ContainerPulverizer extends Container {
 
         //Pulverizer inventory
         addSlotToContainer(new Slot(tilePulverizer, 0, 56, 26));
-        addSlotToContainer(new Slot(tilePulverizer, 1, 116, 21));
-        addSlotToContainer(new Slot(tilePulverizer, 2, 116, 52));
+        addSlotToContainer(new OutputSlot(tilePulverizer, 1, 116, 21));
+        addSlotToContainer(new OutputSlot(tilePulverizer, 2, 116, 52));
 
         //Player inventory
         for (int i = 0; i < 3; i++) {

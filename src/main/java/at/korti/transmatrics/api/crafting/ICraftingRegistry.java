@@ -46,8 +46,6 @@ public interface ICraftingRegistry {
 
         String[] getInputsOreDictionary();
 
-        int getXp();
-
         int getCraftingTime();
 
     }

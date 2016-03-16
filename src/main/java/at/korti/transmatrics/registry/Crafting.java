@@ -15,7 +15,7 @@ public final class Crafting {
     }
 
     private static void registerPulverizerCrafting() {
-        PulverizerCraftingRegistry.getInstance().register(new ItemStack(Blocks.iron_ore), 200, 0, new ItemStack(Items.iron_ingot), new ItemStack(Items.gold_nugget));
+        PulverizerCraftingRegistry.getInstance().register(new ItemStack(Blocks.iron_ore), 200, new ItemStack(Items.iron_ingot), new ItemStack(Items.gold_nugget));
     }
 
 }

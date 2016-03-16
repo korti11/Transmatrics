@@ -33,8 +33,8 @@ public final class PulverizerCraftingRegistry implements ICraftingRegistry {
         return instance;
     }
 
-    public PulverizerCraftingRegistry register(ItemStack input, int craftingTime, int xp, ItemStack... outputs) {
-        return (PulverizerCraftingRegistry) register(new PulverizerCraftingEntry(input, craftingTime, xp, outputs));
+    public PulverizerCraftingRegistry register(ItemStack input, int craftingTime, ItemStack... outputs) {
+        return (PulverizerCraftingRegistry) register(new PulverizerCraftingEntry(input, craftingTime, outputs));
     }
 
     @Override
@@ -137,13 +137,11 @@ public final class PulverizerCraftingRegistry implements ICraftingRegistry {
         private ItemStack input;
         private ItemStack[] outputs;
         private int craftingTime;
-        private int xp;
 
-        public PulverizerCraftingEntry(ItemStack input, int craftingTime, int xp, ItemStack... outputs) {
+        public PulverizerCraftingEntry(ItemStack input, int craftingTime, ItemStack... outputs) {
             this.input = input;
             this.outputs = outputs;
             this.craftingTime = craftingTime;
-            this.xp = xp;
         }
 
         @Override
@@ -159,11 +157,6 @@ public final class PulverizerCraftingRegistry implements ICraftingRegistry {
         @Override
         public String[] getInputsOreDictionary() {
             return ItemStackHelper.getOreDictionaryNames(input);
-        }
-
-        @Override
-        public int getXp() {
-            return xp;
         }
 
         @Override
