@@ -1,10 +1,12 @@
 package at.korti.transmatrics.tileentity;
 
+import at.korti.transmatrics.api.Constants.NBT;
 import at.korti.transmatrics.api.crafting.ICraftingRegistry;
 import at.korti.transmatrics.api.crafting.ICraftingRegistry.ICraftingEntry;
 import at.korti.transmatrics.block.ActiveMachineBlock;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 
 /**
@@ -31,6 +33,20 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
             craftingTime = 0;
             this.markDirty();
         }
+    }
+
+    @Override
+    public void writeToNBT(NBTTagCompound compound) {
+        super.writeToNBT(compound);
+        compound.setInteger(NBT.CRAFTING_TIME, craftingTime);
+        compound.setInteger(NBT.TOTAL_CRAFTING_TIME, totalCraftingTime);
+    }
+
+    @Override
+    public void readFromNBT(NBTTagCompound compound) {
+        super.readFromNBT(compound);
+        this.craftingTime = compound.getInteger(NBT.CRAFTING_TIME);
+        this.totalCraftingTime = compound.getInteger(NBT.TOTAL_CRAFTING_TIME);
     }
 
     //region ISidedInventory
@@ -87,10 +103,10 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
                     this.craftingTime = 0;
                 }
 
-                if (isCrafting) {
+                if (isCrafting && !ActiveMachineBlock.isActive(worldObj, pos)) {
                     markDirty = true;
                     ActiveMachineBlock.setState(true, this.worldObj, this.pos);
-                } else {
+                } else if(ActiveMachineBlock.isActive(worldObj, pos)) {
                     markDirty = true;
                     ActiveMachineBlock.setState(false, this.worldObj, this.pos);
                 }
@@ -229,6 +245,40 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
                 setInventorySlotContents(slot, null);
             }
         }
+    }
+    //endregion
+
+    //region IInventory
+    @Override
+    public int getField(int id) {
+        switch (id) {
+            case 0:
+                return craftingTime;
+            case 1:
+                return totalCraftingTime;
+            case 2:
+                return getEnergyStored();
+            case 3:
+                return getMaxEnergyStored();
+        }
+        return 0;
+    }
+
+    @Override
+    public void setField(int id, int value) {
+        switch (id) {
+            case 0:
+                craftingTime = value;
+                break;
+            case 1:
+                totalCraftingTime = value;
+                break;
+        }
+    }
+
+    @Override
+    public int getFieldCount() {
+        return 2;
     }
     //endregion
 }
