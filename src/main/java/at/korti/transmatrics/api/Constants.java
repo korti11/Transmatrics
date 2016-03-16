@@ -55,6 +55,10 @@ public final class Constants {
         public static final String EXT_CONTROLLER_X = "ecx";
         public static final String EXT_CONTROLLER_Y = "ecy";
         public static final String EXT_CONTROLLER_Z = "ecz";
+
+        //Crafting machine
+        public static final String CRAFTING_TIME = "crafting_time";
+        public static final String TOTAL_CRAFTING_TIME = "total_crafting_time";
     }
 
     public static class NetworkMessages{
