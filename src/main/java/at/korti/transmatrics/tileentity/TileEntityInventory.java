@@ -40,7 +40,7 @@ public abstract class TileEntityInventory extends TileEntityEnergyNode implement
             NBTTagCompound item = itemList.getCompoundTagAt(i);
             ItemStack stack = ItemStack.loadItemStackFromNBT(item);
             int slot = item.getShort(Constants.NBT.SLOT);
-            setInventorySlotContents(slot, stack);
+            inventory[slot] = stack;
         }
     }
 

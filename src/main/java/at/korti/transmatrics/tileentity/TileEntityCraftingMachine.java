@@ -21,6 +21,18 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
         this.craftingRegistry = registry;
     }
 
+    @Override
+    public void setInventorySlotContents(int index, ItemStack stack) {
+        boolean isSameItem = stack != null && stack.isItemEqual(getStackInSlot(index)) && ItemStack.areItemStackTagsEqual(stack, getStackInSlot(index));
+        super.setInventorySlotContents(index, stack);
+        ICraftingEntry entry = craftingRegistry.get(getInputs());
+        if (isInputSlot(index) && entry != null && !isSameItem) {
+            this.totalCraftingTime = entry.getCraftingTime();
+            craftingTime = 0;
+            this.markDirty();
+        }
+    }
+
     //region ISidedInventory
     @Override
     public int[] getSlotsForFace(EnumFacing side) {
@@ -118,6 +130,23 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
         return inputs;
     }
 
+    private boolean containsSlot(int[] slots, int searchSlot) {
+        for (int slot : slots) {
+            if (slot == searchSlot) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean isInputSlot(int slot) {
+        return containsSlot(craftingRegistry.getInputSlotsIds(), slot);
+    }
+
+    private boolean isOutputSlot(int slot) {
+        return containsSlot(craftingRegistry.getOutputSlotsIds(), slot);
+    }
+
     private ItemStack[] getInputs() {
         return getContent(craftingRegistry.getInputSlotsIds());
     }
@@ -129,7 +158,7 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
     private boolean equalOutputs(ICraftingEntry entry) {
         ItemStack[] outputContent = getOutputs();
         for (int i = 0; i < outputContent.length; i++) {
-            if (!outputContent[i].isItemEqual(entry.getOutputs()[i])) {
+            if (outputContent[i] != null && !outputContent[i].isItemEqual(entry.getOutputs()[i])) {
                 return false;
             }
         }
@@ -139,9 +168,11 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
     private boolean checkOutputStackSize(ICraftingEntry entry) {
         ItemStack[] outputContent = getOutputs();
         for (int i = 0; i < outputContent.length; i++) {
-            int result = outputContent[i].stackSize + entry.getOutputs()[i].stackSize;
-            if (result > getInventoryStackLimit() || result > outputContent[i].getMaxStackSize()) {
-                return false;
+            if(outputContent[i] != null) {
+                int result = outputContent[i].stackSize + entry.getOutputs()[i].stackSize;
+                if (result > getInventoryStackLimit() || result > outputContent[i].getMaxStackSize()) {
+                    return false;
+                }
             }
         }
         return true;
@@ -178,6 +209,7 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
             for (int i = 0; i < outputSlots.length; i++) {
                 craftItem(outputSlots[i], entry.getOutputs()[i]);
             }
+            decreaseInputs();
         }
     }
 
@@ -187,9 +219,15 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
         } else if (getStackInSlot(slot).isItemEqual(stack)) {
             getStackInSlot(slot).stackSize += stack.stackSize;
         }
-        getStackInSlot(slot).stackSize--;
-        if (getStackInSlot(slot).stackSize <= 0) {
-            setInventorySlotContents(slot, null);
+    }
+
+    private void decreaseInputs() {
+        int[] inputs = craftingRegistry.getInputSlotsIds();
+        for (int slot : inputs) {
+            getStackInSlot(slot).stackSize--;
+            if (getStackInSlot(slot).stackSize <= 0) {
+                setInventorySlotContents(slot, null);
+            }
         }
     }
     //endregion

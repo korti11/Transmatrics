@@ -24,6 +24,10 @@ public interface ICraftingRegistry {
 
     int[] getOutputSlotsIds();
 
+    int inventorySize();
+
+    int getStackLimit();
+
     EnumFacing[] getInputFaces();
 
     EnumFacing[] getOutputFaces();

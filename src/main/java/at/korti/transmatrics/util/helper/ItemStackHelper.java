@@ -11,11 +11,14 @@ import net.minecraftforge.oredict.OreDictionary;
 public class ItemStackHelper {
 
     public static String[] getOreDictionaryNames(ItemStack stack) {
-        int[] oreDictIds = OreDictionary.getOreIDs(stack);
-        String[] oreDictNames = new String[oreDictIds.length];
-        for (int i = 0; i < oreDictIds.length; i++) {
-            oreDictNames[i] = OreDictionary.getOreName(oreDictIds[i]);
+        if(stack != null) {
+            int[] oreDictIds = OreDictionary.getOreIDs(stack);
+            String[] oreDictNames = new String[oreDictIds.length];
+            for (int i = 0; i < oreDictIds.length; i++) {
+                oreDictNames[i] = OreDictionary.getOreName(oreDictIds[i]);
+            }
+            return oreDictNames;
         }
-        return oreDictNames;
+        return new String[0];
     }
 }

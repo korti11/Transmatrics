@@ -98,6 +98,16 @@ public final class PulverizerCraftingRegistry implements ICraftingRegistry {
     }
 
     @Override
+    public int inventorySize() {
+        return getInputSlotsIds().length + getOutputSlotsIds().length;
+    }
+
+    @Override
+    public int getStackLimit() {
+        return 64;
+    }
+
+    @Override
     public EnumFacing[] getInputFaces() {
         return new EnumFacing[]{NORTH, EAST, SOUTH, WEST, UP};
     }

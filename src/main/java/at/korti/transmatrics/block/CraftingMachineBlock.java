@@ -27,8 +27,10 @@ public abstract class CraftingMachineBlock extends ActiveMachineBlock{
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ) {
         ItemStack currentItem = playerIn.getCurrentEquippedItem();
-        if (worldIn.getTileEntity(pos).getClass().equals(tileEntityClass) && currentItem != null &&
-                !(currentItem.getItem() instanceof ItemConnector) && !(currentItem.getItem() instanceof ItemWrench)) {
+        if (currentItem != null && (currentItem.getItem() instanceof ItemConnector || currentItem.getItem() instanceof ItemWrench)) {
+            return super.onBlockActivated(worldIn, pos, state, playerIn, side, hitX, hitY, hitZ);
+        }
+        if (worldIn.getTileEntity(pos).getClass().equals(tileEntityClass)) {
             playerIn.openGui(Transmatrics.instance, guiId, worldIn, pos.getX(), pos.getY(), pos.getZ());
         }
         return super.onBlockActivated(worldIn, pos, state, playerIn, side, hitX, hitY, hitZ);

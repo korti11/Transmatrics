@@ -174,7 +174,7 @@ public final class Constants {
     }
 
     public static class GuiIds{
-        public static int PULVERIZER_GUI_ID = 0;
+        public static final int PULVERIZER_GUI_ID = 0;
     }
 
     public enum TransmatricsBlock {

@@ -3,13 +3,11 @@ package at.korti.transmatrics;
 import at.korti.transmatrics.api.Constants;
 import at.korti.transmatrics.api.Constants.TransmatricsItem;
 import at.korti.transmatrics.block.ModBlock;
+import at.korti.transmatrics.client.gui.GuiHandler;
 import at.korti.transmatrics.modintegration.ModIntegrationManager;
 import at.korti.transmatrics.network.TransmatricsPacketHandler;
 import at.korti.transmatrics.proxy.CommonProxy;
-import at.korti.transmatrics.registry.Blocks;
-import at.korti.transmatrics.registry.Fluids;
-import at.korti.transmatrics.registry.Items;
-import at.korti.transmatrics.registry.TileEntities;
+import at.korti.transmatrics.registry.*;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -18,6 +16,7 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 import org.apache.logging.log4j.Logger;
 
 /**
@@ -61,9 +60,11 @@ public class Transmatrics {
     public static void init(FMLInitializationEvent event) {
         Items.registerItemTextures();
         Blocks.registerBlockTextures();
+        Crafting.register();
         proxy.init(event);
         TransmatricsPacketHandler.init();
         ModIntegrationManager.init();
+        NetworkRegistry.INSTANCE.registerGuiHandler(Transmatrics.instance, new GuiHandler());
     }
 
     @Mod.EventHandler
