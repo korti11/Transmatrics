@@ -214,7 +214,8 @@ public final class Constants {
 
     public enum TransmatricsItem {
         WRENCH("Wrench"),
-        CONNECTOR("Connector");
+        CONNECTOR("Connector"),
+        PULVERIZED_DUST("PulverizedDust");
 
         private final String regName;
 

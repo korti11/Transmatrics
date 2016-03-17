@@ -18,6 +18,10 @@ tile.Transmatrics.Pulverizer.name=Pulverizer
 item.Transmatrics.Wrench.name=Wrench
 item.Transmatrics.Connector.name=Connector
 
+#Dusts
+item.Transmatrics.PulverizedDust.iron.name=Pulverized Iron
+item.Transmatrics.PulverizedDust.gold.name=Pulverized Gold
+
 #Fluids
 fluid.Transmatrics.hydrogengas.name=Hydrogen
 tile.Transmatrics.hydrogengas.name=Hydrogen

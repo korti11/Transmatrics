@@ -235,8 +235,9 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
         if (this.canCraft()) {
             ICraftingEntry entry = craftingRegistry.get(getInputs());
             int[] outputSlots = craftingRegistry.getOutputSlotsIds();
-            for (int i = 0; i < outputSlots.length; i++) {
-                craftItem(outputSlots[i], entry.getOutputs()[i]);
+            ItemStack[] outputs = entry.getOutputs();
+            for (int i = 0; i < outputs.length; i++) {
+                craftItem(outputSlots[i], outputs[i]);
             }
             decreaseInputs();
         }
