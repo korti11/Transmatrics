@@ -1,5 +1,6 @@
 package at.korti.transmatrics.registry;
 
+import at.korti.transmatrics.item.ore.ItemIngot;
 import at.korti.transmatrics.item.ore.ItemPulverizedDust;
 import at.korti.transmatrics.item.tool.ItemConnector;
 import at.korti.transmatrics.item.tool.ItemWrench;
@@ -21,17 +22,20 @@ public final class Items {
     private static ItemWrench wrench;
     private static ItemConnector connector;
     private static ItemPulverizedDust pulverizedDust;
+    private static ItemIngot itemIngot;
 
     public static void registerItems() {
         registerItem(wrench = new ItemWrench());
         registerItem(connector = new ItemConnector());
         registerItem(pulverizedDust = new ItemPulverizedDust());
+        registerItem(itemIngot = new ItemIngot());
     }
 
     public static void registerItemTextures() {
         registerItemTexture(wrench);
         registerItemTexture(connector);
         registerMetaItemTexture(pulverizedDust);
+        registerMetaItemTexture(itemIngot);
     }
 
     private static void registerItemTexture(Item item) {

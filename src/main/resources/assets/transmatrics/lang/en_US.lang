@@ -32,6 +32,12 @@ item.Transmatrics.PulverizedDust.tin.name=Pulverized Tin
 item.Transmatrics.PulverizedDust.silver.name=Pulverized Silver
 item.Transmatrics.PulverizedDust.lead.name=Pulverized Lead
 
+#Ingots
+item.Transmatrics.Ingot.copper.name=Copper Ingot
+item.Transmatrics.Ingot.tin.name=Tin Ingot
+item.Transmatrics.Ingot.silver.name=Silver Ingot
+item.Transmatrics.Ingot.lead.name=Lead Ingot
+
 #Fluids
 fluid.Transmatrics.hydrogengas.name=Hydrogen
 tile.Transmatrics.hydrogengas.name=Hydrogen
