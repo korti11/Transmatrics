@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class ItemPulverizedDust extends ModItem{
 
-    private static final int DUSTS = 2;
+    private static final int DUSTS = 6;
 
     public ItemPulverizedDust() {
         super(TransmatricsItem.PULVERIZED_DUST.getRegName());
@@ -31,6 +31,18 @@ public class ItemPulverizedDust extends ModItem{
             case 1:
                 extension = "gold";
                 break;
+            case 2:
+                extension = "copper";
+                break;
+            case 3:
+                extension = "tin";
+                break;
+            case 4:
+                extension = "silver";
+                break;
+            case 5:
+                extension = "lead";
+                break;
             default:
                 extension = "unknown";
                 break;
@@ -45,6 +57,14 @@ public class ItemPulverizedDust extends ModItem{
                 return 0xd8af93;
             case 1:
                 return 0xfcee4b;
+            case 2:
+                return 0xef7e0c;
+            case 3:
+                return 0xf3f3f3;
+            case 4:
+                return 0xc1dede;
+            case 5:
+                return 0x30193c;
             default:
                 return super.getColorFromItemStack(stack, renderPass);
         }

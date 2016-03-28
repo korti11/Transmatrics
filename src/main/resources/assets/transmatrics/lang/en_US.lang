@@ -27,6 +27,10 @@ item.Transmatrics.Connector.name=Connector
 #Dusts
 item.Transmatrics.PulverizedDust.iron.name=Pulverized Iron
 item.Transmatrics.PulverizedDust.gold.name=Pulverized Gold
+item.Transmatrics.PulverizedDust.copper.name=Pulverized Copper
+item.Transmatrics.PulverizedDust.tin.name=Pulverized Tin
+item.Transmatrics.PulverizedDust.silver.name=Pulverized Silver
+item.Transmatrics.PulverizedDust.lead.name=Pulverized Lead
 
 #Fluids
 fluid.Transmatrics.hydrogengas.name=Hydrogen
