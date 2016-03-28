@@ -48,8 +48,8 @@ public class Transmatrics {
     public static void preInit(FMLPreInitializationEvent event) {
         logger = event.getModLog();
         ModIntegrationManager.initManager();
-        Items.registerItems();
         Blocks.registerBlocks();
+        Items.registerItems();
         Fluids.registerFluids();
         TileEntities.registerTileEntities();
         proxy.preInit(event);

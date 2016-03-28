@@ -14,6 +14,12 @@ tile.Transmatrics.LargeSwitch.name=Large Switch
 tile.Transmatrics.Controller.name=Controller
 tile.Transmatrics.Pulverizer.name=Pulverizer
 
+#Ore
+tile.Transmatrics.Ore.copper.name=Copper Ore
+tile.Transmatrics.Ore.tin.name=Tin Ore
+tile.Transmatrics.Ore.silver.name=Silver Ore
+tile.Transmatrics.Ore.lead.name=Lead Ore
+
 #Items
 item.Transmatrics.Wrench.name=Wrench
 item.Transmatrics.Connector.name=Connector

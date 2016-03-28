@@ -195,7 +195,8 @@ public final class Constants {
         MEDIUM_SWITCH("MediumSwitch"),
         LARGE_SWITCH("LargeSwitch"),
         CONTROLLER("Controller"),
-        PULVERIZER("Pulverizer");
+        PULVERIZER("Pulverizer"),
+        ORE_BLOCK("Ore");
 
         private final String regName;
 
