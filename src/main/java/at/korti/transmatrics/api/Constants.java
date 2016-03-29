@@ -145,6 +145,11 @@ public final class Constants {
         public static final int PULVERIZER_CAPACITY = 5000;
         public static final int PULVERIZER_RECEIVE = 500;
         public static final int PULVERIZER_ENERGY_USE = 25;
+
+        //Powered Furnace
+        public static final int POWERED_FURNACE_CAPACITY = 5000;
+        public static final int POWERED_FURNACE_RECEIVE = 500;
+        public static final int POWERED_FURNACE_ENERGY_USE = 25;
     }
 
     public static class Tanks{
@@ -181,6 +186,7 @@ public final class Constants {
 
     public static class GuiIds{
         public static final int PULVERIZER_GUI_ID = 0;
+        public static final int POWERED_FURNACE_GUI_ID = 1;
     }
 
     public enum TransmatricsBlock {
@@ -196,6 +202,7 @@ public final class Constants {
         LARGE_SWITCH("LargeSwitch"),
         CONTROLLER("Controller"),
         PULVERIZER("Pulverizer"),
+        POWERED_FURNACE("PoweredFurnace"),
         ORE_BLOCK("Ore");
 
         private final String regName;
@@ -246,7 +253,8 @@ public final class Constants {
         MEDIUM_SWITCH("TileMediumSwitch"),
         LARGE_SWITCH("TileLargeSwitch"),
         CONTROLLER("TileController"),
-        PULVERIZER("TilePulverizer");
+        PULVERIZER("TilePulverizer"),
+        POWERED_FURNACE("TilePoweredFurnace");
 
         private final String regName;
 

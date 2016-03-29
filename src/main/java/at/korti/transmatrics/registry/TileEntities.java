@@ -1,5 +1,6 @@
 package at.korti.transmatrics.registry;
 
+import at.korti.transmatrics.tileentity.crafting.TileEntityPoweredFurnace;
 import at.korti.transmatrics.tileentity.crafting.TileEntityPulverizer;
 import at.korti.transmatrics.tileentity.generator.*;
 import at.korti.transmatrics.tileentity.network.TileEntityController;
@@ -28,6 +29,7 @@ public final class TileEntities {
         registerTileEntity(TileEntityLargeSwitch.class, LARGE_SWITCH.getRegName());
         registerTileEntity(TileEntityController.class, CONTROLLER.getRegName());
         registerTileEntity(TileEntityPulverizer.class, PULVERIZER.getRegName());
+        registerTileEntity(TileEntityPoweredFurnace.class, POWERED_FURNACE.getRegName());
     }
 
 }
