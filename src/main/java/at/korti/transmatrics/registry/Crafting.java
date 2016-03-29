@@ -21,6 +21,12 @@ public final class Crafting {
     }
 
     private static void registerPulverizerCrafting() {
+        PulverizerCraftingRegistry.getInstance().register(new ItemStack(Blocks.cobblestone), 20 * 6, 0.25f, new ItemStack(Blocks.gravel), new ItemStack(Blocks.gravel));
+        PulverizerCraftingRegistry.getInstance().register(new ItemStack(Blocks.gravel), 20 * 6, 0.25f, new ItemStack(Blocks.sand), new ItemStack(Blocks.sand));
+        PulverizerCraftingRegistry.getInstance().register(new ItemStack(Blocks.diamond_ore), 20 * 12, 0.05f, new ItemStack(Items.diamond, 2), new ItemStack(Items.diamond, 1));
+        PulverizerCraftingRegistry.getInstance().register(new ItemStack(Blocks.redstone_ore), 20 * 11, 0.15f, new ItemStack(Items.redstone, 8), new ItemStack(Items.redstone, 2));
+        PulverizerCraftingRegistry.getInstance().register(new ItemStack(Blocks.lapis_ore), 20 * 10, 0.20f, new ItemStack(Items.dye, 8, 4), new ItemStack(Items.dye, 2, 4));
+
         PulverizerCraftingRegistry.getInstance().register(new ItemStack(Blocks.iron_ore), 20 * 7, new ItemStack(PULVERIZED_DUST.getItem(), 2, 0));
         PulverizerCraftingRegistry.getInstance().register(new ItemStack(Blocks.gold_ore), 20 * 9, new ItemStack(PULVERIZED_DUST.getItem(), 2, 1));
 

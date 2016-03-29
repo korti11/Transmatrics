@@ -12,7 +12,7 @@ import java.util.Random;
  */
 public class CraftingHelper {
 
-    private final static int CHANCE_POOL = 10;
+    private final static int CHANCE_POOL = 20;
     private final static Random random = new Random();
 
     public static boolean chanceToCraft(ICraftingRegistry registry, int slot, ItemStack... inputs) {

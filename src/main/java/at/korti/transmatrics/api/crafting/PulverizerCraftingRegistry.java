@@ -65,7 +65,8 @@ public final class PulverizerCraftingRegistry implements ICraftingRegistry {
     public PulverizerCraftingEntry get(ItemStack stack) {
         String[] oreDicts = ItemStackHelper.getOreDictionaryNames(stack);
         for (ICraftingEntry entry : recipes) {
-            if (stack != null && stack.getIsItemStackEqual(entry.getInputs()[0])) {
+            if (stack != null && stack.getItem().equals(entry.getInputs()[0].getItem()) &&
+                    stack.getItemDamage() == entry.getInputs()[0].getItemDamage()) {
                 return (PulverizerCraftingEntry) entry;
             }
             for (String oreDictRecipe : entry.getInputsOreDictionary()) {
