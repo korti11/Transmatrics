@@ -34,7 +34,11 @@ public final class PulverizerCraftingRegistry implements ICraftingRegistry {
     }
 
     public PulverizerCraftingRegistry register(ItemStack input, int craftingTime, ItemStack... outputs) {
-        return (PulverizerCraftingRegistry) register(new PulverizerCraftingEntry(input, craftingTime, outputs));
+        return register(input, craftingTime, 1f, outputs);
+    }
+
+    public PulverizerCraftingRegistry register(ItemStack input, int craftingTime, float secondOutputChance, ItemStack... outputs) {
+        return (PulverizerCraftingRegistry) register(new PulverizerCraftingEntry(input, craftingTime, secondOutputChance, outputs));
     }
 
     @Override
@@ -111,13 +115,19 @@ public final class PulverizerCraftingRegistry implements ICraftingRegistry {
     }
 
     @Override
+    public float getChanceForSlot(int slot, ItemStack... inputs) {
+        ICraftingEntry entry = get(inputs);
+        return entry.getOutputChances()[slot];
+    }
+
+    @Override
     public EnumFacing[] getInputFaces() {
-        return new EnumFacing[]{NORTH, EAST, SOUTH, WEST, UP};
+        return new EnumFacing[]{UP};
     }
 
     @Override
     public EnumFacing[] getOutputFaces() {
-        return new EnumFacing[]{DOWN};
+        return new EnumFacing[]{NORTH, EAST, SOUTH, WEST};
     }
 
     @Override
@@ -140,11 +150,13 @@ public final class PulverizerCraftingRegistry implements ICraftingRegistry {
         private ItemStack input;
         private ItemStack[] outputs;
         private int craftingTime;
+        private float secondOutputChance;
 
-        public PulverizerCraftingEntry(ItemStack input, int craftingTime, ItemStack... outputs) {
+        public PulverizerCraftingEntry(ItemStack input, int craftingTime, float secondOutputChance, ItemStack... outputs) {
             this.input = input;
             this.outputs = outputs;
             this.craftingTime = craftingTime;
+            this.secondOutputChance = secondOutputChance;
         }
 
         @Override
@@ -165,6 +177,11 @@ public final class PulverizerCraftingRegistry implements ICraftingRegistry {
         @Override
         public int getCraftingTime() {
             return craftingTime;
+        }
+
+        @Override
+        public float[] getOutputChances() {
+            return new float[]{0f, 1f, secondOutputChance};
         }
     }
 }

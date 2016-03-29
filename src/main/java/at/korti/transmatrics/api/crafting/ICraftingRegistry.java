@@ -28,6 +28,8 @@ public interface ICraftingRegistry {
 
     int getStackLimit();
 
+    float getChanceForSlot(int slot, ItemStack... inputs);
+
     EnumFacing[] getInputFaces();
 
     EnumFacing[] getOutputFaces();
@@ -48,5 +50,6 @@ public interface ICraftingRegistry {
 
         int getCraftingTime();
 
+        float[] getOutputChances();
     }
 }

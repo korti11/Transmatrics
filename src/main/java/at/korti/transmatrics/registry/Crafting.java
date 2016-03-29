@@ -1,7 +1,6 @@
 package at.korti.transmatrics.registry;
 
 import at.korti.transmatrics.api.crafting.PulverizerCraftingRegistry;
-import at.korti.transmatrics.block.OreBlock;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;

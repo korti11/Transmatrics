@@ -4,6 +4,7 @@ import at.korti.transmatrics.api.Constants.NBT;
 import at.korti.transmatrics.api.crafting.ICraftingRegistry;
 import at.korti.transmatrics.api.crafting.ICraftingRegistry.ICraftingEntry;
 import at.korti.transmatrics.block.ActiveMachineBlock;
+import at.korti.transmatrics.util.helper.CraftingHelper;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -186,7 +187,7 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
 
     private boolean equalOutputs(ICraftingEntry entry) {
         ItemStack[] outputContent = getOutputs();
-        for (int i = 0; i < outputContent.length; i++) {
+        for (int i = 0; i < outputContent.length && i < entry.getOutputs().length; i++) {
             if (outputContent[i] != null && !outputContent[i].isItemEqual(entry.getOutputs()[i])) {
                 return false;
             }
@@ -196,7 +197,7 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
 
     private boolean checkOutputStackSize(ICraftingEntry entry) {
         ItemStack[] outputContent = getOutputs();
-        for (int i = 0; i < outputContent.length; i++) {
+        for (int i = 0; i < outputContent.length && i < entry.getOutputs().length; i++) {
             if(outputContent[i] != null) {
                 int result = outputContent[i].stackSize + entry.getOutputs()[i].stackSize;
                 if (result > getInventoryStackLimit() || result > outputContent[i].getMaxStackSize()) {
@@ -244,10 +245,12 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
     }
 
     private void craftItem(int slot, ItemStack stack) {
-        if (getStackInSlot(slot) == null) {
-            setInventorySlotContents(slot, stack.copy());
-        } else if (getStackInSlot(slot).isItemEqual(stack)) {
-            getStackInSlot(slot).stackSize += stack.stackSize;
+        if(CraftingHelper.chanceToCraft(craftingRegistry, slot, getInputs())) {
+            if (getStackInSlot(slot) == null) {
+                setInventorySlotContents(slot, stack.copy());
+            } else if (getStackInSlot(slot).isItemEqual(stack)) {
+                getStackInSlot(slot).stackSize += stack.stackSize;
+            }
         }
     }
 
