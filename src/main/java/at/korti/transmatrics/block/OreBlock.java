@@ -21,6 +21,15 @@ public class OreBlock extends ModBlock {
 
     public OreBlock() {
         super(Material.rock, TransmatricsBlock.ORE_BLOCK.getRegName());
+
+        this.setHarvestLevels();
+        this.setHardness(5f);
+    }
+
+    private void setHarvestLevels() {
+        for (OreType oreType : OreType.values()) {
+            super.setHarvestLevel("pickaxe", oreType.harvestLevel, getDefaultState().withProperty(TYPE, oreType));
+        }
     }
 
     @Override
@@ -47,6 +56,11 @@ public class OreBlock extends ModBlock {
     }
 
     @Override
+    public int damageDropped(IBlockState state) {
+        return getMetaFromState(state);
+    }
+
+    @Override
     public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
         for (OreType oreType : OreType.values()) {
             list.add(new ItemStack(itemIn, 1, oreType.meta));
@@ -54,15 +68,17 @@ public class OreBlock extends ModBlock {
     }
 
     public enum OreType implements IStringSerializable {
-        COPPER,
-        TIN,
-        SILVER,
-        LEAD;
+        COPPER(1),
+        TIN(1),
+        SILVER(2),
+        LEAD(2);
 
         public final int meta;
+        public final int harvestLevel;
 
-        OreType() {
+        OreType(int harvestLevel) {
             meta = ordinal();
+            this.harvestLevel = harvestLevel;
         }
 
         @Override

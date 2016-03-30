@@ -30,6 +30,8 @@ public abstract class MachineBlock extends ModBlockContainer implements IDismant
 
     protected MachineBlock(Material material, MapColor mapColor, String name, Class<? extends TileEntity> tileEntityClass) {
         super(material, mapColor, name, tileEntityClass);
+
+        super.setHardness(2.5f);
     }
 
     protected MachineBlock(Material materialIn, String name, Class<? extends TileEntity> tileEntityClass) {
