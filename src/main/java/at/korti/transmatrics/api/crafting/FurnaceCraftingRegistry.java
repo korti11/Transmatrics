@@ -47,8 +47,11 @@ public final class FurnaceCraftingRegistry implements ICraftingRegistry{
 
     @Override
     public ICraftingEntry get(ItemStack... inputs) {
-        return new FurnaceCraftingEntry(inputs[0], FurnaceRecipes.instance().getSmeltingResult(inputs[0]),
-                FurnaceRecipes.instance().getSmeltingExperience(inputs[0]));
+        if(inputs[0] != null) {
+            return new FurnaceCraftingEntry(inputs[0], FurnaceRecipes.instance().getSmeltingResult(inputs[0]),
+                    FurnaceRecipes.instance().getSmeltingExperience(inputs[0]));
+        }
+        return null;
     }
 
     @Override

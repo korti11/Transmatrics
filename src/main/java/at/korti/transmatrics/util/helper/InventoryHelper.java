@@ -66,4 +66,36 @@ public class InventoryHelper {
         return false;
     }
 
+    public static int getMinIndex(int[] indexes) {
+        if (indexes.length == 1) {
+            return indexes[0];
+        } else if (indexes.length == 0) {
+            return 0;
+        } else {
+            int min = indexes[0];
+            for (int i = 1; i < indexes.length; i++) {
+                if (indexes[i] < min) {
+                    min = indexes[i];
+                }
+            }
+            return min;
+        }
+    }
+
+    public static int getMaxIndex(int[] indexes) {
+        if (indexes.length == 1) {
+            return indexes[0];
+        } else if (indexes.length == 0) {
+            return 0;
+        } else {
+            int max = indexes[0];
+            for (int i = 1; i < indexes.length; i++) {
+                if (indexes[i] > max) {
+                    max = indexes[i];
+                }
+            }
+            return max;
+        }
+    }
+
 }

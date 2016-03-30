@@ -20,6 +20,9 @@ public abstract class CraftingContainer extends Container {
     private final IInventory tileEntity;
     private final ICraftingRegistry craftingRegistry;
 
+    private final int playerMinIndex;
+    private final int playerMaxIndex;
+
     private int craftingTime;
     private int totalCraftingTime;
     private int energyStored;
@@ -31,7 +34,9 @@ public abstract class CraftingContainer extends Container {
         this.tileEntity = tileEntity;
         this.craftingRegistry = registry;
         addTileEntitySlots(tileEntity);
+        this.playerMinIndex = this.inventorySlots.size();
         addPlayerSlots(inventoryPlayer);
+        this.playerMaxIndex = this.inventorySlots.size();
     }
 
     public abstract void addTileEntitySlots(IInventory inventory);
@@ -107,7 +112,7 @@ public abstract class CraftingContainer extends Container {
             itemStack = tempStack.copy();
 
             if (InventoryHelper.isOutputSlot(craftingRegistry, index)) {
-                if (!this.mergeItemStack(tempStack, 3, 39, true)) {
+                if (!this.mergeItemStack(tempStack, playerMinIndex, playerMaxIndex, true)) {
                     return null;
                 }
 
@@ -115,17 +120,19 @@ public abstract class CraftingContainer extends Container {
             } else if (!InventoryHelper.isInputSlot(craftingRegistry, index)) {
                 ICraftingEntry entry = craftingRegistry.get(tempStack);
                 if (entry != null) {
-                    if (!this.mergeItemStack(tempStack, 0, 1, false)) {
+                    int startIndex = InventoryHelper.getMinIndex(craftingRegistry.getInputSlotsIds());
+                    int endIndex = InventoryHelper.getMaxIndex(craftingRegistry.getInputSlotsIds());
+                    if (!this.mergeItemStack(tempStack, startIndex, endIndex + 1, false)) {
                         return null;
                     }
-                } else if (index >= 3 && index < 30) {
-                    if (!this.mergeItemStack(tempStack, 30, 39, false)) {
+                } else if (index >= playerMinIndex && index < playerMaxIndex - 9) {
+                    if (!this.mergeItemStack(tempStack, playerMaxIndex - 9, playerMaxIndex, false)) {
                         return null;
                     }
-                } else if (index >= 30 && index < 39 && !this.mergeItemStack(tempStack, 3, 30, false)) {
+                } else if (index >= playerMaxIndex - 9 && index < playerMaxIndex && !this.mergeItemStack(tempStack, playerMinIndex, playerMaxIndex - 9, false)) {
                     return null;
                 }
-            } else if (!this.mergeItemStack(tempStack, 3, 39, false)) {
+            } else if (!this.mergeItemStack(tempStack, playerMinIndex, playerMaxIndex, false)) {
                 return null;
             }
 

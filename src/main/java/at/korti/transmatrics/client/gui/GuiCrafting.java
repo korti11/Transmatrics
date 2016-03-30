@@ -52,6 +52,24 @@ public abstract class GuiCrafting extends GuiContainer{
         this.drawTexturedModalRect(i, j, 0, 0, this.xSize, this.ySize);
     }
 
+    protected int getCraftingProgress(int pixels) {
+        int craftingTime = inventory.getField(0);
+        int totalCraftingTime = inventory.getField(1);
+        return totalCraftingTime != 0 && craftingTime != 0 ? craftingTime * pixels / totalCraftingTime : 0;
+    }
+
+    protected int getEnergyBar(int pixel) {
+        int energyStored = inventory.getField(2);
+        int capacity = inventory.getField(3);
+        return capacity != 0 && energyStored != 0 ? energyStored * pixel / capacity : 0;
+    }
+
+    protected int getEfficiencyBar(int pixel) {
+        int efficiency = inventory.getField(4);
+        int maxEfficiency = inventory.getField(5);
+        return maxEfficiency != 0 && efficiency != 0 ? efficiency * pixel / maxEfficiency : 0;
+    }
+
     protected boolean isInRect(int posX, int posY, int startX, int startY, int endX, int endY) {
         int i = (this.width - this.xSize) / 2;
         int j = (this.height - this.ySize) / 2;
