@@ -294,6 +294,17 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
             case 1:
                 totalCraftingTime = value;
                 break;
+            case 2:
+                energyStorage.setEnergyStored(value);
+                break;
+            case 3:
+                energyStorage.setCapacity(value);
+                break;
+            case 4:
+                efficiency = value;
+                break;
+            case 5:
+                maxEfficiency = value;
         }
     }
 
