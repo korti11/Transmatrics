@@ -18,39 +18,21 @@ import java.util.List;
  * Created by Korti on 15.03.2016.
  */
 @SideOnly(Side.CLIENT)
-public class GuiPulverizer extends GuiContainer {
+public class GuiPulverizer extends GuiCrafting {
 
     private IInventory inventory;
 
     public GuiPulverizer(InventoryPlayer inventoryPlayer, IInventory tilePulverizer) {
-        super(new ContainerPulverizer(inventoryPlayer, tilePulverizer));
+        super(new ContainerPulverizer(inventoryPlayer, tilePulverizer), tilePulverizer, "textures/gui/Pulverizer.png");
 
         this.inventory = tilePulverizer;
     }
 
     @Override
-    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-        super.drawScreen(mouseX, mouseY, partialTicks);
-
-        List<String> textLines = new LinkedList<>();
-        if(inventory instanceof TileEntityCraftingMachine) {
-            TileEntityCraftingMachine machine = (TileEntityCraftingMachine) inventory;
-            if (isInRect(mouseX, mouseY, 17, 10, 17 + 16, 10 + 64)) {
-                textLines.add(String.format("%d/%d TF", machine.getEnergyStored(), machine.getMaxEnergyStored()));
-                this.drawHoveringText(textLines, mouseX, mouseY);
-                textLines.clear();
-            }
-        }
-    }
-
-    @Override
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-        GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
-        ResourceLocation pulverizerGuiTexture = new ResourceLocation(Mod.MODID, "textures/gui/Pulverizer.png");
-        this.mc.getTextureManager().bindTexture(pulverizerGuiTexture);
+        super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
         int i = (this.width - this.xSize) / 2;
         int j = (this.height - this.ySize) / 2;
-        this.drawTexturedModalRect(i, j, 0, 0, this.xSize, this.ySize);
 
         int craftingProgress = getCraftingProgress(24);
         this.drawTexturedModalRect(i + 79, j + 34, 176, 14, craftingProgress + 1, 16);
@@ -80,9 +62,4 @@ public class GuiPulverizer extends GuiContainer {
         return maxEfficiency != 0 && efficiency != 0 ? efficiency * pixel / maxEfficiency : 0;
     }
 
-    private boolean isInRect(int posX, int posY, int startX, int startY, int endX, int endY) {
-        int i = (this.width - this.xSize) / 2;
-        int j = (this.height - this.ySize) / 2;
-        return posX >= i + startX && posX < i + endX && posY >= j + startY && posY < j + endY;
-    }
 }
