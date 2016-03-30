@@ -1,18 +1,19 @@
 package at.korti.transmatrics.api.crafting;
 
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 
 /**
  * Created by Korti on 15.03.2016.
  */
-public interface ICraftingRegistry {
+public interface ICraftingRegistry<I> {
 
     ICraftingRegistry register(ICraftingEntry entry);
 
     ICraftingEntry get(int index);
 
-    ICraftingEntry get(ItemStack... inputs);
+    ICraftingEntry get(I... inputs);
 
     ICraftingEntry remove(int index);
 
@@ -28,7 +29,7 @@ public interface ICraftingRegistry {
 
     int getStackLimit();
 
-    float getChanceForSlot(int slot, ItemStack... inputs);
+    float getChanceForSlot(int slot, I... inputs);
 
     EnumFacing[] getInputFaces();
 
@@ -40,11 +41,11 @@ public interface ICraftingRegistry {
 
     boolean canExtractItem(int slot, ItemStack itemStackIn, EnumFacing facing);
 
-    interface ICraftingEntry{
+    interface ICraftingEntry<I, O>{
 
-        ItemStack[] getInputs();
+        I[] getInputs();
 
-        ItemStack[] getOutputs();
+        O[] getOutputs();
 
         String[] getInputsOreDictionary();
 

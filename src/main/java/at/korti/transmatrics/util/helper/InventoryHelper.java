@@ -1,8 +1,12 @@
 package at.korti.transmatrics.util.helper;
 
 import at.korti.transmatrics.api.crafting.ICraftingRegistry;
+import at.korti.transmatrics.api.crafting.IFluidCraftingRegistry;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by Korti on 15.03.2016.
@@ -23,6 +27,14 @@ public class InventoryHelper {
             }
         }
         return new int[0];
+    }
+
+    public static boolean canFill(IFluidCraftingRegistry registry, EnumFacing facing) {
+        return Arrays.asList(registry.getFluidInputFaces()).contains(facing);
+    }
+
+    public static boolean canDrain(IFluidCraftingRegistry registry, EnumFacing facing) {
+        return Arrays.asList(registry.getFluidOutputFaces()).contains(facing);
     }
 
     public static boolean isInputSlot(ICraftingRegistry registry, int slot) {

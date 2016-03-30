@@ -15,14 +15,14 @@ import net.minecraft.util.EnumFacing;
  */
 public abstract class TileEntityCraftingMachine extends TileEntityInventory implements ISidedInventory{
 
-    protected ICraftingRegistry craftingRegistry;
+    protected ICraftingRegistry<ItemStack> craftingRegistry;
     private int craftingTime;
     private int totalCraftingTime;
     protected int energyUse;
     protected int efficiency;
     protected int maxEfficiency;
 
-    protected TileEntityCraftingMachine(int capacity, int maxReceive, int energyUse, String name, ICraftingRegistry registry) {
+    protected TileEntityCraftingMachine(int capacity, int maxReceive, int energyUse, String name, ICraftingRegistry<ItemStack> registry) {
         super(capacity, maxReceive, registry.inventorySize(), registry.getStackLimit(), name);
         this.craftingRegistry = registry;
         this.energyUse = energyUse;
@@ -185,7 +185,7 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
         return getContent(craftingRegistry.getOutputSlotsIds());
     }
 
-    private boolean equalOutputs(ICraftingEntry entry) {
+    private boolean equalOutputs(ICraftingEntry<ItemStack, ItemStack> entry) {
         ItemStack[] outputContent = getOutputs();
         for (int i = 0; i < outputContent.length && i < entry.getOutputs().length; i++) {
             if (outputContent[i] != null && !outputContent[i].isItemEqual(entry.getOutputs()[i])) {
@@ -195,7 +195,7 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
         return true;
     }
 
-    private boolean checkOutputStackSize(ICraftingEntry entry) {
+    private boolean checkOutputStackSize(ICraftingEntry<ItemStack, ItemStack> entry) {
         ItemStack[] outputContent = getOutputs();
         for (int i = 0; i < outputContent.length && i < entry.getOutputs().length; i++) {
             if(outputContent[i] != null) {
@@ -234,7 +234,7 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
 
     private void craftItem() {
         if (this.canCraft()) {
-            ICraftingEntry entry = craftingRegistry.get(getInputs());
+            ICraftingEntry<ItemStack, ItemStack> entry = craftingRegistry.get(getInputs());
             int[] outputSlots = craftingRegistry.getOutputSlotsIds();
             ItemStack[] outputs = entry.getOutputs();
             for (int i = 0; i < outputs.length; i++) {

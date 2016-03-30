@@ -11,7 +11,7 @@ import static net.minecraft.util.EnumFacing.*;
 /**
  * Created by Korti on 29.03.2016.
  */
-public final class FurnaceCraftingRegistry implements ICraftingRegistry{
+public final class FurnaceCraftingRegistry implements ICraftingRegistry<ItemStack>{
 
     private static FurnaceCraftingRegistry instance;
 
@@ -36,7 +36,7 @@ public final class FurnaceCraftingRegistry implements ICraftingRegistry{
         if (entry instanceof FurnaceCraftingEntry) {
             xp = ((FurnaceCraftingEntry) entry).getXp();
         }
-        FurnaceRecipes.instance().addSmeltingRecipe(entry.getInputs()[0], entry.getOutputs()[0], xp);
+        FurnaceRecipes.instance().addSmeltingRecipe((ItemStack) entry.getInputs()[0], (ItemStack) entry.getOutputs()[0], xp);
         return null;
     }
 
@@ -62,7 +62,7 @@ public final class FurnaceCraftingRegistry implements ICraftingRegistry{
     @Override
     public boolean remove(ICraftingEntry entry) {
         return FurnaceRecipes.instance().getSmeltingList().remove(entry.getInputs()[0]).
-                getIsItemStackEqual(entry.getOutputs()[0]);
+                getIsItemStackEqual((ItemStack) entry.getOutputs()[0]);
     }
 
     @Override
@@ -121,7 +121,7 @@ public final class FurnaceCraftingRegistry implements ICraftingRegistry{
         return InventoryHelper.canExtractItem(this, slot, facing);
     }
 
-    public static class FurnaceCraftingEntry implements ICraftingEntry {
+    public static class FurnaceCraftingEntry implements ICraftingEntry<ItemStack, ItemStack> {
 
         private ItemStack input;
         private ItemStack output;

@@ -5,6 +5,8 @@ import at.korti.transmatrics.util.helper.InventoryHelper;
 import at.korti.transmatrics.util.helper.ItemStackHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidStack;
 import org.apache.logging.log4j.Logger;
 
 import java.util.LinkedList;
@@ -13,40 +15,61 @@ import java.util.List;
 import static net.minecraft.util.EnumFacing.*;
 
 /**
- * Created by Korti on 15.03.2016.
+ * Created by Korti on 30.03.2016.
  */
-public final class PulverizerCraftingRegistry implements ICraftingRegistry<ItemStack> {
+public final class MagneticSmelteryCraftingRegistry implements IFluidCraftingRegistry<ItemStack> {
 
-    private static PulverizerCraftingRegistry instance;
-    private static Logger logger = Transmatrics.logger;
+    private static MagneticSmelteryCraftingRegistry instance;
 
-    private List<PulverizerCraftingEntry> recipes;
+    private List<MagneticSmelteryCraftingEntry> recipes;
+    private Logger logger = Transmatrics.logger;
 
-    private PulverizerCraftingRegistry() {
-        this.recipes = new LinkedList<>();
+    private MagneticSmelteryCraftingRegistry() {
+        recipes = new LinkedList<>();
     }
 
-    public static PulverizerCraftingRegistry getInstance() {
+    public static MagneticSmelteryCraftingRegistry getInstance() {
         if (instance == null) {
-            instance = new PulverizerCraftingRegistry();
+            instance = new MagneticSmelteryCraftingRegistry();
         }
+
         return instance;
     }
 
-    public PulverizerCraftingRegistry register(ItemStack input, int craftingTime, ItemStack... outputs) {
-        return register(input, craftingTime, 1f, outputs);
+    @Override
+    public EnumFacing[] getFluidInputFaces() {
+        return new EnumFacing[0];
     }
 
-    public PulverizerCraftingRegistry register(ItemStack input, int craftingTime, float secondOutputChance, ItemStack... outputs) {
-        return (PulverizerCraftingRegistry) register(new PulverizerCraftingEntry(input, craftingTime, secondOutputChance, outputs));
+    @Override
+    public EnumFacing[] getFluidOutputFaces() {
+        return new EnumFacing[]{UP, NORTH, EAST, SOUTH, WEST, DOWN};
+    }
+
+    @Override
+    public boolean canFill(FluidStack fluidStackIn, EnumFacing facing) {
+        return InventoryHelper.canFill(this, facing);
+    }
+
+    @Override
+    public boolean canDrain(FluidStack fluidStackIn, EnumFacing facing) {
+        return InventoryHelper.canDrain(this, facing);
+    }
+
+    public ICraftingRegistry register(ItemStack input, Fluid outFluid, int fluidAmount, int craftingTime) {
+        return register(input, new FluidStack(outFluid, fluidAmount), craftingTime);
+    }
+
+    public ICraftingRegistry register(ItemStack input, FluidStack output, int craftingTime) {
+        return register(new MagneticSmelteryCraftingEntry(input, output, craftingTime));
     }
 
     @Override
     public ICraftingRegistry register(ICraftingEntry entry) {
         try {
-            recipes.add((PulverizerCraftingEntry) entry);
+            recipes.add((MagneticSmelteryCraftingEntry) entry);
         } catch (Exception e) {
-            logger.error(String.format("Can't register pulverizer recipe with the inputs=%s.",
+            logger.error(String.format("Can't register magnetic smeltery recipe with the inputs=%s.",
                     entry.getInputs().toString()), e);
         }
         return this;
@@ -62,21 +85,22 @@ public final class PulverizerCraftingRegistry implements ICraftingRegistry<ItemS
         return get(inputs[0]);
     }
 
-    public PulverizerCraftingEntry get(ItemStack stack) {
+    public MagneticSmelteryCraftingEntry get(ItemStack stack) {
         String[] oreDicts = ItemStackHelper.getOreDictionaryNames(stack);
-        for (ICraftingEntry<ItemStack, ItemStack> entry : recipes) {
+        for (ICraftingEntry<ItemStack, FluidStack> entry : recipes) {
             if (stack != null && stack.getItem().equals(entry.getInputs()[0].getItem()) &&
                     stack.getItemDamage() == entry.getInputs()[0].getItemDamage()) {
-                return (PulverizerCraftingEntry) entry;
+                return (MagneticSmelteryCraftingEntry) entry;
             }
             for (String oreDictRecipe : entry.getInputsOreDictionary()) {
                 for (String oreDictEntry : oreDicts) {
                     if (oreDictRecipe.equals(oreDictEntry)) {
-                        return (PulverizerCraftingEntry) entry;
+                        return (MagneticSmelteryCraftingEntry) entry;
                     }
                 }
             }
         }
+
         return null;
     }
 
@@ -102,7 +126,7 @@ public final class PulverizerCraftingRegistry implements ICraftingRegistry<ItemS
 
     @Override
     public int[] getOutputSlotsIds() {
-        return new int[]{1, 2};
+        return new int[0];
     }
 
     @Override
@@ -117,18 +141,17 @@ public final class PulverizerCraftingRegistry implements ICraftingRegistry<ItemS
 
     @Override
     public float getChanceForSlot(int slot, ItemStack... inputs) {
-        ICraftingEntry entry = get(inputs);
-        return entry.getOutputChances()[slot];
+        return get(inputs).getOutputChances()[slot];
     }
 
     @Override
     public EnumFacing[] getInputFaces() {
-        return new EnumFacing[]{UP};
+        return new EnumFacing[]{UP, NORTH, EAST, SOUTH, WEST, DOWN};
     }
 
     @Override
     public EnumFacing[] getOutputFaces() {
-        return new EnumFacing[]{NORTH, EAST, SOUTH, WEST};
+        return new EnumFacing[0];
     }
 
     @Override
@@ -143,21 +166,19 @@ public final class PulverizerCraftingRegistry implements ICraftingRegistry<ItemS
 
     @Override
     public boolean canExtractItem(int slot, ItemStack itemStackIn, EnumFacing facing) {
-        return InventoryHelper.canExtractItem(this, slot, facing);
+        return false;
     }
 
-    public static class PulverizerCraftingEntry implements ICraftingEntry<ItemStack, ItemStack> {
+    public static class MagneticSmelteryCraftingEntry implements ICraftingEntry<ItemStack, FluidStack> {
 
         private ItemStack input;
-        private ItemStack[] outputs;
+        private FluidStack output;
         private int craftingTime;
-        private float secondOutputChance;
 
-        public PulverizerCraftingEntry(ItemStack input, int craftingTime, float secondOutputChance, ItemStack... outputs) {
+        public MagneticSmelteryCraftingEntry(ItemStack input, FluidStack output, int craftingTime) {
             this.input = input;
-            this.outputs = outputs;
+            this.output = output;
             this.craftingTime = craftingTime;
-            this.secondOutputChance = secondOutputChance;
         }
 
         @Override
@@ -166,8 +187,8 @@ public final class PulverizerCraftingRegistry implements ICraftingRegistry<ItemS
         }
 
         @Override
-        public ItemStack[] getOutputs() {
-            return outputs;
+        public FluidStack[] getOutputs() {
+            return new FluidStack[]{output};
         }
 
         @Override
@@ -182,7 +203,7 @@ public final class PulverizerCraftingRegistry implements ICraftingRegistry<ItemS
 
         @Override
         public float[] getOutputChances() {
-            return new float[]{0f, 1f, secondOutputChance};
+            return new float[]{0f};
         }
     }
 }

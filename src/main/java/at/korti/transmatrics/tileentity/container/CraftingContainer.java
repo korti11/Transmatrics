@@ -18,7 +18,7 @@ import net.minecraft.item.ItemStack;
 public abstract class CraftingContainer extends Container {
 
     private final IInventory tileEntity;
-    private final ICraftingRegistry craftingRegistry;
+    private final ICraftingRegistry<ItemStack> craftingRegistry;
 
     private final int playerMinIndex;
     private final int playerMaxIndex;
@@ -30,7 +30,7 @@ public abstract class CraftingContainer extends Container {
     private int efficiency;
     private int maxEfficiency;
 
-    public CraftingContainer(InventoryPlayer inventoryPlayer, IInventory tileEntity, ICraftingRegistry registry) {
+    public CraftingContainer(InventoryPlayer inventoryPlayer, IInventory tileEntity, ICraftingRegistry<ItemStack> registry) {
         this.tileEntity = tileEntity;
         this.craftingRegistry = registry;
         addTileEntitySlots(tileEntity);
