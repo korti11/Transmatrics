@@ -42,6 +42,14 @@ item.Transmatrics.Ingot.lead.name=Lead Ingot
 #Fluids
 fluid.Transmatrics.hydrogengas.name=Hydrogen
 tile.Transmatrics.hydrogengas.name=Hydrogen
+fluid.Transmatrics.moltencopper.name=Molten Copper
+tile.Transmatrics.moltencopper.name=Molten Copper
+fluid.Transmatrics.moltentin.name=Molten Tin
+tile.Transmatrics.moltentin.name=Molten Tin
+fluid.Transmatrics.moltensilver.name=Molten Silver
+tile.Transmatrics.moltensilver.name=Molten Silver
+fluid.Transmatrics.moltenlead.name=Molten Lead
+tile.Transmatrics.moltenlead.name=Molten Lead
 
 #Network
 network.max_connections.message=[Network] The max connection points are reached. Max connections: %d

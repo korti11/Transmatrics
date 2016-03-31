@@ -268,7 +268,11 @@ public final class Constants {
     }
 
     public enum TransmatricsFluid{
-        HYDROGEN_GAS("HydrogenGas");
+        HYDROGEN_GAS("HydrogenGas"),
+        MOLTEN_COPPER("MoltenCopper"),
+        MOLTEN_TIN("MoltenTin"),
+        MOLTEN_SILVER("MoltenSilver"),
+        MOLTEN_LEAD("MoltenLead");
 
         private final String regName;
 

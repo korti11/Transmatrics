@@ -6,6 +6,18 @@
   "variants": {
     "hydrogengas":[{
       "custom": {"fluid": "hydrogengas"}
+    }],
+    "moltencopper":[{
+      "custom": {"fluid": "moltencopper"}
+    }],
+    "moltentin":[{
+      "custom": {"fluid": "moltentin"}
+    }],
+    "moltensilver":[{
+      "custom": {"fluid": "moltensilver"}
+    }],
+    "moltenlead":[{
+      "custom": {"fluid": "moltenlead"}
     }]
   }
 }

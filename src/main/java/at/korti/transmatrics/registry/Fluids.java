@@ -4,6 +4,7 @@ import at.korti.transmatrics.api.Constants.Mod;
 import at.korti.transmatrics.api.Constants.TransmatricsFluid;
 import at.korti.transmatrics.block.ModFluidBlock;
 import at.korti.transmatrics.fluid.GasColored;
+import at.korti.transmatrics.fluid.MoltenMetal;
 import net.minecraft.block.material.MapColor;
 import net.minecraftforge.fluids.BlockFluidBase;
 import net.minecraftforge.fluids.Fluid;
@@ -16,10 +17,23 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public final class Fluids {
 
     public static Fluid hydrogenGas;
+    public static Fluid moltenCopper;
+    public static Fluid moltenTin;
+    public static Fluid moltenSilver;
+    public static Fluid moltenLead;
 
     public static void registerFluids() {
         hydrogenGas = createGas(TransmatricsFluid.HYDROGEN_GAS.getRegName(), 0xffff66, true);
+        moltenCopper = createMoltenMetal(TransmatricsFluid.MOLTEN_COPPER.getRegName(), 0xef7e0c, 600, true);
+        moltenTin = createMoltenMetal(TransmatricsFluid.MOLTEN_TIN.getRegName(), 0xffe6ff, 600, true);
+        moltenSilver = createMoltenMetal(TransmatricsFluid.MOLTEN_SILVER.getRegName(), 0xccffff, 600, true);
+        moltenLead = createMoltenMetal(TransmatricsFluid.MOLTEN_LEAD.getRegName(), 0x30193c, 600, true);
+
         registerBlock(hydrogenGas);
+        registerBlock(moltenCopper);
+        registerBlock(moltenTin);
+        registerBlock(moltenSilver);
+        registerBlock(moltenLead);
     }
 
     private static Fluid createGas(String name, int color, boolean bucket) {
@@ -29,6 +43,15 @@ public final class Fluids {
             FluidRegistry.addBucketForFluid(gas);
         }
         return gas;
+    }
+
+    private static Fluid createMoltenMetal(String name, int color, int temperture, boolean bucket) {
+        MoltenMetal moltenMetal = new MoltenMetal(name, color, temperture);
+        moltenMetal = registerFluid(moltenMetal);
+        if (bucket) {
+            FluidRegistry.addBucketForFluid(moltenMetal);
+        }
+        return moltenMetal;
     }
 
     private static <T extends Fluid> T registerFluid(T fluid) {

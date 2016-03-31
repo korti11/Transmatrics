@@ -20,6 +20,10 @@ public class ClientProxy extends CommonProxy {
         super.preInit(event);
 
         registerFluidModel(Fluids.hydrogenGas);
+        registerFluidModel(Fluids.moltenCopper);
+        registerFluidModel(Fluids.moltenTin);
+        registerFluidModel(Fluids.moltenSilver);
+        registerFluidModel(Fluids.moltenLead);
     }
 
     @Override
