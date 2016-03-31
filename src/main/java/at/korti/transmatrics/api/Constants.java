@@ -60,6 +60,7 @@ public final class Constants {
         public static final String CRAFTING_TIME = "crafting_time";
         public static final String TOTAL_CRAFTING_TIME = "total_crafting_time";
         public static final String CRAFTING_EFFICIENCY = "crafting_efficiency";
+        public static final String CRAFTING_TANKS = "crafting_tanks";
     }
 
     public static class NetworkMessages{
@@ -150,6 +151,11 @@ public final class Constants {
         public static final int POWERED_FURNACE_CAPACITY = 5000;
         public static final int POWERED_FURNACE_RECEIVE = 500;
         public static final int POWERED_FURNACE_ENERGY_USE = 25;
+
+        //Magnetic Smeltery
+        public static final int MAGNETIC_SMELTERY_CAPACITY = 5000;
+        public static final int MAGNETIC_SMELTERY_RECEIVE = 500;
+        public static final int MAGNETIC_SMELTERY_ENERGY_USE = 25;
     }
 
     public static class Tanks{
@@ -187,6 +193,7 @@ public final class Constants {
     public static class GuiIds{
         public static final int PULVERIZER_GUI_ID = 0;
         public static final int POWERED_FURNACE_GUI_ID = 1;
+        public static final int MAGNETIC_SMELTERY_GUI_ID = 2;
     }
 
     public enum TransmatricsBlock {
@@ -203,6 +210,7 @@ public final class Constants {
         CONTROLLER("Controller"),
         PULVERIZER("Pulverizer"),
         POWERED_FURNACE("PoweredFurnace"),
+        MAGNETIC_SMELTERY("MagneticSmelter"),
         ORE_BLOCK("Ore");
 
         private final String regName;
@@ -254,7 +262,8 @@ public final class Constants {
         LARGE_SWITCH("TileLargeSwitch"),
         CONTROLLER("TileController"),
         PULVERIZER("TilePulverizer"),
-        POWERED_FURNACE("TilePoweredFurnace");
+        POWERED_FURNACE("TilePoweredFurnace"),
+        MAGNETIC_SMELTERY("TileMagneticSmeltery");
 
         private final String regName;
 

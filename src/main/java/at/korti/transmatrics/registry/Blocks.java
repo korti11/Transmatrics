@@ -1,6 +1,7 @@
 package at.korti.transmatrics.registry;
 
 import at.korti.transmatrics.block.OreBlock;
+import at.korti.transmatrics.block.crafting.MagneticSmeltery;
 import at.korti.transmatrics.block.crafting.PoweredFurnace;
 import at.korti.transmatrics.block.crafting.Pulverizer;
 import at.korti.transmatrics.block.generator.*;
@@ -40,6 +41,7 @@ public final class Blocks {
     private static Controller controller;
     private static Pulverizer pulverizer;
     private static PoweredFurnace poweredFurnace;
+    private static MagneticSmeltery magneticSmeltery;
     private static OreBlock oreBlock;
 
     public static void registerBlocks() {
@@ -56,6 +58,7 @@ public final class Blocks {
         registerBlock(controller = new Controller());
         registerBlock(pulverizer = new Pulverizer());
         registerBlock(poweredFurnace = new PoweredFurnace());
+        registerBlock(magneticSmeltery = new MagneticSmeltery());
         registerBlock(oreBlock = new OreBlock(), ItemOreBlock.class);
     }
 
@@ -73,6 +76,7 @@ public final class Blocks {
         registerBlockTexture(controller);
         registerBlockTexture(pulverizer);
         registerBlockTexture(poweredFurnace);
+        registerBlockTexture(magneticSmeltery);
         registerMetaBlockTextures(oreBlock, OreBlock.OreType.values());
     }
 

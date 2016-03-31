@@ -1,5 +1,6 @@
 package at.korti.transmatrics.registry;
 
+import at.korti.transmatrics.tileentity.crafting.TileEntityMagneticSmeltery;
 import at.korti.transmatrics.tileentity.crafting.TileEntityPoweredFurnace;
 import at.korti.transmatrics.tileentity.crafting.TileEntityPulverizer;
 import at.korti.transmatrics.tileentity.generator.*;
@@ -30,6 +31,7 @@ public final class TileEntities {
         registerTileEntity(TileEntityController.class, CONTROLLER.getRegName());
         registerTileEntity(TileEntityPulverizer.class, PULVERIZER.getRegName());
         registerTileEntity(TileEntityPoweredFurnace.class, POWERED_FURNACE.getRegName());
+        registerTileEntity(TileEntityMagneticSmeltery.class, MAGNETIC_SMELTERY.getRegName());
     }
 
 }

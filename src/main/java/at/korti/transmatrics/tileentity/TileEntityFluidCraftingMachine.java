@@ -1,11 +1,15 @@
 package at.korti.transmatrics.tileentity;
 
+import at.korti.transmatrics.api.Constants;
+import at.korti.transmatrics.api.Constants.NBT;
 import at.korti.transmatrics.api.crafting.ICraftingRegistry.ICraftingEntry;
 import at.korti.transmatrics.api.crafting.IFluidCraftingRegistry;
 import at.korti.transmatrics.block.ActiveMachineBlock;
 import at.korti.transmatrics.util.helper.CraftingHelper;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.fluids.*;
 
@@ -24,11 +28,41 @@ public abstract class TileEntityFluidCraftingMachine extends TileEntityInventory
 
     protected TileEntityFluidCraftingMachine(int capacity, int maxReceive, int energyUse, String name, IFluidCraftingRegistry registry) {
         super(capacity,maxReceive, registry.inventorySize(), registry.getStackLimit(), name);
-        this.initTanks();
         this.craftingRegistry = registry;
+        this.initTanks();
         this.energyUse = energyUse;
         this.maxEfficiency = energyStorage.getCapacity() / 1000;
     }
+
+    //region TileEntity
+    @Override
+    public void writeToNBT(NBTTagCompound compound) {
+        super.writeToNBT(compound);
+        compound.setInteger(NBT.CRAFTING_TIME, craftingTime);
+        compound.setInteger(NBT.TOTAL_CRAFTING_TIME, totalCraftingTime);
+        compound.setInteger(NBT.CRAFTING_EFFICIENCY, efficiency);
+        NBTTagList tanks = new NBTTagList();
+        for (FluidTank tank : this.tanks) {
+            NBTTagCompound nbtTank = new NBTTagCompound();
+            tank.writeToNBT(nbtTank);
+            tanks.appendTag(nbtTank);
+        }
+        compound.setTag(NBT.CRAFTING_TANKS, tanks);
+    }
+
+    @Override
+    public void readFromNBT(NBTTagCompound compound) {
+        super.readFromNBT(compound);
+        this.craftingTime = compound.getInteger(NBT.CRAFTING_TIME);
+        this.totalCraftingTime = compound.getInteger(NBT.TOTAL_CRAFTING_TIME);
+        this.efficiency = compound.getInteger(NBT.CRAFTING_EFFICIENCY);
+        NBTTagList tanks = compound.getTagList(NBT.CRAFTING_TANKS, 10);
+        for (int i = 0; i < tanks.tagCount(); i++) {
+            NBTTagCompound nbtTank = tanks.getCompoundTagAt(i);
+            this.tanks[i].readFromNBT(nbtTank);
+        }
+    }
+    //endregion
 
     //region TileEntityFluidCraftingMachine
     protected abstract boolean isFluidInput();
