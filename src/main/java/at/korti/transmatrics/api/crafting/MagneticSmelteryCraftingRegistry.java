@@ -47,13 +47,28 @@ public final class MagneticSmelteryCraftingRegistry implements IFluidCraftingReg
     }
 
     @Override
-    public boolean canFill(FluidStack fluidStackIn, EnumFacing facing) {
+    public boolean canFill(Fluid fluidIn, EnumFacing facing) {
         return InventoryHelper.canFill(this, facing);
     }
 
     @Override
-    public boolean canDrain(FluidStack fluidStackIn, EnumFacing facing) {
+    public boolean canDrain(Fluid fluidIn, EnumFacing facing) {
         return InventoryHelper.canDrain(this, facing);
+    }
+
+    @Override
+    public int[] getFluidCapacities() {
+        return new int[]{10000};
+    }
+
+    @Override
+    public int[] getFluidInputIds() {
+        return new int[]{0};
+    }
+
+    @Override
+    public int[] getFluidOutputIds() {
+        return new int[0];
     }
 
     public ICraftingRegistry register(ItemStack input, Fluid outFluid, int fluidAmount, int craftingTime) {

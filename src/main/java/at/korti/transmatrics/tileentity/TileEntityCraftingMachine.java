@@ -152,6 +152,16 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
         return true;
     }
 
+    private int getSlotForStack(boolean input, ItemStack stack) {
+        int[] slots = input ? craftingRegistry.getInputSlotsIds() : craftingRegistry.getOutputSlotsIds();
+        for (int slot : slots) {
+            if (getStackInSlot(slot).isItemEqual(stack)) {
+                return slot;
+            }
+        }
+        return -1;
+    }
+
     private ItemStack[] getContent(int[] slots) {
         ItemStack[] inputs = new ItemStack[slots.length];
         for (int i = 0; i < slots.length; i++) {
@@ -240,7 +250,7 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
             for (int i = 0; i < outputs.length; i++) {
                 craftItem(outputSlots[i], outputs[i]);
             }
-            decreaseInputs();
+            decreaseInputs(entry.getInputs());
         }
     }
 
@@ -254,12 +264,14 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
         }
     }
 
-    private void decreaseInputs() {
-        int[] inputs = craftingRegistry.getInputSlotsIds();
-        for (int slot : inputs) {
-            getStackInSlot(slot).stackSize--;
-            if (getStackInSlot(slot).stackSize <= 0) {
-                setInventorySlotContents(slot, null);
+    private void decreaseInputs(ItemStack... stacks) {
+        for (ItemStack stack : stacks) {
+            int slot = getSlotForStack(true, stack);
+            if(slot != -1) {
+                getStackInSlot(slot).stackSize -= stack.stackSize;
+                if (getStackInSlot(slot).stackSize <= 0) {
+                    setInventorySlotContents(slot, null);
+                }
             }
         }
     }
@@ -310,7 +322,7 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
 
     @Override
     public int getFieldCount() {
-        return 2;
+        return 6;
     }
     //endregion
 }

@@ -6,6 +6,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.util.EnumFacing;
 
+import java.util.Map;
+
 import static net.minecraft.util.EnumFacing.*;
 
 /**
@@ -48,10 +50,28 @@ public final class FurnaceCraftingRegistry implements ICraftingRegistry<ItemStac
     @Override
     public ICraftingEntry get(ItemStack... inputs) {
         if(inputs[0] != null) {
-            return new FurnaceCraftingEntry(inputs[0], FurnaceRecipes.instance().getSmeltingResult(inputs[0]),
+            return new FurnaceCraftingEntry(getInputStack(inputs[0]), FurnaceRecipes.instance().getSmeltingResult(inputs[0]),
                     FurnaceRecipes.instance().getSmeltingExperience(inputs[0]));
         }
         return null;
+    }
+
+    private ItemStack getInputStack(ItemStack stack) {
+        for (Map.Entry<ItemStack, ItemStack> entry : FurnaceRecipes.instance().getSmeltingList().entrySet()) {
+            if (compareItemStacks(stack, entry.getKey())) {
+                ItemStack tempStack = entry.getKey().copy();
+                if (tempStack.getItem().getRegistryName().split(":")[0].equals("minecraft") && tempStack.getItemDamage() == 32767) {
+                    tempStack.setItemDamage(0);
+                }
+                return tempStack;
+            }
+        }
+        return stack;
+    }
+
+    private boolean compareItemStacks(ItemStack stackA, ItemStack stackB)
+    {
+        return stackB.getItem() == stackA.getItem() && (stackB.getMetadata() == 32767 || stackB.getMetadata() == stackA.getMetadata());
     }
 
     @Override
