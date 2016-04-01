@@ -14,6 +14,7 @@ tile.Transmatrics.LargeSwitch.name=Large Switch
 tile.Transmatrics.Controller.name=Controller
 tile.Transmatrics.Pulverizer.name=Pulverizer
 tile.Transmatrics.PoweredFurnace.name=Powered Furnace
+tile.Transmatrics.MagneticSmeltery.name=Magnetic Smeltery
 
 #Ore
 tile.Transmatrics.Ore.copper.name=Copper Ore

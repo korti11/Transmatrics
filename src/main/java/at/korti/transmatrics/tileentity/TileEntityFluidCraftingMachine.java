@@ -104,14 +104,13 @@ public abstract class TileEntityFluidCraftingMachine extends TileEntityInventory
                     this.craftingTime = 0;
                     this.efficiency = Math.max(efficiency - 1, 0);
                 }
-
-                if (isCrafting && !ActiveMachineBlock.isActive(worldObj, pos)) {
-                    markDirty = true;
-                    ActiveMachineBlock.setState(true, this.worldObj, this.pos);
-                } else if (!isCrafting && ActiveMachineBlock.isActive(worldObj, pos)) {
-                    markDirty = true;
-                    ActiveMachineBlock.setState(false, this.worldObj, this.pos);
-                }
+            }
+            if (isCrafting && !ActiveMachineBlock.isActive(worldObj, pos)) {
+                markDirty = true;
+                ActiveMachineBlock.setState(true, this.worldObj, this.pos);
+            } else if (!isCrafting && ActiveMachineBlock.isActive(worldObj, pos)) {
+                markDirty = true;
+                ActiveMachineBlock.setState(false, this.worldObj, this.pos);
             }
         }
 
@@ -412,7 +411,11 @@ public abstract class TileEntityFluidCraftingMachine extends TileEntityInventory
     @Override
     public FluidStack drain(EnumFacing from, int maxDrain, boolean doDrain) {
         FluidTank tank = firstFilledTank(false);
-        return tank.drain(maxDrain, doDrain);
+        if(tank != null) {
+            return tank.drain(maxDrain, doDrain);
+        } else {
+            return findEmptyTank(false).drain(maxDrain, doDrain);
+        }
     }
 
     @Override

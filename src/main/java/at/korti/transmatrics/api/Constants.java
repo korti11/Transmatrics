@@ -210,7 +210,7 @@ public final class Constants {
         CONTROLLER("Controller"),
         PULVERIZER("Pulverizer"),
         POWERED_FURNACE("PoweredFurnace"),
-        MAGNETIC_SMELTERY("MagneticSmelter"),
+        MAGNETIC_SMELTERY("MagneticSmeltery"),
         ORE_BLOCK("Ore");
 
         private final String regName;
