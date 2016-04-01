@@ -64,6 +64,9 @@ network.out_of_range.message=[Network] The nodes are out of range.
 network.same_node.message=[Network] Can't connect to the same node.
 network.already_connected.message=[Network] The nodes are already connected.
 
-#Tool Tips
+#Tooltips
 tooltip.connector.connection.name=Name: %s
 tooltip.connector.connection.pos=Pos: [x: %d, y: %d, z: %d]
+
+#Gui
+gui.tank.empty=Empty

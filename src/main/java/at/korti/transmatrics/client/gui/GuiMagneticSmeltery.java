@@ -3,12 +3,15 @@ package at.korti.transmatrics.client.gui;
 import at.korti.transmatrics.client.util.RenderHelper;
 import at.korti.transmatrics.tileentity.TileEntityFluidCraftingMachine;
 import at.korti.transmatrics.tileentity.container.ContainerMagneticSmeltery;
+import at.korti.transmatrics.util.helper.TextHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidTankInfo;
+
+import java.util.List;
 
 /**
  * Created by Korti on 31.03.2016.
@@ -17,6 +20,18 @@ public class GuiMagneticSmeltery extends GuiCrafting {
 
     public GuiMagneticSmeltery(InventoryPlayer inventoryPlayer, IInventory inventory) {
         super(new ContainerMagneticSmeltery(inventoryPlayer, inventory), inventory, "textures/gui/MagneticSmeltery.png");
+    }
+
+    @Override
+    protected void addInformation(int mouseX, int mouseY, List<String> textLines) {
+        super.addInformation(mouseX, mouseY, textLines);
+        if (inventory instanceof TileEntityFluidCraftingMachine && isInRect(mouseX, mouseY, 107, 10, 107 + 16, 10 + 64)) {
+            TileEntityFluidCraftingMachine machine = (TileEntityFluidCraftingMachine) inventory;
+            FluidTankInfo tankInfo = machine.getTankInfo(EnumFacing.UP)[0];
+            textLines.add(tankInfo.fluid != null ? tankInfo.fluid.getLocalizedName() : TextHelper.localize("gui.tank.empty"));
+            textLines.add(String.format("%d/%d mB",
+                    tankInfo.fluid != null ? tankInfo.fluid.amount : 0, tankInfo.capacity));
+        }
     }
 
     @Override
@@ -40,34 +55,5 @@ public class GuiMagneticSmeltery extends GuiCrafting {
             FluidTankInfo tankInfo = fluidCraftingMachine.getTankInfo(EnumFacing.UP)[0];
             RenderHelper.drawGuiFluid(tankInfo.fluid, i + 107, j + 10, zLevel, 16, 64, tankInfo.capacity);
         }
-    }
-
-    private int getFluidBar(int pixels) {
-        int fluidAmount = inventory.getField(6);
-        int tankCapacity = inventory.getField(7);
-        return tankCapacity != 0 && fluidAmount != 0 ? fluidAmount * pixels / tankCapacity : 0;
-    }
-
-    private ResourceLocation getFluidTexture() {
-        if (inventory instanceof TileEntityFluidCraftingMachine) {
-            TileEntityFluidCraftingMachine fluidCraftingMachine = (TileEntityFluidCraftingMachine) inventory;
-            FluidTankInfo tankInfo = fluidCraftingMachine.getTankInfo(EnumFacing.UP)[0];
-            if(tankInfo.fluid != null) {
-                ResourceLocation tempResource = tankInfo.fluid.getFluid().getStill(tankInfo.fluid);
-                return new ResourceLocation(tempResource.getResourceDomain(), "textures/" + tempResource.getResourcePath() + ".png");
-            }
-        }
-        return null;
-    }
-
-    private int getColor() {
-        if (inventory instanceof TileEntityFluidCraftingMachine) {
-            TileEntityFluidCraftingMachine fluidCraftingMachine = (TileEntityFluidCraftingMachine) inventory;
-            FluidTankInfo tankInfo = fluidCraftingMachine.getTankInfo(EnumFacing.UP)[0];
-            if (tankInfo.fluid != null) {
-                return tankInfo.fluid.getFluid().getColor();
-            }
-        }
-        return 0xffffff;
     }
 }

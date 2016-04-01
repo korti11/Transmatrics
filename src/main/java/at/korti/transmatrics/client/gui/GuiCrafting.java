@@ -2,6 +2,7 @@ package at.korti.transmatrics.client.gui;
 
 import at.korti.transmatrics.api.Constants;
 import at.korti.transmatrics.api.Constants.Mod;
+import at.korti.transmatrics.api.energy.IEnergyHandler;
 import at.korti.transmatrics.tileentity.TileEntityCraftingMachine;
 import at.korti.transmatrics.tileentity.container.CraftingContainer;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -33,13 +34,14 @@ public abstract class GuiCrafting extends GuiContainer{
         super.drawScreen(mouseX, mouseY, partialTicks);
 
         List<String> textLines = new LinkedList<>();
-        if(inventory instanceof TileEntityCraftingMachine) {
-            TileEntityCraftingMachine machine = (TileEntityCraftingMachine) inventory;
-            if (isInRect(mouseX, mouseY, 17, 10, 17 + 16, 10 + 64)) {
-                textLines.add(String.format("%d/%d TF", machine.getEnergyStored(), machine.getMaxEnergyStored()));
-                this.drawHoveringText(textLines, mouseX, mouseY);
-                textLines.clear();
-            }
+        this.addInformation(mouseX, mouseY, textLines);
+        this.drawHoveringText(textLines, mouseX, mouseY);
+    }
+
+    protected void addInformation(int mouseX, int mouseY, List<String> textLines) {
+        if (inventory instanceof IEnergyHandler && isInRect(mouseX, mouseY, 17, 10, 17 + 16, 10 + 64)) {
+            IEnergyHandler machine = (IEnergyHandler) inventory;
+            textLines.add(String.format("%d/%d TF", machine.getEnergyStored(), machine.getMaxEnergyStored()));
         }
     }
 
