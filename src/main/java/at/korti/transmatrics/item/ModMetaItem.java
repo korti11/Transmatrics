@@ -61,6 +61,11 @@ public abstract class ModMetaItem extends ModItem {
     }
 
     @Override
+    public int getMetadata(int damage) {
+        return damage;
+    }
+
+    @Override
     public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
         for (int i = 0; i < extensions.length; i++) {
             subItems.add(new ItemStack(itemIn, 1, i));

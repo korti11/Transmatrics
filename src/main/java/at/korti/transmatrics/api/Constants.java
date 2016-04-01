@@ -232,7 +232,8 @@ public final class Constants {
         WRENCH("Wrench"),
         CONNECTOR("Connector"),
         PULVERIZED_DUST("PulverizedDust"),
-        INGOT("Ingot");
+        INGOT("Ingot"),
+        GEAR("Gear");
 
         private final String regName;
 
