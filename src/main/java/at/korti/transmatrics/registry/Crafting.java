@@ -1,6 +1,8 @@
 package at.korti.transmatrics.registry;
 
+import at.korti.transmatrics.api.crafting.MagneticSmelteryCraftingRegistry;
 import at.korti.transmatrics.api.crafting.PulverizerCraftingRegistry;
+import at.korti.transmatrics.block.crafting.MagneticSmeltery;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -18,6 +20,7 @@ public final class Crafting {
     public static void register() {
         registerPulverizerCrafting();
         registerFurnaceCrafting();
+        registerMagneticSmelteryCrafting();
     }
 
     private static void registerPulverizerCrafting() {
@@ -47,6 +50,10 @@ public final class Crafting {
         FurnaceRecipes.instance().addSmeltingRecipe(new ItemStack(ORE_BLOCK.getBlock(), 1, 1), new ItemStack(INGOT.getItem(), 1, 1), 0.6F);
         FurnaceRecipes.instance().addSmeltingRecipe(new ItemStack(ORE_BLOCK.getBlock(), 1, 2), new ItemStack(INGOT.getItem(), 1, 2), 0.9F);
         FurnaceRecipes.instance().addSmeltingRecipe(new ItemStack(ORE_BLOCK.getBlock(), 1, 3), new ItemStack(INGOT.getItem(), 1, 3), 0.9F);
+    }
+
+    private static void registerMagneticSmelteryCrafting() {
+        MagneticSmelteryCraftingRegistry.getInstance().register(new ItemStack(INGOT.getItem(), 1, 0), Fluids.moltenCopper, 500, 20 * 8);
     }
 
 }

@@ -239,6 +239,16 @@ public abstract class TileEntityFluidCraftingMachine extends TileEntityInventory
         return true;
     }
 
+    private boolean isSlot(boolean input, int slot) {
+        int[] slots = input ? craftingRegistry.getInputSlotsIds() : craftingRegistry.getOutputSlotsIds();
+        for (int i : slots) {
+            if (slot == i) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private boolean equalFluids(FluidStack[] stacks) {
         boolean flag = true;
         for (FluidTank tank : tanks) {
@@ -272,7 +282,7 @@ public abstract class TileEntityFluidCraftingMachine extends TileEntityInventory
         int[] tankIds = input ? craftingRegistry.getFluidInputIds() : craftingRegistry.getFluidOutputIds();
         for (int tankId : tankIds) {
             FluidTank tank = tanks[tankId];
-            if (tank.getFluid().getFluid() == fluid) {
+            if (tank.getFluid() == null || tank.getFluid().getFluid() == fluid) {
                 return tank;
             }
         }
@@ -294,7 +304,7 @@ public abstract class TileEntityFluidCraftingMachine extends TileEntityInventory
         int[] tankIds = input ? craftingRegistry.getFluidInputIds() : craftingRegistry.getFluidOutputIds();
         for (int tankId : tankIds) {
             FluidTank tank = tanks[tankId];
-            if (tank.getFluidAmount() == 0) {
+            if (tank.getFluidAmount() != 0) {
                 return tank;
             }
         }
@@ -353,7 +363,8 @@ public abstract class TileEntityFluidCraftingMachine extends TileEntityInventory
     }
 
     private void craftFluid(FluidStack stack) {
-        fill(EnumFacing.UP, stack.copy(), true);
+        FluidTank tank = getTankForFluid(false, stack.getFluid());
+        tank.fill(stack, true);
     }
 
     private void craftItem(int slot, ItemStack stack) {
@@ -452,6 +463,22 @@ public abstract class TileEntityFluidCraftingMachine extends TileEntityInventory
     //endregion
 
     //region IInventory
+    @Override
+    public void setInventorySlotContents(int index, ItemStack stack) {
+        boolean isSameItem = stack != null && stack.isItemEqual(getStackInSlot(index)) && ItemStack.areItemStackTagsEqual(stack, getStackInSlot(index));
+        super.setInventorySlotContents(index, stack);
+        ICraftingEntry entry = craftingRegistry.get(getInventoryInputs());
+        if (isSlot(true, index) && entry != null && !isSameItem) {
+            this.totalCraftingTime = entry.getCraftingTime();
+            craftingTime = 0;
+            this.markDirty();
+        } else if (stack == null) {
+            this.totalCraftingTime = 0;
+            this.craftingTime = 0;
+            this.efficiency = 0;
+        }
+    }
+
     @Override
     public int getField(int id) {
         switch (id) {

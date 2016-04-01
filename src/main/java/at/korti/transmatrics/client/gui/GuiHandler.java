@@ -1,8 +1,10 @@
 package at.korti.transmatrics.client.gui;
 
 import at.korti.transmatrics.api.Constants;
+import at.korti.transmatrics.tileentity.container.ContainerMagneticSmeltery;
 import at.korti.transmatrics.tileentity.container.ContainerPoweredFurnace;
 import at.korti.transmatrics.tileentity.container.ContainerPulverizer;
+import at.korti.transmatrics.tileentity.crafting.TileEntityMagneticSmeltery;
 import at.korti.transmatrics.tileentity.crafting.TileEntityPoweredFurnace;
 import at.korti.transmatrics.tileentity.crafting.TileEntityPulverizer;
 import net.minecraft.client.multiplayer.WorldClient;
@@ -26,6 +28,8 @@ public class GuiHandler implements IGuiHandler {
                 return new ContainerPulverizer(player.inventory, (TileEntityPulverizer) world.getTileEntity(pos));
             case POWERED_FURNACE_GUI_ID:
                 return new ContainerPoweredFurnace(player.inventory, (TileEntityPoweredFurnace) world.getTileEntity(pos));
+            case MAGNETIC_SMELTERY_GUI_ID:
+                return new ContainerMagneticSmeltery(player.inventory, (TileEntityMagneticSmeltery) world.getTileEntity(pos));
         }
 
         return null;
@@ -41,6 +45,8 @@ public class GuiHandler implements IGuiHandler {
                     return new GuiPulverizer(player.inventory, (TileEntityPulverizer) world.getTileEntity(pos));
                 case POWERED_FURNACE_GUI_ID:
                     return new GuiPoweredFurnace(player.inventory, (TileEntityPoweredFurnace) world.getTileEntity(pos));
+                case MAGNETIC_SMELTERY_GUI_ID:
+                    return new GuiMagneticSmeltery(player.inventory, (TileEntityMagneticSmeltery) world.getTileEntity(pos));
             }
         }
         return null;

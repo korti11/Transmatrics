@@ -63,12 +63,12 @@ public final class MagneticSmelteryCraftingRegistry implements IFluidCraftingReg
 
     @Override
     public int[] getFluidInputIds() {
-        return new int[]{0};
+        return new int[0];
     }
 
     @Override
     public int[] getFluidOutputIds() {
-        return new int[0];
+        return new int[]{0};
     }
 
     public ICraftingRegistry register(ItemStack input, Fluid outFluid, int fluidAmount, int craftingTime) {
