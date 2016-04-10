@@ -184,6 +184,11 @@ public final class MagneticSmelteryCraftingRegistry implements IFluidCraftingReg
         return false;
     }
 
+    @Override
+    public boolean decreaseItemForSlot(int slot) {
+        return true;
+    }
+
     public static class MagneticSmelteryCraftingEntry implements ICraftingEntry<ItemStack, FluidStack> {
 
         private ItemStack input;

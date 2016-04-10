@@ -141,6 +141,11 @@ public final class FurnaceCraftingRegistry implements ICraftingRegistry<ItemStac
         return InventoryHelper.canExtractItem(this, slot, facing);
     }
 
+    @Override
+    public boolean decreaseItemForSlot(int slot) {
+        return true;
+    }
+
     public static class FurnaceCraftingEntry implements ICraftingEntry<ItemStack, ItemStack> {
 
         private ItemStack input;

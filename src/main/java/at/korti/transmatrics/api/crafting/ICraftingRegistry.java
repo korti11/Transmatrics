@@ -41,6 +41,8 @@ public interface ICraftingRegistry<I> {
 
     boolean canExtractItem(int slot, ItemStack itemStackIn, EnumFacing facing);
 
+    boolean decreaseItemForSlot(int slot);
+
     interface ICraftingEntry<I, O>{
 
         I[] getInputs();

@@ -267,7 +267,7 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
     private void decreaseInputs(ItemStack... stacks) {
         for (ItemStack stack : stacks) {
             int slot = getSlotForStack(true, stack);
-            if(slot != -1) {
+            if(slot != -1 && craftingRegistry.decreaseItemForSlot(slot)) {
                 getStackInSlot(slot).stackSize -= stack.stackSize;
                 if (getStackInSlot(slot).stackSize <= 0) {
                     setInventorySlotContents(slot, null);

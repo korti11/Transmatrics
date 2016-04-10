@@ -16,7 +16,7 @@ import static net.minecraft.util.EnumFacing.*;
 /**
  * Created by Korti on 01.04.2016.
  */
-public class LiquidCasterCraftingRegistry implements IFluidItemCraftingRegistry {
+public final class LiquidCasterCraftingRegistry implements IFluidItemCraftingRegistry {
 
     private static LiquidCasterCraftingRegistry instance;
 
@@ -176,6 +176,11 @@ public class LiquidCasterCraftingRegistry implements IFluidItemCraftingRegistry 
     @Override
     public boolean canExtractItem(int slot, ItemStack itemStackIn, EnumFacing facing) {
         return InventoryHelper.canExtractItem(this, slot, facing);
+    }
+
+    @Override
+    public boolean decreaseItemForSlot(int slot) {
+        return false;
     }
 
     public static class LiquidCasterCraftingEntry implements IFluidItemCraftingEntry<ItemStack> {

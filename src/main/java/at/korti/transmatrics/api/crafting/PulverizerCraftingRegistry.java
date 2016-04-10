@@ -146,6 +146,11 @@ public final class PulverizerCraftingRegistry implements ICraftingRegistry<ItemS
         return InventoryHelper.canExtractItem(this, slot, facing);
     }
 
+    @Override
+    public boolean decreaseItemForSlot(int slot) {
+        return true;
+    }
+
     public static class PulverizerCraftingEntry implements ICraftingEntry<ItemStack, ItemStack> {
 
         private ItemStack input;

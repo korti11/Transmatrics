@@ -1,9 +1,8 @@
 package at.korti.transmatrics.tileentity;
 
-import at.korti.transmatrics.api.Constants;
 import at.korti.transmatrics.api.Constants.NBT;
-import at.korti.transmatrics.api.crafting.ICraftingRegistry.ICraftingEntry;
-import at.korti.transmatrics.api.crafting.IFluidCraftingRegistry;
+import at.korti.transmatrics.api.crafting.IFluidItemCraftingRegistry;
+import at.korti.transmatrics.api.crafting.IFluidItemCraftingRegistry.IFluidItemCraftingEntry;
 import at.korti.transmatrics.block.ActiveMachineBlock;
 import at.korti.transmatrics.util.helper.CraftingHelper;
 import net.minecraft.inventory.ISidedInventory;
@@ -14,11 +13,11 @@ import net.minecraft.util.EnumFacing;
 import net.minecraftforge.fluids.*;
 
 /**
- * Created by Korti on 30.03.2016.
+ * Created by Korti on 02.04.2016.
  */
-public abstract class TileEntityFluidCraftingMachine extends TileEntityInventory implements ISidedInventory, IFluidHandler {
+public abstract class TileEntityFluidItemCraftingMachine extends TileEntityInventory implements IFluidHandler, ISidedInventory {
 
-    protected IFluidCraftingRegistry craftingRegistry;
+    protected IFluidItemCraftingRegistry craftingRegistry;
     protected FluidTank[] tanks;
     private int craftingTime;
     private int totalCraftingTime;
@@ -26,10 +25,10 @@ public abstract class TileEntityFluidCraftingMachine extends TileEntityInventory
     protected int efficiency;
     protected int maxEfficiency;
 
-    protected TileEntityFluidCraftingMachine(int capacity, int maxReceive, int energyUse, String name, IFluidCraftingRegistry registry) {
-        super(capacity,maxReceive, registry.inventorySize(), registry.getStackLimit(), name);
-        this.craftingRegistry = registry;
-        this.initTanks();
+    protected TileEntityFluidItemCraftingMachine(int capacity, int maxReceive, int energyUse, String name, IFluidItemCraftingRegistry craftingRegistry) {
+        super(capacity, maxReceive, craftingRegistry.inventorySize(), craftingRegistry.getStackLimit(), name);
+        this.craftingRegistry = craftingRegistry;
+        initTanks();
         this.energyUse = energyUse;
         this.maxEfficiency = energyStorage.getCapacity() / 1000;
     }
@@ -64,9 +63,7 @@ public abstract class TileEntityFluidCraftingMachine extends TileEntityInventory
     }
     //endregion
 
-    //region TileEntityFluidCraftingMachine
-    protected abstract boolean isFluidInput();
-
+    //region TileEntityFluidItemCraftingMachine
     private void initTanks() {
         int[] capacities = craftingRegistry.getFluidCapacities();
         tanks = new FluidTank[capacities.length];
@@ -79,7 +76,6 @@ public abstract class TileEntityFluidCraftingMachine extends TileEntityInventory
     public void update() {
         super.update();
 
-        boolean isFluidInput = isFluidInput();
         boolean markDirty = false;
         boolean isCrafting = false;
 
@@ -88,7 +84,7 @@ public abstract class TileEntityFluidCraftingMachine extends TileEntityInventory
         }
 
         if (!worldObj.isRemote) {
-            if (this.energyStorage.getEnergyStored() - energyUse >= 0 && isFluidInput ? !areTanksEmpty(true) : !areInputSlotsEmpty()) {
+            if (this.energyStorage.getEnergyStored() - energyUse >= 0 && !areTanksEmpty(true) && !areInputSlotsEmpty()) {
                 if (canCraft()) {
                     this.efficiency = energyStorage.getEnergyStored() / (energyStorage.getCapacity() / maxEfficiency);
                     this.craftingTime += efficiency;
@@ -119,10 +115,18 @@ public abstract class TileEntityFluidCraftingMachine extends TileEntityInventory
         }
     }
 
+    private int getCraftingTime() {
+        IFluidItemCraftingEntry entry = craftingRegistry.get(getFluidsInput(), getInventoryInputs());
+        if (entry != null) {
+            return entry.getCraftingTime();
+        }
+        return 0;
+    }
+
     private boolean areInputSlotsEmpty() {
         int[] inputSlots = craftingRegistry.getInputSlotsIds();
-        for (int i : inputSlots) {
-            if (getStackInSlot(i) != null) {
+        for (int slot : inputSlots) {
+            if (getStackInSlot(slot) != null) {
                 return false;
             }
         }
@@ -130,9 +134,9 @@ public abstract class TileEntityFluidCraftingMachine extends TileEntityInventory
     }
 
     private boolean areOutputSlotsEmpty() {
-        int[] outputSlots = craftingRegistry.getOutputSlotsIds();
-        for (int i : outputSlots) {
-            if (getStackInSlot(i) != null) {
+        int[] inputSlots = craftingRegistry.getOutputSlotsIds();
+        for (int slot : inputSlots) {
+            if (getStackInSlot(slot) != null) {
                 return false;
             }
         }
@@ -140,7 +144,7 @@ public abstract class TileEntityFluidCraftingMachine extends TileEntityInventory
     }
 
     private boolean areTanksEmpty(boolean input) {
-        int[] tankIds = input ? craftingRegistry.getFluidInputIds() : craftingRegistry.getFluidOutputIds();
+        int[] tankIds = input ? craftingRegistry.getFluidInputIds() : craftingRegistry.getOutputSlotsIds();
         for (int tankId : tankIds) {
             FluidTank tank = tanks[tankId];
             if (tank.getFluidAmount() != 0) {
@@ -151,32 +155,22 @@ public abstract class TileEntityFluidCraftingMachine extends TileEntityInventory
     }
 
     private boolean canCraft() {
-        if (isFluidInput() ? areTanksEmpty(true) : areInputSlotsEmpty()) {
+        if (areTanksEmpty(true) || areInputSlotsEmpty()) {
             return false;
-        } else if(!isFluidInput()) {
-            ICraftingEntry<ItemStack, FluidStack> entry = craftingRegistry.get(getInventoryInputs());
-            if (entry == null) {
-                return false;
-            } else if (areTanksEmpty(false)) {
-                return true;
-            } else if (!equalFluids(entry.getOutputs())) {
-                return false;
-            }
-            return checkFluidSize(false, entry.getOutputs());
         } else {
             boolean isFluidOutput = craftingRegistry.getOutputSlotsIds().length == 0;
             if (isFluidOutput) {
-                ICraftingEntry<FluidStack, FluidStack> entry = craftingRegistry.get(getInputFluids());
+                IFluidItemCraftingEntry<FluidStack> entry = craftingRegistry.get(getFluidsInput(), getInventoryInputs());
                 if (entry == null) {
                     return false;
                 } else if (areTanksEmpty(false)) {
-                    return true;
-                } else if (!equalFluids(entry.getOutputs())) {
+                    return false;
+                } else if (equalFluids(entry.getOutputs())) {
                     return false;
                 }
-                return checkFluidSize(false, entry.getOutputs());
+                return checkFluidSizes(false, entry.getOutputs());
             } else {
-                ICraftingEntry<FluidStack, ItemStack> entry = craftingRegistry.get(getInputFluids());
+                IFluidItemCraftingEntry<ItemStack> entry = craftingRegistry.get(getFluidsInput(), getInventoryInputs());
                 if (entry == null) {
                     return false;
                 } else if (areOutputSlotsEmpty()) {
@@ -205,14 +199,16 @@ public abstract class TileEntityFluidCraftingMachine extends TileEntityInventory
         return getInventoryContent(craftingRegistry.getOutputSlotsIds());
     }
 
-    private int getSlotForStack(boolean input, ItemStack stack) {
-        int[] slots = input ? craftingRegistry.getInputSlotsIds() : craftingRegistry.getOutputSlotsIds();
-        for (int slot : slots) {
-            if (getStackInSlot(slot).isItemEqual(stack)) {
-                return slot;
-            }
+    private FluidStack[] getFluids(int[] tankIds) {
+        FluidStack[] stacks = new FluidStack[tankIds.length];
+        for (int i = 0; i < tankIds.length; i++) {
+            stacks[i] = tanks[tankIds[i]].getFluid();
         }
-        return -1;
+        return stacks;
+    }
+
+    private FluidStack[] getFluidsInput() {
+        return getFluids(craftingRegistry.getFluidInputIds());
     }
 
     private boolean equalInventoryOutputs(ItemStack[] outputs) {
@@ -223,29 +219,6 @@ public abstract class TileEntityFluidCraftingMachine extends TileEntityInventory
             }
         }
         return true;
-    }
-
-    private boolean checkOutputStackSize(ItemStack[] outputs) {
-        ItemStack[] outputContent = getInventoryOutputs();
-        for (int i = 0; i < outputContent.length && i < outputs.length; i++) {
-            if(outputContent[i] != null) {
-                int result = outputContent[i].stackSize + outputs[i].stackSize;
-                if (result > getInventoryStackLimit() || result > outputContent[i].getMaxStackSize()) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
-    private boolean isSlot(boolean input, int slot) {
-        int[] slots = input ? craftingRegistry.getInputSlotsIds() : craftingRegistry.getOutputSlotsIds();
-        for (int i : slots) {
-            if (slot == i) {
-                return true;
-            }
-        }
-        return false;
     }
 
     private boolean equalFluids(FluidStack[] stacks) {
@@ -266,8 +239,21 @@ public abstract class TileEntityFluidCraftingMachine extends TileEntityInventory
         return true;
     }
 
-    private boolean checkFluidSize(boolean input, FluidStack[] stacks) {
-        for (FluidStack stack : stacks) {
+    private boolean checkOutputStackSize(ItemStack[] outputs) {
+        ItemStack[] outputContent = getInventoryOutputs();
+        for (int i = 0; i < outputContent.length && i < outputs.length; i++) {
+            if (outputContent[i] != null) {
+                int result = outputContent[i].stackSize + outputs[i].stackSize;
+                if (result > getInventoryStackLimit() || result > outputContent[i].getMaxStackSize()) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    private boolean checkFluidSizes(boolean input, FluidStack[] outputs) {
+        for (FluidStack stack : outputs) {
             FluidTank tank = getTankForFluid(input, stack.getFluid());
             int amount = tank.fill(stack, false);
             if (amount != stack.amount) {
@@ -299,6 +285,68 @@ public abstract class TileEntityFluidCraftingMachine extends TileEntityInventory
         return null;
     }
 
+    private void craft() {
+        if (this.canCraft()) {
+            boolean isFluidOutput = craftingRegistry.getOutputSlotsIds().length == 0;
+            if (isFluidOutput) {
+                IFluidItemCraftingEntry<FluidStack> entry = craftingRegistry.get(getFluidsInput(), getInventoryInputs());
+                FluidStack[] outputs = entry.getOutputs();
+                for (FluidStack stack : outputs) {
+                    craftFluid(stack);
+                }
+                decreaseInputs(entry.getInputs(), entry.getSecondInputs());
+            } else {
+                IFluidItemCraftingEntry<ItemStack> entry = craftingRegistry.get(getFluidsInput(), getInventoryInputs());
+                int[] outputSlots = craftingRegistry.getOutputSlotsIds();
+                ItemStack[] outputs = entry.getOutputs();
+                for (int i = 0; i < outputs.length; i++) {
+                    craftItem(outputSlots[i], outputs[i]);
+                }
+                decreaseInputs(entry.getInputs(), entry.getSecondInputs());
+            }
+        }
+    }
+
+    private void craftFluid(FluidStack stack) {
+        FluidTank tank = getTankForFluid(false, stack.getFluid());
+        tank.fill(stack, true);
+    }
+
+    private void craftItem(int outputSlot, ItemStack output) {
+        if (CraftingHelper.chanceToCraft(craftingRegistry, outputSlot, getInventoryInputs())) {
+            if (getStackInSlot(outputSlot) == null) {
+                setInventorySlotContents(outputSlot, output.copy());
+            } else if (getStackInSlot(outputSlot).isItemEqual(output)) {
+                getStackInSlot(outputSlot).stackSize += output.stackSize;
+            }
+        }
+    }
+
+    private void decreaseInputs(FluidStack[] inputs, ItemStack[] secondInputs) {
+        for (FluidStack stack : inputs) {
+            drain(EnumFacing.UP, stack, true);
+        }
+        for (ItemStack stack : secondInputs) {
+            int slot = getSlotForStack(true, stack);
+            if (slot != -1 && craftingRegistry.decreaseItemForSlot(slot)) {
+                getStackInSlot(slot).stackSize -= stack.stackSize;
+                if (getStackInSlot(slot).stackSize <= 0) {
+                    setInventorySlotContents(slot, null);
+                }
+            }
+        }
+    }
+
+    private int getSlotForStack(boolean input, ItemStack stack) {
+        int[] slots = input ? craftingRegistry.getInputSlotsIds() : craftingRegistry.getOutputSlotsIds();
+        for (int slot : slots) {
+            if (getStackInSlot(slot).isItemEqual(stack)) {
+                return slot;
+            }
+        }
+        return -1;
+    }
+
     private FluidTank firstFilledTank(boolean input) {
         int[] tankIds = input ? craftingRegistry.getFluidInputIds() : craftingRegistry.getFluidOutputIds();
         for (int tankId : tankIds) {
@@ -309,89 +357,21 @@ public abstract class TileEntityFluidCraftingMachine extends TileEntityInventory
         }
         return null;
     }
+    //endregion
 
-    private FluidStack[] getFluids(int[] tankIds) {
-        FluidStack[] stacks = new FluidStack[tankIds.length];
-        for (int i = 0; i < stacks.length; i++) {
-            stacks[i] = tanks[tankIds[i]].getFluid();
-        }
-        return stacks;
-    }
-
-    private FluidStack[] getInputFluids() {
-        return getFluids(craftingRegistry.getFluidInputIds());
-    }
-
-    private int getCraftingTime() {
-        ICraftingEntry entry = craftingRegistry.get(isFluidInput() ? getInputFluids() : getInventoryInputs());
-        if (entry != null) {
-            return entry.getCraftingTime();
-        }
+    //region IInventory
+    @Override
+    public int getField(int id) {
         return 0;
     }
 
-    private void craft() {
-        if (this.canCraft()) {
-            if(!isFluidInput()) {
-                ICraftingEntry<ItemStack, FluidStack> entry = craftingRegistry.get(getInventoryInputs());
-                FluidStack[] outputs = entry.getOutputs();
-                for (FluidStack stack : outputs) {
-                    craftFluid(stack);
-                }
-                decreaseInputs(entry.getInputs());
-            } else {
-                boolean isFluidOutput = craftingRegistry.getOutputSlotsIds().length == 0;
-                if (isFluidOutput) {
-                    ICraftingEntry<FluidStack, FluidStack> entry = craftingRegistry.get(getInputFluids());
-                    FluidStack[] outputs = entry.getOutputs();
-                    for (FluidStack stack : outputs) {
-                        craftFluid(stack);
-                    }
-                    decreaseInputs(entry.getInputs());
-                } else {
-                    ICraftingEntry<FluidStack, ItemStack> entry = craftingRegistry.get(getInputFluids());
-                    int[] outputSlots = craftingRegistry.getOutputSlotsIds();
-                    ItemStack[] outputs = entry.getOutputs();
-                    for (int i = 0; i < outputs.length; i++) {
-                        craftItem(outputSlots[i], outputs[i]);
-                    }
-                    decreaseInputs(entry.getInputs());
-                }
-            }
-        }
-    }
+    @Override
+    public void setField(int id, int value) {
 
-    private void craftFluid(FluidStack stack) {
-        FluidTank tank = getTankForFluid(false, stack.getFluid());
-        tank.fill(stack, true);
     }
-
-    private void craftItem(int slot, ItemStack stack) {
-        if (CraftingHelper.chanceToCraft(craftingRegistry, slot, getInventoryInputs())) {
-            if (getStackInSlot(slot) == null) {
-                setInventorySlotContents(slot, stack.copy());
-            } else if (getStackInSlot(slot).isItemEqual(stack)) {
-                getStackInSlot(slot).stackSize += stack.stackSize;
-            }
-        }
-    }
-
-    private void decreaseInputs(FluidStack... stacks) {
-        for(FluidStack stack : stacks) {
-            drain(EnumFacing.UP, stack, true);
-        }
-    }
-
-    private void decreaseInputs(ItemStack... stacks) {
-        for (ItemStack stack : stacks) {
-            int slot = getSlotForStack(true, stack);
-            if(slot != -1 && craftingRegistry.decreaseItemForSlot(slot)) {
-                getStackInSlot(slot).stackSize -= stack.stackSize;
-                if (getStackInSlot(slot).stackSize <= 0) {
-                    setInventorySlotContents(slot, null);
-                }
-            }
-        }
+    @Override
+    public int getFieldCount() {
+        return 0;
     }
     //endregion
 
@@ -411,7 +391,7 @@ public abstract class TileEntityFluidCraftingMachine extends TileEntityInventory
     @Override
     public FluidStack drain(EnumFacing from, int maxDrain, boolean doDrain) {
         FluidTank tank = firstFilledTank(false);
-        if(tank != null) {
+        if (tank != null) {
             return tank.drain(maxDrain, doDrain);
         } else {
             return findEmptyTank(false).drain(maxDrain, doDrain);
@@ -446,87 +426,12 @@ public abstract class TileEntityFluidCraftingMachine extends TileEntityInventory
 
     @Override
     public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
-        if (craftingRegistry.canInsertItem(index, itemStackIn, direction)) {
-            ItemStack inventoryStack = this.getStackInSlot(index);
-            if (inventoryStack != null) {
-                if (inventoryStack.isItemEqual(itemStackIn)) {
-                    return true;
-                }
-            } else {
-                return true;
-            }
-        }
-        return false;
+        return craftingRegistry.canInsertItem(index, itemStackIn, direction);
     }
 
     @Override
     public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
         return craftingRegistry.canExtractItem(index, stack, direction);
-    }
-    //endregion
-
-    //region IInventory
-    @Override
-    public void setInventorySlotContents(int index, ItemStack stack) {
-        boolean isSameItem = stack != null && stack.isItemEqual(getStackInSlot(index)) && ItemStack.areItemStackTagsEqual(stack, getStackInSlot(index));
-        super.setInventorySlotContents(index, stack);
-        ICraftingEntry entry = craftingRegistry.get(getInventoryInputs());
-        if (isSlot(true, index) && entry != null && !isSameItem) {
-            this.totalCraftingTime = entry.getCraftingTime();
-            craftingTime = 0;
-            this.markDirty();
-        } else if (stack == null) {
-            this.totalCraftingTime = 0;
-            this.craftingTime = 0;
-            this.efficiency = 0;
-        }
-    }
-
-    @Override
-    public int getField(int id) {
-        switch (id) {
-            case 0:
-                return craftingTime;
-            case 1:
-                return totalCraftingTime;
-            case 2:
-                return getEnergyStored();
-            case 3:
-                return getMaxEnergyStored();
-            case 4:
-                return efficiency;
-            case 5:
-                return maxEfficiency;
-        }
-        return 0;
-    }
-
-    @Override
-    public void setField(int id, int value) {
-        switch (id) {
-            case 0:
-                craftingTime = value;
-                break;
-            case 1:
-                totalCraftingTime = value;
-                break;
-            case 2:
-                energyStorage.setEnergyStored(value);
-                break;
-            case 3:
-                energyStorage.setCapacity(value);
-                break;
-            case 4:
-                efficiency = value;
-                break;
-            case 5:
-                maxEfficiency = value;
-        }
-    }
-
-    @Override
-    public int getFieldCount() {
-        return 6;
     }
     //endregion
 }
