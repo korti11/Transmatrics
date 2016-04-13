@@ -46,6 +46,10 @@ item.Transmatrics.Gear.tin.name=Tin Gear
 item.Transmatrics.Gear.silver.name=Silver Gear
 item.Transmatrics.Gear.lead.name=Lead Gear
 
+#Cast
+item.Transmatrics.Cast.ingot.name=Ingot Cast
+item.Transmatrics.Cast.gear.name=Gear Cast
+
 #Fluids
 fluid.Transmatrics.hydrogengas.name=Hydrogen
 tile.Transmatrics.hydrogengas.name=Hydrogen

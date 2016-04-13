@@ -54,7 +54,7 @@ public abstract class ModMetaItem extends ModItem {
 
     @Override
     public int getColorFromItemStack(ItemStack stack, int renderPass) {
-        if (stack.getItemDamage() <= colors.size()) {
+        if (stack.getItemDamage() < colors.size()) {
             return colors.get(stack.getItemDamage());
         }
         return super.getColorFromItemStack(stack, renderPass);
