@@ -8,6 +8,7 @@ import at.korti.transmatrics.tileentity.container.CraftingContainer;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.util.ResourceLocation;
 
@@ -22,7 +23,7 @@ public abstract class GuiCrafting extends GuiContainer{
     protected IInventory inventory;
     protected ResourceLocation guiTexture;
 
-    public GuiCrafting(CraftingContainer container, IInventory inventory, String guiLocation) {
+    public GuiCrafting(Container container, IInventory inventory, String guiLocation) {
         super(container);
 
         this.inventory = inventory;

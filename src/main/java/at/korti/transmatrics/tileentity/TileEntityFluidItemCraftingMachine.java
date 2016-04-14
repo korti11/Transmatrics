@@ -96,10 +96,14 @@ public abstract class TileEntityFluidItemCraftingMachine extends TileEntityInven
                         this.craft();
                         markDirty = true;
                     }
-                } else {
+                }
+                else {
                     this.craftingTime = 0;
                     this.efficiency = Math.max(efficiency - 1, 0);
                 }
+            } else {
+                this.craftingTime = 0;
+                this.efficiency = Math.max(efficiency - 1, 0);
             }
             if (isCrafting && !ActiveMachineBlock.isActive(worldObj, pos)) {
                 markDirty = true;
@@ -207,7 +211,7 @@ public abstract class TileEntityFluidItemCraftingMachine extends TileEntityInven
         return stacks;
     }
 
-    private FluidStack[] getFluidsInput() {
+    public FluidStack[] getFluidsInput() {
         return getFluids(craftingRegistry.getFluidInputIds());
     }
 
@@ -313,7 +317,7 @@ public abstract class TileEntityFluidItemCraftingMachine extends TileEntityInven
     }
 
     private void craftItem(int outputSlot, ItemStack output) {
-        if (CraftingHelper.chanceToCraft(craftingRegistry, outputSlot, getInventoryInputs())) {
+        if (CraftingHelper.chanceToCraft(craftingRegistry, outputSlot, getFluidsInput(), getInventoryInputs())) {
             if (getStackInSlot(outputSlot) == null) {
                 setInventorySlotContents(outputSlot, output.copy());
             } else if (getStackInSlot(outputSlot).isItemEqual(output)) {
@@ -324,7 +328,7 @@ public abstract class TileEntityFluidItemCraftingMachine extends TileEntityInven
 
     private void decreaseInputs(FluidStack[] inputs, ItemStack[] secondInputs) {
         for (FluidStack stack : inputs) {
-            drain(EnumFacing.UP, stack, true);
+            getTankForFluid(true, stack.getFluid()).drain(stack.amount, true);
         }
         for (ItemStack stack : secondInputs) {
             int slot = getSlotForStack(true, stack);
@@ -362,16 +366,48 @@ public abstract class TileEntityFluidItemCraftingMachine extends TileEntityInven
     //region IInventory
     @Override
     public int getField(int id) {
+        switch (id) {
+            case 0:
+                return craftingTime;
+            case 1:
+                return totalCraftingTime;
+            case 2:
+                return getEnergyStored();
+            case 3:
+                return getMaxEnergyStored();
+            case 4:
+                return efficiency;
+            case 5:
+                return maxEfficiency;
+        }
         return 0;
     }
 
     @Override
     public void setField(int id, int value) {
-
+        switch (id) {
+            case 0:
+                craftingTime = value;
+                break;
+            case 1:
+                totalCraftingTime = value;
+                break;
+            case 2:
+                energyStorage.setEnergyStored(value);
+                break;
+            case 3:
+                energyStorage.setCapacity(value);
+                break;
+            case 4:
+                efficiency = value;
+                break;
+            case 5:
+                maxEfficiency = value;
+        }
     }
     @Override
     public int getFieldCount() {
-        return 0;
+        return 6;
     }
     //endregion
 
@@ -379,23 +415,31 @@ public abstract class TileEntityFluidItemCraftingMachine extends TileEntityInven
     @Override
     public int fill(EnumFacing from, FluidStack resource, boolean doFill) {
         FluidTank tank = getTankForFluid(true, resource.getFluid());
-        return tank.fill(resource, doFill);
+        int result = tank.fill(resource, doFill);
+        syncClient();
+        return result;
     }
 
     @Override
     public FluidStack drain(EnumFacing from, FluidStack resource, boolean doDrain) {
         FluidTank tank = getTankForFluid(false, resource.getFluid());
-        return tank.drain(resource.amount, doDrain);
+        FluidStack stack = tank.drain(resource.amount, doDrain);
+        syncClient();
+        return stack;
     }
 
     @Override
     public FluidStack drain(EnumFacing from, int maxDrain, boolean doDrain) {
         FluidTank tank = firstFilledTank(false);
+        FluidStack stack;
         if (tank != null) {
-            return tank.drain(maxDrain, doDrain);
+            stack = tank.drain(maxDrain, doDrain);
+            syncClient();
         } else {
-            return findEmptyTank(false).drain(maxDrain, doDrain);
+            stack = findEmptyTank(false).drain(maxDrain, doDrain);
+            syncClient();
         }
+        return stack;
     }
 
     @Override

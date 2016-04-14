@@ -156,6 +156,11 @@ public final class Constants {
         public static final int MAGNETIC_SMELTERY_CAPACITY = 5000;
         public static final int MAGNETIC_SMELTERY_RECEIVE = 500;
         public static final int MAGNETIC_SMELTERY_ENERGY_USE = 25;
+
+        //Liquid Caster
+        public static final int LIQUID_CASTER_CAPACITY = 5000;
+        public static final int LIQUID_CASTER_RECEIVE = 500;
+        public static final int LIQUID_CASTER_ENERGY_USE = 25;
     }
 
     public static class Tanks{
@@ -194,6 +199,7 @@ public final class Constants {
         public static final int PULVERIZER_GUI_ID = 0;
         public static final int POWERED_FURNACE_GUI_ID = 1;
         public static final int MAGNETIC_SMELTERY_GUI_ID = 2;
+        public static final int LIQUID_CASTER_GUI_ID = 3;
     }
 
     public enum TransmatricsBlock {
@@ -211,6 +217,7 @@ public final class Constants {
         PULVERIZER("Pulverizer"),
         POWERED_FURNACE("PoweredFurnace"),
         MAGNETIC_SMELTERY("MagneticSmeltery"),
+        LIQUID_CASTER("LiquidCaster"),
         ORE_BLOCK("Ore");
 
         private final String regName;
@@ -265,7 +272,8 @@ public final class Constants {
         CONTROLLER("TileController"),
         PULVERIZER("TilePulverizer"),
         POWERED_FURNACE("TilePoweredFurnace"),
-        MAGNETIC_SMELTERY("TileMagneticSmeltery");
+        MAGNETIC_SMELTERY("TileMagneticSmeltery"),
+        LIQUID_CASTER("TileLiquidCaster");
 
         private final String regName;
 

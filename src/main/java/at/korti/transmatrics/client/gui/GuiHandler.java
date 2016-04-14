@@ -1,14 +1,17 @@
 package at.korti.transmatrics.client.gui;
 
 import at.korti.transmatrics.api.Constants;
+import at.korti.transmatrics.tileentity.container.ContainerLiquidCaster;
 import at.korti.transmatrics.tileentity.container.ContainerMagneticSmeltery;
 import at.korti.transmatrics.tileentity.container.ContainerPoweredFurnace;
 import at.korti.transmatrics.tileentity.container.ContainerPulverizer;
+import at.korti.transmatrics.tileentity.crafting.TileEntityLiquidCaster;
 import at.korti.transmatrics.tileentity.crafting.TileEntityMagneticSmeltery;
 import at.korti.transmatrics.tileentity.crafting.TileEntityPoweredFurnace;
 import at.korti.transmatrics.tileentity.crafting.TileEntityPulverizer;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
@@ -30,6 +33,8 @@ public class GuiHandler implements IGuiHandler {
                 return new ContainerPoweredFurnace(player.inventory, (TileEntityPoweredFurnace) world.getTileEntity(pos));
             case MAGNETIC_SMELTERY_GUI_ID:
                 return new ContainerMagneticSmeltery(player.inventory, (TileEntityMagneticSmeltery) world.getTileEntity(pos));
+            case LIQUID_CASTER_GUI_ID:
+                return new ContainerLiquidCaster(player.inventory, (TileEntityLiquidCaster) world.getTileEntity(pos));
         }
 
         return null;
@@ -47,6 +52,8 @@ public class GuiHandler implements IGuiHandler {
                     return new GuiPoweredFurnace(player.inventory, (TileEntityPoweredFurnace) world.getTileEntity(pos));
                 case MAGNETIC_SMELTERY_GUI_ID:
                     return new GuiMagneticSmeltery(player.inventory, (TileEntityMagneticSmeltery) world.getTileEntity(pos));
+                case LIQUID_CASTER_GUI_ID:
+                    return new GuiLiquidCaster(player.inventory, (TileEntityLiquidCaster) world.getTileEntity(pos));
             }
         }
         return null;

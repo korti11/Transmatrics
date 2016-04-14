@@ -41,7 +41,7 @@ public final class LiquidCasterCraftingRegistry implements IFluidItemCraftingReg
 
     public LiquidCasterCraftingEntry get(FluidStack fluidInput, ItemStack itemInput) {
         for (LiquidCasterCraftingEntry entry : recipes) {
-            if (entry.getInputs()[0].isFluidEqual(fluidInput) && entry.getSecondInputs()[0].isItemEqual(itemInput)) {
+            if (entry.getInputs()[0].isFluidEqual(fluidInput) && entry.getInputs()[0].amount <= fluidInput.amount && entry.getSecondInputs()[0].isItemEqual(itemInput)) {
                 return entry;
             }
         }

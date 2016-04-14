@@ -77,6 +77,13 @@ public abstract class TileEntityInventory extends TileEntityEnergyNode implement
         InventoryHelper.dropInventoryItems(worldObj, pos, this);
     }
 
+    public void syncClient() {
+        if (!worldObj.isRemote) {
+            markDirty();
+            worldObj.markBlockForUpdate(pos);
+        }
+    }
+
     //region IInventory
     @Override
     public int getSizeInventory() {
@@ -99,10 +106,7 @@ public abstract class TileEntityInventory extends TileEntityEnergyNode implement
             }
         }
 
-        markDirty(); // save tile entity
-        if (!worldObj.isRemote) {
-            worldObj.markBlockForUpdate(this.getPos());
-        }
+        syncClient();
         return stack;
     }
 
@@ -110,10 +114,7 @@ public abstract class TileEntityInventory extends TileEntityEnergyNode implement
     public ItemStack removeStackFromSlot(int index) {
         ItemStack stack = getStackInSlot(index);
         setInventorySlotContents(index, null);
-        markDirty();
-        if (!worldObj.isRemote) {
-            worldObj.markBlockForUpdate(this.getPos());
-        }
+        syncClient();
         return stack;
     }
 
@@ -123,10 +124,7 @@ public abstract class TileEntityInventory extends TileEntityEnergyNode implement
         if (stack != null && stack.stackSize > getInventoryStackLimit()) {
             stack.stackSize = getInventoryStackLimit();
         }
-        markDirty(); // save tile entity
-        if (!worldObj.isRemote) {
-            worldObj.markBlockForUpdate(this.getPos());
-        }
+        syncClient();
     }
 
     @Override
