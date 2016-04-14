@@ -39,7 +39,7 @@ public class PulverizerRecipeCategory implements IRecipeCategory {
     @Override
     public IDrawable getBackground() {
         return TransmatricsPlugin.jeiHelper.getGuiHelper().createDrawable(
-                new ResourceLocation(Constants.Mod.MODID + ":textures/gui/jei/Pulverizer.png"), 0, 0, 120, 76);
+                new ResourceLocation(Constants.Mod.MODID + ":textures/gui/Pulverizer.png"), 55, 16, 82, 54);
     }
 
     @Override
@@ -54,9 +54,9 @@ public class PulverizerRecipeCategory implements IRecipeCategory {
 
     @Override
     public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IRecipeWrapper recipeWrapper) {
-        recipeLayout.getItemStacks().init(INPUT_SLOT, true, 3, 14);
-        recipeLayout.getItemStacks().init(PRIMARY_OUTPUT_SLOT, false, 78, 7);
-        recipeLayout.getItemStacks().init(SECONDARY_OUTPUT_SLOT, false, 79, 47);
+        recipeLayout.getItemStacks().init(INPUT_SLOT, true, 0, 9);
+        recipeLayout.getItemStacks().init(PRIMARY_OUTPUT_SLOT, false, 60, 4);
+        recipeLayout.getItemStacks().init(SECONDARY_OUTPUT_SLOT, false, 60, 35);
 
         if (recipeWrapper instanceof PulverizerRecipeJEI) {
             PulverizerRecipeJEI pulverizerRecipeJEI = (PulverizerRecipeJEI) recipeWrapper;
