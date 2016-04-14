@@ -71,7 +71,37 @@ public final class Crafting {
     private static void registerLiquidCasterCrafting() {
         LiquidCasterCraftingRegistry.getInstance().register(
                 new FluidStack(Fluids.moltenCopper, FLUID_AMOUNT_PER_INGOT * 4), new ItemStack(CAST.getItem(), 1, 1),
-                new ItemStack(GEAR.getItem(), 1, 0), 20 * 8);
+                new ItemStack(GEAR.getItem(), 1, 0), 20 * 8
+        );
+        LiquidCasterCraftingRegistry.getInstance().register(
+                new FluidStack(Fluids.moltenTin, FLUID_AMOUNT_PER_INGOT * 4), new ItemStack(CAST.getItem(), 1, 1),
+                new ItemStack(GEAR.getItem(), 1, 1), 20 * 8
+        );
+        LiquidCasterCraftingRegistry.getInstance().register(
+                new FluidStack(Fluids.moltenSilver, FLUID_AMOUNT_PER_INGOT * 4), new ItemStack(CAST.getItem(), 1, 1),
+                new ItemStack(GEAR.getItem(), 1, 2), 20 * 8
+        );
+        LiquidCasterCraftingRegistry.getInstance().register(
+                new FluidStack(Fluids.moltenLead, FLUID_AMOUNT_PER_INGOT * 4), new ItemStack(CAST.getItem(), 1, 1),
+                new ItemStack(GEAR.getItem(), 1, 3), 20 * 8
+        );
+
+        LiquidCasterCraftingRegistry.getInstance().register(
+                new FluidStack(Fluids.moltenCopper, FLUID_AMOUNT_PER_INGOT), new ItemStack(CAST.getItem(), 1, 0),
+                new ItemStack(INGOT.getItem(), 1, 0), 20 * 8
+        );
+        LiquidCasterCraftingRegistry.getInstance().register(
+                new FluidStack(Fluids.moltenTin, FLUID_AMOUNT_PER_INGOT), new ItemStack(CAST.getItem(), 1, 0),
+                new ItemStack(INGOT.getItem(), 1, 1), 20 * 8
+        );
+        LiquidCasterCraftingRegistry.getInstance().register(
+                new FluidStack(Fluids.moltenSilver, FLUID_AMOUNT_PER_INGOT), new ItemStack(CAST.getItem(), 1, 0),
+                new ItemStack(INGOT.getItem(), 1, 2), 20 * 8
+        );
+        LiquidCasterCraftingRegistry.getInstance().register(
+                new FluidStack(Fluids.moltenLead, FLUID_AMOUNT_PER_INGOT), new ItemStack(CAST.getItem(), 1, 0),
+                new ItemStack(INGOT.getItem(), 1, 3), 20 * 8
+        );
     }
 
 }
