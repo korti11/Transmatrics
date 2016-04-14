@@ -29,6 +29,7 @@ public final class Constants {
     public static class JEI{
         public static class Categories{
             public static final String PULVERIZER = Mod.MODID + ":Pulverizer";
+            public static final String MAGNETIC_SMELTERY = Mod.MODID + ":MagneticSmeltery";
         }
     }
 
