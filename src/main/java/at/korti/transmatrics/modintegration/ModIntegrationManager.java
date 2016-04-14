@@ -1,6 +1,7 @@
 package at.korti.transmatrics.modintegration;
 
 import at.korti.transmatrics.api.Constants.ModIntegrationIds;
+import at.korti.transmatrics.modintegration.jei.JEIIntegration;
 import at.korti.transmatrics.modintegration.waila.Waila;
 import net.minecraftforge.fml.common.Loader;
 
@@ -20,6 +21,7 @@ public class ModIntegrationManager {
         Map<String, Class<? extends IIntegration>> integrationClasses = new HashMap<>();
         try {
             integrationClasses.put(ModIntegrationIds.WAILA, Waila.class);
+            integrationClasses.put(ModIntegrationIds.JEI, JEIIntegration.class);
         } catch (Throwable throwable) {
             throwable.printStackTrace();
         }

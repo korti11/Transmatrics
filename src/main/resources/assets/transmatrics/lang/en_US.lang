@@ -78,6 +78,10 @@ network.already_connected.message=[Network] The nodes are already connected.
 #Tooltips
 tooltip.connector.connection.name=Name: %s
 tooltip.connector.connection.pos=Pos: [x: %d, y: %d, z: %d]
+tooltip.pulverizer.output.chance=Chance:
 
 #Gui
 gui.tank.empty=Empty
+
+#JEI
+jei.category.pulverizer.title=Pulverizer

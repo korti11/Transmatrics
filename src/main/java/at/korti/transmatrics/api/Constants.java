@@ -23,6 +23,13 @@ public final class Constants {
 
     public static class ModIntegrationIds{
         public static final String WAILA = "Waila";
+        public static final String JEI = "JEI";
+    }
+
+    public static class JEI{
+        public static class Categories{
+            public static final String PULVERIZER = Mod.MODID + ":Pulverizer";
+        }
     }
 
     public static class NBT {
