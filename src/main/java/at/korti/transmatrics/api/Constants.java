@@ -250,7 +250,8 @@ public final class Constants {
         PULVERIZED_DUST("PulverizedDust"),
         INGOT("Ingot"),
         GEAR("Gear"),
-        CAST("Cast");
+        CAST("Cast"),
+        BLANK_CIRCUIT_BOARD("BlankCircuitBoard");
 
         private final String regName;
 
