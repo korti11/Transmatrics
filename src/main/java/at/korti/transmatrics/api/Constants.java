@@ -30,6 +30,7 @@ public final class Constants {
         public static class Categories{
             public static final String PULVERIZER = Mod.MODID + ":Pulverizer";
             public static final String MAGNETIC_SMELTERY = Mod.MODID + ":MagneticSmeltery";
+            public static final String LIQUID_CASTER = Mod.MODID + ":LiquidCaster";
         }
     }
 
