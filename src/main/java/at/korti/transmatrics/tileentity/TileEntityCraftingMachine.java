@@ -155,7 +155,7 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
     private int getSlotForStack(boolean input, ItemStack stack) {
         int[] slots = input ? craftingRegistry.getInputSlotsIds() : craftingRegistry.getOutputSlotsIds();
         for (int slot : slots) {
-            if (getStackInSlot(slot).isItemEqual(stack)) {
+            if (getStackInSlot(slot) != null && getStackInSlot(slot).isItemEqual(stack)) {
                 return slot;
             }
         }

@@ -63,7 +63,19 @@ public final class CircuitStamperCraftingRegistry implements ICraftingRegistry<I
 
     @Override
     public ICraftingEntry get(ItemStack... inputs) {
+        if (inputs.length <= 1) {
+            return find(inputs[0]);
+        }
         return get(inputs[0], inputs[1]);
+    }
+
+    public CircuitStamperCraftingEntry find(ItemStack stack) {
+        for (CircuitStamperCraftingEntry entry : recipes) {
+            if (entry.blankCircuit.isItemEqual(stack) || entry.conductor.isItemEqual(stack)) {
+                return entry;
+            }
+        }
+        return null;
     }
 
     public CircuitStamperCraftingEntry get(ItemStack blankCircuit, ItemStack conductor) {

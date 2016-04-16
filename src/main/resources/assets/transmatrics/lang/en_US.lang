@@ -56,8 +56,8 @@ item.Transmatrics.BlankCircuitBoard.redstone.name=Blank Redstone Circuit Board
 item.Transmatrics.BlankCircuitBoard.quartz.name=Blank Quartz Circuit Board
 item.Transmatrics.BlankCircuitBoard.ender.name=Blank Ender Circuit Board
 item.Transmatrics.CircuitBoard.redstone.name=Redstone Circuit Bord
-item.Transmatrics.CircuitBoard.quartz.name=quartz Circuit Bord
-item.Transmatrics.CircuitBoard.ender.name=ender Circuit Bord
+item.Transmatrics.CircuitBoard.quartz.name=Quartz Circuit Bord
+item.Transmatrics.CircuitBoard.ender.name=Ender Circuit Bord
 
 #Fluids
 fluid.Transmatrics.hydrogengas.name=Hydrogen

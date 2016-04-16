@@ -1,5 +1,7 @@
 package at.korti.transmatrics.registry;
 
+import at.korti.transmatrics.item.electronic.ItemCircuitBoard;
+import at.korti.transmatrics.registry.crafting.CircuitStamperCraftingRegistry;
 import at.korti.transmatrics.registry.crafting.LiquidCasterCraftingRegistry;
 import at.korti.transmatrics.registry.crafting.MagneticSmelteryCraftingRegistry;
 import at.korti.transmatrics.registry.crafting.PulverizerCraftingRegistry;
@@ -24,6 +26,7 @@ public final class Crafting {
         registerFurnaceCrafting();
         registerMagneticSmelteryCrafting();
         registerLiquidCasterCrafting();
+        registerCircuitStamperCrafting();
     }
 
     private static void registerPulverizerCrafting() {
@@ -101,6 +104,29 @@ public final class Crafting {
                 new FluidStack(Fluids.moltenLead, FLUID_AMOUNT_PER_INGOT), new ItemStack(CAST.getItem(), 1, 0),
                 new ItemStack(INGOT.getItem(), 1, 3), 20 * 8
         );
+    }
+
+    private static void registerCircuitStamperCrafting() {
+        CircuitStamperCraftingRegistry.getInstance().register(new ItemStack(BLANK_CIRCUIT_BOARD.getItem(), 1, 0),
+                new ItemStack(INGOT.getItem(), 1, 0), 20 * 12);
+        CircuitStamperCraftingRegistry.getInstance().register(new ItemStack(BLANK_CIRCUIT_BOARD.getItem(), 1, 0),
+                new ItemStack(INGOT.getItem(), 1, 2), 20 * 12);
+        CircuitStamperCraftingRegistry.getInstance().register(new ItemStack(BLANK_CIRCUIT_BOARD.getItem(), 1, 0),
+                new ItemStack(Items.diamond), ItemCircuitBoard.conductionColors[2], 20 * 12);
+
+        CircuitStamperCraftingRegistry.getInstance().register(new ItemStack(BLANK_CIRCUIT_BOARD.getItem(), 1, 1),
+                new ItemStack(INGOT.getItem(), 1, 0), 20 * 12);
+        CircuitStamperCraftingRegistry.getInstance().register(new ItemStack(BLANK_CIRCUIT_BOARD.getItem(), 1, 1),
+                new ItemStack(INGOT.getItem(), 1, 2), 20 * 12);
+        CircuitStamperCraftingRegistry.getInstance().register(new ItemStack(BLANK_CIRCUIT_BOARD.getItem(), 1, 1),
+                new ItemStack(Items.diamond), ItemCircuitBoard.conductionColors[2], 20 * 12);
+
+        CircuitStamperCraftingRegistry.getInstance().register(new ItemStack(BLANK_CIRCUIT_BOARD.getItem(), 1, 2),
+                new ItemStack(INGOT.getItem(), 1, 0), 20 * 12);
+        CircuitStamperCraftingRegistry.getInstance().register(new ItemStack(BLANK_CIRCUIT_BOARD.getItem(), 1, 2),
+                new ItemStack(INGOT.getItem(), 1, 2), 20 * 12);
+        CircuitStamperCraftingRegistry.getInstance().register(new ItemStack(BLANK_CIRCUIT_BOARD.getItem(), 1, 2),
+                new ItemStack(Items.diamond), ItemCircuitBoard.conductionColors[2], 20 * 12);
     }
 
 }

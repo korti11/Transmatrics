@@ -10,7 +10,7 @@ public class ItemCircuitBoard extends NBTColoredMetaItem {
 
     public static final String[] extensions = {"redstone", "quartz", "ender"};
     private static final Integer[] boardColors = {0x720000, 0xcdc1b3, 0x0b4d42};
-    private static final Integer[] conductionColors = {0xef7e0c, 0xc1dede, 0x8cf4e2};
+    public static final Integer[] conductionColors = {0xef7e0c, 0xc1dede, 0x8cf4e2};
 
     public ItemCircuitBoard() {
         super(TransmatricsItem.CIRCUIT_BOARDER.getRegName(), extensions);
