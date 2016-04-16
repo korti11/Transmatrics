@@ -174,6 +174,11 @@ public final class Constants {
         public static final int LIQUID_CASTER_CAPACITY = 5000;
         public static final int LIQUID_CASTER_RECEIVE = 500;
         public static final int LIQUID_CASTER_ENERGY_USE = 25;
+
+        //Circuit Stamper
+        public static final int CIRCUIT_STAMPER_CAPACITY = 5000;
+        public static final int CIRCUIT_STAMPER_RECEIVE = 500;
+        public static final int CIRCUIT_STAMPER_ENERGY_USE = 25;
     }
 
     public static class Tanks{
@@ -213,6 +218,7 @@ public final class Constants {
         public static final int POWERED_FURNACE_GUI_ID = 1;
         public static final int MAGNETIC_SMELTERY_GUI_ID = 2;
         public static final int LIQUID_CASTER_GUI_ID = 3;
+        public static final int CIRCUIT_STAMPER_GUI_ID = 4;
     }
 
     public enum TransmatricsBlock {
@@ -231,6 +237,7 @@ public final class Constants {
         POWERED_FURNACE("PoweredFurnace"),
         MAGNETIC_SMELTERY("MagneticSmeltery"),
         LIQUID_CASTER("LiquidCaster"),
+        CIRCUIT_STAMPER("CircuitStamper"),
         ORE_BLOCK("Ore");
 
         private final String regName;
@@ -288,7 +295,8 @@ public final class Constants {
         PULVERIZER("TilePulverizer"),
         POWERED_FURNACE("TilePoweredFurnace"),
         MAGNETIC_SMELTERY("TileMagneticSmeltery"),
-        LIQUID_CASTER("TileLiquidCaster");
+        LIQUID_CASTER("TileLiquidCaster"),
+        CIRCUIT_STAMPER("TileCircuitStamper");
 
         private final String regName;
 

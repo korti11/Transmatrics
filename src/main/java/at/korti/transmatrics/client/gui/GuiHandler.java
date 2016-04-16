@@ -1,14 +1,8 @@
 package at.korti.transmatrics.client.gui;
 
 import at.korti.transmatrics.api.Constants;
-import at.korti.transmatrics.tileentity.container.ContainerLiquidCaster;
-import at.korti.transmatrics.tileentity.container.ContainerMagneticSmeltery;
-import at.korti.transmatrics.tileentity.container.ContainerPoweredFurnace;
-import at.korti.transmatrics.tileentity.container.ContainerPulverizer;
-import at.korti.transmatrics.tileentity.crafting.TileEntityLiquidCaster;
-import at.korti.transmatrics.tileentity.crafting.TileEntityMagneticSmeltery;
-import at.korti.transmatrics.tileentity.crafting.TileEntityPoweredFurnace;
-import at.korti.transmatrics.tileentity.crafting.TileEntityPulverizer;
+import at.korti.transmatrics.tileentity.container.*;
+import at.korti.transmatrics.tileentity.crafting.*;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -35,6 +29,8 @@ public class GuiHandler implements IGuiHandler {
                 return new ContainerMagneticSmeltery(player.inventory, (TileEntityMagneticSmeltery) world.getTileEntity(pos));
             case LIQUID_CASTER_GUI_ID:
                 return new ContainerLiquidCaster(player.inventory, (TileEntityLiquidCaster) world.getTileEntity(pos));
+            case CIRCUIT_STAMPER_GUI_ID:
+                return new ContainerCircuitStamper(player.inventory, (TileEntityCircuitStamper) world.getTileEntity(pos));
         }
 
         return null;
@@ -54,6 +50,8 @@ public class GuiHandler implements IGuiHandler {
                     return new GuiMagneticSmeltery(player.inventory, (TileEntityMagneticSmeltery) world.getTileEntity(pos));
                 case LIQUID_CASTER_GUI_ID:
                     return new GuiLiquidCaster(player.inventory, (TileEntityLiquidCaster) world.getTileEntity(pos));
+                case CIRCUIT_STAMPER_GUI_ID:
+                    return new GuiCircuitStamper(player.inventory, (TileEntityCircuitStamper) world.getTileEntity(pos));
             }
         }
         return null;
