@@ -41,6 +41,10 @@ public final class CircuitStamperCraftingRegistry implements ICraftingRegistry<I
         return (CircuitStamperCraftingRegistry) register(new CircuitStamperCraftingEntry(blankCircuit, conductor, conductorColor, craftingTime));
     }
 
+    public CircuitStamperCraftingRegistry register(ItemStack blankCircuit, ItemStack conductor, int craftingTime) {
+        return (CircuitStamperCraftingRegistry) register(new CircuitStamperCraftingEntry(blankCircuit, conductor, craftingTime));
+    }
+
     @Override
     public ICraftingRegistry register(ICraftingEntry entry) {
         try {
@@ -157,6 +161,10 @@ public final class CircuitStamperCraftingRegistry implements ICraftingRegistry<I
             circuitBoard.setColorForItemStack(circuit, 0, blankCircuit.getItem().getColorFromItemStack(blankCircuit, 0));
             circuitBoard.setColorForItemStack(circuit, 1, conductorColor);
             this.craftingTime = craftingTime;
+        }
+
+        public CircuitStamperCraftingEntry(ItemStack blankCircuit, ItemStack conductor, int craftingTime) {
+            this(blankCircuit, conductor, conductor.getItem().getColorFromItemStack(conductor, 0), craftingTime);
         }
 
         @Override
