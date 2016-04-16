@@ -52,9 +52,12 @@ item.Transmatrics.Cast.ingot.name=Ingot Cast
 item.Transmatrics.Cast.gear.name=Gear Cast
 
 #Electronics
-item.Transmatrics.BlankCircuitBoard.redstone.name=Blank Redstone Circuit Boarder
-item.Transmatrics.BlankCircuitBoard.quartz.name=Blank Quartz Circuit Boarder
-item.Transmatrics.BlankCircuitBoard.ender.name=Blank Ender Circuit Boarder
+item.Transmatrics.BlankCircuitBoard.redstone.name=Blank Redstone Circuit Board
+item.Transmatrics.BlankCircuitBoard.quartz.name=Blank Quartz Circuit Board
+item.Transmatrics.BlankCircuitBoard.ender.name=Blank Ender Circuit Board
+item.Transmatrics.CircuitBoard.redstone.name=Redstone Circuit Bord
+item.Transmatrics.CircuitBoard.quartz.name=quartz Circuit Bord
+item.Transmatrics.CircuitBoard.ender.name=ender Circuit Bord
 
 #Fluids
 fluid.Transmatrics.hydrogengas.name=Hydrogen

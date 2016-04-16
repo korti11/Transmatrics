@@ -70,6 +70,10 @@ public final class Constants {
         public static final String TOTAL_CRAFTING_TIME = "total_crafting_time";
         public static final String CRAFTING_EFFICIENCY = "crafting_efficiency";
         public static final String CRAFTING_TANKS = "crafting_tanks";
+
+        //Colored item
+        public static final String COLOR_LAYERS = "color_layers";
+        public static final String COLOR_LAYER = "color_layer_%d";
     }
 
     public static class NetworkMessages{
@@ -251,7 +255,8 @@ public final class Constants {
         INGOT("Ingot"),
         GEAR("Gear"),
         CAST("Cast"),
-        BLANK_CIRCUIT_BOARD("BlankCircuitBoard");
+        BLANK_CIRCUIT_BOARD("BlankCircuitBoard"),
+        CIRCUIT_BOARDER("CircuitBoard");
 
         private final String regName;
 
