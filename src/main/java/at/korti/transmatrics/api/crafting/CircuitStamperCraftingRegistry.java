@@ -1,6 +1,8 @@
 package at.korti.transmatrics.api.crafting;
 
 import at.korti.transmatrics.Transmatrics;
+import at.korti.transmatrics.api.Constants;
+import at.korti.transmatrics.item.electronic.ItemCircuitBoard;
 import at.korti.transmatrics.util.helper.InventoryHelper;
 import at.korti.transmatrics.util.helper.ItemStackHelper;
 import net.minecraft.item.ItemStack;
@@ -11,6 +13,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.LinkedList;
 import java.util.List;
 
+import static at.korti.transmatrics.api.Constants.TransmatricsItem.CIRCUIT_BOARDER;
 import static net.minecraft.util.EnumFacing.*;
 
 /**
@@ -34,8 +37,8 @@ public final class CircuitStamperCraftingRegistry implements ICraftingRegistry<I
         return instance;
     }
 
-    public CircuitStamperCraftingRegistry register(ItemStack blankCircuit, ItemStack conductor, ItemStack circuit, int craftingTime) {
-        return (CircuitStamperCraftingRegistry) register(new CircuitStamperCraftingEntry(blankCircuit, conductor, circuit, craftingTime));
+    public CircuitStamperCraftingRegistry register(ItemStack blankCircuit, ItemStack conductor, int conductorColor, int craftingTime) {
+        return (CircuitStamperCraftingRegistry) register(new CircuitStamperCraftingEntry(blankCircuit, conductor, conductorColor, craftingTime));
     }
 
     @Override
@@ -140,15 +143,19 @@ public final class CircuitStamperCraftingRegistry implements ICraftingRegistry<I
 
     public static class CircuitStamperCraftingEntry implements ICraftingEntry<ItemStack, ItemStack> {
 
+        private static ItemCircuitBoard circuitBoard = (ItemCircuitBoard) CIRCUIT_BOARDER.getItem();
+
         private ItemStack blankCircuit;
         private ItemStack conductor;
         private ItemStack circuit;
         private int craftingTime;
 
-        public CircuitStamperCraftingEntry(ItemStack blankCircuit, ItemStack conductor, ItemStack circuit, int craftingTime) {
+        public CircuitStamperCraftingEntry(ItemStack blankCircuit, ItemStack conductor, int conductorColor, int craftingTime) {
             this.blankCircuit = blankCircuit;
             this.conductor = conductor;
-            this.circuit = circuit;
+            this.circuit = new ItemStack(CIRCUIT_BOARDER.getItem());
+            circuitBoard.setColorForItemStack(circuit, 0, blankCircuit.getItem().getColorFromItemStack(blankCircuit, 0));
+            circuitBoard.setColorForItemStack(circuit, 1, conductorColor);
             this.craftingTime = craftingTime;
         }
 
