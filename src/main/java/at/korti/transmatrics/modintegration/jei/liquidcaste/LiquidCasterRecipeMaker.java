@@ -1,7 +1,7 @@
 package at.korti.transmatrics.modintegration.jei.liquidcaste;
 
-import at.korti.transmatrics.api.crafting.LiquidCasterCraftingRegistry;
-import at.korti.transmatrics.api.crafting.LiquidCasterCraftingRegistry.LiquidCasterCraftingEntry;
+import at.korti.transmatrics.registry.crafting.LiquidCasterCraftingRegistry;
+import at.korti.transmatrics.registry.crafting.LiquidCasterCraftingRegistry.LiquidCasterCraftingEntry;
 
 import java.util.LinkedList;
 import java.util.List;

@@ -1,7 +1,7 @@
 package at.korti.transmatrics.modintegration.jei.magneticsmeltery;
 
-import at.korti.transmatrics.api.crafting.MagneticSmelteryCraftingRegistry;
-import at.korti.transmatrics.api.crafting.MagneticSmelteryCraftingRegistry.MagneticSmelteryCraftingEntry;
+import at.korti.transmatrics.registry.crafting.MagneticSmelteryCraftingRegistry;
+import at.korti.transmatrics.registry.crafting.MagneticSmelteryCraftingRegistry.MagneticSmelteryCraftingEntry;
 
 import java.util.LinkedList;
 import java.util.List;

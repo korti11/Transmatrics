@@ -1,52 +1,52 @@
-package at.korti.transmatrics.api.crafting;
+package at.korti.transmatrics.registry.crafting;
 
 import at.korti.transmatrics.Transmatrics;
+import at.korti.transmatrics.api.crafting.ICraftingRegistry;
+import at.korti.transmatrics.item.electronic.ItemCircuitBoard;
 import at.korti.transmatrics.util.helper.InventoryHelper;
 import at.korti.transmatrics.util.helper.ItemStackHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.logging.log4j.Logger;
 
 import java.util.LinkedList;
 import java.util.List;
 
+import static at.korti.transmatrics.api.Constants.TransmatricsItem.CIRCUIT_BOARDER;
 import static net.minecraft.util.EnumFacing.*;
 
 /**
- * Created by Korti on 15.03.2016.
+ * Created by Korti on 15.04.2016.
  */
-public final class PulverizerCraftingRegistry implements ICraftingRegistry<ItemStack> {
+public final class CircuitStamperCraftingRegistry implements ICraftingRegistry<ItemStack> {
 
-    private static PulverizerCraftingRegistry instance;
-    private static Logger logger = Transmatrics.logger;
+    private static CircuitStamperCraftingRegistry instance;
 
-    private List<PulverizerCraftingEntry> recipes;
+    private List<CircuitStamperCraftingEntry> recipes;
+    private Logger logger = Transmatrics.logger;
 
-    private PulverizerCraftingRegistry() {
-        this.recipes = new LinkedList<>();
+    private CircuitStamperCraftingRegistry() {
+        recipes = new LinkedList<>();
     }
 
-    public static PulverizerCraftingRegistry getInstance() {
+    public static CircuitStamperCraftingRegistry getInstance() {
         if (instance == null) {
-            instance = new PulverizerCraftingRegistry();
+            instance = new CircuitStamperCraftingRegistry();
         }
         return instance;
     }
 
-    public PulverizerCraftingRegistry register(ItemStack input, int craftingTime, ItemStack... outputs) {
-        return register(input, craftingTime, 1f, outputs);
-    }
-
-    public PulverizerCraftingRegistry register(ItemStack input, int craftingTime, float secondOutputChance, ItemStack... outputs) {
-        return (PulverizerCraftingRegistry) register(new PulverizerCraftingEntry(input, craftingTime, secondOutputChance, outputs));
+    public CircuitStamperCraftingRegistry register(ItemStack blankCircuit, ItemStack conductor, int conductorColor, int craftingTime) {
+        return (CircuitStamperCraftingRegistry) register(new CircuitStamperCraftingEntry(blankCircuit, conductor, conductorColor, craftingTime));
     }
 
     @Override
     public ICraftingRegistry register(ICraftingEntry entry) {
         try {
-            recipes.add((PulverizerCraftingEntry) entry);
+            recipes.add((CircuitStamperCraftingEntry) entry);
         } catch (Exception e) {
-            logger.error(String.format("Can't register pulverizer recipe with the inputs=%s.",
+            logger.error(String.format("Can't register circuit stamper recipe with the inputs=%s.",
                     entry.getInputs().toString()), e);
         }
         return this;
@@ -59,22 +59,13 @@ public final class PulverizerCraftingRegistry implements ICraftingRegistry<ItemS
 
     @Override
     public ICraftingEntry get(ItemStack... inputs) {
-        return get(inputs[0]);
+        return get(inputs[0], inputs[1]);
     }
 
-    public PulverizerCraftingEntry get(ItemStack stack) {
-        String[] oreDicts = ItemStackHelper.getOreDictionaryNames(stack);
-        for (ICraftingEntry<ItemStack, ItemStack> entry : recipes) {
-            if (stack != null && stack.getItem().equals(entry.getInputs()[0].getItem()) &&
-                    stack.getItemDamage() == entry.getInputs()[0].getItemDamage()) {
-                return (PulverizerCraftingEntry) entry;
-            }
-            for (String oreDictRecipe : entry.getInputsOreDictionary()) {
-                for (String oreDictEntry : oreDicts) {
-                    if (oreDictRecipe.equals(oreDictEntry)) {
-                        return (PulverizerCraftingEntry) entry;
-                    }
-                }
+    public CircuitStamperCraftingEntry get(ItemStack blankCircuit, ItemStack conductor) {
+        for (CircuitStamperCraftingEntry entry : recipes) {
+            if (entry.blankCircuit.isItemEqual(blankCircuit) && entry.conductor.isItemEqual(conductor)) {
+                return entry;
             }
         }
         return null;
@@ -97,12 +88,12 @@ public final class PulverizerCraftingRegistry implements ICraftingRegistry<ItemS
 
     @Override
     public int[] getInputSlotsIds() {
-        return new int[]{0};
+        return new int[]{0, 1};
     }
 
     @Override
     public int[] getOutputSlotsIds() {
-        return new int[]{1, 2};
+        return new int[]{2};
     }
 
     @Override
@@ -117,8 +108,7 @@ public final class PulverizerCraftingRegistry implements ICraftingRegistry<ItemS
 
     @Override
     public float getChanceForSlot(int slot, ItemStack... inputs) {
-        ICraftingEntry entry = get(inputs);
-        return entry.getOutputChances()[slot];
+        return get(inputs).getOutputChances()[slot];
     }
 
     @Override
@@ -151,33 +141,38 @@ public final class PulverizerCraftingRegistry implements ICraftingRegistry<ItemS
         return true;
     }
 
-    public static class PulverizerCraftingEntry implements ICraftingEntry<ItemStack, ItemStack> {
+    public static class CircuitStamperCraftingEntry implements ICraftingEntry<ItemStack, ItemStack> {
 
-        private ItemStack input;
-        private ItemStack[] outputs;
+        private static ItemCircuitBoard circuitBoard = (ItemCircuitBoard) CIRCUIT_BOARDER.getItem();
+
+        private ItemStack blankCircuit;
+        private ItemStack conductor;
+        private ItemStack circuit;
         private int craftingTime;
-        private float secondOutputChance;
 
-        public PulverizerCraftingEntry(ItemStack input, int craftingTime, float secondOutputChance, ItemStack... outputs) {
-            this.input = input;
-            this.outputs = outputs;
+        public CircuitStamperCraftingEntry(ItemStack blankCircuit, ItemStack conductor, int conductorColor, int craftingTime) {
+            this.blankCircuit = blankCircuit;
+            this.conductor = conductor;
+            this.circuit = new ItemStack(CIRCUIT_BOARDER.getItem());
+            circuitBoard.setColorForItemStack(circuit, 0, blankCircuit.getItem().getColorFromItemStack(blankCircuit, 0));
+            circuitBoard.setColorForItemStack(circuit, 1, conductorColor);
             this.craftingTime = craftingTime;
-            this.secondOutputChance = secondOutputChance;
         }
 
         @Override
         public ItemStack[] getInputs() {
-            return new ItemStack[]{input};
+            return new ItemStack[]{blankCircuit, conductor};
         }
 
         @Override
         public ItemStack[] getOutputs() {
-            return outputs;
+            return new ItemStack[]{circuit};
         }
 
         @Override
         public String[] getInputsOreDictionary() {
-            return ItemStackHelper.getOreDictionaryNames(input);
+            return ArrayUtils.addAll(ItemStackHelper.getOreDictionaryNames(blankCircuit),
+                    ItemStackHelper.getOreDictionaryNames(conductor));
         }
 
         @Override
@@ -187,7 +182,7 @@ public final class PulverizerCraftingRegistry implements ICraftingRegistry<ItemS
 
         @Override
         public float[] getOutputChances() {
-            return new float[]{0f, 1f, secondOutputChance};
+            return new float[]{1f, 1f, 1f};
         }
     }
 }

@@ -2,7 +2,7 @@ package at.korti.transmatrics.modintegration.jei.liquidcaste;
 
 import at.korti.transmatrics.api.Constants;
 import at.korti.transmatrics.api.Constants.JEI;
-import at.korti.transmatrics.api.crafting.LiquidCasterCraftingRegistry;
+import at.korti.transmatrics.registry.crafting.LiquidCasterCraftingRegistry;
 import at.korti.transmatrics.modintegration.jei.TransmatricsPlugin;
 import at.korti.transmatrics.util.helper.TextHelper;
 import mezz.jei.api.gui.IDrawable;

@@ -1,7 +1,7 @@
 package at.korti.transmatrics.modintegration.jei.pulverizer;
 
-import at.korti.transmatrics.api.crafting.PulverizerCraftingRegistry;
-import at.korti.transmatrics.api.crafting.PulverizerCraftingRegistry.PulverizerCraftingEntry;
+import at.korti.transmatrics.registry.crafting.PulverizerCraftingRegistry;
+import at.korti.transmatrics.registry.crafting.PulverizerCraftingRegistry.PulverizerCraftingEntry;
 import net.minecraftforge.common.MinecraftForge;
 
 import java.util.LinkedList;

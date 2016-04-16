@@ -1,7 +1,6 @@
 package at.korti.transmatrics.modintegration.jei.magneticsmeltery;
 
-import at.korti.transmatrics.api.crafting.MagneticSmelteryCraftingRegistry;
-import at.korti.transmatrics.api.crafting.MagneticSmelteryCraftingRegistry.MagneticSmelteryCraftingEntry;
+import at.korti.transmatrics.registry.crafting.MagneticSmelteryCraftingRegistry.MagneticSmelteryCraftingEntry;
 import mezz.jei.api.recipe.BlankRecipeWrapper;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;

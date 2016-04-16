@@ -2,7 +2,6 @@ package at.korti.transmatrics.tileentity.container;
 
 import at.korti.transmatrics.api.crafting.ICraftingRegistry;
 import at.korti.transmatrics.api.crafting.ICraftingRegistry.ICraftingEntry;
-import at.korti.transmatrics.api.crafting.PulverizerCraftingRegistry;
 import at.korti.transmatrics.util.helper.InventoryHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;

@@ -1,9 +1,8 @@
 package at.korti.transmatrics.registry;
 
-import at.korti.transmatrics.api.crafting.LiquidCasterCraftingRegistry;
-import at.korti.transmatrics.api.crafting.MagneticSmelteryCraftingRegistry;
-import at.korti.transmatrics.api.crafting.PulverizerCraftingRegistry;
-import at.korti.transmatrics.block.crafting.MagneticSmeltery;
+import at.korti.transmatrics.registry.crafting.LiquidCasterCraftingRegistry;
+import at.korti.transmatrics.registry.crafting.MagneticSmelteryCraftingRegistry;
+import at.korti.transmatrics.registry.crafting.PulverizerCraftingRegistry;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;

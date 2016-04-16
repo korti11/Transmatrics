@@ -2,7 +2,7 @@ package at.korti.transmatrics.modintegration.jei.magneticsmeltery;
 
 import at.korti.transmatrics.api.Constants;
 import at.korti.transmatrics.api.Constants.JEI;
-import at.korti.transmatrics.api.crafting.MagneticSmelteryCraftingRegistry;
+import at.korti.transmatrics.registry.crafting.MagneticSmelteryCraftingRegistry;
 import at.korti.transmatrics.modintegration.jei.TransmatricsPlugin;
 import at.korti.transmatrics.util.helper.TextHelper;
 import mezz.jei.api.gui.IDrawable;

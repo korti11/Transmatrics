@@ -1,10 +1,7 @@
 package at.korti.transmatrics.tileentity.container;
 
 import at.korti.transmatrics.api.crafting.ICasting;
-import at.korti.transmatrics.api.crafting.ICraftingRegistry;
-import at.korti.transmatrics.api.crafting.IFluidItemCraftingRegistry;
-import at.korti.transmatrics.api.crafting.LiquidCasterCraftingRegistry;
-import at.korti.transmatrics.tileentity.TileEntityFluidItemCraftingMachine;
+import at.korti.transmatrics.registry.crafting.LiquidCasterCraftingRegistry;
 import at.korti.transmatrics.tileentity.container.slot.CastSlot;
 import at.korti.transmatrics.tileentity.container.slot.OutputSlot;
 import at.korti.transmatrics.util.helper.InventoryHelper;
@@ -13,7 +10,6 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.FluidStack;
 
 /**
  * Created by Korti on 14.04.2016.

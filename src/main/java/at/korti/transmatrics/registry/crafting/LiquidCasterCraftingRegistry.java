@@ -1,6 +1,8 @@
-package at.korti.transmatrics.api.crafting;
+package at.korti.transmatrics.registry.crafting;
 
 import at.korti.transmatrics.Transmatrics;
+import at.korti.transmatrics.api.crafting.ICraftingRegistry;
+import at.korti.transmatrics.api.crafting.IFluidItemCraftingRegistry;
 import at.korti.transmatrics.util.helper.InventoryHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;

@@ -1,5 +1,6 @@
-package at.korti.transmatrics.api.crafting;
+package at.korti.transmatrics.registry.crafting;
 
+import at.korti.transmatrics.api.crafting.ICraftingRegistry;
 import at.korti.transmatrics.util.helper.InventoryHelper;
 import at.korti.transmatrics.util.helper.ItemStackHelper;
 import net.minecraft.item.ItemStack;
@@ -13,7 +14,7 @@ import static net.minecraft.util.EnumFacing.*;
 /**
  * Created by Korti on 29.03.2016.
  */
-public final class FurnaceCraftingRegistry implements ICraftingRegistry<ItemStack>{
+public final class FurnaceCraftingRegistry implements ICraftingRegistry<ItemStack> {
 
     private static FurnaceCraftingRegistry instance;
 

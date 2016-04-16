@@ -1,7 +1,6 @@
 package at.korti.transmatrics.modintegration.jei.liquidcaste;
 
-import at.korti.transmatrics.api.crafting.LiquidCasterCraftingRegistry;
-import at.korti.transmatrics.api.crafting.LiquidCasterCraftingRegistry.LiquidCasterCraftingEntry;
+import at.korti.transmatrics.registry.crafting.LiquidCasterCraftingRegistry.LiquidCasterCraftingEntry;
 import mezz.jei.api.recipe.BlankRecipeWrapper;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;

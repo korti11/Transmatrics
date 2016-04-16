@@ -1,6 +1,6 @@
 package at.korti.transmatrics.tileentity.container;
 
-import at.korti.transmatrics.api.crafting.MagneticSmelteryCraftingRegistry;
+import at.korti.transmatrics.registry.crafting.MagneticSmelteryCraftingRegistry;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;

@@ -2,7 +2,7 @@ package at.korti.transmatrics.tileentity.crafting;
 
 import at.korti.transmatrics.api.Constants.Energy;
 import at.korti.transmatrics.api.Constants.TransmatricsTileEntity;
-import at.korti.transmatrics.api.crafting.MagneticSmelteryCraftingRegistry;
+import at.korti.transmatrics.registry.crafting.MagneticSmelteryCraftingRegistry;
 import at.korti.transmatrics.tileentity.TileEntityFluidCraftingMachine;
 
 /**
