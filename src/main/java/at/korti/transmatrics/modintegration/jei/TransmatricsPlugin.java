@@ -1,5 +1,8 @@
 package at.korti.transmatrics.modintegration.jei;
 
+import at.korti.transmatrics.modintegration.jei.circuitstamper.CircuitStamperRecipeCategory;
+import at.korti.transmatrics.modintegration.jei.circuitstamper.CircuitStamperRecipeHandler;
+import at.korti.transmatrics.modintegration.jei.circuitstamper.CircuitStamperRecipeMaker;
 import at.korti.transmatrics.modintegration.jei.liquidcaste.LiquidCasterRecipeCategory;
 import at.korti.transmatrics.modintegration.jei.liquidcaste.LiquidCasterRecipeHandler;
 import at.korti.transmatrics.modintegration.jei.liquidcaste.LiquidCasterRecipeMaker;
@@ -28,11 +31,14 @@ public class TransmatricsPlugin extends BlankModPlugin {
     public void register(@Nonnull IModRegistry registry) {
         jeiHelper = registry.getJeiHelpers();
 
-        registry.addRecipeCategories(new PulverizerRecipeCategory(), new MagneticSmelteryRecipeCategory(), new LiquidCasterRecipeCategory());
-        registry.addRecipeHandlers(new PulverizerRecipeHandler(), new MagneticSmelteryRecipeHandler(), new LiquidCasterRecipeHandler());
+        registry.addRecipeCategories(new PulverizerRecipeCategory(), new MagneticSmelteryRecipeCategory(),
+                new LiquidCasterRecipeCategory(), new CircuitStamperRecipeCategory());
+        registry.addRecipeHandlers(new PulverizerRecipeHandler(), new MagneticSmelteryRecipeHandler(),
+                new LiquidCasterRecipeHandler(), new CircuitStamperRecipeHandler());
 
         registry.addRecipes(PulverizerRecipeMaker.getRecipes());
         registry.addRecipes(MagneticSmelteryRecipeMaker.getRecipes());
         registry.addRecipes(LiquidCasterRecipeMaker.getRecipes());
+        registry.addRecipes(CircuitStamperRecipeMaker.getRecipes());
     }
 }

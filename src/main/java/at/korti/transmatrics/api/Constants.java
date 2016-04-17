@@ -31,6 +31,7 @@ public final class Constants {
             public static final String PULVERIZER = Mod.MODID + ":Pulverizer";
             public static final String MAGNETIC_SMELTERY = Mod.MODID + ":MagneticSmeltery";
             public static final String LIQUID_CASTER = Mod.MODID + ":LiquidCaster";
+            public static final String CIRCUIT_STAMPER = Mod.MODID + ":CircuitStamper";
         }
     }
 
