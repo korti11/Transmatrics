@@ -129,12 +129,12 @@ public final class CircuitStamperCraftingRegistry implements ICraftingRegistry<I
 
     @Override
     public EnumFacing[] getInputFaces() {
-        return new EnumFacing[]{UP};
+        return new EnumFacing[]{UP, NORTH, EAST, SOUTH, WEST, DOWN};
     }
 
     @Override
     public EnumFacing[] getOutputFaces() {
-        return new EnumFacing[]{NORTH, EAST, SOUTH, WEST};
+        return new EnumFacing[]{UP, NORTH, EAST, SOUTH, WEST, DOWN};
     }
 
     @Override

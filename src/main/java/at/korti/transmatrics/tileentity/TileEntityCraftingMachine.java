@@ -42,7 +42,7 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
             this.totalCraftingTime = entry.getCraftingTime();
             craftingTime = 0;
             this.markDirty();
-        } else if (stack == null) {
+        } else if (isInputSlot(index) && stack == null) {
             this.totalCraftingTime = 0;
             this.craftingTime = 0;
             this.efficiency = 0;

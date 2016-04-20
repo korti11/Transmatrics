@@ -2,11 +2,13 @@ package at.korti.transmatrics.tileentity;
 
 import at.korti.transmatrics.api.Constants;
 import at.korti.transmatrics.api.Constants.NBT;
+import at.korti.transmatrics.api.crafting.ICraftingRegistry;
 import at.korti.transmatrics.api.crafting.ICraftingRegistry.ICraftingEntry;
 import at.korti.transmatrics.api.crafting.IFluidCraftingRegistry;
 import at.korti.transmatrics.block.ActiveMachineBlock;
 import at.korti.transmatrics.event.MachineCraftingEvent;
 import at.korti.transmatrics.util.helper.CraftingHelper;
+import at.korti.transmatrics.util.helper.InventoryHelper;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -480,12 +482,12 @@ public abstract class TileEntityFluidCraftingMachine extends TileEntityInventory
     public void setInventorySlotContents(int index, ItemStack stack) {
         boolean isSameItem = stack != null && stack.isItemEqual(getStackInSlot(index)) && ItemStack.areItemStackTagsEqual(stack, getStackInSlot(index));
         super.setInventorySlotContents(index, stack);
-        ICraftingEntry entry = craftingRegistry.get(getInventoryInputs());
-        if (isSlot(true, index) && entry != null && !isSameItem) {
+        ICraftingRegistry.ICraftingEntry entry = craftingRegistry.get(getInventoryInputs());
+        if (InventoryHelper.isInputSlot(craftingRegistry, index) && entry != null && !isSameItem) {
             this.totalCraftingTime = entry.getCraftingTime();
             craftingTime = 0;
             this.markDirty();
-        } else if (stack == null) {
+        } else if (InventoryHelper.isInputSlot(craftingRegistry, index) && stack == null) {
             this.totalCraftingTime = 0;
             this.craftingTime = 0;
             this.efficiency = 0;
