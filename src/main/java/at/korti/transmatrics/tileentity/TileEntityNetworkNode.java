@@ -3,6 +3,8 @@ package at.korti.transmatrics.tileentity;
 import at.korti.transmatrics.api.Constants.NBT;
 import at.korti.transmatrics.api.Constants.NetworkMessages;
 import at.korti.transmatrics.api.network.*;
+import at.korti.transmatrics.event.ConnectNetworkNodesEvent;
+import at.korti.transmatrics.event.DisconnectNetworkNodesEvent;
 import at.korti.transmatrics.tileentity.network.TileEntityController;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -11,8 +13,10 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ITickable;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 
 import static at.korti.transmatrics.util.helper.TextHelper.localize;
+import static net.minecraftforge.common.MinecraftForge.EVENT_BUS;
 
 /**
  * Created by Korti on 06.03.2016.
@@ -66,6 +70,7 @@ public abstract class TileEntityNetworkNode extends TileEntity implements INetwo
 
     @Override
     public IStatusMessage connectToNode(INetworkNode node, boolean isSecond, boolean simulate) {
+        EVENT_BUS.post(new ConnectNetworkNodesEvent(this, node));
         if (networkNode != null) {
             disconnectFromNode();
             networkNode = node;
@@ -93,6 +98,7 @@ public abstract class TileEntityNetworkNode extends TileEntity implements INetwo
 
     @Override
     public IStatusMessage disconnectFromNode(INetworkNode node, boolean isSecond, boolean simulate) {
+        EVENT_BUS.post(new DisconnectNetworkNodesEvent(this, node));
         if (node == null || networkNode == null || networkNode != node) {
             return new StatusMessage(false, NetworkMessages.NOT_CONNECTED);
         }
@@ -103,7 +109,7 @@ public abstract class TileEntityNetworkNode extends TileEntity implements INetwo
                 return message;
             }
         }
-        if(!simulate) {
+        if (!simulate) {
             networkNode = null;
         }
         return new StatusMessage(true, NetworkMessages.SUCCESSFUL_DISCONNECTED);

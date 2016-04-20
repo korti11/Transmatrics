@@ -3,6 +3,8 @@ package at.korti.transmatrics.tileentity;
 import at.korti.transmatrics.api.Constants.NBT;
 import at.korti.transmatrics.api.Constants.NetworkMessages;
 import at.korti.transmatrics.api.network.*;
+import at.korti.transmatrics.event.ConnectNetworkNodesEvent;
+import at.korti.transmatrics.event.DisconnectNetworkNodesEvent;
 import at.korti.transmatrics.tileentity.network.TileEntityController;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -12,12 +14,14 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ITickable;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import static at.korti.transmatrics.util.helper.TextHelper.localize;
+import static net.minecraftforge.common.MinecraftForge.EVENT_BUS;
 
 /**
  * Created by Korti on 06.03.2016.
@@ -86,8 +90,9 @@ public abstract class TileEntityNetworkSwitch extends TileEntity implements INet
 
     @Override
     public IStatusMessage connectToNode(INetworkNode node, boolean isSecond, boolean simulate) {
+        EVENT_BUS.post(new ConnectNetworkNodesEvent(this, node));
         if (networkNodes.size() == maxConnections) {
-            return new StatusMessage(false,NetworkMessages.MAX_CONNECTIONS, maxConnections);
+            return new StatusMessage(false, NetworkMessages.MAX_CONNECTIONS, maxConnections);
         } else if (!canConnectToMachines && (node instanceof TileEntityGenerator)) {     //TODO: Check if the node is a machine
             return new StatusMessage(false, NetworkMessages.MACHINES_CAN_NOT_CONNECTED);
         } else if (this == node) {
@@ -102,13 +107,13 @@ public abstract class TileEntityNetworkSwitch extends TileEntity implements INet
                 return new StatusMessage(false, NetworkMessages.OUT_OF_RANGE);
             }
         }
-        if(!isSecond) {
+        if (!isSecond) {
             IStatusMessage message = node.connectToNode(this, true, simulate);
             if (!message.isSuccessful()) {
                 return message;
             }
         }
-        if(!simulate) {
+        if (!simulate) {
             networkNodes.add(node);
             if (node.getController() != null && this.controller == null) {
                 this.connectToController(node.getController().getMaster().pos, node.getConnectionPriority() + 1);
@@ -119,16 +124,17 @@ public abstract class TileEntityNetworkSwitch extends TileEntity implements INet
 
     @Override
     public IStatusMessage disconnectFromNode(INetworkNode node, boolean isSecond, boolean simulate) {
+        EVENT_BUS.post(new DisconnectNetworkNodesEvent(this, node));
         if (!networkNodes.contains(node)) {
             return new StatusMessage(false, NetworkMessages.NOT_CONNECTED);
         }
-        if(!isSecond) {
+        if (!isSecond) {
             IStatusMessage message = node.disconnectFromNode(node, true, simulate);
             if (!message.isSuccessful()) {
                 return message;
             }
         }
-        if(!simulate) {
+        if (!simulate) {
             networkNodes.remove(node);
             node.disconnectFromController();
         }
