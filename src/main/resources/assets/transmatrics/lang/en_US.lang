@@ -15,7 +15,8 @@ tile.Transmatrics.Controller.name=Controller
 tile.Transmatrics.Pulverizer.name=Pulverizer
 tile.Transmatrics.PoweredFurnace.name=Powered Furnace
 tile.Transmatrics.MagneticSmeltery.name=Magnetic Smeltery
-tile.Transmatrics.LiquidCaster.name= Liquid Caster
+tile.Transmatrics.LiquidCaster.name=Liquid Caster
+tile.Transmatrics.CircuitStamper.name=Circuit Stamper
 
 #Ore
 tile.Transmatrics.Ore.copper.name=Copper Ore

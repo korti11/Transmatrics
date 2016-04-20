@@ -4,12 +4,14 @@ import at.korti.transmatrics.api.Constants;
 import at.korti.transmatrics.api.Constants.TransmatricsItem;
 import at.korti.transmatrics.block.ModBlock;
 import at.korti.transmatrics.client.gui.GuiHandler;
+import at.korti.transmatrics.event.EventHandler;
 import at.korti.transmatrics.modintegration.ModIntegrationManager;
 import at.korti.transmatrics.network.TransmatricsPacketHandler;
 import at.korti.transmatrics.proxy.CommonProxy;
 import at.korti.transmatrics.registry.*;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -53,6 +55,7 @@ public class Transmatrics {
         Fluids.registerFluids();
         TileEntities.registerTileEntities();
         proxy.preInit(event);
+        MinecraftForge.EVENT_BUS.register(new EventHandler());
         ModIntegrationManager.preInit();
     }
 

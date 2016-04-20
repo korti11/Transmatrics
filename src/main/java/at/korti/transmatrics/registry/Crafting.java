@@ -108,7 +108,7 @@ public final class Crafting {
 
     private static void registerCircuitStamperCrafting() {
         CircuitStamperCraftingRegistry.getInstance().register(new ItemStack(BLANK_CIRCUIT_BOARD.getItem(), 1, 0),
-                new ItemStack(INGOT.getItem(), 1, 0), 20 * 12);
+                new ItemStack(INGOT.getItem(), 1, 0), 20 * 22);
         CircuitStamperCraftingRegistry.getInstance().register(new ItemStack(BLANK_CIRCUIT_BOARD.getItem(), 1, 0),
                 new ItemStack(INGOT.getItem(), 1, 2), 20 * 12);
         CircuitStamperCraftingRegistry.getInstance().register(new ItemStack(BLANK_CIRCUIT_BOARD.getItem(), 1, 0),
