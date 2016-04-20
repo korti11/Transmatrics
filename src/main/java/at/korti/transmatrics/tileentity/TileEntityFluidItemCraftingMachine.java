@@ -4,13 +4,17 @@ import at.korti.transmatrics.api.Constants.NBT;
 import at.korti.transmatrics.api.crafting.IFluidItemCraftingRegistry;
 import at.korti.transmatrics.api.crafting.IFluidItemCraftingRegistry.IFluidItemCraftingEntry;
 import at.korti.transmatrics.block.ActiveMachineBlock;
+import at.korti.transmatrics.event.MachineCraftingEvent;
 import at.korti.transmatrics.util.helper.CraftingHelper;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumFacing;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.*;
+
+import static net.minecraftforge.common.MinecraftForge.EVENT_BUS;
 
 /**
  * Created by Korti on 02.04.2016.
@@ -295,18 +299,22 @@ public abstract class TileEntityFluidItemCraftingMachine extends TileEntityInven
             if (isFluidOutput) {
                 IFluidItemCraftingEntry<FluidStack> entry = craftingRegistry.get(getFluidsInput(), getInventoryInputs());
                 FluidStack[] outputs = entry.getOutputs();
+                EVENT_BUS.post(new MachineCraftingEvent.Pre<>(entry, craftingRegistry, this, this));
                 for (FluidStack stack : outputs) {
                     craftFluid(stack);
                 }
                 decreaseInputs(entry.getInputs(), entry.getSecondInputs());
+                EVENT_BUS.post(new MachineCraftingEvent.Post<>(entry, craftingRegistry, this, this));
             } else {
                 IFluidItemCraftingEntry<ItemStack> entry = craftingRegistry.get(getFluidsInput(), getInventoryInputs());
                 int[] outputSlots = craftingRegistry.getOutputSlotsIds();
                 ItemStack[] outputs = entry.getOutputs();
+                EVENT_BUS.post(new MachineCraftingEvent.Pre<>(entry, craftingRegistry, this, this));
                 for (int i = 0; i < outputs.length; i++) {
                     craftItem(outputSlots[i], outputs[i]);
                 }
                 decreaseInputs(entry.getInputs(), entry.getSecondInputs());
+                EVENT_BUS.post(new MachineCraftingEvent.Post<>(entry, craftingRegistry, this, this));
             }
         }
     }
