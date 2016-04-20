@@ -264,7 +264,8 @@ public final class Constants {
         GEAR("Gear"),
         CAST("Cast"),
         BLANK_CIRCUIT_BOARD("BlankCircuitBoard"),
-        CIRCUIT_BOARDER("CircuitBoard");
+        CIRCUIT_BOARDER("CircuitBoard"),
+        ELECTRONIC_PARTS("ElectronicParts");
 
         private final String regName;
 

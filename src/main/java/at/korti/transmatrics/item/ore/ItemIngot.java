@@ -9,7 +9,7 @@ import at.korti.transmatrics.item.ModMetaItem;
 public class ItemIngot extends ModMetaItem{
 
     private static final String[] extensions = {"copper", "tin", "silver", "lead"};
-    private static final Integer[] colors = {0xef7e0c, 0xf3f3f3, 0xc1dede, 0x30193c};
+    private static final Integer[] colors = {0xef7e0c, 0xdcf3f3, 0xc1dede, 0x30193c};
 
     public ItemIngot() {
         super(TransmatricsItem.INGOT.getRegName(), extensions);
