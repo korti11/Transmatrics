@@ -59,6 +59,9 @@ item.Transmatrics.BlankCircuitBoard.ender.name=Blank Ender Circuit Board
 item.Transmatrics.CircuitBoard.redstone.name=Redstone Circuit Bord
 item.Transmatrics.CircuitBoard.quartz.name=Quartz Circuit Bord
 item.Transmatrics.CircuitBoard.ender.name=Ender Circuit Bord
+item.Transmatrics.Circuit.redstone.name=Restone Circuit
+item.Transmatrics.Circuit.quartz.name=Quartz Circuit
+item.Transmatrics.Circuit.ender.name=Ender Circuit
 item.Transmatrics.ElectronicParts.inductance.name=Inductance
 item.Transmatrics.ElectronicParts.capacitance.name=Capacitance
 item.Transmatrics.ElectronicParts.heatSink.name=Heat Sink
@@ -91,6 +94,8 @@ network.already_connected.message=[Network] The nodes are already connected.
 tooltip.connector.connection.name=Name: %s
 tooltip.connector.connection.pos=Pos: [x: %d, y: %d, z: %d]
 tooltip.pulverizer.output.chance=Chance:
+tooltip.circuit.parts=Electronic Parts
+tooltip.circuit.part=%d: %s
 
 #Gui
 gui.tank.empty=Empty

@@ -4,8 +4,6 @@ import at.korti.transmatrics.api.Constants.Mod;
 import at.korti.transmatrics.api.Constants.TransmatricsBlock;
 import at.korti.transmatrics.api.Constants.TransmatricsFluid;
 import at.korti.transmatrics.api.Constants.TransmatricsItem;
-import at.korti.transmatrics.api.energy.IEnergyConsumer;
-import at.korti.transmatrics.api.energy.IEnergyProvider;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraftforge.fluids.Fluid;

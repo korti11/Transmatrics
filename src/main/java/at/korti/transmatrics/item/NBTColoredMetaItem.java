@@ -66,7 +66,10 @@ public abstract class NBTColoredMetaItem extends ModMetaItem {
             loadMapColors(stack);
         }
         NBTTagCompound colorLayers = stack.getTagCompound().getCompoundTag(NBT.COLOR_LAYERS);
-        return colorLayers.getInteger(String.format(NBT.COLOR_LAYER, renderPass));
+        if(colorLayers.hasKey(String.format(NBT.COLOR_LAYER, renderPass))) {
+            return colorLayers.getInteger(String.format(NBT.COLOR_LAYER, renderPass));
+        }
+        return super.getColorFromItemStack(stack, renderPass);
     }
 
 }

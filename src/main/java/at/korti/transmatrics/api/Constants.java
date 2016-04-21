@@ -75,6 +75,9 @@ public final class Constants {
         //Colored item
         public static final String COLOR_LAYERS = "color_layers";
         public static final String COLOR_LAYER = "color_layer_%d";
+
+        //Circuit
+        public static final String ELECTRONIC_PARTS = "electronic_parts";
     }
 
     public static class NetworkMessages{
@@ -94,6 +97,10 @@ public final class Constants {
         //Connector
         public static final String CONNECTION_NAME = "tooltip.connector.connection.name";
         public static final String CONNECTION_POS = "tooltip.connector.connection.pos";
+
+        //Circuit
+        public static final String ELECTRONIC_PARTS = "tooltip.circuit.parts";
+        public static final String ELECTRONIC_PART = "tooltip.circuit.part";
     }
 
     public static class Energy{
@@ -265,7 +272,8 @@ public final class Constants {
         CAST("Cast"),
         BLANK_CIRCUIT_BOARD("BlankCircuitBoard"),
         CIRCUIT_BOARDER("CircuitBoard"),
-        ELECTRONIC_PARTS("ElectronicParts");
+        ELECTRONIC_PARTS("ElectronicParts"),
+        CIRCUIT("Circuit");
 
         private final String regName;
 

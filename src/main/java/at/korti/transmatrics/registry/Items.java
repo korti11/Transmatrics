@@ -3,6 +3,7 @@ package at.korti.transmatrics.registry;
 import at.korti.transmatrics.item.crafting.ItemCast;
 import at.korti.transmatrics.item.crafting.ItemGear;
 import at.korti.transmatrics.item.electronic.ItemBlankCircuitBoard;
+import at.korti.transmatrics.item.electronic.ItemCircuit;
 import at.korti.transmatrics.item.electronic.ItemCircuitBoard;
 import at.korti.transmatrics.item.electronic.ItemElectronicParts;
 import at.korti.transmatrics.item.ore.ItemIngot;
@@ -37,6 +38,7 @@ public final class Items {
     private static ItemBlankCircuitBoard itemBlankCircuitBoard;
     private static ItemCircuitBoard itemCircuitBoard;
     private static ItemElectronicParts itemElectronicParts;
+    private static ItemCircuit itemCircuit;
 
     public static void registerItems() {
         registerItem(wrench = new ItemWrench());
@@ -50,6 +52,7 @@ public final class Items {
         registerItem(itemCircuitBoard = new ItemCircuitBoard());
         registerItem(itemElectronicParts = new ItemElectronicParts());
         addItemVariants(itemElectronicParts, itemElectronicParts.extensions);
+        registerItem(itemCircuit = new ItemCircuit());
     }
 
     public static void registerItemTextures() {
@@ -62,6 +65,7 @@ public final class Items {
         registerMetaItemTexture(itemBlankCircuitBoard);
         registerMetaItemTexture(itemCircuitBoard);
         registerMetaItemTexture(itemElectronicParts, itemElectronicParts.extensions);
+        registerMetaItemTexture(itemCircuit);
     }
 
     private static void registerItemTexture(Item item) {
