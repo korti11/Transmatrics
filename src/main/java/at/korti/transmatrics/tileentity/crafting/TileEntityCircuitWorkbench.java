@@ -10,7 +10,7 @@ import at.korti.transmatrics.tileentity.TileEntityCraftingMachine;
  */
 public class TileEntityCircuitWorkbench extends TileEntityCraftingMachine {
 
-    protected TileEntityCircuitWorkbench() {
+    public TileEntityCircuitWorkbench() {
         super(Energy.CIRCUIT_WORKBENCH_CAPACITY, Energy.CIRCUIT_WORKBENCH_RECEIVE, Energy.CIRCUIT_WORKBENCH_ENERGY_USE,
                 TransmatricsTileEntity.CIRCUIT_WORKBENCH.getRegName(), CircuitWorkbenchCraftingRegistry.getInstance());
     }

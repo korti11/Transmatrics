@@ -42,6 +42,7 @@ public final class Blocks {
     private static MagneticSmeltery magneticSmeltery;
     private static LiquidCaster liquidCaster;
     private static CircuitStamper circuitStamper;
+    private static CircuitWorkbench circuitWorkbench;
     private static OreBlock oreBlock;
 
     public static void registerBlocks() {
@@ -61,6 +62,7 @@ public final class Blocks {
         registerBlock(magneticSmeltery = new MagneticSmeltery());
         registerBlock(liquidCaster = new LiquidCaster());
         registerBlock(circuitStamper = new CircuitStamper());
+        registerBlock(circuitWorkbench = new CircuitWorkbench());
         registerBlock(oreBlock = new OreBlock(), ItemOreBlock.class);
     }
 
@@ -81,6 +83,7 @@ public final class Blocks {
         registerBlockTexture(magneticSmeltery);
         registerBlockTexture(liquidCaster);
         registerBlockTexture(circuitStamper);
+        registerBlockTexture(circuitWorkbench);
         registerMetaBlockTextures(oreBlock, OreBlock.OreType.values());
     }
 

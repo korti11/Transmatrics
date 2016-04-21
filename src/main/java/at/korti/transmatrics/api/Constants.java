@@ -232,6 +232,7 @@ public final class Constants {
         public static final int MAGNETIC_SMELTERY_GUI_ID = 2;
         public static final int LIQUID_CASTER_GUI_ID = 3;
         public static final int CIRCUIT_STAMPER_GUI_ID = 4;
+        public static final int CIRCUIT_WORKBENCH_GUI_ID = 5;
     }
 
     public enum TransmatricsBlock {
@@ -251,6 +252,7 @@ public final class Constants {
         MAGNETIC_SMELTERY("MagneticSmeltery"),
         LIQUID_CASTER("LiquidCaster"),
         CIRCUIT_STAMPER("CircuitStamper"),
+        CIRCUIT_WORKBENCH("CircuitWorkbenck"),
         ORE_BLOCK("Ore");
 
         private final String regName;
