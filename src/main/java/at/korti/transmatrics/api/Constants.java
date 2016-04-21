@@ -78,6 +78,7 @@ public final class Constants {
 
         //Circuit
         public static final String ELECTRONIC_PARTS = "electronic_parts";
+        public static final String CONDUCTION_ITEM = "conduction_item";
     }
 
     public static class NetworkMessages{

@@ -150,14 +150,17 @@ public final class CircuitWorkbenchCraftingRegistry implements ICraftingRegistry
         public CircuitWorkbenchCraftingEntry(ItemStack circuit, ItemStack conduct, ItemStack... parts) {
             if(circuit != null) {
                 ItemCircuitBoard itemCircuitBoard = (ItemCircuitBoard) circuit.getItem();
-                int boardColor = itemCircuitBoard.getColorFromItemStack(circuit, 0);
-                int conductColor = itemCircuitBoard.getColorFromItemStack(circuit, 1);
-                ItemCircuit itemCircuit = (ItemCircuit) CIRCUIT.getItem();
-                output = new ItemStack(itemCircuit);
-                itemCircuit.setColorForItemStack(output, 0, boardColor);
-                itemCircuit.setColorForItemStack(output, 1, conductColor);
-                for (ItemStack part : parts) {
-                    itemCircuit.addElectronicPart(output, part);
+                ItemStack usedConduct = itemCircuitBoard.getConductionItem(circuit);
+                if(usedConduct.isItemEqual(conduct)) {
+                    int boardColor = itemCircuitBoard.getColorFromItemStack(circuit, 0);
+                    int conductColor = itemCircuitBoard.getColorFromItemStack(circuit, 1);
+                    ItemCircuit itemCircuit = (ItemCircuit) CIRCUIT.getItem();
+                    output = new ItemStack(itemCircuit, 1, circuit.getItemDamage());
+                    itemCircuit.setColorForItemStack(output, 0, boardColor);
+                    itemCircuit.setColorForItemStack(output, 1, conductColor);
+                    for (ItemStack part : parts) {
+                        itemCircuit.addElectronicPart(output, part);
+                    }
                 }
             }
         }

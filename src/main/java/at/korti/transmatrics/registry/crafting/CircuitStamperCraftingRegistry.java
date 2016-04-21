@@ -169,9 +169,10 @@ public final class CircuitStamperCraftingRegistry implements ICraftingRegistry<I
         public CircuitStamperCraftingEntry(ItemStack blankCircuit, ItemStack conductor, int conductorColor, int craftingTime) {
             this.blankCircuit = blankCircuit;
             this.conductor = conductor;
-            this.circuit = new ItemStack(CIRCUIT_BOARDER.getItem());
+            this.circuit = new ItemStack(CIRCUIT_BOARDER.getItem(), 1, blankCircuit.getItemDamage());
             circuitBoard.setColorForItemStack(circuit, 0, blankCircuit.getItem().getColorFromItemStack(blankCircuit, 0));
             circuitBoard.setColorForItemStack(circuit, 1, conductorColor);
+            circuitBoard.addConductionItem(circuit, conductor);
             this.craftingTime = craftingTime;
         }
 

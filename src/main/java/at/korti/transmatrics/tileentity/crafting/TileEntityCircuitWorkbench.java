@@ -2,14 +2,12 @@ package at.korti.transmatrics.tileentity.crafting;
 
 import at.korti.transmatrics.api.Constants.Energy;
 import at.korti.transmatrics.api.Constants.TransmatricsTileEntity;
-import at.korti.transmatrics.api.crafting.ICraftingRegistry;
 import at.korti.transmatrics.api.crafting.ICraftingRegistry.ICraftingEntry;
 import at.korti.transmatrics.event.MachineCraftingEvent;
 import at.korti.transmatrics.registry.crafting.CircuitWorkbenchCraftingRegistry;
 import at.korti.transmatrics.tileentity.TileEntityCraftingMachine;
 import at.korti.transmatrics.util.helper.InventoryHelper;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.MinecraftForge;
 
 import static net.minecraftforge.common.MinecraftForge.EVENT_BUS;
 
@@ -27,6 +25,12 @@ public class TileEntityCircuitWorkbench extends TileEntityCraftingMachine {
     public void setInventorySlotContents(int index, ItemStack stack) {
         if(InventoryHelper.isInputSlot(craftingRegistry, index) || (InventoryHelper.isOutputSlot(craftingRegistry,index) && stack != null)) {
             super.setInventorySlotContents(index, stack);
+            if (InventoryHelper.isInputSlot(craftingRegistry, index) && stack == null) {
+                ICraftingEntry entry = craftingRegistry.get(getInputs());
+                if(entry.getOutputs()[0] == null) {
+                    super.setInventorySlotContents(craftingRegistry.getOutputSlotsIds()[0], null);
+                }
+            }
         } else if (InventoryHelper.isOutputSlot(craftingRegistry, index) && stack == null) {
             decreaseInputs(getInputs());
             super.setInventorySlotContents(index, stack);
@@ -47,9 +51,11 @@ public class TileEntityCircuitWorkbench extends TileEntityCraftingMachine {
 
     @Override
     protected void craftItem(int slot, ItemStack stack) {
-        ItemStack copyStack = stack.copy();
-        copyStack.stackSize = getInputs()[0].stackSize;
-        setInventorySlotContents(slot, copyStack);
+        if(stack != null) {
+            ItemStack copyStack = stack.copy();
+            copyStack.stackSize = getInputs()[0].stackSize;
+            setInventorySlotContents(slot, copyStack);
+        }
     }
 
     @Override
