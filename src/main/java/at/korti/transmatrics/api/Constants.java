@@ -187,6 +187,11 @@ public final class Constants {
         public static final int CIRCUIT_STAMPER_CAPACITY = 5000;
         public static final int CIRCUIT_STAMPER_RECEIVE = 500;
         public static final int CIRCUIT_STAMPER_ENERGY_USE = 25;
+
+        //Circuit Workbench
+        public static final int CIRCUIT_WORKBENCH_CAPACITY = 5000;
+        public static final int CIRCUIT_WORKBENCH_RECEIVE = 500;
+        public static final int CIRCUIT_WORKBENCH_ENERGY_USE = 25;
     }
 
     public static class Tanks{
@@ -306,7 +311,8 @@ public final class Constants {
         POWERED_FURNACE("TilePoweredFurnace"),
         MAGNETIC_SMELTERY("TileMagneticSmeltery"),
         LIQUID_CASTER("TileLiquidCaster"),
-        CIRCUIT_STAMPER("TileCircuitStamper");
+        CIRCUIT_STAMPER("TileCircuitStamper"),
+        CIRCUIT_WORKBENCH("TileCircuitWorkbench");
 
         private final String regName;
 

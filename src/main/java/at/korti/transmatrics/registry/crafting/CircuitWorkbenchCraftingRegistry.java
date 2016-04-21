@@ -20,6 +20,19 @@ import static net.minecraft.util.EnumFacing.*;
  */
 public final class CircuitWorkbenchCraftingRegistry implements ICraftingRegistry<ItemStack> {
 
+    private static CircuitWorkbenchCraftingRegistry instance;
+
+    private CircuitWorkbenchCraftingRegistry() {
+
+    }
+
+    public static CircuitWorkbenchCraftingRegistry getInstance() {
+        if (instance == null) {
+            instance = new CircuitWorkbenchCraftingRegistry();
+        }
+        return instance;
+    }
+
     @Override
     public ICraftingRegistry register(ICraftingEntry entry) {
         throw new UnsupportedOperationException();

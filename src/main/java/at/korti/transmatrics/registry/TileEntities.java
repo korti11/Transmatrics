@@ -32,6 +32,7 @@ public final class TileEntities {
         registerTileEntity(TileEntityMagneticSmeltery.class, MAGNETIC_SMELTERY.getRegName());
         registerTileEntity(TileEntityLiquidCaster.class, LIQUID_CASTER.getRegName());
         registerTileEntity(TileEntityCircuitStamper.class, CIRCUIT_STAMPER.getRegName());
+        registerTileEntity(TileEntityCircuitWorkbench.class, CIRCUIT_WORKBENCH.getRegName());
     }
 
 }
