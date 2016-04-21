@@ -20,18 +20,18 @@ public class ContainerCircuitWorkbench extends CraftingContainer {
 
     @Override
     public void addTileEntitySlots(IInventory inventory) {
-        addSlotToContainer(new Slot(inventory, 0, 25, 20));
-        addSlotToContainer(new Slot(inventory, 1, 25, 40));
-        addSlotToContainer(new ElectronicPartSlot(inventory, 2, 45, 10));
-        addSlotToContainer(new ElectronicPartSlot(inventory, 3, 65, 10));
-        addSlotToContainer(new ElectronicPartSlot(inventory, 4, 85, 10));
-        addSlotToContainer(new ElectronicPartSlot(inventory, 5, 105, 10));
-        addSlotToContainer(new ElectronicPartSlot(inventory, 6, 45, 30));
-        addSlotToContainer(new ElectronicPartSlot(inventory, 7, 65, 30));
-        addSlotToContainer(new ElectronicPartSlot(inventory, 8, 85, 30));
-        addSlotToContainer(new ElectronicPartSlot(inventory, 9, 105, 30));
-        addSlotToContainer(new ElectronicPartSlot(inventory, 10, 45, 50));
-        addSlotToContainer(new ElectronicPartSlot(inventory, 11, 65, 50));
-        addSlotToContainer(new OutputSlot(inventory, 12, 125, 30));
+        addSlotToContainer(new Slot(inventory, 0, 37, 24));
+        addSlotToContainer(new Slot(inventory, 1, 37, 44));
+        addSlotToContainer(new ElectronicPartSlot(inventory, 2, 58, 13));
+        addSlotToContainer(new ElectronicPartSlot(inventory, 3, 58, 34));
+        addSlotToContainer(new ElectronicPartSlot(inventory, 4, 58, 55));
+        addSlotToContainer(new ElectronicPartSlot(inventory, 5, 79, 13));
+        addSlotToContainer(new ElectronicPartSlot(inventory, 6, 79, 34));
+        addSlotToContainer(new ElectronicPartSlot(inventory, 7, 79, 55));
+        addSlotToContainer(new ElectronicPartSlot(inventory, 8, 100, 13));
+        addSlotToContainer(new ElectronicPartSlot(inventory, 9, 100, 34));
+        addSlotToContainer(new ElectronicPartSlot(inventory, 10, 100, 55));
+        addSlotToContainer(new ElectronicPartSlot(inventory, 11, 121, 34));
+        addSlotToContainer(new OutputSlot(inventory, 12, 146, 34));
     }
 }
