@@ -156,7 +156,7 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
         return true;
     }
 
-    private int getSlotForStack(boolean input, ItemStack stack) {
+    protected int getSlotForStack(boolean input, ItemStack stack) {
         int[] slots = input ? craftingRegistry.getInputSlotsIds() : craftingRegistry.getOutputSlotsIds();
         for (int slot : slots) {
             if (getStackInSlot(slot) != null && getStackInSlot(slot).isItemEqual(stack)) {
@@ -191,11 +191,11 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
         return containsSlot(craftingRegistry.getOutputSlotsIds(), slot);
     }
 
-    private ItemStack[] getInputs() {
+    protected ItemStack[] getInputs() {
         return getContent(craftingRegistry.getInputSlotsIds());
     }
 
-    private ItemStack[] getOutputs() {
+    protected ItemStack[] getOutputs() {
         return getContent(craftingRegistry.getOutputSlotsIds());
     }
 
@@ -222,7 +222,7 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
         return true;
     }
 
-    private boolean canCraft() {
+    protected boolean canCraft() {
         if (areInputSlotsEmpty()) {
             return false;
         } else {
@@ -246,7 +246,7 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
         return 0;
     }
 
-    private void craftItem() {
+    protected void craftItem() {
         if (this.canCraft()) {
             ICraftingEntry<ItemStack, ItemStack> entry = craftingRegistry.get(getInputs());
             int[] outputSlots = craftingRegistry.getOutputSlotsIds();
@@ -260,7 +260,7 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
         }
     }
 
-    private void craftItem(int slot, ItemStack stack) {
+    protected void craftItem(int slot, ItemStack stack) {
         if(CraftingHelper.chanceToCraft(craftingRegistry, slot, getInputs())) {
             if (getStackInSlot(slot) == null) {
                 setInventorySlotContents(slot, stack.copy());
@@ -270,7 +270,7 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
         }
     }
 
-    private void decreaseInputs(ItemStack... stacks) {
+    protected void decreaseInputs(ItemStack... stacks) {
         for (ItemStack stack : stacks) {
             int slot = getSlotForStack(true, stack);
             if(slot != -1 && craftingRegistry.decreaseItemForSlot(slot)) {

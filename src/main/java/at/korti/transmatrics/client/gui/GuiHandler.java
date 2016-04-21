@@ -31,6 +31,8 @@ public class GuiHandler implements IGuiHandler {
                 return new ContainerLiquidCaster(player.inventory, (TileEntityLiquidCaster) world.getTileEntity(pos));
             case CIRCUIT_STAMPER_GUI_ID:
                 return new ContainerCircuitStamper(player.inventory, (TileEntityCircuitStamper) world.getTileEntity(pos));
+            case CIRCUIT_WORKBENCH_GUI_ID:
+                return new ContainerCircuitWorkbench(player.inventory, (TileEntityCircuitWorkbench) world.getTileEntity(pos));
         }
 
         return null;
@@ -52,6 +54,8 @@ public class GuiHandler implements IGuiHandler {
                     return new GuiLiquidCaster(player.inventory, (TileEntityLiquidCaster) world.getTileEntity(pos));
                 case CIRCUIT_STAMPER_GUI_ID:
                     return new GuiCircuitStamper(player.inventory, (TileEntityCircuitStamper) world.getTileEntity(pos));
+                case CIRCUIT_WORKBENCH_GUI_ID:
+                    return new GuiCircuitWorkbench(player.inventory, (TileEntityCircuitWorkbench) world.getTileEntity(pos));
             }
         }
         return null;

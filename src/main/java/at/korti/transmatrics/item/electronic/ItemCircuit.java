@@ -3,6 +3,7 @@ package at.korti.transmatrics.item.electronic;
 import at.korti.transmatrics.api.Constants.NBT;
 import at.korti.transmatrics.api.Constants.ToolTips;
 import at.korti.transmatrics.api.Constants.TransmatricsItem;
+import at.korti.transmatrics.client.util.KeyHelper;
 import at.korti.transmatrics.item.NBTColoredMetaItem;
 import at.korti.transmatrics.util.helper.TextHelper;
 import net.minecraft.entity.player.EntityPlayer;
@@ -35,12 +36,16 @@ public class ItemCircuit extends NBTColoredMetaItem {
         NBTTagCompound electronicParts = stack.getSubCompound(NBT.ELECTRONIC_PARTS, false);
         if (electronicParts != null) {
             tooltip.add(TextHelper.localize(ToolTips.ELECTRONIC_PARTS));
-            Set<String> keys = electronicParts.getKeySet();
-            for (String key : keys) {
-                ItemStack part = ItemStack.loadItemStackFromNBT(electronicParts.getCompoundTag(key));
-                Item item = part.getItem();
-                tooltip.add(TextHelper.localize(ToolTips.ELECTRONIC_PART, part.stackSize,
-                        TextHelper.localize(item.getUnlocalizedName(part))));
+            if(KeyHelper.isShiftKeyDown()) {
+                Set<String> keys = electronicParts.getKeySet();
+                for (String key : keys) {
+                    ItemStack part = ItemStack.loadItemStackFromNBT(electronicParts.getCompoundTag(key));
+                    Item item = part.getItem();
+                    tooltip.add(TextHelper.localize(ToolTips.ELECTRONIC_PART, part.stackSize,
+                            TextHelper.localize(item.getUnlocalizedName(part) + ".name")));
+                }
+            } else {
+                tooltip.add(TextHelper.localize(ToolTips.ELECTRONIC_CIRCUIT_SMALL_INFO));
             }
         }
     }
@@ -51,8 +56,8 @@ public class ItemCircuit extends NBTColoredMetaItem {
             electronicParts = circuit.getSubCompound(NBT.ELECTRONIC_PARTS, true);
         }
 
-        if(countParts(circuit) + electronicPart.stackSize <= maxParts) {
-            String key = electronicPart.getItem().getRegistryName();
+        if(electronicPart != null && countParts(circuit) + electronicPart.stackSize <= maxParts) {
+            String key = electronicPart.getItem().getUnlocalizedName(electronicPart);
             ItemStack stack;
             if (electronicParts.hasKey(key)) {
                 stack = ItemStack.loadItemStackFromNBT(electronicParts.getCompoundTag(key));

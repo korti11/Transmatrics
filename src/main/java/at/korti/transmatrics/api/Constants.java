@@ -101,6 +101,7 @@ public final class Constants {
         //Circuit
         public static final String ELECTRONIC_PARTS = "tooltip.circuit.parts";
         public static final String ELECTRONIC_PART = "tooltip.circuit.part";
+        public static final String ELECTRONIC_CIRCUIT_SMALL_INFO = "tooltip.circuit.small.info";
     }
 
     public static class Energy{

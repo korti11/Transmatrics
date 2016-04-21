@@ -94,8 +94,9 @@ network.already_connected.message=[Network] The nodes are already connected.
 tooltip.connector.connection.name=Name: %s
 tooltip.connector.connection.pos=Pos: [x: %d, y: %d, z: %d]
 tooltip.pulverizer.output.chance=Chance:
-tooltip.circuit.parts=Electronic Parts
-tooltip.circuit.part=%d: %s
+tooltip.circuit.parts=Electronic Parts:
+tooltip.circuit.part=%dx %s
+tooltip.circuit.small.info=<Press Shift>
 
 #Gui
 gui.tank.empty=Empty

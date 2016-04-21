@@ -56,8 +56,15 @@ public final class CircuitWorkbenchCraftingRegistry implements ICraftingRegistry
                 return new CircuitWorkbenchCraftingEntry(null, null, inputs);
             }
         } else {
-            return new CircuitWorkbenchCraftingEntry(inputs[0], inputs[1],
-                    Arrays.copyOfRange(inputs, 2, inputs.length));
+            ItemStack[] tempStacks = new ItemStack[inputs.length];
+            for (int i = 0; i < tempStacks.length; i++) {
+                if(inputs[i] != null) {
+                    tempStacks[i] = inputs[i].copy();
+                    tempStacks[i].stackSize = 1;
+                }
+            }
+            return new CircuitWorkbenchCraftingEntry(tempStacks[0], tempStacks[1],
+                    Arrays.copyOfRange(tempStacks, 2, tempStacks.length));
         }
         return null;
     }
@@ -141,15 +148,17 @@ public final class CircuitWorkbenchCraftingRegistry implements ICraftingRegistry
         public ItemStack output;
 
         public CircuitWorkbenchCraftingEntry(ItemStack circuit, ItemStack conduct, ItemStack... parts) {
-            ItemCircuitBoard itemCircuitBoard = (ItemCircuitBoard) circuit.getItem();
-            int boardColor = itemCircuitBoard.getColorFromItemStack(circuit, 0);
-            int conductColor = itemCircuitBoard.getColorFromItemStack(circuit, 1);
-            ItemCircuit itemCircuit = (ItemCircuit) CIRCUIT.getItem();
-            output = new ItemStack(itemCircuit);
-            itemCircuit.setColorForItemStack(output, 0, boardColor);
-            itemCircuit.setColorForItemStack(output, 1, conductColor);
-            for (ItemStack part : parts) {
-                itemCircuit.addElectronicPart(output, part);
+            if(circuit != null) {
+                ItemCircuitBoard itemCircuitBoard = (ItemCircuitBoard) circuit.getItem();
+                int boardColor = itemCircuitBoard.getColorFromItemStack(circuit, 0);
+                int conductColor = itemCircuitBoard.getColorFromItemStack(circuit, 1);
+                ItemCircuit itemCircuit = (ItemCircuit) CIRCUIT.getItem();
+                output = new ItemStack(itemCircuit);
+                itemCircuit.setColorForItemStack(output, 0, boardColor);
+                itemCircuit.setColorForItemStack(output, 1, conductColor);
+                for (ItemStack part : parts) {
+                    itemCircuit.addElectronicPart(output, part);
+                }
             }
         }
 
