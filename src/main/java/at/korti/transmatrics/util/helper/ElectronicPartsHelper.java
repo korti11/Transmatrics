@@ -1,7 +1,6 @@
 package at.korti.transmatrics.util.helper;
 
 import at.korti.transmatrics.api.electronic.IElectronicPart;
-import at.korti.transmatrics.api.energy.IEnergyStorage;
 import net.minecraft.item.ItemStack;
 
 import java.util.List;
@@ -11,7 +10,7 @@ import java.util.List;
  */
 public class ElectronicPartsHelper {
 
-    public static void updateEnergyStorage(IEnergyStorage storage, List<ItemStack> parts, int defaultCapacity, int meta) {
+    public static int updateEnergyStorage(List<ItemStack> parts, int defaultCapacity, int meta) {
         int newCapacity = defaultCapacity;
         for (ItemStack stack : parts) {
             if (stack.getItem() instanceof IElectronicPart && stack.getItemDamage() == meta) {
@@ -19,7 +18,7 @@ public class ElectronicPartsHelper {
                 newCapacity += (electronicPart.getImprovementValue(meta) * stack.stackSize);
             }
         }
-        storage.setMaxEnergyStorage(newCapacity);
+        return newCapacity;
     }
 
     public static int updateMaxEfficiency(List<ItemStack> parts, int defaultMaxEfficiency, int meta) {
