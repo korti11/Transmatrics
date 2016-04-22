@@ -40,7 +40,7 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
         super(capacity, maxReceive, registry.inventorySize(), registry.getStackLimit(), name);
         this.craftingRegistry = registry;
         this.energyUse = energyUse;
-        this.maxEfficiency = energyStorage.getCapacity() / 1000;
+        this.calculateMaxEfficiency();
         this.electronicParts = new LinkedList<>();
 
         this.defaultCapacity = capacity;
@@ -282,6 +282,10 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
             }
         }
     }
+
+    protected void calculateMaxEfficiency() {
+        this.maxEfficiency = energyStorage.getCapacity() / 1000;
+    }
     //endregion
 
     //region IInventory
@@ -368,6 +372,8 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
     @Override
     public void updateStorage() {
         ElectronicPartsHelper.updateEnergyStorage(energyStorage, electronicParts, defaultCapacity, 1);
+        this.calculateMaxEfficiency();
+        this.maxEfficiency = ElectronicPartsHelper.updateMaxEfficiency(electronicParts, maxEfficiency, 2);
     }
 
     @Override

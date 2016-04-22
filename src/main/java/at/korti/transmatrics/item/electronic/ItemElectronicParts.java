@@ -18,8 +18,10 @@ public class ItemElectronicParts extends ModMetaItem implements IElectronicPart{
     @Override
     public int getImprovementValue(int meta) {
         switch (meta){
-            case 1:     // capacity improvement of 100 TF
+            case 1:     // capacity improvement of 500 TF
                 return 500;
+            case 2:
+                return 1;
             default:
                 return 0;
         }
