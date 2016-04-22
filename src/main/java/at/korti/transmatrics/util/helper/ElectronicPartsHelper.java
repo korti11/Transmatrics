@@ -31,4 +31,15 @@ public class ElectronicPartsHelper {
         }
         return newEfficiency;
     }
+
+    public static int updateReceive(List<ItemStack> parts, int defaultReceive, int meta) {
+        int newReceive = defaultReceive;
+        for (ItemStack stack : parts) {
+            if (stack.getItem() instanceof IElectronicPart && stack.getItemDamage() == meta) {
+                IElectronicPart electronicPart = (IElectronicPart) stack.getItem();
+                newReceive += (electronicPart.getImprovementValue(meta) * stack.stackSize);
+            }
+        }
+        return newReceive;
+    }
 }

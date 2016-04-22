@@ -374,6 +374,7 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
         this.energyStorage.setCapacity(ElectronicPartsHelper.updateEnergyStorage(electronicParts, defaultCapacity, 1));
         this.calculateMaxEfficiency();
         this.maxEfficiency = ElectronicPartsHelper.updateMaxEfficiency(electronicParts, maxEfficiency, 2);
+        this.energyStorage.setMaxReceive(ElectronicPartsHelper.updateReceive(electronicParts, defaultMaxReceive, 0));
     }
 
     @Override
