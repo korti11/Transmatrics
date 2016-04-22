@@ -4,6 +4,7 @@ import at.korti.transmatrics.api.crafting.ICraftingRegistry;
 import at.korti.transmatrics.api.crafting.IFluidCraftingRegistry;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.Arrays;
 import java.util.List;
@@ -14,19 +15,20 @@ import java.util.List;
 public class InventoryHelper {
 
     public static int[] getSlotsForFacing(ICraftingRegistry registry, EnumFacing facing) {
+        int[] slots = new int[0];
         EnumFacing[] facings = registry.getInputFaces();
         for (EnumFacing inputFacing : facings) {
             if (inputFacing == facing) {
-                return registry.getInputSlotsIds();
+                slots = ArrayUtils.addAll(slots, registry.getInputSlotsIds());
             }
         }
         facings = registry.getOutputFaces();
         for (EnumFacing outputFacing : facings) {
             if (outputFacing == facing) {
-                return registry.getOutputSlotsIds();
+                slots = ArrayUtils.addAll(slots, registry.getOutputSlotsIds());
             }
         }
-        return new int[0];
+        return slots;
     }
 
     public static boolean canFill(IFluidCraftingRegistry registry, EnumFacing facing) {

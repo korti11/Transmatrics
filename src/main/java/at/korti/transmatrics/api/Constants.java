@@ -99,6 +99,9 @@ public final class Constants {
         public static final String CONNECTION_NAME = "tooltip.connector.connection.name";
         public static final String CONNECTION_POS = "tooltip.connector.connection.pos";
 
+        //Electronic part
+        public static final String ELECTRONIC_PART_META = "tooltip.electronic.part.meta%d";
+
         //Circuit
         public static final String ELECTRONIC_PARTS = "tooltip.circuit.parts";
         public static final String ELECTRONIC_PART = "tooltip.circuit.part";

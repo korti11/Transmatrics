@@ -1,8 +1,14 @@
 package at.korti.transmatrics.item.electronic;
 
+import at.korti.transmatrics.api.Constants;
 import at.korti.transmatrics.api.Constants.TransmatricsItem;
 import at.korti.transmatrics.api.electronic.IElectronicPart;
 import at.korti.transmatrics.item.ModMetaItem;
+import at.korti.transmatrics.util.helper.TextHelper;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+
+import java.util.List;
 
 /**
  * Created by Korti on 20.04.2016.
@@ -13,6 +19,13 @@ public class ItemElectronicParts extends ModMetaItem implements IElectronicPart{
 
     public ItemElectronicParts() {
         super(TransmatricsItem.ELECTRONIC_PARTS.getRegName(), extensions);
+    }
+
+    @Override
+    public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
+        super.addInformation(stack, playerIn, tooltip, advanced);
+        tooltip.add(TextHelper.localize(String.format(Constants.ToolTips.ELECTRONIC_PART_META, stack.getItemDamage()),
+                getImprovementValue(stack.getItemDamage())));
     }
 
     @Override

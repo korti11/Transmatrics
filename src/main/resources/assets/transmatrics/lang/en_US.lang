@@ -97,6 +97,9 @@ tooltip.pulverizer.output.chance=Chance:
 tooltip.circuit.parts=Electronic Parts:
 tooltip.circuit.part=%dx %s
 tooltip.circuit.small.info=<Press Shift>
+tooltip.electronic.part.meta0=Transfer rate improvement by %d TF/t
+tooltip.electronic.part.meta1=Capacity improvement by %d TF
+tooltip.electronic.part.meta2=Efficiency improvement by %d
 
 #Gui
 gui.tank.empty=Empty
