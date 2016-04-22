@@ -123,5 +123,10 @@ public class EnergyStorage implements IEnergyStorage {
     public int getMaxEnergyStored() {
         return capacity;
     }
+
+    @Override
+    public void setMaxEnergyStorage(int capacity) {
+        setCapacity(capacity);
+    }
     //endregion
 }

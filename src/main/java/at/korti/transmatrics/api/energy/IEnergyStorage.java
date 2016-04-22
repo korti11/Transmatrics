@@ -31,4 +31,10 @@ public interface IEnergyStorage {
      */
     int getMaxEnergyStored();
 
+    /**
+     * Set the new capacity of the storage.
+     * @param capacity New capacity.
+     */
+    void setMaxEnergyStorage(int capacity);
+
 }

@@ -1,23 +1,27 @@
 package at.korti.transmatrics.tileentity;
 
 import at.korti.transmatrics.api.Constants.NBT;
+import at.korti.transmatrics.api.electronic.IElectronicPartStorage;
 import at.korti.transmatrics.api.crafting.ICraftingRegistry;
 import at.korti.transmatrics.api.crafting.ICraftingRegistry.ICraftingEntry;
 import at.korti.transmatrics.block.ActiveMachineBlock;
 import at.korti.transmatrics.event.MachineCraftingEvent;
 import at.korti.transmatrics.util.helper.CraftingHelper;
+import at.korti.transmatrics.util.helper.ElectronicPartsHelper;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
-import net.minecraftforge.common.MinecraftForge;
+
+import java.util.LinkedList;
+import java.util.List;
 
 import static net.minecraftforge.common.MinecraftForge.EVENT_BUS;
 
 /**
  * Created by Korti on 15.03.2016.
  */
-public abstract class TileEntityCraftingMachine extends TileEntityInventory implements ISidedInventory{
+public abstract class TileEntityCraftingMachine extends TileEntityInventory implements ISidedInventory, IElectronicPartStorage{
 
     protected ICraftingRegistry<ItemStack> craftingRegistry;
     private int craftingTime;
@@ -26,29 +30,25 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
     protected int efficiency;
     protected int maxEfficiency;
 
+    protected List<ItemStack> electronicParts;
+
+    protected final int defaultCapacity;
+    protected final int defaultMaxReceive;
+    protected final int defaultEnergyUse;
+
     protected TileEntityCraftingMachine(int capacity, int maxReceive, int energyUse, String name, ICraftingRegistry<ItemStack> registry) {
         super(capacity, maxReceive, registry.inventorySize(), registry.getStackLimit(), name);
         this.craftingRegistry = registry;
         this.energyUse = energyUse;
         this.maxEfficiency = energyStorage.getCapacity() / 1000;
+        this.electronicParts = new LinkedList<>();
+
+        this.defaultCapacity = capacity;
+        this.defaultMaxReceive = maxReceive;
+        this.defaultEnergyUse = energyUse;
     }
 
-    @Override
-    public void setInventorySlotContents(int index, ItemStack stack) {
-        boolean isSameItem = stack != null && stack.isItemEqual(getStackInSlot(index)) && ItemStack.areItemStackTagsEqual(stack, getStackInSlot(index));
-        super.setInventorySlotContents(index, stack);
-        ICraftingEntry entry = craftingRegistry.get(getInputs());
-        if (isInputSlot(index) && entry != null && !isSameItem) {
-            this.totalCraftingTime = entry.getCraftingTime();
-            craftingTime = 0;
-            this.markDirty();
-        } else if (isInputSlot(index) && stack == null) {
-            this.totalCraftingTime = 0;
-            this.craftingTime = 0;
-            this.efficiency = 0;
-        }
-    }
-
+    //region TileEntity
     @Override
     public void writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
@@ -64,6 +64,7 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
         this.totalCraftingTime = compound.getInteger(NBT.TOTAL_CRAFTING_TIME);
         this.efficiency = compound.getInteger(NBT.CRAFTING_EFFICIENCY);
     }
+    //endregion
 
     //region ISidedInventory
     @Override
@@ -329,6 +330,54 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
     @Override
     public int getFieldCount() {
         return 6;
+    }
+
+    @Override
+    public void setInventorySlotContents(int index, ItemStack stack) {
+        boolean isSameItem = stack != null && stack.isItemEqual(getStackInSlot(index)) && ItemStack.areItemStackTagsEqual(stack, getStackInSlot(index));
+        super.setInventorySlotContents(index, stack);
+        ICraftingEntry entry = craftingRegistry.get(getInputs());
+        if (isInputSlot(index) && entry != null && !isSameItem) {
+            this.totalCraftingTime = entry.getCraftingTime();
+            craftingTime = 0;
+            this.markDirty();
+        } else if (isInputSlot(index) && stack == null) {
+            this.totalCraftingTime = 0;
+            this.craftingTime = 0;
+            this.efficiency = 0;
+        }
+    }
+    //endregion
+
+    //region IElectronicPartStorage
+    @Override
+    public void addElectronicPart(ItemStack part) {
+        this.electronicParts.add(part);
+    }
+
+    @Override
+    public void addElectronicParts(List<ItemStack> itemStacks) {
+        this.electronicParts.addAll(itemStacks);
+    }
+
+    @Override
+    public List<ItemStack> getElectronicParts() {
+        return this.electronicParts;
+    }
+
+    @Override
+    public void updateStorage() {
+        ElectronicPartsHelper.updateEnergyStorage(energyStorage, electronicParts, defaultCapacity, 1);
+    }
+
+    @Override
+    public void clearStorage() {
+        this.electronicParts.clear();
+    }
+
+    @Override
+    public int countElectronicParts() {
+        return this.electronicParts.size();
     }
     //endregion
 }
