@@ -7,6 +7,7 @@ import at.korti.transmatrics.block.network.Controller;
 import at.korti.transmatrics.block.network.LargeSwitch;
 import at.korti.transmatrics.block.network.MediumSwitch;
 import at.korti.transmatrics.block.network.SmallSwitch;
+import at.korti.transmatrics.item.crafting.ItemMachineBlock;
 import at.korti.transmatrics.item.ore.ItemOreBlock;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -57,11 +58,11 @@ public final class Blocks {
         registerBlock(mediumSwitch = new MediumSwitch());
         registerBlock(largeSwitch = new LargeSwitch());
         registerBlock(controller = new Controller());
-        registerBlock(pulverizer = new Pulverizer());
-        registerBlock(poweredFurnace = new PoweredFurnace());
-        registerBlock(magneticSmeltery = new MagneticSmeltery());
-        registerBlock(liquidCaster = new LiquidCaster());
-        registerBlock(circuitStamper = new CircuitStamper());
+        registerBlock(pulverizer = new Pulverizer(), ItemMachineBlock.class);
+        registerBlock(poweredFurnace = new PoweredFurnace(), ItemMachineBlock.class);
+        registerBlock(magneticSmeltery = new MagneticSmeltery(), ItemMachineBlock.class);
+        registerBlock(liquidCaster = new LiquidCaster(), ItemMachineBlock.class);
+        registerBlock(circuitStamper = new CircuitStamper(), ItemMachineBlock.class);
         registerBlock(circuitWorkbench = new CircuitWorkbench());
         registerBlock(oreBlock = new OreBlock(), ItemOreBlock.class);
     }

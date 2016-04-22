@@ -10,8 +10,10 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import static at.korti.transmatrics.api.Constants.TransmatricsBlock.ORE_BLOCK;
+import static at.korti.transmatrics.api.Constants.TransmatricsBlock.PULVERIZER;
 import static at.korti.transmatrics.api.Constants.TransmatricsItem.*;
 
 /**
@@ -22,11 +24,21 @@ public final class Crafting {
     private static final int FLUID_AMOUNT_PER_INGOT = 500;
 
     public static void register() {
+        registerCrafting();
         registerPulverizerCrafting();
         registerFurnaceCrafting();
         registerMagneticSmelteryCrafting();
         registerLiquidCasterCrafting();
         registerCircuitStamperCrafting();
+    }
+
+    private static void registerCrafting() {
+        GameRegistry.addShapedRecipe(new ItemStack(PULVERIZER.getBlock()),
+                "FFF",
+                "IBI",
+                "ICI", 'F', new ItemStack(Items.flint), 'I', new ItemStack(Items.iron_ingot), 'B',
+                new ItemStack(Blocks.iron_block), 'C', new ItemStack(CIRCUIT.getItem())
+        );
     }
 
     private static void registerPulverizerCrafting() {
