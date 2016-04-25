@@ -386,5 +386,14 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
     public int countElectronicParts() {
         return this.electronicParts.size();
     }
+
+    @Override
+    public void writePartsToNBT(NBTTagCompound tagCompound) {
+        for (ItemStack stack : electronicParts) {
+            NBTTagCompound stackCompound = new NBTTagCompound();
+            stack.writeToNBT(stackCompound);
+            tagCompound.setTag(stack.getUnlocalizedName(), stackCompound);
+        }
+    }
     //endregion
 }

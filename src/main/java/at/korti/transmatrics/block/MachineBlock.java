@@ -1,11 +1,15 @@
 package at.korti.transmatrics.block;
 
+import at.korti.transmatrics.api.Constants;
+import at.korti.transmatrics.api.Constants.NBT;
 import at.korti.transmatrics.api.block.IDismantable;
 import at.korti.transmatrics.api.block.IRotatable;
+import at.korti.transmatrics.api.electronic.IElectronicPartStorage;
 import at.korti.transmatrics.api.network.INetworkNode;
 import at.korti.transmatrics.api.network.INetworkSwitch;
 import at.korti.transmatrics.tileentity.TileEntityInventory;
 import at.korti.transmatrics.util.helper.WorldHelper;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -19,7 +23,11 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+
+import javax.annotation.Nonnull;
+import java.util.List;
 
 /**
  * Created by Korti on 27.02.2016.
@@ -111,32 +119,40 @@ public abstract class MachineBlock extends ModBlockContainer implements IDismant
     @Override
     public void dismantleBlock(EntityPlayer playerIn, World worldIn, BlockPos pos, IBlockState state) {
         if(isDismantable() && !worldIn.isRemote) {
-            ItemStack stack = new ItemStack(this, 1);
+            ItemStack stack = new ItemStack(this);
             TileEntity tileEntity = worldIn.getTileEntity(pos);
-            if (tileEntity instanceof TileEntityInventory) {
-                ((TileEntityInventory) tileEntity).dropItems();
-            }
 //            if(shouldSaveBlockNBT()) {
 //                if (stack.getTagCompound() == null) {
 //                    stack.setTagCompound(new NBTTagCompound());
 //                }
 //                tileEntity.writeToNBT(stack.getTagCompound());
 //            }
-            WorldHelper.spawnItem(worldIn, stack, pos);
-            breakBlock(worldIn, pos, state);
+            breakBlock(worldIn, pos, state, stack);
             worldIn.setBlockToAir(pos);
         }
     }
 
     @Override
-    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+    public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune) {
+        // disable normal drop
+    }
+
+    public void breakBlock(World worldIn, BlockPos pos, IBlockState state, @Nonnull ItemStack stack) {
         TileEntity tileEntity = worldIn.getTileEntity(pos);
-        if (tileEntity instanceof INetworkSwitch) {
-            ((INetworkSwitch) tileEntity).disconnectedFromAllNodes();
-        } else if (tileEntity instanceof INetworkNode) {
-            ((INetworkNode) tileEntity).disconnectFromNode();
+        if(tileEntity != null) {
+            if (tileEntity instanceof INetworkSwitch) {
+                ((INetworkSwitch) tileEntity).disconnectedFromAllNodes();
+            } else if (tileEntity instanceof INetworkNode) {
+                ((INetworkNode) tileEntity).disconnectFromNode();
+            }
+            WorldHelper.spawnItem(worldIn, writeElectronicParts(worldIn, pos, stack), pos);
+            super.breakBlock(worldIn, pos, state);
         }
-        super.breakBlock(worldIn, pos, state);
+    }
+
+    @Override
+    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+        breakBlock(worldIn,pos,state, new ItemStack(this));
     }
 
     @Override
@@ -158,6 +174,16 @@ public abstract class MachineBlock extends ModBlockContainer implements IDismant
 
             worldIn.setBlockState(posIn, stateIn, 3);
         }
+    }
+
+    private ItemStack writeElectronicParts(World world, BlockPos pos, @Nonnull ItemStack stack){
+        TileEntity tileEntity = world.getTileEntity(pos);
+        if (tileEntity instanceof IElectronicPartStorage) {
+            IElectronicPartStorage partStorage = (IElectronicPartStorage) tileEntity;
+            NBTTagCompound electronicPats = stack.getSubCompound(NBT.ELECTRONIC_PARTS, true);
+            partStorage.writePartsToNBT(electronicPats);
+        }
+        return stack;
     }
 }
 

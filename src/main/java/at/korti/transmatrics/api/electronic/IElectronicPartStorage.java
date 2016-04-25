@@ -1,6 +1,7 @@
 package at.korti.transmatrics.api.electronic;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 
 import java.util.List;
 
@@ -20,5 +21,7 @@ public interface IElectronicPartStorage {
     void clearStorage();
 
     int countElectronicParts();
+
+    void writePartsToNBT(NBTTagCompound tagCompound);
 
 }
