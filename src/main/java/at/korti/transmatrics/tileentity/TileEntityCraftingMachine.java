@@ -110,7 +110,9 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
                 if (canCraft()) {
                     this.efficiency = energyStorage.getEnergyStored() / (energyStorage.getCapacity() / maxEfficiency);
                     this.craftingTime += efficiency;
-                    this.energyStorage.modifyEnergy(-energyUse);
+                    if(useEnergyOnUpdate()) {
+                        this.energyStorage.modifyEnergy(-energyUse);
+                    }
                     isCrafting = true;
                     if (this.craftingTime >= this.totalCraftingTime) {
                         this.craftingTime = 0;
@@ -285,6 +287,10 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
 
     protected void calculateMaxEfficiency() {
         this.maxEfficiency = energyStorage.getCapacity() / 1000;
+    }
+
+    protected boolean useEnergyOnUpdate() {
+        return true;
     }
     //endregion
 

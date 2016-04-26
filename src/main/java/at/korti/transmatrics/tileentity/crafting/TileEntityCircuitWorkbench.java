@@ -9,6 +9,8 @@ import at.korti.transmatrics.tileentity.TileEntityCraftingMachine;
 import at.korti.transmatrics.util.helper.InventoryHelper;
 import net.minecraft.item.ItemStack;
 
+import java.util.Arrays;
+
 import static net.minecraftforge.common.MinecraftForge.EVENT_BUS;
 
 /**
@@ -33,6 +35,7 @@ public class TileEntityCircuitWorkbench extends TileEntityCraftingMachine {
             }
         } else if (InventoryHelper.isOutputSlot(craftingRegistry, index) && stack == null) {
             decreaseInputs(getInputs());
+            this.energyStorage.modifyEnergy(-energyUse);
             super.setInventorySlotContents(index, stack);
         }
     }
@@ -53,30 +56,20 @@ public class TileEntityCircuitWorkbench extends TileEntityCraftingMachine {
     protected void craftItem(int slot, ItemStack stack) {
         if(stack != null) {
             ItemStack copyStack = stack.copy();
-            copyStack.stackSize = getInputs()[0].stackSize;
+            if (equalOrGreaterPartsAndBoardStackSize()) {
+                copyStack.stackSize = getInputs()[0].stackSize;
+            } else {
+                int smallestPartStackSize = smallestPartStackSize();
+                copyStack.stackSize = smallestPartStackSize;
+            }
             setInventorySlotContents(slot, copyStack);
         }
     }
 
     @Override
-    protected boolean canCraft() {
-        ItemStack[] inputs = getInputs();
-        if(inputs[0] == null) {
-            return false;
-        }
-        int stackSize = inputs[0].stackSize;
-        for (ItemStack stack : inputs) {
-            if (stack != null && stack.stackSize < stackSize) {
-                return false;
-            }
-        }
-        return super.canCraft();
-    }
-
-    @Override
     protected void decreaseInputs(ItemStack... stacks) {
         if(stacks[0] != null) {
-            int stackSize = stacks[0].stackSize;
+            int stackSize = equalOrGreaterPartsAndBoardStackSize() ? stacks[0].stackSize : smallestPartStackSize();
             for (ItemStack stack : stacks) {
                 int slot = getSlotForStack(true, stack);
                 if (slot != -1) {
@@ -87,5 +80,33 @@ public class TileEntityCircuitWorkbench extends TileEntityCraftingMachine {
                 }
             }
         }
+    }
+
+    @Override
+    protected boolean useEnergyOnUpdate() {
+        return false;
+    }
+
+    private int[] getPartSlots() {
+        int[] inputSlots = craftingRegistry.getInputSlotsIds();
+        return Arrays.copyOfRange(inputSlots, 2, inputSlots.length);
+    }
+
+    private int smallestPartStackSize() {
+        int[] partSlots = getPartSlots();
+        int smallest = Integer.MAX_VALUE;
+        for (int partSlot : partSlots) {
+            ItemStack stack = getStackInSlot(partSlot);
+            if (stack != null && stack.stackSize < smallest) {
+                smallest = stack.stackSize;
+            }
+        }
+        return smallest;
+    }
+
+    private boolean equalOrGreaterPartsAndBoardStackSize() {
+        int smallestPartStackSize = smallestPartStackSize();
+        ItemStack boardStack = getStackInSlot(craftingRegistry.getInputSlotsIds()[0]);
+        return boardStack != null && smallestPartStackSize >= boardStack.stackSize;
     }
 }

@@ -2,6 +2,7 @@ package at.korti.transmatrics.registry.crafting;
 
 import at.korti.transmatrics.api.Constants;
 import at.korti.transmatrics.api.crafting.ICraftingRegistry;
+import at.korti.transmatrics.api.electronic.IElectronicPart;
 import at.korti.transmatrics.item.NBTColoredMetaItem;
 import at.korti.transmatrics.item.electronic.ItemCircuit;
 import at.korti.transmatrics.item.electronic.ItemCircuitBoard;
@@ -46,13 +47,13 @@ public final class CircuitWorkbenchCraftingRegistry implements ICraftingRegistry
     @Override
     public ICraftingEntry get(ItemStack... inputs) {
         if(inputs.length == 1 || inputs.length == 2) {
-            if (CircuitStamperCraftingRegistry.getInstance().get(inputs) != null) {
-                if(inputs.length == 1) {
+            if (canBoardBeUsed(inputs[0])) {
+                if (inputs.length == 1) {
                     return new CircuitWorkbenchCraftingEntry(inputs[0], null);
                 } else {
                     return new CircuitWorkbenchCraftingEntry(inputs[0], inputs[1]);
                 }
-            } else if (inputs[0].getItem() instanceof ItemElectronicParts) {
+            } else if (inputs[0].getItem() instanceof IElectronicPart) {
                 return new CircuitWorkbenchCraftingEntry(null, null, inputs);
             }
         } else {
@@ -67,6 +68,17 @@ public final class CircuitWorkbenchCraftingRegistry implements ICraftingRegistry
                     Arrays.copyOfRange(tempStacks, 2, tempStacks.length));
         }
         return null;
+    }
+
+    private boolean canBoardBeUsed(ItemStack board) {
+        CircuitStamperCraftingRegistry registry = CircuitStamperCraftingRegistry.getInstance();
+        for (int i = 0; i < registry.size(); i++) {
+            ICraftingEntry<ItemStack, ItemStack> entry = registry.get(0);
+            if (entry.getOutputs()[0].isItemEqual(board)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
