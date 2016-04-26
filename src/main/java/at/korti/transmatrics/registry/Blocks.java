@@ -7,6 +7,7 @@ import at.korti.transmatrics.block.network.Controller;
 import at.korti.transmatrics.block.network.LargeSwitch;
 import at.korti.transmatrics.block.network.MediumSwitch;
 import at.korti.transmatrics.block.network.SmallSwitch;
+import at.korti.transmatrics.config.Config;
 import at.korti.transmatrics.item.crafting.ItemMachineBlock;
 import at.korti.transmatrics.item.ore.ItemOreBlock;
 import net.minecraft.block.Block;
@@ -62,8 +63,9 @@ public final class Blocks {
         registerBlock(poweredFurnace = new PoweredFurnace(), ItemMachineBlock.class);
         registerBlock(magneticSmeltery = new MagneticSmeltery(), ItemMachineBlock.class);
         registerBlock(liquidCaster = new LiquidCaster(), ItemMachineBlock.class);
-        registerBlock(circuitStamper = new CircuitStamper(), ItemMachineBlock.class);
-        registerBlock(circuitWorkbench = new CircuitWorkbench());
+        if (Config.useCircuitSystem) {
+            registerBlocksCircuitSystem();
+        }
         registerBlock(oreBlock = new OreBlock(), ItemOreBlock.class);
     }
 
@@ -83,8 +85,9 @@ public final class Blocks {
         registerBlockTexture(poweredFurnace);
         registerBlockTexture(magneticSmeltery);
         registerBlockTexture(liquidCaster);
-        registerBlockTexture(circuitStamper);
-        registerBlockTexture(circuitWorkbench);
+        if (Config.useCircuitSystem) {
+            registerTexturesCircuitSystem();
+        }
         registerMetaBlockTextures(oreBlock, OreBlock.OreType.values());
     }
 
@@ -100,6 +103,16 @@ public final class Blocks {
             Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(blockItem, subItems.get(i).getMetadata(),
                     new ModelResourceLocation(block.getRegistryName(), "type=" + variants[i].toString()));
         }
+    }
+
+    private static void registerBlocksCircuitSystem() {
+        registerBlock(circuitStamper = new CircuitStamper(), ItemMachineBlock.class);
+        registerBlock(circuitWorkbench = new CircuitWorkbench());
+    }
+
+    private static void registerTexturesCircuitSystem() {
+        registerBlockTexture(circuitStamper);
+        registerBlockTexture(circuitWorkbench);
     }
 
 }

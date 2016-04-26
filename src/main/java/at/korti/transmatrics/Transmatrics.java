@@ -2,8 +2,8 @@ package at.korti.transmatrics;
 
 import at.korti.transmatrics.api.Constants;
 import at.korti.transmatrics.api.Constants.TransmatricsItem;
-import at.korti.transmatrics.block.ModBlock;
 import at.korti.transmatrics.client.gui.GuiHandler;
+import at.korti.transmatrics.config.Config;
 import at.korti.transmatrics.event.EventHandler;
 import at.korti.transmatrics.modintegration.ModIntegrationManager;
 import at.korti.transmatrics.network.TransmatricsPacketHandler;
@@ -49,6 +49,7 @@ public class Transmatrics {
     @Mod.EventHandler
     public static void preInit(FMLPreInitializationEvent event) {
         logger = event.getModLog();
+        Config.loadConfig(event.getSuggestedConfigurationFile());
         ModIntegrationManager.initManager();
         Blocks.registerBlocks();
         Items.registerItems();

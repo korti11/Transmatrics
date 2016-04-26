@@ -7,6 +7,7 @@ import at.korti.transmatrics.api.block.IRotatable;
 import at.korti.transmatrics.api.electronic.IElectronicPartStorage;
 import at.korti.transmatrics.api.network.INetworkNode;
 import at.korti.transmatrics.api.network.INetworkSwitch;
+import at.korti.transmatrics.config.Config;
 import at.korti.transmatrics.tileentity.TileEntityInventory;
 import at.korti.transmatrics.util.helper.WorldHelper;
 import net.minecraft.block.Block;
@@ -178,7 +179,7 @@ public abstract class MachineBlock extends ModBlockContainer implements IDismant
 
     private ItemStack writeElectronicParts(World world, BlockPos pos, @Nonnull ItemStack stack){
         TileEntity tileEntity = world.getTileEntity(pos);
-        if (tileEntity instanceof IElectronicPartStorage) {
+        if (tileEntity instanceof IElectronicPartStorage && Config.useCircuitSystem) {
             IElectronicPartStorage partStorage = (IElectronicPartStorage) tileEntity;
             NBTTagCompound electronicPats = stack.getSubCompound(NBT.ELECTRONIC_PARTS, true);
             partStorage.writePartsToNBT(electronicPats);

@@ -1,5 +1,6 @@
 package at.korti.transmatrics.registry;
 
+import at.korti.transmatrics.config.Config;
 import at.korti.transmatrics.item.electronic.ItemCircuitBoard;
 import at.korti.transmatrics.registry.crafting.CircuitStamperCraftingRegistry;
 import at.korti.transmatrics.registry.crafting.LiquidCasterCraftingRegistry;
@@ -29,10 +30,20 @@ public final class Crafting {
         registerFurnaceCrafting();
         registerMagneticSmelteryCrafting();
         registerLiquidCasterCrafting();
-        registerCircuitStamperCrafting();
+        if(Config.useCircuitSystem) {
+            registerCircuitStamperCrafting();
+        }
     }
 
     private static void registerCrafting() {
+        if (Config.useCircuitSystem) {
+            registerCircuitCrafting();
+        } else {
+            // crafting with no circuits
+        }
+    }
+
+    private static void registerCircuitCrafting() {
         GameRegistry.addShapedRecipe(new ItemStack(PULVERIZER.getBlock()),
                 "FFF",
                 "IBI",

@@ -1,5 +1,6 @@
 package at.korti.transmatrics.registry;
 
+import at.korti.transmatrics.config.Config;
 import at.korti.transmatrics.tileentity.crafting.*;
 import at.korti.transmatrics.tileentity.generator.*;
 import at.korti.transmatrics.tileentity.network.TileEntityController;
@@ -31,8 +32,10 @@ public final class TileEntities {
         registerTileEntity(TileEntityPoweredFurnace.class, POWERED_FURNACE.getRegName());
         registerTileEntity(TileEntityMagneticSmeltery.class, MAGNETIC_SMELTERY.getRegName());
         registerTileEntity(TileEntityLiquidCaster.class, LIQUID_CASTER.getRegName());
-        registerTileEntity(TileEntityCircuitStamper.class, CIRCUIT_STAMPER.getRegName());
-        registerTileEntity(TileEntityCircuitWorkbench.class, CIRCUIT_WORKBENCH.getRegName());
+        if(Config.useCircuitSystem) {
+            registerTileEntity(TileEntityCircuitStamper.class, CIRCUIT_STAMPER.getRegName());
+            registerTileEntity(TileEntityCircuitWorkbench.class, CIRCUIT_WORKBENCH.getRegName());
+        }
     }
 
 }

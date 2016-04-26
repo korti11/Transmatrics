@@ -1,5 +1,6 @@
 package at.korti.transmatrics.registry;
 
+import at.korti.transmatrics.config.Config;
 import at.korti.transmatrics.item.crafting.ItemCast;
 import at.korti.transmatrics.item.crafting.ItemGear;
 import at.korti.transmatrics.item.electronic.ItemBlankCircuitBoard;
@@ -48,11 +49,9 @@ public final class Items {
         registerItem(itemGear = new ItemGear());
         registerItem(itemCast = new ItemCast());
         addItemVariants(itemCast, itemCast.extensions);
-        registerItem(itemBlankCircuitBoard = new ItemBlankCircuitBoard());
-        registerItem(itemCircuitBoard = new ItemCircuitBoard());
-        registerItem(itemElectronicParts = new ItemElectronicParts());
-        addItemVariants(itemElectronicParts, itemElectronicParts.extensions);
-        registerItem(itemCircuit = new ItemCircuit());
+        if (Config.useCircuitSystem) {
+            registerItemsCircuitSystem();
+        }
     }
 
     public static void registerItemTextures() {
@@ -62,10 +61,9 @@ public final class Items {
         registerMetaItemTexture(itemIngot);
         registerMetaItemTexture(itemGear);
         registerMetaItemTexture(itemCast, itemCast.extensions);
-        registerMetaItemTexture(itemBlankCircuitBoard);
-        registerMetaItemTexture(itemCircuitBoard);
-        registerMetaItemTexture(itemElectronicParts, itemElectronicParts.extensions);
-        registerMetaItemTexture(itemCircuit);
+        if (Config.useCircuitSystem) {
+            registerTexturesCircuitSystem();
+        }
     }
 
     private static void registerItemTexture(Item item) {
@@ -98,6 +96,21 @@ public final class Items {
             ModelBakery.registerItemVariants(item,
                     new ResourceLocation(subItems.get(i).getItem().getRegistryName() + extension));
         }
+    }
+
+    private static void registerItemsCircuitSystem() {
+        registerItem(itemBlankCircuitBoard = new ItemBlankCircuitBoard());
+        registerItem(itemCircuitBoard = new ItemCircuitBoard());
+        registerItem(itemElectronicParts = new ItemElectronicParts());
+        addItemVariants(itemElectronicParts, itemElectronicParts.extensions);
+        registerItem(itemCircuit = new ItemCircuit());
+    }
+
+    private static void registerTexturesCircuitSystem() {
+        registerMetaItemTexture(itemBlankCircuitBoard);
+        registerMetaItemTexture(itemCircuitBoard);
+        registerMetaItemTexture(itemElectronicParts, itemElectronicParts.extensions);
+        registerMetaItemTexture(itemCircuit);
     }
 
 }
