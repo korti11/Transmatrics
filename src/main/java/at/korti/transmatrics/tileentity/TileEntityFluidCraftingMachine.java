@@ -5,9 +5,11 @@ import at.korti.transmatrics.api.Constants.NBT;
 import at.korti.transmatrics.api.crafting.ICraftingRegistry;
 import at.korti.transmatrics.api.crafting.ICraftingRegistry.ICraftingEntry;
 import at.korti.transmatrics.api.crafting.IFluidCraftingRegistry;
+import at.korti.transmatrics.api.electronic.IElectronicPartStorage;
 import at.korti.transmatrics.block.ActiveMachineBlock;
 import at.korti.transmatrics.event.MachineCraftingEvent;
 import at.korti.transmatrics.util.helper.CraftingHelper;
+import at.korti.transmatrics.util.helper.ElectronicPartsHelper;
 import at.korti.transmatrics.util.helper.InventoryHelper;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
@@ -17,12 +19,16 @@ import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.*;
 
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
+
 import static net.minecraftforge.common.MinecraftForge.EVENT_BUS;
 
 /**
  * Created by Korti on 30.03.2016.
  */
-public abstract class TileEntityFluidCraftingMachine extends TileEntityInventory implements ISidedInventory, IFluidHandler {
+public abstract class TileEntityFluidCraftingMachine extends TileEntityInventory implements ISidedInventory, IFluidHandler, IElectronicPartStorage {
 
     protected IFluidCraftingRegistry craftingRegistry;
     protected FluidTank[] tanks;
@@ -32,12 +38,23 @@ public abstract class TileEntityFluidCraftingMachine extends TileEntityInventory
     protected int efficiency;
     protected int maxEfficiency;
 
+    protected List<ItemStack> electronicParts;
+
+    protected final int defaultCapacity;
+    protected final int defaultMaxReceive;
+    protected final int defaultEnergyUse;
+
     protected TileEntityFluidCraftingMachine(int capacity, int maxReceive, int energyUse, String name, IFluidCraftingRegistry registry) {
         super(capacity,maxReceive, registry.inventorySize(), registry.getStackLimit(), name);
         this.craftingRegistry = registry;
         this.initTanks();
         this.energyUse = energyUse;
-        this.maxEfficiency = energyStorage.getCapacity() / 1000;
+        this.calculateMaxEfficiency();
+        this.electronicParts = new LinkedList<>();
+
+        this.defaultCapacity = capacity;
+        this.defaultMaxReceive = maxReceive;
+        this.defaultEnergyUse = energyUse;
     }
 
     //region TileEntity
@@ -54,6 +71,9 @@ public abstract class TileEntityFluidCraftingMachine extends TileEntityInventory
             tanks.appendTag(nbtTank);
         }
         compound.setTag(NBT.CRAFTING_TANKS, tanks);
+        NBTTagCompound electronicParts = new NBTTagCompound();
+        writePartsToNBT(electronicParts);
+        compound.setTag(NBT.ELECTRONIC_PARTS, electronicParts);
     }
 
     @Override
@@ -67,6 +87,7 @@ public abstract class TileEntityFluidCraftingMachine extends TileEntityInventory
             NBTTagCompound nbtTank = tanks.getCompoundTagAt(i);
             this.tanks[i].readFromNBT(nbtTank);
         }
+        readPartsFromNBT(compound.getCompoundTag(NBT.ELECTRONIC_PARTS));
     }
     //endregion
 
@@ -405,6 +426,10 @@ public abstract class TileEntityFluidCraftingMachine extends TileEntityInventory
             }
         }
     }
+
+    protected void calculateMaxEfficiency() {
+        this.maxEfficiency = energyStorage.getCapacity() / 1000;
+    }
     //endregion
 
     //region IFluidHandler
@@ -539,6 +564,60 @@ public abstract class TileEntityFluidCraftingMachine extends TileEntityInventory
     @Override
     public int getFieldCount() {
         return 6;
+    }
+    //endregion
+
+    //region IElectronicPartStorage
+    @Override
+    public void addElectronicPart(ItemStack part) {
+        this.electronicParts.add(part);
+    }
+
+    @Override
+    public void addElectronicParts(List<ItemStack> itemStacks) {
+        this.electronicParts.addAll(itemStacks);
+    }
+
+    @Override
+    public List<ItemStack> getElectronicParts() {
+        return this.electronicParts;
+    }
+
+    @Override
+    public void updateStorage() {
+        this.energyStorage.setCapacity(ElectronicPartsHelper.updateEnergyStorage(electronicParts, defaultCapacity, 1));
+        this.calculateMaxEfficiency();
+        this.maxEfficiency = ElectronicPartsHelper.updateMaxEfficiency(electronicParts, maxEfficiency, 2);
+        this.energyStorage.setMaxReceive(ElectronicPartsHelper.updateReceive(electronicParts, defaultMaxReceive, 0));
+    }
+
+    @Override
+    public void clearStorage() {
+        this.electronicParts.clear();
+    }
+
+    @Override
+    public int countElectronicParts() {
+        return this.electronicParts.size();
+    }
+
+    @Override
+    public void writePartsToNBT(NBTTagCompound tagCompound) {
+        for (ItemStack stack : electronicParts) {
+            NBTTagCompound stackCompound = new NBTTagCompound();
+            stack.writeToNBT(stackCompound);
+            tagCompound.setTag(stack.getUnlocalizedName(), stackCompound);
+        }
+    }
+
+    public void readPartsFromNBT(NBTTagCompound tagCompound) {
+        Set<String> keys = tagCompound.getKeySet();
+        for (String key : keys) {
+            NBTTagCompound stackCompound = tagCompound.getCompoundTag(key);
+            ItemStack stack = ItemStack.loadItemStackFromNBT(stackCompound);
+            electronicParts.add(stack);
+        }
+        updateStorage();
     }
     //endregion
 }

@@ -15,6 +15,7 @@ import net.minecraft.util.EnumFacing;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import static net.minecraftforge.common.MinecraftForge.EVENT_BUS;
 
@@ -55,6 +56,9 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
         compound.setInteger(NBT.CRAFTING_TIME, craftingTime);
         compound.setInteger(NBT.TOTAL_CRAFTING_TIME, totalCraftingTime);
         compound.setInteger(NBT.CRAFTING_EFFICIENCY, efficiency);
+        NBTTagCompound electronicParts = new NBTTagCompound();
+        writePartsToNBT(electronicParts);
+        compound.setTag(NBT.ELECTRONIC_PARTS, electronicParts);
     }
 
     @Override
@@ -63,6 +67,7 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
         this.craftingTime = compound.getInteger(NBT.CRAFTING_TIME);
         this.totalCraftingTime = compound.getInteger(NBT.TOTAL_CRAFTING_TIME);
         this.efficiency = compound.getInteger(NBT.CRAFTING_EFFICIENCY);
+        readPartsFromNBT(compound.getCompoundTag(NBT.ELECTRONIC_PARTS));
     }
     //endregion
 
@@ -400,6 +405,16 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
             stack.writeToNBT(stackCompound);
             tagCompound.setTag(stack.getUnlocalizedName(), stackCompound);
         }
+    }
+
+    public void readPartsFromNBT(NBTTagCompound tagCompound) {
+        Set<String> keys = tagCompound.getKeySet();
+        for (String key : keys) {
+            NBTTagCompound stackCompound = tagCompound.getCompoundTag(key);
+            ItemStack stack = ItemStack.loadItemStackFromNBT(stackCompound);
+            electronicParts.add(stack);
+        }
+        updateStorage();
     }
     //endregion
 }
