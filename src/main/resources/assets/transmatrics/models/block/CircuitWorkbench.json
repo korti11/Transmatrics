@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "particle": "transmatrics:blocks/CircuitWorkbenchBottom",
+    "down": "transmatrics:blocks/CircuitWorkbenchBottom",
+    "south": "transmatrics:blocks/CircuitWorkbenchSide",
+    "west": "transmatrics:blocks/CircuitWorkbenchSide",
+    "east": "transmatrics:blocks/CircuitWorkbenchSide",
+    "north": "transmatrics:blocks/CircuitWorkbenchSide",
+    "up": "transmatrics:blocks/CircuitWorkbenchTop"
+  }
+}

@@ -257,7 +257,7 @@ public final class Constants {
         MAGNETIC_SMELTERY("MagneticSmeltery"),
         LIQUID_CASTER("LiquidCaster"),
         CIRCUIT_STAMPER("CircuitStamper"),
-        CIRCUIT_WORKBENCH("CircuitWorkbenck"),
+        CIRCUIT_WORKBENCH("CircuitWorkbench"),
         ORE_BLOCK("Ore");
 
         private final String regName;
