@@ -1,5 +1,7 @@
 package at.korti.transmatrics.registry;
 
+import at.korti.transmatrics.block.MachineCasing;
+import at.korti.transmatrics.block.ModBlock;
 import at.korti.transmatrics.block.OreBlock;
 import at.korti.transmatrics.block.crafting.*;
 import at.korti.transmatrics.block.generator.*;
@@ -11,6 +13,7 @@ import at.korti.transmatrics.config.Config;
 import at.korti.transmatrics.item.crafting.ItemMachineBlock;
 import at.korti.transmatrics.item.ore.ItemOreBlock;
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.Item;
@@ -46,6 +49,7 @@ public final class Blocks {
     private static CircuitStamper circuitStamper;
     private static CircuitWorkbench circuitWorkbench;
     private static OreBlock oreBlock;
+    private static MachineCasing machineCasing;
 
     public static void registerBlocks() {
         registerBlock(solarPanel = new SolarPanel());
@@ -67,6 +71,7 @@ public final class Blocks {
             registerBlocksCircuitSystem();
         }
         registerBlock(oreBlock = new OreBlock(), ItemOreBlock.class);
+        registerBlock(machineCasing = new MachineCasing());
     }
 
     public static void registerBlockTextures() {
@@ -89,6 +94,7 @@ public final class Blocks {
             registerTexturesCircuitSystem();
         }
         registerMetaBlockTextures(oreBlock, OreBlock.OreType.values());
+        registerBlockTexture(machineCasing);
     }
 
     private static void registerBlockTexture(Block block) {

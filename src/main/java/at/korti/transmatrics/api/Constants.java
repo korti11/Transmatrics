@@ -258,7 +258,8 @@ public final class Constants {
         LIQUID_CASTER("LiquidCaster"),
         CIRCUIT_STAMPER("CircuitStamper"),
         CIRCUIT_WORKBENCH("CircuitWorkbench"),
-        ORE_BLOCK("Ore");
+        ORE_BLOCK("Ore"),
+        MACHINE_CASING("MachineCasing");
 
         private final String regName;
 
@@ -285,7 +286,8 @@ public final class Constants {
         BLANK_CIRCUIT_BOARD("BlankCircuitBoard"),
         CIRCUIT_BOARDER("CircuitBoard"),
         ELECTRONIC_PARTS("ElectronicParts"),
-        CIRCUIT("Circuit");
+        CIRCUIT("Circuit"),
+        ELECTRONICS("Electronics");
 
         private final String regName;
 
