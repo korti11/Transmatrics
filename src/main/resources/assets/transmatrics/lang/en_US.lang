@@ -50,9 +50,15 @@ item.Transmatrics.Gear.tin.name=Tin Gear
 item.Transmatrics.Gear.silver.name=Silver Gear
 item.Transmatrics.Gear.lead.name=Lead Gear
 
+#Plates
+item.Transmatrics.Plate.iron.name=Iron Plate
+item.Transmatrics.Plate.copper.name=Copper Plate
+item.Transmatrics.Plate.tin.name=Tin Plate
+
 #Cast
 item.Transmatrics.Cast.ingot.name=Ingot Cast
 item.Transmatrics.Cast.gear.name=Gear Cast
+item.Transmatrics.Cast.plate.name=Plate Cast
 
 #Electronics
 item.Transmatrics.BlankCircuitBoard.redstone.name=Blank Redstone Circuit Board

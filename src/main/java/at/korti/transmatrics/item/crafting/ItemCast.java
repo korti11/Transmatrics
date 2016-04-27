@@ -9,7 +9,7 @@ import at.korti.transmatrics.item.ModMetaItem;
  */
 public class ItemCast extends ModMetaItem implements ICasting{
 
-    public static final String[] extensions = {"ingot", "gear"};
+    public static final String[] extensions = {"ingot", "gear", "plate"};
 
     public ItemCast() {
         super(TransmatricsItem.CAST.getRegName(), extensions);

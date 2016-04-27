@@ -287,7 +287,8 @@ public final class Constants {
         CIRCUIT_BOARDER("CircuitBoard"),
         ELECTRONIC_PARTS("ElectronicParts"),
         CIRCUIT("Circuit"),
-        ELECTRONICS("Electronics");
+        ELECTRONICS("Electronics"),
+        PLATE("Plate");
 
         private final String regName;
 

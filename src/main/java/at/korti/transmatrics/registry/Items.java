@@ -4,6 +4,7 @@ import at.korti.transmatrics.config.Config;
 import at.korti.transmatrics.item.crafting.ItemCast;
 import at.korti.transmatrics.item.crafting.ItemElectronics;
 import at.korti.transmatrics.item.crafting.ItemGear;
+import at.korti.transmatrics.item.crafting.ItemPlate;
 import at.korti.transmatrics.item.electronic.ItemBlankCircuitBoard;
 import at.korti.transmatrics.item.electronic.ItemCircuit;
 import at.korti.transmatrics.item.electronic.ItemCircuitBoard;
@@ -42,6 +43,7 @@ public final class Items {
     private static ItemElectronicParts itemElectronicParts;
     private static ItemCircuit itemCircuit;
     private static ItemElectronics itemElectronics;
+    private static ItemPlate itemPlate;
 
     public static void registerItems() {
         registerItem(wrench = new ItemWrench());
@@ -56,7 +58,7 @@ public final class Items {
         }
         registerItem(itemElectronics = new ItemElectronics());
         addItemVariants(itemElectronics, itemElectronics.extensions);
-
+        registerItem(itemPlate = new ItemPlate());
     }
 
     public static void registerItemTextures() {
@@ -70,6 +72,7 @@ public final class Items {
             registerTexturesCircuitSystem();
         }
         registerMetaItemTexture(itemElectronics, itemElectronics.extensions);
+        registerMetaItemTexture(itemPlate);
     }
 
     private static void registerItemTexture(Item item) {
