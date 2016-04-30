@@ -1,5 +1,7 @@
 package at.korti.transmatrics.block.generator;
 
+import at.korti.transmatrics.api.Constants;
+import at.korti.transmatrics.api.Constants.GuiIds;
 import at.korti.transmatrics.api.Constants.TransmatricsBlock;
 import at.korti.transmatrics.block.ActiveMachineBlock;
 import at.korti.transmatrics.tileentity.TileEntityFluidGenerator;
@@ -28,7 +30,7 @@ import java.util.Random;
 public class LavaGenerator extends FluidGeneratorBlock{
 
     public LavaGenerator() {
-        super(Material.iron, TransmatricsBlock.LAVA_GENERATOR.getRegName(), TileEntityLavaGenerator.class);
+        super(Material.iron, TransmatricsBlock.LAVA_GENERATOR.getRegName(), GuiIds.LAVA_GENERATOR_GUI_ID, TileEntityLavaGenerator.class);
     }
 
     @SideOnly(Side.CLIENT)

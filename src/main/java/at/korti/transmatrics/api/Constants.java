@@ -216,6 +216,8 @@ public final class Constants {
         public static final int POWERED_FURNACE_GUI_ID = 1;
         public static final int MAGNETIC_SMELTERY_GUI_ID = 2;
         public static final int LIQUID_CASTER_GUI_ID = 3;
+        public static final int LAVA_GENERATOR_GUI_ID = 4;
+        public static final int HYDROGEN_GENERATOR_GUI_ID = 5;
     }
 
     public enum TransmatricsBlock {

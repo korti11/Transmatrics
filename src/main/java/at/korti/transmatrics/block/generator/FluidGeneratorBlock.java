@@ -1,6 +1,9 @@
 package at.korti.transmatrics.block.generator;
 
+import at.korti.transmatrics.Transmatrics;
 import at.korti.transmatrics.block.ActiveMachineBlock;
+import at.korti.transmatrics.item.tool.ItemConnector;
+import at.korti.transmatrics.item.tool.ItemWrench;
 import at.korti.transmatrics.tileentity.TileEntityFluidGenerator;
 import at.korti.transmatrics.util.helper.ItemStackHelper;
 import net.minecraft.block.material.Material;
@@ -21,8 +24,11 @@ import net.minecraftforge.fluids.IFluidContainerItem;
  */
 public abstract class FluidGeneratorBlock extends ActiveMachineBlock {
 
-    protected FluidGeneratorBlock(Material materialIn, String name, Class<? extends TileEntityFluidGenerator> tileEntityClass) {
+    private int guiId;
+
+    protected FluidGeneratorBlock(Material materialIn, String name, int guiId, Class<? extends TileEntityFluidGenerator> tileEntityClass) {
         super(materialIn, name, tileEntityClass);
+        this.guiId = guiId;
     }
 
     @Override
@@ -42,6 +48,16 @@ public abstract class FluidGeneratorBlock extends ActiveMachineBlock {
                 return false;
             }
         }
+
+        ItemStack currentItem = playerIn.getCurrentEquippedItem();
+        if (currentItem != null && (currentItem.getItem() instanceof ItemConnector || currentItem.getItem() instanceof ItemWrench)) {
+            return super.onBlockActivated(worldIn, pos, state, playerIn, side, hitX, hitY, hitZ);
+        }
+        if (worldIn.getTileEntity(pos).getClass().equals(tileEntityClass) && !playerIn.isSneaking()) {
+            playerIn.openGui(Transmatrics.instance, guiId, worldIn, pos.getX(), pos.getY(), pos.getZ());
+            return true;
+        }
+
         return false;
     }
 }

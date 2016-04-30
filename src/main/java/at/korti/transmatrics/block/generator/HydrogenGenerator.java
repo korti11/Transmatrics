@@ -1,5 +1,7 @@
 package at.korti.transmatrics.block.generator;
 
+import at.korti.transmatrics.api.Constants;
+import at.korti.transmatrics.api.Constants.GuiIds;
 import at.korti.transmatrics.api.Constants.TransmatricsBlock;
 import at.korti.transmatrics.tileentity.generator.TileEntityHydrogenGenerator;
 import net.minecraft.block.material.Material;
@@ -18,7 +20,7 @@ import java.util.Random;
 public class HydrogenGenerator extends FluidGeneratorBlock {
 
     public HydrogenGenerator() {
-        super(Material.iron, TransmatricsBlock.HYDROGEN_GENERATOR.getRegName(), TileEntityHydrogenGenerator.class);
+        super(Material.iron, TransmatricsBlock.HYDROGEN_GENERATOR.getRegName(), GuiIds.HYDROGEN_GENERATOR_GUI_ID, TileEntityHydrogenGenerator.class);
     }
 
     @SideOnly(Side.CLIENT)

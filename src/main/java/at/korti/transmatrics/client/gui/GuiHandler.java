@@ -1,6 +1,7 @@
 package at.korti.transmatrics.client.gui;
 
 import at.korti.transmatrics.api.Constants;
+import at.korti.transmatrics.tileentity.TileEntityFluidGenerator;
 import at.korti.transmatrics.tileentity.container.*;
 import at.korti.transmatrics.tileentity.crafting.*;
 import net.minecraft.client.multiplayer.WorldClient;
@@ -29,6 +30,10 @@ public class GuiHandler implements IGuiHandler {
                 return new ContainerMagneticSmeltery(player.inventory, (TileEntityMagneticSmeltery) world.getTileEntity(pos));
             case LIQUID_CASTER_GUI_ID:
                 return new ContainerLiquidCaster(player.inventory, (TileEntityLiquidCaster) world.getTileEntity(pos));
+            case LAVA_GENERATOR_GUI_ID:
+                return new ContainerFluidGenerator(player.inventory, (TileEntityFluidGenerator) world.getTileEntity(pos));
+            case HYDROGEN_GENERATOR_GUI_ID:
+                return new ContainerFluidGenerator(player.inventory, (TileEntityFluidGenerator) world.getTileEntity(pos));
         }
 
         return null;
@@ -48,6 +53,10 @@ public class GuiHandler implements IGuiHandler {
                     return new GuiMagneticSmeltery(player.inventory, (TileEntityMagneticSmeltery) world.getTileEntity(pos));
                 case LIQUID_CASTER_GUI_ID:
                     return new GuiLiquidCaster(player.inventory, (TileEntityLiquidCaster) world.getTileEntity(pos));
+                case LAVA_GENERATOR_GUI_ID:
+                    return new GuiFluidGenerator(player.inventory, (TileEntityFluidGenerator) world.getTileEntity(pos));
+                case HYDROGEN_GENERATOR_GUI_ID:
+                    return new GuiFluidGenerator(player.inventory, (TileEntityFluidGenerator) world.getTileEntity(pos));
             }
         }
         return null;

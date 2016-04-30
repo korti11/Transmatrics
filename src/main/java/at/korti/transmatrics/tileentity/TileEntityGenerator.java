@@ -6,6 +6,9 @@ import at.korti.transmatrics.tileentity.network.TileEntityController;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ITickable;
@@ -58,6 +61,8 @@ public abstract class TileEntityGenerator extends TileEntityNetworkNode implemen
                     EnergyHandler.transferEnergy(this, controller);
                 }
             }
+            markDirty();
+            worldObj.markBlockForUpdate(this.getPos());
         }
     }
 
@@ -94,5 +99,18 @@ public abstract class TileEntityGenerator extends TileEntityNetworkNode implemen
     @Override
     public boolean canProduceEnergy() {
         return getEnergyStored() < getMaxEnergyStored();
+    }
+
+    @Override
+    public Packet getDescriptionPacket() {
+        NBTTagCompound tagCompound = new NBTTagCompound();
+        writeToNBT(tagCompound);
+        return new S35PacketUpdateTileEntity(this.getPos(), -1, tagCompound);
+    }
+
+    @Override
+    public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
+        super.onDataPacket(net, pkt);
+        readFromNBT(pkt.getNbtCompound());
     }
 }
