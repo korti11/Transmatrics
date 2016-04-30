@@ -8,6 +8,7 @@ import at.korti.transmatrics.modintegration.ModIntegrationManager;
 import at.korti.transmatrics.network.TransmatricsPacketHandler;
 import at.korti.transmatrics.proxy.CommonProxy;
 import at.korti.transmatrics.registry.*;
+import at.korti.transmatrics.world.OreGeneration;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
@@ -18,6 +19,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import org.apache.logging.log4j.Logger;
 
 /**
@@ -54,6 +56,7 @@ public class Transmatrics {
         Items.registerItems();
         Fluids.registerFluids();
         TileEntities.registerTileEntities();
+        GameRegistry.registerWorldGenerator(new OreGeneration(), 1);
         proxy.preInit(event);
         ModIntegrationManager.preInit();
     }
