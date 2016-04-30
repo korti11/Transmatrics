@@ -76,13 +76,6 @@ public final class Crafting {
                 "ICI", 'M', new ItemStack(MACHINE_CASING.getBlock()), 'I', new ItemStack(Items.iron_ingot),
                 'C', new ItemStack(ELECTRONICS.getItem(), 1, 1), 'L', new ItemStack(Items.lava_bucket)
         );
-        // hydrogen generator
-        registerShapedOreRecipe(new ItemStack(HYDROGEN_GENERATOR.getBlock()),
-                "IBI",
-                "BMB",
-                "ICI", 'B', new ItemStack(Items.bucket), 'M', new ItemStack(MACHINE_CASING.getBlock()), 'I',
-                new ItemStack(Items.iron_ingot), 'C', new ItemStack(ELECTRONICS.getItem(), 1, 1)
-        );
         // controller
         registerShapedOreRecipe(new ItemStack(CONTROLLER.getBlock()),
                 "ICI",

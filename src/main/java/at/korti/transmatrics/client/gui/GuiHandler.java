@@ -32,8 +32,6 @@ public class GuiHandler implements IGuiHandler {
                 return new ContainerLiquidCaster(player.inventory, (TileEntityLiquidCaster) world.getTileEntity(pos));
             case LAVA_GENERATOR_GUI_ID:
                 return new ContainerFluidGenerator(player.inventory, (TileEntityFluidGenerator) world.getTileEntity(pos));
-            case HYDROGEN_GENERATOR_GUI_ID:
-                return new ContainerFluidGenerator(player.inventory, (TileEntityFluidGenerator) world.getTileEntity(pos));
         }
 
         return null;
@@ -54,8 +52,6 @@ public class GuiHandler implements IGuiHandler {
                 case LIQUID_CASTER_GUI_ID:
                     return new GuiLiquidCaster(player.inventory, (TileEntityLiquidCaster) world.getTileEntity(pos));
                 case LAVA_GENERATOR_GUI_ID:
-                    return new GuiFluidGenerator(player.inventory, (TileEntityFluidGenerator) world.getTileEntity(pos));
-                case HYDROGEN_GENERATOR_GUI_ID:
                     return new GuiFluidGenerator(player.inventory, (TileEntityFluidGenerator) world.getTileEntity(pos));
             }
         }

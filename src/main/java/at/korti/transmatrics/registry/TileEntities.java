@@ -21,7 +21,6 @@ public final class TileEntities {
         registerTileEntity(TileEntityAdvancedSolarPanel.class, ADVANCED_SOLAR_PANEL.getRegName());
         registerTileEntity(TileEntityLavaGenerator.class, LAVA_GENERATOR.getRegName());
         registerTileEntity(TileEntityThermalGenerator.class, THERMAL_GENERATOR.getRegName());
-        registerTileEntity(TileEntityHydrogenGenerator.class, HYDROGEN_GENERATOR.getRegName());
         registerTileEntity(TileEntityWindmill.class, WINDMILL.getRegName());
         registerTileEntity(TileEntityWatermill.class, WATERMILL.getRegName());
         registerTileEntity(TileEntitySmallSwitch.class, SMALL_SWITCH.getRegName());

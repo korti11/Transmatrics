@@ -21,7 +21,6 @@ public class ClientProxy extends CommonProxy {
     public void preInit(FMLPreInitializationEvent event) {
         super.preInit(event);
 
-        registerFluidModel(Fluids.hydrogenGas);
         registerFluidModel(Fluids.moltenCopper);
         registerFluidModel(Fluids.moltenTin);
         registerFluidModel(Fluids.moltenSilver);

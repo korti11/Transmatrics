@@ -16,20 +16,17 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
  */
 public final class Fluids {
 
-    public static Fluid hydrogenGas;
     public static Fluid moltenCopper;
     public static Fluid moltenTin;
     public static Fluid moltenSilver;
     public static Fluid moltenLead;
 
     public static void registerFluids() {
-        hydrogenGas = createGas(TransmatricsFluid.HYDROGEN_GAS.getRegName(), 0xffff66, true);
         moltenCopper = createMoltenMetal(TransmatricsFluid.MOLTEN_COPPER.getRegName(), 0xef7e0c, 600, true);
         moltenTin = createMoltenMetal(TransmatricsFluid.MOLTEN_TIN.getRegName(), 0xffe6ff, 600, true);
         moltenSilver = createMoltenMetal(TransmatricsFluid.MOLTEN_SILVER.getRegName(), 0xccffff, 600, true);
         moltenLead = createMoltenMetal(TransmatricsFluid.MOLTEN_LEAD.getRegName(), 0x30193c, 600, true);
 
-        registerBlock(hydrogenGas);
         registerBlock(moltenCopper);
         registerBlock(moltenTin);
         registerBlock(moltenSilver);

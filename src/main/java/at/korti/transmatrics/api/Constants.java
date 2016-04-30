@@ -136,12 +136,6 @@ public final class Constants {
         public static final int THERMAL_GENERATOR_CAPACITY = 10000;
         public static final int THERMAL_GENERATOR_EXTRACTION = 100;
 
-        //Hydrogen Generator
-        public static final int HYDROGEN_GENERATOR_GENERATE = 75;
-        public static final int HYDROGEN_GENERATOR_FLUID_USE = 100;
-        public static final int HYDROGEN_GENERATOR_CAPACITY = 10000;
-        public static final int HYDROGEN_GENERATOR_EXTRACTION = 75;
-
         //Small Switch
         public static final int SMALL_SWITCH_CAPACITY = 1250;
         public static final int SMALL_SWITCH_TRANSFER = 125;
@@ -183,10 +177,6 @@ public final class Constants {
         //Lava Generator
         public static final int LAVA_GENERATOR_CAPACITY = 10000;
         public static final Fluid LAVA_GENERATOR_FLUID = FluidRegistry.LAVA;
-
-        //Hydrogen Generator
-        public static final int HYDROGEN_GENERATOR_CAPACITY = 10000;
-        public static final Fluid HYDROGEN_GENERATOR_FLUID = TransmatricsFluid.HYDROGEN_GAS.getFluid();
     }
 
     public static class Network{
@@ -217,7 +207,6 @@ public final class Constants {
         public static final int MAGNETIC_SMELTERY_GUI_ID = 2;
         public static final int LIQUID_CASTER_GUI_ID = 3;
         public static final int LAVA_GENERATOR_GUI_ID = 4;
-        public static final int HYDROGEN_GENERATOR_GUI_ID = 5;
     }
 
     public enum TransmatricsBlock {
@@ -225,7 +214,6 @@ public final class Constants {
         ADVANCED_SOLAR_PANEL("AdvancedSolarPanel"),
         LAVA_GENERATOR("LavaGenerator"),
         THERMAL_GENERATOR("ThermalGenerator"),
-        HYDROGEN_GENERATOR("HydrogenGenerator"),
         WINDMILL("Windmill"),
         WATERMILL("Watermill"),
         SMALL_SWITCH("SmallSwitch"),
@@ -285,7 +273,6 @@ public final class Constants {
         ADVANCED_SOLAR_PANEL("TileAdvancedSolarPanel"),
         LAVA_GENERATOR("TileLavaGenerator"),
         THERMAL_GENERATOR("TileThermalGenerator"),
-        HYDROGEN_GENERATOR("TileHydrogenGenerator"),
         WINDMILL("TileWindmill"),
         WATERMILL("TileWatermill"),
         SMALL_SWITCH("TileSmallSwitch"),
@@ -309,7 +296,6 @@ public final class Constants {
     }
 
     public enum TransmatricsFluid{
-        HYDROGEN_GAS("HydrogenGas"),
         MOLTEN_COPPER("MoltenCopper"),
         MOLTEN_TIN("MoltenTin"),
         MOLTEN_SILVER("MoltenSilver"),

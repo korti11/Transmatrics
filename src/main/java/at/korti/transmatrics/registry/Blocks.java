@@ -35,7 +35,6 @@ public final class Blocks {
     private static AdvancedSolarPanel advancedSolarPanel;
     private static LavaGenerator lavaGenerator;
     private static ThermalGenerator thermalGenerator;
-    private static HydrogenGenerator hydrogenGenerator;
     private static Windmill windmill;
     private static Watermill watermill;
     private static SmallSwitch smallSwitch;
@@ -54,7 +53,6 @@ public final class Blocks {
         registerBlock(advancedSolarPanel = new AdvancedSolarPanel());
         registerBlock(lavaGenerator = new LavaGenerator());
         registerBlock(thermalGenerator = new ThermalGenerator());
-        registerBlock(hydrogenGenerator = new HydrogenGenerator());
         registerBlock(windmill = new Windmill());
         registerBlock(watermill = new Watermill());
         registerBlock(smallSwitch = new SmallSwitch());
@@ -74,7 +72,6 @@ public final class Blocks {
         registerBlockTexture(advancedSolarPanel);
         registerBlockTexture(lavaGenerator);
         registerBlockTexture(thermalGenerator);
-        registerBlockTexture(hydrogenGenerator);
         registerBlockTexture(windmill);
         registerBlockTexture(watermill);
         registerBlockTexture(smallSwitch);

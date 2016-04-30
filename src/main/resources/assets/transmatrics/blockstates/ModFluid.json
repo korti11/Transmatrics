@@ -4,9 +4,6 @@
     "model": "forge:fluid"
   },
   "variants": {
-    "hydrogengas":[{
-      "custom": {"fluid": "hydrogengas"}
-    }],
     "moltencopper":[{
       "custom": {"fluid": "moltencopper"}
     }],
