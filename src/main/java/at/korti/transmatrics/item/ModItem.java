@@ -6,7 +6,8 @@ import at.korti.transmatrics.util.helper.TextHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.text.TextFormatting;
+
 
 import java.util.List;
 
@@ -15,24 +16,24 @@ import java.util.List;
  */
 public class ModItem extends Item {
 
-    private EnumChatFormatting nameColor;
+    private TextFormatting nameColor;
 
-    public ModItem(String name, EnumChatFormatting nameColor) {
+    public ModItem(String name, TextFormatting nameColor) {
         this.nameColor = nameColor;
 
         setCreativeTab(Transmatrics.creativeTab);
         setUnlocalizedName(Mod.MODID + "." + name);
-        setRegistryName(Mod.MODID, name);
+        setRegistryName(Mod.MODID.toLowerCase(), name);
     }
 
     public ModItem(String name) {
-        this(name, EnumChatFormatting.WHITE);
+        this(name, TextFormatting.WHITE);
     }
 
     @Override
     public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
-        if(nameColor != EnumChatFormatting.WHITE) {
-            stack.setStackDisplayName(nameColor + TextHelper.localize(getUnlocalizedName(stack) + ".name") + EnumChatFormatting.RESET);
+        if(nameColor != TextFormatting.WHITE) {
+            stack.setStackDisplayName(nameColor + TextHelper.localize(getUnlocalizedName(stack) + ".name") + TextFormatting.RESET);
         }
     }
 }

@@ -1,13 +1,11 @@
 package at.korti.transmatrics.client.gui;
 
-import at.korti.transmatrics.api.Constants;
 import at.korti.transmatrics.tileentity.TileEntityFluidGenerator;
 import at.korti.transmatrics.tileentity.container.*;
 import at.korti.transmatrics.tileentity.crafting.*;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 

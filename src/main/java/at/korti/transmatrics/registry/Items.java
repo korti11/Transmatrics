@@ -1,6 +1,5 @@
 package at.korti.transmatrics.registry;
 
-import at.korti.transmatrics.config.Config;
 import at.korti.transmatrics.item.crafting.ItemCast;
 import at.korti.transmatrics.item.crafting.ItemElectronics;
 import at.korti.transmatrics.item.crafting.ItemGear;
@@ -12,17 +11,17 @@ import at.korti.transmatrics.item.tool.ItemHammer;
 import at.korti.transmatrics.item.tool.ItemWrench;
 import at.korti.transmatrics.util.helper.TextHelper;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.model.ModelBakery;
-import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.client.renderer.block.model.ModelBakery;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.client.FMLClientHandler;
 
 import java.util.LinkedList;
 import java.util.List;
 
-import static net.minecraftforge.fml.common.registry.GameRegistry.registerItem;
+import static net.minecraftforge.fml.common.registry.GameRegistry.register;
 
 /**
  * Created by Korti on 29.02.2016.
@@ -40,15 +39,15 @@ public final class Items {
     private static ItemPlate itemPlate;
 
     public static void registerItemsCommon() {
-        registerItem(wrench = new ItemWrench());
-        registerItem(connector = new ItemConnector());
-        registerItem(hammer = new ItemHammer());
-        registerItem(pulverizedDust = new ItemPulverizedDust());
-        registerItem(itemIngot = new ItemIngot());
-        registerItem(itemGear = new ItemGear());
-        registerItem(itemCast = new ItemCast());
-        registerItem(itemElectronics = new ItemElectronics());
-        registerItem(itemPlate = new ItemPlate());
+        register(wrench = new ItemWrench());
+        register(connector = new ItemConnector());
+        register(hammer = new ItemHammer());
+        register(pulverizedDust = new ItemPulverizedDust());
+        register(itemIngot = new ItemIngot());
+        register(itemGear = new ItemGear());
+        register(itemCast = new ItemCast());
+        register(itemElectronics = new ItemElectronics());
+        register(itemPlate = new ItemPlate());
     }
 
     public static void registerItemsClient() {
@@ -66,6 +65,13 @@ public final class Items {
         registerMetaItemTexture(itemCast, itemCast.extensions);
         registerMetaItemTexture(itemElectronics, itemElectronics.extensions);
         registerMetaItemTexture(itemPlate);
+    }
+
+    public static void registerColorHandler() {
+        FMLClientHandler.instance().getClient().getItemColors().registerItemColorHandler(pulverizedDust.colorHandler, pulverizedDust);
+        FMLClientHandler.instance().getClient().getItemColors().registerItemColorHandler(itemIngot.colorHandler, itemIngot);
+        FMLClientHandler.instance().getClient().getItemColors().registerItemColorHandler(itemGear.colorHandler, itemGear);
+        FMLClientHandler.instance().getClient().getItemColors().registerItemColorHandler(itemPlate.colorHandler, itemPlate);
     }
 
     private static void registerItemTexture(Item item) {

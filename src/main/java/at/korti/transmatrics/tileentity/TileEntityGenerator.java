@@ -1,6 +1,5 @@
 package at.korti.transmatrics.tileentity;
 
-import at.korti.transmatrics.api.TransmatricsApi;
 import at.korti.transmatrics.api.energy.*;
 import at.korti.transmatrics.tileentity.network.TileEntityController;
 import net.minecraft.block.state.IBlockState;
@@ -8,10 +7,9 @@ import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
-import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 /**
@@ -62,13 +60,13 @@ public abstract class TileEntityGenerator extends TileEntityNetworkNode implemen
                 }
             }
             markDirty();
-            worldObj.markBlockForUpdate(this.getPos());
+//            worldObj.markBlockForUpdate(this.getPos());
         }
     }
 
     @Override
     public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
-        return newState.getBlock() == Blocks.air;
+        return newState.getBlock() == Blocks.AIR;
     }
 
     @Override
@@ -105,11 +103,11 @@ public abstract class TileEntityGenerator extends TileEntityNetworkNode implemen
     public Packet getDescriptionPacket() {
         NBTTagCompound tagCompound = new NBTTagCompound();
         writeToNBT(tagCompound);
-        return new S35PacketUpdateTileEntity(this.getPos(), -1, tagCompound);
+        return new SPacketUpdateTileEntity(this.getPos(), -1, tagCompound);
     }
 
     @Override
-    public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
+    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
         super.onDataPacket(net, pkt);
         readFromNBT(pkt.getNbtCompound());
     }

@@ -4,12 +4,10 @@ import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
-import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 /**
@@ -35,12 +33,12 @@ public abstract class ActiveMachineBlock extends MachineBlock {
     }
 
     @Override
-    protected BlockState createBlockState() {
-        BlockState superState = super.createBlockState();
+    protected BlockStateContainer createBlockState() {
+        BlockStateContainer superState = super.createBlockState();
         IProperty[] properties = new IProperty[superState.getProperties().size() + 1];
         properties = superState.getProperties().toArray(properties);
         properties[properties.length - 1] = ACTIVE;
-        return new BlockState(this, properties);
+        return new BlockStateContainer(this, properties);
     }
 
     public static void setState(boolean active, World worldIn, BlockPos posIn) {

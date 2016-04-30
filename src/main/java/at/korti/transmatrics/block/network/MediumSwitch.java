@@ -11,7 +11,7 @@ import net.minecraft.block.material.Material;
 public class MediumSwitch extends MachineBlock {
 
     public MediumSwitch() {
-        super(Material.iron, TransmatricsBlock.MEDIUM_SWITCH.getRegName(), TileEntityMediumSwitch.class);
+        super(Material.IRON, TransmatricsBlock.MEDIUM_SWITCH.getRegName(), TileEntityMediumSwitch.class);
     }
 
 }

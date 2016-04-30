@@ -12,7 +12,7 @@ import net.minecraft.block.material.Material;
 public class PoweredFurnace extends CraftingMachineBlock {
 
     public PoweredFurnace() {
-        super(Material.iron, TransmatricsBlock.POWERED_FURNACE.getRegName(), TileEntityPoweredFurnace.class, GuiIds.POWERED_FURNACE_GUI_ID);
+        super(Material.IRON, TransmatricsBlock.POWERED_FURNACE.getRegName(), TileEntityPoweredFurnace.class, GuiIds.POWERED_FURNACE_GUI_ID);
     }
 
 }

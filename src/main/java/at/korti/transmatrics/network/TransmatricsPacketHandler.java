@@ -23,7 +23,7 @@ public class TransmatricsPacketHandler {
 
     public static void sendToAllAround(IMessage message, TileEntity tileEntity, int range) {
         NETWORK_WRAPPER.sendToAllAround(message,
-                new NetworkRegistry.TargetPoint(tileEntity.getWorld().provider.getDimensionId(),
+                new NetworkRegistry.TargetPoint(tileEntity.getWorld().provider.getDimension(),
                         tileEntity.getPos().getX(), tileEntity.getPos().getY(), tileEntity.getPos().getZ(),
                         range));
     }

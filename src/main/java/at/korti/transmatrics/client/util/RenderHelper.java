@@ -5,7 +5,7 @@ import at.korti.transmatrics.client.renderer.FluidRenderer.FluidType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
@@ -27,7 +27,7 @@ public class RenderHelper {
 
         TextureAtlasSprite sprite = FluidRenderer.getFluidTexture(stack, FluidType.STILL);
 
-        Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+        Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
         setGLColorFromInt(stack.getFluid().getColor());
 
         int fullX = width / 16;
@@ -59,7 +59,7 @@ public class RenderHelper {
 
     private static void renderCutIcon(TextureAtlasSprite sprite, int x, int y, float z, int width, int height, int cut) {
         Tessellator tessellator = Tessellator.getInstance();
-        WorldRenderer renderer = tessellator.getWorldRenderer();
+        VertexBuffer renderer = tessellator.getBuffer();
         renderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
         vertexUV(renderer, x, y + height, z, sprite.getMinU(), sprite.getInterpolatedV(height));
         vertexUV(renderer, x + width, y + height, z, sprite.getInterpolatedU(width), sprite.getInterpolatedV(height));
@@ -68,7 +68,7 @@ public class RenderHelper {
         tessellator.draw();
     }
 
-    private static void vertexUV(WorldRenderer renderer, double x, double y, double z, double u, double v) {
+    private static void vertexUV(VertexBuffer renderer, double x, double y, double z, double u, double v) {
         renderer.pos(x, y, z).tex(u, v).endVertex();
     }
 

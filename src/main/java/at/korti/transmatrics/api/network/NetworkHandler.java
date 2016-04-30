@@ -2,7 +2,7 @@ package at.korti.transmatrics.api.network;
 
 import at.korti.transmatrics.tileentity.network.TileEntityController;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 /**

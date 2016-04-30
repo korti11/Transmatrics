@@ -5,10 +5,9 @@ import at.korti.transmatrics.api.Constants.TransmatricsBlock;
 import at.korti.transmatrics.block.MachineBlock;
 import at.korti.transmatrics.tileentity.TileEntityHeightGenerator;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumFacing.AxisDirection;
+import net.minecraft.util.math.BlockPos;
 
 /**
  * Created by Korti on 05.03.2016.

@@ -37,6 +37,7 @@ public class ClientProxy extends CommonProxy {
     public void init(FMLInitializationEvent event) {
         super.init(event);
         Items.registerItemTextures();
+        Items.registerColorHandler();
         Blocks.registerBlockTextures();
     }
 

@@ -12,7 +12,7 @@ import net.minecraft.block.material.Material;
 public class Pulverizer extends CraftingMachineBlock {
 
     public Pulverizer() {
-        super(Material.iron, TransmatricsBlock.PULVERIZER.getRegName(), TileEntityPulverizer.class, GuiIds.PULVERIZER_GUI_ID);
+        super(Material.IRON, TransmatricsBlock.PULVERIZER.getRegName(), TileEntityPulverizer.class, GuiIds.PULVERIZER_GUI_ID);
     }
 
 }

@@ -15,6 +15,7 @@ public class ItemOreBlock extends ItemBlock {
         super(block);
 
         this.setHasSubtypes(true);
+        this.setRegistryName(block.getRegistryName());
     }
 
     @Override

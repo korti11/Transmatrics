@@ -10,6 +10,6 @@ import net.minecraft.block.material.Material;
 public class AdvancedSolarPanel extends SolarPanel {
 
     public AdvancedSolarPanel() {
-        super(Material.iron, TransmatricsBlock.ADVANCED_SOLAR_PANEL.getRegName(), TileEntityAdvancedSolarPanel.class);
+        super(Material.IRON, TransmatricsBlock.ADVANCED_SOLAR_PANEL.getRegName(), TileEntityAdvancedSolarPanel.class);
     }
 }

@@ -65,8 +65,8 @@ public abstract class FluidItemCraftingContainer extends Container {
     public void detectAndSendChanges() {
         super.detectAndSendChanges();
 
-        for (int i = 0; i < this.crafters.size(); i++) {
-            ICrafting iCrafting = this.crafters.get(i);
+        for (int i = 0; i < this.listeners.size(); i++) {
+            ICrafting iCrafting = this.listeners.get(i);
 
             if (this.craftingTime != tileEntity.getField(0)) {
                 iCrafting.sendProgressBarUpdate(this, 0, this.craftingTime = tileEntity.getField(0));

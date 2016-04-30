@@ -61,7 +61,7 @@ public final class FurnaceCraftingRegistry implements ICraftingRegistry<ItemStac
         for (Map.Entry<ItemStack, ItemStack> entry : FurnaceRecipes.instance().getSmeltingList().entrySet()) {
             if (compareItemStacks(stack, entry.getKey())) {
                 ItemStack tempStack = entry.getKey().copy();
-                if (tempStack.getItem().getRegistryName().split(":")[0].equals("minecraft") && tempStack.getItemDamage() == 32767) {
+                if (tempStack.getItem().getRegistryName().getResourceDomain().equals("minecraft") && tempStack.getItemDamage() == 32767) {
                     tempStack.setItemDamage(0);
                 }
                 return tempStack;
@@ -82,8 +82,7 @@ public final class FurnaceCraftingRegistry implements ICraftingRegistry<ItemStac
 
     @Override
     public boolean remove(ICraftingEntry entry) {
-        return FurnaceRecipes.instance().getSmeltingList().remove(entry.getInputs()[0]).
-                getIsItemStackEqual((ItemStack) entry.getOutputs()[0]);
+        return ItemStack.areItemStacksEqual(FurnaceRecipes.instance().getSmeltingList().remove(entry.getInputs()[0]), ((ItemStack) entry.getOutputs()[0]));
     }
 
     @Override

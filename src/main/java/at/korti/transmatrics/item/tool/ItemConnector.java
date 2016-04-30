@@ -1,6 +1,5 @@
 package at.korti.transmatrics.item.tool;
 
-import at.korti.transmatrics.api.Constants;
 import at.korti.transmatrics.api.Constants.NBT;
 import at.korti.transmatrics.api.Constants.ToolTips;
 import at.korti.transmatrics.api.Constants.TransmatricsItem;
@@ -15,9 +14,12 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -28,7 +30,7 @@ import java.util.List;
 public class ItemConnector extends ModItem {
 
     public ItemConnector() {
-        super(TransmatricsItem.CONNECTOR.getRegName(), EnumChatFormatting.YELLOW);
+        super(TransmatricsItem.CONNECTOR.getRegName(), TextFormatting.YELLOW);
 
         setMaxStackSize(1);
     }
@@ -48,7 +50,7 @@ public class ItemConnector extends ModItem {
     }
 
     @Override
-    public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public EnumActionResult onItemUseFirst(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
         if(!world.isRemote) {
             TileEntity te = world.getTileEntity(pos);
             if (te instanceof INetworkNode) {
@@ -83,7 +85,7 @@ public class ItemConnector extends ModItem {
                 }
             }
         }
-        return super.onItemUseFirst(stack, player, world, pos, side, hitX, hitY, hitZ);
+        return super.onItemUseFirst(stack, player, world, pos, side, hitX, hitY, hitZ, hand);
     }
 
     private boolean hasNetworkNodeStored(ItemStack stack) {
@@ -95,11 +97,11 @@ public class ItemConnector extends ModItem {
     }
 
     @Override
-    public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) {
+    public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
         if (playerIn.isSneaking() && itemStackIn.getTagCompound().getBoolean(NBT.CLEAR_STORED_NETWORK)) {
             itemStackIn.setTagCompound(new NBTTagCompound());
         }
         itemStackIn.getTagCompound().setBoolean(NBT.CLEAR_STORED_NETWORK, true);
-        return super.onItemRightClick(itemStackIn, worldIn, playerIn);
+        return super.onItemRightClick(itemStackIn, worldIn, playerIn, hand);
     }
 }

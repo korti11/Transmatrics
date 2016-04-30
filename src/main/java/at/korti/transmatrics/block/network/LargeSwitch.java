@@ -11,7 +11,7 @@ import net.minecraft.block.material.Material;
 public class LargeSwitch extends MachineBlock {
 
     public LargeSwitch() {
-        super(Material.iron, TransmatricsBlock.LARGE_SWITCH.getRegName(), TileEntityLargeSwitch.class);
+        super(Material.IRON, TransmatricsBlock.LARGE_SWITCH.getRegName(), TileEntityLargeSwitch.class);
     }
 
 }

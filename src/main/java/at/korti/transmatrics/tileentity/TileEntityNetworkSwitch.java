@@ -11,16 +11,13 @@ import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-import static at.korti.transmatrics.util.helper.TextHelper.localize;
 import static net.minecraftforge.common.MinecraftForge.EVENT_BUS;
 
 /**
@@ -71,7 +68,7 @@ public abstract class TileEntityNetworkSwitch extends TileEntity implements INet
 
     @Override
     public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
-        return newState.getBlock() == Blocks.air;
+        return newState.getBlock() == Blocks.AIR;
     }
 
     @Override

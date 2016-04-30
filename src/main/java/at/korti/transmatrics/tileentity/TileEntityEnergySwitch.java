@@ -57,13 +57,15 @@ public abstract class TileEntityEnergySwitch extends TileEntityNetworkSwitch imp
 
     @Override
     public int receiveEnergy(int energy, boolean simulate) {
-        worldObj.markBlockForUpdate(pos);
+//        worldObj.markBlockForUpdate(pos);
+        this.markDirty();
         return energyStorage.receiveEnergy(energy, simulate);
     }
 
     @Override
     public int extractEnergy(int energy, boolean simulate) {
-        worldObj.markBlockForUpdate(pos);
+//        worldObj.markBlockForUpdate(pos);
+        this.markDirty();
         return energyStorage.extractEnergy(energy, simulate);
     }
 

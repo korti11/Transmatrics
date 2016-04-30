@@ -1,6 +1,7 @@
 package at.korti.transmatrics.util.helper;
 
-import net.minecraft.util.StatCollector;
+
+import net.minecraft.util.text.translation.I18n;
 
 /**
  * Created by Korti on 25.02.2016.
@@ -8,7 +9,7 @@ import net.minecraft.util.StatCollector;
 public class TextHelper {
 
     public static String localize(String input, Object... format) {
-        return StatCollector.translateToLocalFormatted(input, format);
+        return I18n.translateToLocalFormatted(input, format);
     }
 
     public static String firstCharUppercase(String input) {

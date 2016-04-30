@@ -1,10 +1,10 @@
 package at.korti.transmatrics.world;
 
-import at.korti.transmatrics.api.Constants;
 import at.korti.transmatrics.api.Constants.TransmatricsBlock;
 import net.minecraft.block.Block;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.chunk.IChunkGenerator;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.feature.WorldGenMinable;
 import net.minecraftforge.fml.common.IWorldGenerator;
@@ -15,8 +15,9 @@ import java.util.Random;
  * Created by Korti on 30.04.2016.
  */
 public class OreGeneration implements IWorldGenerator {
+
     @Override
-    public void generate(Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider) {
+    public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
         generate(world, random, chunkX, chunkZ);
     }
 
@@ -53,4 +54,6 @@ public class OreGeneration implements IWorldGenerator {
         }
 
     }
+
+
 }

@@ -1,9 +1,11 @@
 package at.korti.transmatrics.item;
 
+import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraftforge.fml.client.FMLClientHandler;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -15,30 +17,30 @@ import java.util.List;
 public abstract class ModMetaItem extends ModItem {
 
     private final String[] extensions;
-    private List<Integer> colors;
+    public ModMetaItemColorHandler colorHandler;
 
-    public ModMetaItem(String name, EnumChatFormatting nameColor, String... extensions) {
+    public ModMetaItem(String name, TextFormatting nameColor, String... extensions) {
         super(name, nameColor);
 
         this.setHasSubtypes(true);
         this.extensions = extensions;
-        this.colors = new LinkedList<>();
+        this.colorHandler = new ModMetaItemColorHandler();
     }
 
     public ModMetaItem(String name, String... extensions) {
-        this(name, EnumChatFormatting.WHITE, extensions);
+        this(name, TextFormatting.WHITE, extensions);
     }
 
     protected void addColor(int index, int color) {
-        colors.add(index, color);
+        colorHandler.addColor(index, color);
     }
 
     protected void addColor(int color) {
-        colors.add(color);
+        colorHandler.addColor(color);
     }
 
     protected void addColors(Integer[] colors) {
-        this.colors.addAll(Arrays.asList(colors));
+        this.colorHandler.addColors(colors);
     }
 
     @Override
@@ -53,14 +55,6 @@ public abstract class ModMetaItem extends ModItem {
     }
 
     @Override
-    public int getColorFromItemStack(ItemStack stack, int renderPass) {
-        if (stack.getItemDamage() < colors.size()) {
-            return colors.get(stack.getItemDamage());
-        }
-        return super.getColorFromItemStack(stack, renderPass);
-    }
-
-    @Override
     public int getMetadata(int damage) {
         return damage;
     }
@@ -69,6 +63,35 @@ public abstract class ModMetaItem extends ModItem {
     public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
         for (int i = 0; i < extensions.length; i++) {
             subItems.add(new ItemStack(itemIn, 1, i));
+        }
+    }
+
+    public static class ModMetaItemColorHandler implements IItemColor {
+
+        private List<Integer> colors;
+
+        public ModMetaItemColorHandler() {
+            colors = new LinkedList<>();
+        }
+
+        public void addColor(int index, int color) {
+            colors.add(index, color);
+        }
+
+        public void addColor(int color) {
+            colors.add(color);
+        }
+
+        public void addColors(Integer[] colors) {
+            this.colors.addAll(Arrays.asList(colors));
+        }
+
+        @Override
+        public int getColorFromItemstack(ItemStack stack, int tintIndex) {
+            if (stack.getItemDamage() < colors.size()) {
+                return colors.get(stack.getItemDamage());
+            }
+            return 0;
         }
     }
 }

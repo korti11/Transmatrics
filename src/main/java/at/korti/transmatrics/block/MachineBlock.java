@@ -1,29 +1,22 @@
 package at.korti.transmatrics.block;
 
-import at.korti.transmatrics.api.Constants;
-import at.korti.transmatrics.api.Constants.NBT;
 import at.korti.transmatrics.api.block.IDismantable;
 import at.korti.transmatrics.api.block.IRotatable;
 import at.korti.transmatrics.api.network.INetworkNode;
 import at.korti.transmatrics.api.network.INetworkSwitch;
-import at.korti.transmatrics.config.Config;
-import at.korti.transmatrics.tileentity.TileEntityInventory;
 import at.korti.transmatrics.util.helper.WorldHelper;
-import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
-import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
@@ -69,16 +62,6 @@ public abstract class MachineBlock extends ModBlockContainer implements IDismant
             state = this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
         }
 
-        if (isDismantable()) {
-            ItemStack stack = placer.getHeldItem();
-            if (stack != null && stack.getTagCompound() != null) {
-                TileEntity tileEntity = worldIn.getTileEntity(pos);
-                if (tileEntity != null) {
-                    tileEntity.readFromNBT(stack.getTagCompound());
-                }
-            }
-        }
-
         if (state != null) {
             return state;
         }
@@ -109,9 +92,9 @@ public abstract class MachineBlock extends ModBlockContainer implements IDismant
     }
 
     @Override
-    protected BlockState createBlockState() {
+    protected BlockStateContainer createBlockState() {
         if(isRotatable()) {
-            return new BlockState(this, new IProperty[]{FACING});
+            return new BlockStateContainer(this, new IProperty[]{FACING});
         }
         return super.createBlockState();
     }

@@ -42,7 +42,7 @@ public final class FluidRenderer {
 
     @SubscribeEvent
     public void setupTextureMap(TextureStitchEvent.Post event) {
-        TextureMap map = event.map;
+        TextureMap map = event.getMap();
         missingIcon = map.getMissingSprite();
 
         textureMap.clear();

@@ -58,7 +58,7 @@ public final class Fluids {
     }
 
     private static BlockFluidBase registerBlock(Fluid fluid) {
-        BlockFluidBase block = new ModFluidBlock(fluid, MapColor.adobeColor);
+        BlockFluidBase block = new ModFluidBlock(fluid, MapColor.ADOBE);
         GameRegistry.registerBlock(block, fluid.getName());
         return block;
     }

@@ -10,10 +10,9 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
-import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.IChatComponent;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
 
 /**
  * Created by Korti on 25.02.2016.
@@ -64,11 +63,11 @@ public abstract class TileEntityInventory extends TileEntityEnergyNode implement
     public Packet getDescriptionPacket() {
         NBTTagCompound tagCompound = new NBTTagCompound();
         writeToNBT(tagCompound);
-        return new S35PacketUpdateTileEntity(getPos(), -1, tagCompound);
+        return new SPacketUpdateTileEntity(getPos(), -1, tagCompound);
     }
 
     @Override
-    public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
+    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
         super.onDataPacket(net, pkt);
         readFromNBT(pkt.getNbtCompound());
     }
@@ -80,7 +79,7 @@ public abstract class TileEntityInventory extends TileEntityEnergyNode implement
     public void syncClient() {
         if (!worldObj.isRemote) {
             markDirty();
-            worldObj.markBlockForUpdate(pos);
+//            worldObj.markBlockForUpdate(pos);
         }
     }
 
@@ -170,8 +169,8 @@ public abstract class TileEntityInventory extends TileEntityEnergyNode implement
     }
 
     @Override
-    public IChatComponent getDisplayName() {
-        return new ChatComponentText(getName());
+    public ITextComponent getDisplayName() {
+        return new TextComponentString(getName());
     }
     //endregion
 }

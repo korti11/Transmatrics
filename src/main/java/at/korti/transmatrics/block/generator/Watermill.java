@@ -11,7 +11,7 @@ import net.minecraft.block.material.Material;
 public class Watermill extends MachineBlock{
 
     public Watermill() {
-        super(Material.iron, TransmatricsBlock.WATERMILL.getRegName(), TileEntityWatermill.class);
+        super(Material.IRON, TransmatricsBlock.WATERMILL.getRegName(), TileEntityWatermill.class);
     }
 
 }

@@ -11,7 +11,7 @@ import net.minecraft.block.material.Material;
 public class SmallSwitch extends MachineBlock {
 
     public SmallSwitch() {
-        super(Material.iron, TransmatricsBlock.SMALL_SWITCH.getRegName(), TileEntitySmallSwitch.class);
+        super(Material.IRON, TransmatricsBlock.SMALL_SWITCH.getRegName(), TileEntitySmallSwitch.class);
     }
 
 }

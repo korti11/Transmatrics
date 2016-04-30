@@ -11,7 +11,7 @@ import net.minecraft.block.material.Material;
 public class LiquidCaster extends FluidCraftingMachineBlock {
 
     public LiquidCaster() {
-        super(Material.iron, TransmatricsBlock.LIQUID_CASTER.getRegName(), TileEntityLiquidCaster.class, GuiIds.LIQUID_CASTER_GUI_ID);
+        super(Material.IRON, TransmatricsBlock.LIQUID_CASTER.getRegName(), TileEntityLiquidCaster.class, GuiIds.LIQUID_CASTER_GUI_ID);
     }
 
 }

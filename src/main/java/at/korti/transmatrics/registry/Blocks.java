@@ -1,7 +1,6 @@
 package at.korti.transmatrics.registry;
 
 import at.korti.transmatrics.block.MachineCasing;
-import at.korti.transmatrics.block.ModBlock;
 import at.korti.transmatrics.block.OreBlock;
 import at.korti.transmatrics.block.crafting.*;
 import at.korti.transmatrics.block.generator.*;
@@ -9,22 +8,20 @@ import at.korti.transmatrics.block.network.Controller;
 import at.korti.transmatrics.block.network.LargeSwitch;
 import at.korti.transmatrics.block.network.MediumSwitch;
 import at.korti.transmatrics.block.network.SmallSwitch;
-import at.korti.transmatrics.config.Config;
 import at.korti.transmatrics.item.crafting.ItemMachineBlock;
 import at.korti.transmatrics.item.ore.ItemOreBlock;
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IStringSerializable;
-import net.minecraft.util.ResourceLocation;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static net.minecraftforge.fml.common.registry.GameRegistry.registerBlock;
+import static net.minecraftforge.fml.common.registry.GameRegistry.register;
+import static net.minecraftforge.fml.common.registry.GameRegistry.registerWithItem;
 
 /**
  * Created by Korti on 01.03.2016.
@@ -59,12 +56,22 @@ public final class Blocks {
         registerBlock(mediumSwitch = new MediumSwitch());
         registerBlock(largeSwitch = new LargeSwitch());
         registerBlock(controller = new Controller());
-        registerBlock(pulverizer = new Pulverizer(), ItemMachineBlock.class);
-        registerBlock(poweredFurnace = new PoweredFurnace(), ItemMachineBlock.class);
-        registerBlock(magneticSmeltery = new MagneticSmeltery(), ItemMachineBlock.class);
-        registerBlock(liquidCaster = new LiquidCaster(), ItemMachineBlock.class);
-        registerBlock(oreBlock = new OreBlock(), ItemOreBlock.class);
+        registerBlock(pulverizer = new Pulverizer(), new ItemMachineBlock(pulverizer));
+        registerBlock(poweredFurnace = new PoweredFurnace(), new ItemMachineBlock(poweredFurnace));
+        registerBlock(magneticSmeltery = new MagneticSmeltery(), new ItemMachineBlock(magneticSmeltery));
+        registerBlock(liquidCaster = new LiquidCaster(), new ItemMachineBlock(liquidCaster));
+        registerBlock(oreBlock = new OreBlock(), new ItemOreBlock(oreBlock));
         registerBlock(machineCasing = new MachineCasing());
+    }
+
+    private static void registerBlock(Block block) {
+        register(block);
+        register(new ItemBlock(block).setRegistryName(block.getRegistryName()));
+    }
+
+    private static void registerBlock(Block block, ItemBlock itemBlock) {
+        register(block);
+        register(itemBlock);
     }
 
     public static void registerBlockTextures() {

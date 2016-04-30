@@ -54,8 +54,8 @@ public class PulverizerRecipeJEI extends BlankRecipeWrapper {
 
     @SubscribeEvent
     public void addChanceInfomation(ItemTooltipEvent event) {
-        if (event.itemStack.equals(secondaryOutput)) {
-            event.toolTip.add(TextHelper.localize("tooltip.pulverizer.output.chance") + " " + secondOutputChance * 100 + "%");
+        if (event.getItemStack().equals(secondaryOutput)) {
+            event.getToolTip().add(TextHelper.localize("tooltip.pulverizer.output.chance") + " " + secondOutputChance * 100 + "%");
         }
     }
 }

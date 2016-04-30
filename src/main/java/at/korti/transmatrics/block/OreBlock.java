@@ -3,7 +3,7 @@ package at.korti.transmatrics.block;
 import at.korti.transmatrics.api.Constants.TransmatricsBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyEnum;
-import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -20,7 +20,7 @@ public class OreBlock extends ModBlock {
     public static final PropertyEnum<OreType> TYPE = PropertyEnum.create("type", OreType.class);
 
     public OreBlock() {
-        super(Material.rock, TransmatricsBlock.ORE_BLOCK.getRegName());
+        super(Material.ROCK, TransmatricsBlock.ORE_BLOCK.getRegName());
 
         this.setHarvestLevels();
         this.setHardness(5f);
@@ -33,8 +33,8 @@ public class OreBlock extends ModBlock {
     }
 
     @Override
-    protected BlockState createBlockState() {
-        return new BlockState(this, TYPE);
+    protected BlockStateContainer createBlockState() {
+        return new BlockStateContainer(this, TYPE);
     }
 
     @Override
@@ -68,10 +68,10 @@ public class OreBlock extends ModBlock {
     }
 
     public enum OreType implements IStringSerializable {
-        COPPER(1),
-        TIN(1),
-        SILVER(2),
-        LEAD(2);
+        copper(1),
+        tin(1),
+        silver(2),
+        lead(2);
 
         public final int meta;
         public final int harvestLevel;

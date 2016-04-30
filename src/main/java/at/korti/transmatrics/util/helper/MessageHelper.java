@@ -7,8 +7,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiNewChat;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.IChatComponent;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
@@ -22,7 +22,7 @@ public class MessageHelper {
     private static final int ID = 2424242;
     private static int last;
 
-    private static void sendMessage(IChatComponent[] messages) {
+    private static void sendMessage(ITextComponent[] messages) {
         GuiNewChat guiChat = Minecraft.getMinecraft().ingameGUI.getChatGUI();
         for (int i = ID + messages.length; i <= last; i++) {
             guiChat.deleteChatLine(i);
@@ -33,12 +33,12 @@ public class MessageHelper {
         last = ID + messages.length - 1;
     }
 
-    public static IChatComponent messageToComponent(IStatusMessage message) {
-        return new ChatComponentText(message.getMessage());
+    public static ITextComponent messageToComponent(IStatusMessage message) {
+        return new TextComponentString(message.getMessage());
     }
 
-    public static IChatComponent[] messagesToComponents(IStatusMessage... messages) {
-        IChatComponent[] components = new IChatComponent[messages.length];
+    public static ITextComponent[] messagesToComponents(IStatusMessage... messages) {
+        ITextComponent[] components = new ITextComponent[messages.length];
         for (int i = 0; i < components.length; i++) {
             components[i] = messageToComponent(messages[i]);
         }
@@ -51,7 +51,7 @@ public class MessageHelper {
         }
     }
 
-    public static void sendMessages(EntityPlayerMP player, IChatComponent... messages) {
+    public static void sendMessages(EntityPlayerMP player, ITextComponent... messages) {
         if (messages.length > 0) {
             TransmatricsPacketHandler.sendTo(new PacketStatusMessage(messages), player);
         }
@@ -59,29 +59,29 @@ public class MessageHelper {
 
     public static class PacketStatusMessage implements IMessage{
 
-        private IChatComponent[] messages;
+        private ITextComponent[] messages;
 
         public PacketStatusMessage() {
-            messages = new IChatComponent[0];
+            messages = new ITextComponent[0];
         }
 
-        public PacketStatusMessage(IChatComponent... messages) {
+        public PacketStatusMessage(ITextComponent... messages) {
             this.messages = messages;
         }
 
         @Override
         public void fromBytes(ByteBuf buf) {
-            messages = new IChatComponent[buf.readInt()];
+            messages = new ITextComponent[buf.readInt()];
             for (int i = 0; i < messages.length; i++) {
-                messages[i] = IChatComponent.Serializer.jsonToComponent(ByteBufUtils.readUTF8String(buf));
+                messages[i] = ITextComponent.Serializer.jsonToComponent(ByteBufUtils.readUTF8String(buf));
             }
         }
 
         @Override
         public void toBytes(ByteBuf buf) {
             buf.writeInt(messages.length);
-            for (IChatComponent component : messages) {
-                ByteBufUtils.writeUTF8String(buf, IChatComponent.Serializer.componentToJson(component));
+            for (ITextComponent component : messages) {
+                ByteBufUtils.writeUTF8String(buf, ITextComponent.Serializer.componentToJson(component));
             }
         }
 

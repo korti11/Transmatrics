@@ -7,7 +7,7 @@ import at.korti.transmatrics.tileentity.TileEntityEnergySwitch;
 import at.korti.transmatrics.util.helper.WorldHelper;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 
 import java.util.LinkedList;
 import java.util.List;

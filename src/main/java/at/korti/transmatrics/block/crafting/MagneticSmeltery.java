@@ -11,7 +11,7 @@ import net.minecraft.block.material.Material;
 public class MagneticSmeltery extends FluidCraftingMachineBlock {
 
     public MagneticSmeltery() {
-        super(Material.iron, TransmatricsBlock.MAGNETIC_SMELTERY.getRegName(), TileEntityMagneticSmeltery.class, GuiIds.MAGNETIC_SMELTERY_GUI_ID);
+        super(Material.IRON, TransmatricsBlock.MAGNETIC_SMELTERY.getRegName(), TileEntityMagneticSmeltery.class, GuiIds.MAGNETIC_SMELTERY_GUI_ID);
     }
 
 }

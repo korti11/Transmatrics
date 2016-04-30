@@ -6,11 +6,10 @@ import at.korti.transmatrics.api.network.NetworkHandler;
 import at.korti.transmatrics.block.MachineBlock;
 import at.korti.transmatrics.tileentity.network.TileEntityController;
 import at.korti.transmatrics.util.helper.WorldHelper;
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import java.util.LinkedList;
@@ -22,7 +21,7 @@ import java.util.List;
 public class Controller extends MachineBlock{
 
     public Controller() {
-        super(Material.iron, TransmatricsBlock.CONTROLLER.getRegName(), TileEntityController.class);
+        super(Material.IRON, TransmatricsBlock.CONTROLLER.getRegName(), TileEntityController.class);
     }
 
     @Override

@@ -11,7 +11,7 @@ import net.minecraft.block.material.Material;
 public class Windmill extends MachineBlock {
 
     public Windmill() {
-        super(Material.iron, TransmatricsBlock.WINDMILL.getRegName(), TileEntityWindmill.class);
+        super(Material.IRON, TransmatricsBlock.WINDMILL.getRegName(), TileEntityWindmill.class);
     }
 
 }
