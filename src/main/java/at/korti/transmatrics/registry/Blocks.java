@@ -48,7 +48,7 @@ public final class Blocks {
     private static OreBlock oreBlock;
     private static MachineCasing machineCasing;
 
-    public static void registerBlocks() {
+    public static void registerBlocksCommon() {
         registerBlock(solarPanel = new SolarPanel());
         registerBlock(advancedSolarPanel = new AdvancedSolarPanel());
         registerBlock(lavaGenerator = new LavaGenerator());

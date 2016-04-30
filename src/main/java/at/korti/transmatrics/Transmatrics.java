@@ -11,7 +11,6 @@ import at.korti.transmatrics.registry.*;
 import at.korti.transmatrics.world.OreGeneration;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -52,8 +51,6 @@ public class Transmatrics {
         logger = event.getModLog();
         Config.loadConfig(event.getSuggestedConfigurationFile());
         ModIntegrationManager.initManager();
-        Blocks.registerBlocks();
-        Items.registerItems();
         Fluids.registerFluids();
         TileEntities.registerTileEntities();
         GameRegistry.registerWorldGenerator(new OreGeneration(), 1);
@@ -63,8 +60,6 @@ public class Transmatrics {
 
     @Mod.EventHandler
     public static void init(FMLInitializationEvent event) {
-        Items.registerItemTextures();
-        Blocks.registerBlockTextures();
         Crafting.register();
         proxy.init(event);
         TransmatricsPacketHandler.init();

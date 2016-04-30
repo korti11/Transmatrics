@@ -2,7 +2,9 @@ package at.korti.transmatrics.proxy;
 
 import at.korti.transmatrics.client.renderer.FluidRenderer;
 import at.korti.transmatrics.fluid.FluidStateMapper;
+import at.korti.transmatrics.registry.Blocks;
 import at.korti.transmatrics.registry.Fluids;
+import at.korti.transmatrics.registry.Items;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.model.ModelLoader;
@@ -21,6 +23,8 @@ public class ClientProxy extends CommonProxy {
     public void preInit(FMLPreInitializationEvent event) {
         super.preInit(event);
 
+        Items.registerItemsClient();
+
         registerFluidModel(Fluids.moltenCopper);
         registerFluidModel(Fluids.moltenTin);
         registerFluidModel(Fluids.moltenSilver);
@@ -32,6 +36,8 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void init(FMLInitializationEvent event) {
         super.init(event);
+        Items.registerItemTextures();
+        Blocks.registerBlockTextures();
     }
 
     @Override

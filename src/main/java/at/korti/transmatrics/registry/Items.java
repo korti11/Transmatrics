@@ -39,7 +39,7 @@ public final class Items {
     private static ItemElectronics itemElectronics;
     private static ItemPlate itemPlate;
 
-    public static void registerItems() {
+    public static void registerItemsCommon() {
         registerItem(wrench = new ItemWrench());
         registerItem(connector = new ItemConnector());
         registerItem(hammer = new ItemHammer());
@@ -47,10 +47,13 @@ public final class Items {
         registerItem(itemIngot = new ItemIngot());
         registerItem(itemGear = new ItemGear());
         registerItem(itemCast = new ItemCast());
-        addItemVariants(itemCast, itemCast.extensions);
         registerItem(itemElectronics = new ItemElectronics());
-        addItemVariants(itemElectronics, itemElectronics.extensions);
         registerItem(itemPlate = new ItemPlate());
+    }
+
+    public static void registerItemsClient() {
+        addItemVariants(itemCast, itemCast.extensions);
+        addItemVariants(itemElectronics, itemElectronics.extensions);
     }
 
     public static void registerItemTextures() {
