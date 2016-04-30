@@ -8,6 +8,7 @@ import at.korti.transmatrics.item.crafting.ItemPlate;
 import at.korti.transmatrics.item.ore.ItemIngot;
 import at.korti.transmatrics.item.ore.ItemPulverizedDust;
 import at.korti.transmatrics.item.tool.ItemConnector;
+import at.korti.transmatrics.item.tool.ItemHammer;
 import at.korti.transmatrics.item.tool.ItemWrench;
 import at.korti.transmatrics.util.helper.TextHelper;
 import net.minecraft.client.Minecraft;
@@ -30,6 +31,7 @@ public final class Items {
 
     private static ItemWrench wrench;
     private static ItemConnector connector;
+    private static ItemHammer hammer;
     private static ItemPulverizedDust pulverizedDust;
     private static ItemIngot itemIngot;
     private static ItemGear itemGear;
@@ -40,6 +42,7 @@ public final class Items {
     public static void registerItems() {
         registerItem(wrench = new ItemWrench());
         registerItem(connector = new ItemConnector());
+        registerItem(hammer = new ItemHammer());
         registerItem(pulverizedDust = new ItemPulverizedDust());
         registerItem(itemIngot = new ItemIngot());
         registerItem(itemGear = new ItemGear());
@@ -53,6 +56,7 @@ public final class Items {
     public static void registerItemTextures() {
         registerItemTexture(wrench);
         registerItemTexture(connector);
+        registerItemTexture(hammer);
         registerMetaItemTexture(pulverizedDust);
         registerMetaItemTexture(itemIngot);
         registerMetaItemTexture(itemGear);

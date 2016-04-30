@@ -257,7 +257,8 @@ public final class Constants {
         GEAR("Gear"),
         CAST("Cast"),
         ELECTRONICS("Electronics"),
-        PLATE("Plate");
+        PLATE("Plate"),
+        HAMMER("Hammer");
 
         private final String regName;
 

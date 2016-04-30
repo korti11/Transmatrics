@@ -27,6 +27,7 @@ tile.Transmatrics.Ore.lead.name=Lead Ore
 #Items
 item.Transmatrics.Wrench.name=Wrench
 item.Transmatrics.Connector.name=Connector
+item.Transmatrics.Hammer.name=Hammer
 
 #Dusts
 item.Transmatrics.PulverizedDust.iron.name=Pulverized Iron
