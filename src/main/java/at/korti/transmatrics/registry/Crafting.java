@@ -2,8 +2,6 @@ package at.korti.transmatrics.registry;
 
 import at.korti.transmatrics.item.crafting.ItemCast;
 import at.korti.transmatrics.item.crafting.ItemPlate;
-import at.korti.transmatrics.item.electronic.ItemCircuitBoard;
-import at.korti.transmatrics.registry.crafting.CircuitStamperCraftingRegistry;
 import at.korti.transmatrics.registry.crafting.LiquidCasterCraftingRegistry;
 import at.korti.transmatrics.registry.crafting.MagneticSmelteryCraftingRegistry;
 import at.korti.transmatrics.registry.crafting.PulverizerCraftingRegistry;

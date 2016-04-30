@@ -4,7 +4,6 @@ import at.korti.transmatrics.api.Constants;
 import at.korti.transmatrics.api.Constants.NBT;
 import at.korti.transmatrics.api.block.IDismantable;
 import at.korti.transmatrics.api.block.IRotatable;
-import at.korti.transmatrics.api.electronic.IElectronicPartStorage;
 import at.korti.transmatrics.api.network.INetworkNode;
 import at.korti.transmatrics.api.network.INetworkSwitch;
 import at.korti.transmatrics.config.Config;
@@ -146,7 +145,7 @@ public abstract class MachineBlock extends ModBlockContainer implements IDismant
             } else if (tileEntity instanceof INetworkNode) {
                 ((INetworkNode) tileEntity).disconnectFromNode();
             }
-            WorldHelper.spawnItem(worldIn, writeElectronicParts(worldIn, pos, stack), pos);
+            WorldHelper.spawnItem(worldIn, stack, pos);
             super.breakBlock(worldIn, pos, state);
         }
     }
@@ -175,16 +174,6 @@ public abstract class MachineBlock extends ModBlockContainer implements IDismant
 
             worldIn.setBlockState(posIn, stateIn, 3);
         }
-    }
-
-    private ItemStack writeElectronicParts(World world, BlockPos pos, @Nonnull ItemStack stack){
-        TileEntity tileEntity = world.getTileEntity(pos);
-        if (tileEntity instanceof IElectronicPartStorage && Config.useCircuitSystem) {
-            IElectronicPartStorage partStorage = (IElectronicPartStorage) tileEntity;
-            NBTTagCompound electronicPats = stack.getSubCompound(NBT.ELECTRONIC_PARTS, true);
-            partStorage.writePartsToNBT(electronicPats);
-        }
-        return stack;
     }
 }
 

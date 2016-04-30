@@ -1,13 +1,11 @@
 package at.korti.transmatrics.tileentity;
 
 import at.korti.transmatrics.api.Constants.NBT;
-import at.korti.transmatrics.api.electronic.IElectronicPartStorage;
 import at.korti.transmatrics.api.crafting.ICraftingRegistry;
 import at.korti.transmatrics.api.crafting.ICraftingRegistry.ICraftingEntry;
 import at.korti.transmatrics.block.ActiveMachineBlock;
 import at.korti.transmatrics.event.MachineCraftingEvent;
 import at.korti.transmatrics.util.helper.CraftingHelper;
-import at.korti.transmatrics.util.helper.ElectronicPartsHelper;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -22,7 +20,7 @@ import static net.minecraftforge.common.MinecraftForge.EVENT_BUS;
 /**
  * Created by Korti on 15.03.2016.
  */
-public abstract class TileEntityCraftingMachine extends TileEntityInventory implements ISidedInventory, IElectronicPartStorage{
+public abstract class TileEntityCraftingMachine extends TileEntityInventory implements ISidedInventory {
 
     protected ICraftingRegistry<ItemStack> craftingRegistry;
     private int craftingTime;
@@ -31,22 +29,11 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
     protected int efficiency;
     protected int maxEfficiency;
 
-    protected List<ItemStack> electronicParts;
-
-    protected final int defaultCapacity;
-    protected final int defaultMaxReceive;
-    protected final int defaultEnergyUse;
-
     protected TileEntityCraftingMachine(int capacity, int maxReceive, int energyUse, String name, ICraftingRegistry<ItemStack> registry) {
         super(capacity, maxReceive, registry.inventorySize(), registry.getStackLimit(), name);
         this.craftingRegistry = registry;
         this.energyUse = energyUse;
         this.calculateMaxEfficiency();
-        this.electronicParts = new LinkedList<>();
-
-        this.defaultCapacity = capacity;
-        this.defaultMaxReceive = maxReceive;
-        this.defaultEnergyUse = energyUse;
     }
 
     //region TileEntity
@@ -56,9 +43,6 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
         compound.setInteger(NBT.CRAFTING_TIME, craftingTime);
         compound.setInteger(NBT.TOTAL_CRAFTING_TIME, totalCraftingTime);
         compound.setInteger(NBT.CRAFTING_EFFICIENCY, efficiency);
-        NBTTagCompound electronicParts = new NBTTagCompound();
-        writePartsToNBT(electronicParts);
-        compound.setTag(NBT.ELECTRONIC_PARTS, electronicParts);
     }
 
     @Override
@@ -67,7 +51,6 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
         this.craftingTime = compound.getInteger(NBT.CRAFTING_TIME);
         this.totalCraftingTime = compound.getInteger(NBT.TOTAL_CRAFTING_TIME);
         this.efficiency = compound.getInteger(NBT.CRAFTING_EFFICIENCY);
-        readPartsFromNBT(compound.getCompoundTag(NBT.ELECTRONIC_PARTS));
     }
     //endregion
 
@@ -361,60 +344,6 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
             this.craftingTime = 0;
             this.efficiency = 0;
         }
-    }
-    //endregion
-
-    //region IElectronicPartStorage
-    @Override
-    public void addElectronicPart(ItemStack part) {
-        this.electronicParts.add(part);
-    }
-
-    @Override
-    public void addElectronicParts(List<ItemStack> itemStacks) {
-        this.electronicParts.addAll(itemStacks);
-    }
-
-    @Override
-    public List<ItemStack> getElectronicParts() {
-        return this.electronicParts;
-    }
-
-    @Override
-    public void updateStorage() {
-        this.energyStorage.setCapacity(ElectronicPartsHelper.updateEnergyStorage(electronicParts, defaultCapacity, 1));
-        this.calculateMaxEfficiency();
-        this.maxEfficiency = ElectronicPartsHelper.updateMaxEfficiency(electronicParts, maxEfficiency, 2);
-        this.energyStorage.setMaxReceive(ElectronicPartsHelper.updateReceive(electronicParts, defaultMaxReceive, 0));
-    }
-
-    @Override
-    public void clearStorage() {
-        this.electronicParts.clear();
-    }
-
-    @Override
-    public int countElectronicParts() {
-        return this.electronicParts.size();
-    }
-
-    @Override
-    public void writePartsToNBT(NBTTagCompound tagCompound) {
-        for (ItemStack stack : electronicParts) {
-            NBTTagCompound stackCompound = new NBTTagCompound();
-            stack.writeToNBT(stackCompound);
-            tagCompound.setTag(stack.getUnlocalizedName(), stackCompound);
-        }
-    }
-
-    public void readPartsFromNBT(NBTTagCompound tagCompound) {
-        Set<String> keys = tagCompound.getKeySet();
-        for (String key : keys) {
-            NBTTagCompound stackCompound = tagCompound.getCompoundTag(key);
-            ItemStack stack = ItemStack.loadItemStackFromNBT(stackCompound);
-            electronicParts.add(stack);
-        }
-        updateStorage();
     }
     //endregion
 }

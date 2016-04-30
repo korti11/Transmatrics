@@ -5,10 +5,6 @@ import at.korti.transmatrics.item.crafting.ItemCast;
 import at.korti.transmatrics.item.crafting.ItemElectronics;
 import at.korti.transmatrics.item.crafting.ItemGear;
 import at.korti.transmatrics.item.crafting.ItemPlate;
-import at.korti.transmatrics.item.electronic.ItemBlankCircuitBoard;
-import at.korti.transmatrics.item.electronic.ItemCircuit;
-import at.korti.transmatrics.item.electronic.ItemCircuitBoard;
-import at.korti.transmatrics.item.electronic.ItemElectronicParts;
 import at.korti.transmatrics.item.ore.ItemIngot;
 import at.korti.transmatrics.item.ore.ItemPulverizedDust;
 import at.korti.transmatrics.item.tool.ItemConnector;
@@ -38,10 +34,6 @@ public final class Items {
     private static ItemIngot itemIngot;
     private static ItemGear itemGear;
     private static ItemCast itemCast;
-    private static ItemBlankCircuitBoard itemBlankCircuitBoard;
-    private static ItemCircuitBoard itemCircuitBoard;
-    private static ItemElectronicParts itemElectronicParts;
-    private static ItemCircuit itemCircuit;
     private static ItemElectronics itemElectronics;
     private static ItemPlate itemPlate;
 
@@ -53,9 +45,6 @@ public final class Items {
         registerItem(itemGear = new ItemGear());
         registerItem(itemCast = new ItemCast());
         addItemVariants(itemCast, itemCast.extensions);
-        if (Config.useCircuitSystem) {
-            registerItemsCircuitSystem();
-        }
         registerItem(itemElectronics = new ItemElectronics());
         addItemVariants(itemElectronics, itemElectronics.extensions);
         registerItem(itemPlate = new ItemPlate());
@@ -68,9 +57,6 @@ public final class Items {
         registerMetaItemTexture(itemIngot);
         registerMetaItemTexture(itemGear);
         registerMetaItemTexture(itemCast, itemCast.extensions);
-        if (Config.useCircuitSystem) {
-            registerTexturesCircuitSystem();
-        }
         registerMetaItemTexture(itemElectronics, itemElectronics.extensions);
         registerMetaItemTexture(itemPlate);
     }
@@ -105,21 +91,6 @@ public final class Items {
             ModelBakery.registerItemVariants(item,
                     new ResourceLocation(subItems.get(i).getItem().getRegistryName() + extension));
         }
-    }
-
-    private static void registerItemsCircuitSystem() {
-        registerItem(itemBlankCircuitBoard = new ItemBlankCircuitBoard());
-        registerItem(itemCircuitBoard = new ItemCircuitBoard());
-        registerItem(itemElectronicParts = new ItemElectronicParts());
-        addItemVariants(itemElectronicParts, itemElectronicParts.extensions);
-        registerItem(itemCircuit = new ItemCircuit());
-    }
-
-    private static void registerTexturesCircuitSystem() {
-        registerMetaItemTexture(itemBlankCircuitBoard);
-        registerMetaItemTexture(itemCircuitBoard);
-        registerMetaItemTexture(itemElectronicParts, itemElectronicParts.extensions);
-        registerMetaItemTexture(itemCircuit);
     }
 
 }

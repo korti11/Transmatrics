@@ -31,7 +31,6 @@ public final class Constants {
             public static final String PULVERIZER = Mod.MODID + ":Pulverizer";
             public static final String MAGNETIC_SMELTERY = Mod.MODID + ":MagneticSmeltery";
             public static final String LIQUID_CASTER = Mod.MODID + ":LiquidCaster";
-            public static final String CIRCUIT_STAMPER = Mod.MODID + ":CircuitStamper";
         }
     }
 
@@ -75,10 +74,6 @@ public final class Constants {
         //Colored item
         public static final String COLOR_LAYERS = "color_layers";
         public static final String COLOR_LAYER = "color_layer_%d";
-
-        //Circuit
-        public static final String ELECTRONIC_PARTS = "electronic_parts";
-        public static final String CONDUCTION_ITEM = "conduction_item";
     }
 
     public static class NetworkMessages{
@@ -98,14 +93,6 @@ public final class Constants {
         //Connector
         public static final String CONNECTION_NAME = "tooltip.connector.connection.name";
         public static final String CONNECTION_POS = "tooltip.connector.connection.pos";
-
-        //Electronic part
-        public static final String ELECTRONIC_PART_META = "tooltip.electronic.part.meta%d";
-
-        //Circuit
-        public static final String ELECTRONIC_PARTS = "tooltip.circuit.parts";
-        public static final String ELECTRONIC_PART = "tooltip.circuit.part";
-        public static final String ELECTRONIC_CIRCUIT_SMALL_INFO = "tooltip.circuit.small.info";
     }
 
     public static class Energy{
@@ -187,16 +174,6 @@ public final class Constants {
         public static final int LIQUID_CASTER_CAPACITY = 5000;
         public static final int LIQUID_CASTER_RECEIVE = 500;
         public static final int LIQUID_CASTER_ENERGY_USE = 25;
-
-        //Circuit Stamper
-        public static final int CIRCUIT_STAMPER_CAPACITY = 5000;
-        public static final int CIRCUIT_STAMPER_RECEIVE = 500;
-        public static final int CIRCUIT_STAMPER_ENERGY_USE = 25;
-
-        //Circuit Workbench
-        public static final int CIRCUIT_WORKBENCH_CAPACITY = 5000;
-        public static final int CIRCUIT_WORKBENCH_RECEIVE = 500;
-        public static final int CIRCUIT_WORKBENCH_ENERGY_USE = 25;
     }
 
     public static class Tanks{
@@ -236,8 +213,6 @@ public final class Constants {
         public static final int POWERED_FURNACE_GUI_ID = 1;
         public static final int MAGNETIC_SMELTERY_GUI_ID = 2;
         public static final int LIQUID_CASTER_GUI_ID = 3;
-        public static final int CIRCUIT_STAMPER_GUI_ID = 4;
-        public static final int CIRCUIT_WORKBENCH_GUI_ID = 5;
     }
 
     public enum TransmatricsBlock {
@@ -256,8 +231,6 @@ public final class Constants {
         POWERED_FURNACE("PoweredFurnace"),
         MAGNETIC_SMELTERY("MagneticSmeltery"),
         LIQUID_CASTER("LiquidCaster"),
-        CIRCUIT_STAMPER("CircuitStamper"),
-        CIRCUIT_WORKBENCH("CircuitWorkbench"),
         ORE_BLOCK("Ore"),
         MACHINE_CASING("MachineCasing");
 
@@ -283,10 +256,6 @@ public final class Constants {
         INGOT("Ingot"),
         GEAR("Gear"),
         CAST("Cast"),
-        BLANK_CIRCUIT_BOARD("BlankCircuitBoard"),
-        CIRCUIT_BOARDER("CircuitBoard"),
-        ELECTRONIC_PARTS("ElectronicParts"),
-        CIRCUIT("Circuit"),
         ELECTRONICS("Electronics"),
         PLATE("Plate");
 
@@ -320,9 +289,7 @@ public final class Constants {
         PULVERIZER("TilePulverizer"),
         POWERED_FURNACE("TilePoweredFurnace"),
         MAGNETIC_SMELTERY("TileMagneticSmeltery"),
-        LIQUID_CASTER("TileLiquidCaster"),
-        CIRCUIT_STAMPER("TileCircuitStamper"),
-        CIRCUIT_WORKBENCH("TileCircuitWorkbench");
+        LIQUID_CASTER("TileLiquidCaster");
 
         private final String regName;
 

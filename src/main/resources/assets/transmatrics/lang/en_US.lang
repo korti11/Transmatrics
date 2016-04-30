@@ -16,8 +16,6 @@ tile.Transmatrics.Pulverizer.name=Pulverizer
 tile.Transmatrics.PoweredFurnace.name=Powered Furnace
 tile.Transmatrics.MagneticSmeltery.name=Magnetic Smeltery
 tile.Transmatrics.LiquidCaster.name=Liquid Caster
-tile.Transmatrics.CircuitStamper.name=Circuit Stamper
-tile.Transmatrics.CircuitWorkbench.name=Circuit Workbench
 tile.Transmatrics.MachineCasing.name=Machine Casing
 
 #Ore
@@ -61,18 +59,6 @@ item.Transmatrics.Cast.gear.name=Gear Cast
 item.Transmatrics.Cast.plate.name=Plate Cast
 
 #Electronics
-item.Transmatrics.BlankCircuitBoard.redstone.name=Blank Redstone Circuit Board
-item.Transmatrics.BlankCircuitBoard.quartz.name=Blank Quartz Circuit Board
-item.Transmatrics.BlankCircuitBoard.ender.name=Blank Ender Circuit Board
-item.Transmatrics.CircuitBoard.redstone.name=Redstone Circuit Bord
-item.Transmatrics.CircuitBoard.quartz.name=Quartz Circuit Bord
-item.Transmatrics.CircuitBoard.ender.name=Ender Circuit Bord
-item.Transmatrics.Circuit.redstone.name=Restone Circuit
-item.Transmatrics.Circuit.quartz.name=Quartz Circuit
-item.Transmatrics.Circuit.ender.name=Ender Circuit
-item.Transmatrics.ElectronicParts.inductance.name=Inductance
-item.Transmatrics.ElectronicParts.capacitance.name=Capacitance
-item.Transmatrics.ElectronicParts.heatSink.name=Heat Sink
 item.Transmatrics.Electronics.basicCircuit.name=Basic Circuit
 item.Transmatrics.Electronics.advancedCircuit.name=Advanced Circuit
 item.Transmatrics.Electronics.shortTransmitter.name=Short Transmitter
@@ -107,12 +93,6 @@ network.already_connected.message=[Network] The nodes are already connected.
 tooltip.connector.connection.name=Name: %s
 tooltip.connector.connection.pos=Pos: [x: %d, y: %d, z: %d]
 tooltip.pulverizer.output.chance=Chance:
-tooltip.circuit.parts=Electronic Parts:
-tooltip.circuit.part=%dx %s
-tooltip.circuit.small.info=<Press Shift>
-tooltip.electronic.part.meta0=Transfer rate improvement by %d TF/t
-tooltip.electronic.part.meta1=Capacity improvement by %d TF
-tooltip.electronic.part.meta2=Efficiency improvement by %d
 
 #Gui
 gui.tank.empty=Empty

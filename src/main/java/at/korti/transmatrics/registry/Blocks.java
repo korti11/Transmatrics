@@ -46,8 +46,6 @@ public final class Blocks {
     private static PoweredFurnace poweredFurnace;
     private static MagneticSmeltery magneticSmeltery;
     private static LiquidCaster liquidCaster;
-    private static CircuitStamper circuitStamper;
-    private static CircuitWorkbench circuitWorkbench;
     private static OreBlock oreBlock;
     private static MachineCasing machineCasing;
 
@@ -67,9 +65,6 @@ public final class Blocks {
         registerBlock(poweredFurnace = new PoweredFurnace(), ItemMachineBlock.class);
         registerBlock(magneticSmeltery = new MagneticSmeltery(), ItemMachineBlock.class);
         registerBlock(liquidCaster = new LiquidCaster(), ItemMachineBlock.class);
-        if (Config.useCircuitSystem) {
-            registerBlocksCircuitSystem();
-        }
         registerBlock(oreBlock = new OreBlock(), ItemOreBlock.class);
         registerBlock(machineCasing = new MachineCasing());
     }
@@ -90,9 +85,6 @@ public final class Blocks {
         registerBlockTexture(poweredFurnace);
         registerBlockTexture(magneticSmeltery);
         registerBlockTexture(liquidCaster);
-        if (Config.useCircuitSystem) {
-            registerTexturesCircuitSystem();
-        }
         registerMetaBlockTextures(oreBlock, OreBlock.OreType.values());
         registerBlockTexture(machineCasing);
     }
@@ -109,16 +101,6 @@ public final class Blocks {
             Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(blockItem, subItems.get(i).getMetadata(),
                     new ModelResourceLocation(block.getRegistryName(), "type=" + variants[i].toString()));
         }
-    }
-
-    private static void registerBlocksCircuitSystem() {
-        registerBlock(circuitStamper = new CircuitStamper(), ItemMachineBlock.class);
-        registerBlock(circuitWorkbench = new CircuitWorkbench());
-    }
-
-    private static void registerTexturesCircuitSystem() {
-        registerBlockTexture(circuitStamper);
-        registerBlockTexture(circuitWorkbench);
     }
 
 }
