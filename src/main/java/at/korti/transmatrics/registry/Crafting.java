@@ -1,6 +1,7 @@
 package at.korti.transmatrics.registry;
 
-import at.korti.transmatrics.config.Config;
+import at.korti.transmatrics.item.crafting.ItemCast;
+import at.korti.transmatrics.item.crafting.ItemPlate;
 import at.korti.transmatrics.item.electronic.ItemCircuitBoard;
 import at.korti.transmatrics.registry.crafting.CircuitStamperCraftingRegistry;
 import at.korti.transmatrics.registry.crafting.LiquidCasterCraftingRegistry;
@@ -12,9 +13,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 
-import static at.korti.transmatrics.api.Constants.TransmatricsBlock.ORE_BLOCK;
-import static at.korti.transmatrics.api.Constants.TransmatricsBlock.PULVERIZER;
+import static at.korti.transmatrics.api.Constants.TransmatricsBlock.*;
 import static at.korti.transmatrics.api.Constants.TransmatricsItem.*;
 
 /**
@@ -30,26 +31,195 @@ public final class Crafting {
         registerFurnaceCrafting();
         registerMagneticSmelteryCrafting();
         registerLiquidCasterCrafting();
-        if(Config.useCircuitSystem) {
-            registerCircuitStamperCrafting();
-        }
     }
 
     private static void registerCrafting() {
-        if (Config.useCircuitSystem) {
-            registerCircuitCrafting();
-        } else {
-            // crafting with no circuits
+        // solar panel
+        registerShapedOreRecipe(new ItemStack(SOLAR_PANEL.getBlock()),
+                "   ",
+                "DDD",
+                "ICI", 'D', new ItemStack(Blocks.daylight_detector), 'C', new ItemStack(ELECTRONICS.getItem()), 'I',
+                new ItemStack(Items.iron_ingot)
+        );
+        // advanced solar panel
+        registerShapedOreRecipe(new ItemStack(ADVANCED_SOLAR_PANEL.getBlock()),
+                " S ",
+                "SCS",
+                " S ", 'S', new ItemStack(SOLAR_PANEL.getBlock()), 'C', new ItemStack(ELECTRONICS.getItem(), 1, 1)
+        );
+        // lava generator
+        registerShapedOreRecipe(new ItemStack(LAVA_GENERATOR.getBlock()),
+                "IBI",
+                "BMB",
+                "ICI", 'B', new ItemStack(Items.bucket), 'M', new ItemStack(MACHINE_CASING.getBlock()), 'I',
+                new ItemStack(Items.iron_ingot), 'C', new ItemStack(ELECTRONICS.getItem())
+        );
+        // watermill
+        registerShapedOreRecipe(new ItemStack(WATERMILL.getBlock()),
+                "IWI",
+                "GMG",
+                "ICI", 'W', new ItemStack(Items.water_bucket), 'M', new ItemStack(MACHINE_CASING.getBlock()), 'I',
+                new ItemStack(Items.iron_ingot), 'C', new ItemStack(ELECTRONICS.getItem()), 'G',
+                new ItemStack(GEAR.getItem(), 1, 1)
+        );
+        // windmill
+        registerShapedOreRecipe(new ItemStack(WINDMILL.getBlock()),
+                "III",
+                "GMG",
+                "ICI", 'M', new ItemStack(MACHINE_CASING.getBlock()), 'I', new ItemStack(Items.iron_ingot),
+                'C', new ItemStack(ELECTRONICS.getItem()), 'G', new ItemStack(GEAR.getItem(), 1, 1)
+        );
+        // thermal generator
+        registerShapedOreRecipe(new ItemStack(THERMAL_GENERATOR.getBlock()),
+                "III",
+                "LML",
+                "ICI", 'M', new ItemStack(MACHINE_CASING.getBlock()), 'I', new ItemStack(Items.iron_ingot),
+                'C', new ItemStack(ELECTRONICS.getItem(), 1, 1), 'L', new ItemStack(Items.lava_bucket)
+        );
+        // hydrogen generator
+        registerShapedOreRecipe(new ItemStack(HYDROGEN_GENERATOR.getBlock()),
+                "IBI",
+                "BMB",
+                "ICI", 'B', new ItemStack(Items.bucket), 'M', new ItemStack(MACHINE_CASING.getBlock()), 'I',
+                new ItemStack(Items.iron_ingot), 'C', new ItemStack(ELECTRONICS.getItem(), 1, 1)
+        );
+        // controller
+        registerShapedOreRecipe(new ItemStack(CONTROLLER.getBlock()),
+                "ICI",
+                "CMC",
+                "ITI", 'T', new ItemStack(ELECTRONICS.getItem(), 1, 4), 'M', new ItemStack(MACHINE_CASING.getBlock()), 'I',
+                new ItemStack(Items.iron_ingot), 'C', new ItemStack(ELECTRONICS.getItem(), 1, 1)
+        );
+        // small switch
+        registerShapedOreRecipe(new ItemStack(SMALL_SWITCH.getBlock()),
+                "ICI",
+                "CMC",
+                "ITI", 'T', new ItemStack(ELECTRONICS.getItem(), 1, 2), 'M', new ItemStack(MACHINE_CASING.getBlock()), 'I',
+                new ItemStack(Items.iron_ingot), 'C', new ItemStack(ELECTRONICS.getItem())
+        );
+        // medium switch
+        registerShapedOreRecipe(new ItemStack(MEDIUM_SWITCH.getBlock()),
+                "ICI",
+                "CMC",
+                "ITI", 'T', new ItemStack(ELECTRONICS.getItem(), 1, 3), 'M', new ItemStack(MACHINE_CASING.getBlock()), 'I',
+                new ItemStack(Items.iron_ingot), 'C', new ItemStack(ELECTRONICS.getItem())
+        );
+        // large switch
+        registerShapedOreRecipe(new ItemStack(LARGE_SWITCH.getBlock()),
+                "ICI",
+                "CMC",
+                "ITI", 'T', new ItemStack(ELECTRONICS.getItem(), 1, 4), 'M', new ItemStack(MACHINE_CASING.getBlock()), 'I',
+                new ItemStack(Items.iron_ingot), 'C', new ItemStack(ELECTRONICS.getItem())
+        );
+        // pulverizer
+        registerShapedOreRecipe(new ItemStack(PULVERIZER.getBlock()),
+                "FFF",
+                "IMI",
+                "ICI", 'M', new ItemStack(MACHINE_CASING.getBlock()), 'I', new ItemStack(Items.iron_ingot),
+                'C', new ItemStack(ELECTRONICS.getItem()), 'F', new ItemStack(Items.flint)
+        );
+        // powered furnace
+        registerShapedOreRecipe(new ItemStack(POWERED_FURNACE.getBlock()),
+                "IFI",
+                "IMI",
+                "ICI", 'M', new ItemStack(MACHINE_CASING.getBlock()), 'I', new ItemStack(Items.iron_ingot),
+                'C', new ItemStack(ELECTRONICS.getItem()), 'F', new ItemStack(Blocks.furnace)
+        );
+        // magnetic smeltery
+        registerShapedOreRecipe(new ItemStack(MAGNETIC_SMELTERY.getBlock()),
+                "ILI",
+                "IMI",
+                "ICI", 'M', new ItemStack(MACHINE_CASING.getBlock()), 'I', new ItemStack(Items.iron_ingot),
+                'C', new ItemStack(ELECTRONICS.getItem()), 'L', new ItemStack(Items.lava_bucket)
+        );
+        // liquid caster
+        for (int i = 0; i < ItemCast.extensions.length; i++) {
+            registerShapedOreRecipe(new ItemStack(LIQUID_CASTER.getBlock()),
+                    "IAI",
+                    "IMI",
+                    "ICI", 'M', new ItemStack(MACHINE_CASING.getBlock()), 'I', new ItemStack(Items.iron_ingot),
+                    'C', new ItemStack(ELECTRONICS.getItem()), 'A', new ItemStack(CAST.getItem(), 1, i)
+            );
         }
+        // machine casing
+        registerShapedOreRecipe(new ItemStack(MACHINE_CASING.getBlock()),
+                "BPB",
+                "P P",
+                "BPB", 'B', new ItemStack(Blocks.iron_bars), 'P', new ItemStack(PLATE.getItem(), 1, 0)
+        );
+        // basic circuit
+        registerShapedOreRecipe(new ItemStack(ELECTRONICS.getItem()),
+                "TRT",
+                "RPR",
+                "TRT", 'R', new ItemStack(Items.redstone), 'P', new ItemStack(PLATE.getItem(), 1, 1), 'T',
+                new ItemStack(PLATE.getItem(), 1, 2)
+        );
+        // advanced circuit
+        registerShapedOreRecipe(new ItemStack(ELECTRONICS.getItem(), 1, 1),
+                "SLS",
+                "LCL",
+                "SLS", 'L', new ItemStack(Items.dye, 1, 4), 'S', new ItemStack(INGOT.getItem(), 1, 2), 'C',
+                new ItemStack(ELECTRONICS.getItem())
+        );
+        // short transmitter
+        registerShapedOreRecipe(new ItemStack(ELECTRONICS.getItem(), 1, 2),
+                "P",
+                "I", 'P', new ItemStack(Items.ender_pearl), 'I', new ItemStack(Items.iron_ingot)
+        );
+        // transmitter
+        registerShapedOreRecipe(new ItemStack(ELECTRONICS.getItem(), 1, 3),
+                "P",
+                "T",
+                "P", 'P', new ItemStack(Items.ender_pearl), 'T', new ItemStack(ELECTRONICS.getItem(), 1, 2)
+        );
+        registerShapedOreRecipe(new ItemStack(ELECTRONICS.getItem(), 1, 3),
+                "   ",
+                "PTP",
+                "   ", 'P', new ItemStack(Items.ender_pearl), 'T', new ItemStack(ELECTRONICS.getItem(), 1, 2)
+        );
+        // long transmitter
+        registerShapedOreRecipe(new ItemStack(ELECTRONICS.getItem(), 1, 4),
+                " P ",
+                "PTP",
+                " P ", 'P', new ItemStack(Items.ender_pearl), 'T', new ItemStack(ELECTRONICS.getItem(), 1, 3)
+        );
+        // ingot casting
+        registerShapedOreRecipe(new ItemStack(CAST.getItem()),
+                "PPP",
+                "PIP",
+                "PPP", 'P', new ItemStack(PLATE.getItem()), 'I', new ItemStack(Items.iron_ingot)
+        );
+        // gear casting
+        registerShapedOreRecipe(new ItemStack(CAST.getItem(), 1, 1),
+                "IPI",
+                "PPP",
+                "IPI", 'I', new ItemStack(Items.iron_ingot), 'P', new ItemStack(PLATE.getItem())
+        );
+        // plate casting
+        for (int i = 0; i < ItemPlate.extensions.length; i++) {
+            registerShapedOreRecipe(new ItemStack(CAST.getItem(), 1, 2),
+                    "III",
+                    "IPI",
+                    "III", 'I', new ItemStack(Items.iron_ingot), 'P', new ItemStack(PLATE.getItem(), 1, i)
+            );
+        }
+        // wrench
+        registerShapedOreRecipe(new ItemStack(WRENCH.getItem()),
+                "P P",
+                " I ",
+                " I ", 'I', new ItemStack(Items.iron_ingot), 'P', new ItemStack(PLATE.getItem(), 1, 2)
+        );
+        // connector
+        registerShapedOreRecipe(new ItemStack(CONNECTOR.getItem()),
+                "   ",
+                "T  ",
+                "PCP", 'T', new ItemStack(ELECTRONICS.getItem(), 1, 3), 'P', new ItemStack(PLATE.getItem()), 'C',
+                new ItemStack(ELECTRONICS.getItem())
+        );
     }
 
-    private static void registerCircuitCrafting() {
-        GameRegistry.addShapedRecipe(new ItemStack(PULVERIZER.getBlock()),
-                "FFF",
-                "IBI",
-                "ICI", 'F', new ItemStack(Items.flint), 'I', new ItemStack(Items.iron_ingot), 'B',
-                new ItemStack(Blocks.iron_block), 'C', new ItemStack(CIRCUIT.getItem())
-        );
+    private static void registerShapedOreRecipe(ItemStack output, Object... recipe) {
+        GameRegistry.addRecipe(new ShapedOreRecipe(output, recipe));
     }
 
     private static void registerPulverizerCrafting() {
@@ -127,29 +297,14 @@ public final class Crafting {
                 new FluidStack(Fluids.moltenLead, FLUID_AMOUNT_PER_INGOT), new ItemStack(CAST.getItem(), 1, 0),
                 new ItemStack(INGOT.getItem(), 1, 3), 20 * 8
         );
+
+        LiquidCasterCraftingRegistry.getInstance().register(
+                new FluidStack(Fluids.moltenCopper, FLUID_AMOUNT_PER_INGOT), new ItemStack(CAST.getItem(), 1, 2),
+                new ItemStack(PLATE.getItem(), 1, 1), 20 * 8
+        );
+        LiquidCasterCraftingRegistry.getInstance().register(
+                new FluidStack(Fluids.moltenTin, FLUID_AMOUNT_PER_INGOT), new ItemStack(CAST.getItem(), 1, 2),
+                new ItemStack(PLATE.getItem(), 1, 2), 20 * 8
+        );
     }
-
-    private static void registerCircuitStamperCrafting() {
-        CircuitStamperCraftingRegistry.getInstance().register(new ItemStack(BLANK_CIRCUIT_BOARD.getItem(), 1, 0),
-                new ItemStack(INGOT.getItem(), 1, 0), 20 * 22);
-        CircuitStamperCraftingRegistry.getInstance().register(new ItemStack(BLANK_CIRCUIT_BOARD.getItem(), 1, 0),
-                new ItemStack(INGOT.getItem(), 1, 2), 20 * 12);
-        CircuitStamperCraftingRegistry.getInstance().register(new ItemStack(BLANK_CIRCUIT_BOARD.getItem(), 1, 0),
-                new ItemStack(Items.diamond), ItemCircuitBoard.conductionColors[2], 20 * 12);
-
-        CircuitStamperCraftingRegistry.getInstance().register(new ItemStack(BLANK_CIRCUIT_BOARD.getItem(), 1, 1),
-                new ItemStack(INGOT.getItem(), 1, 0), 20 * 12);
-        CircuitStamperCraftingRegistry.getInstance().register(new ItemStack(BLANK_CIRCUIT_BOARD.getItem(), 1, 1),
-                new ItemStack(INGOT.getItem(), 1, 2), 20 * 12);
-        CircuitStamperCraftingRegistry.getInstance().register(new ItemStack(BLANK_CIRCUIT_BOARD.getItem(), 1, 1),
-                new ItemStack(Items.diamond), ItemCircuitBoard.conductionColors[2], 20 * 12);
-
-        CircuitStamperCraftingRegistry.getInstance().register(new ItemStack(BLANK_CIRCUIT_BOARD.getItem(), 1, 2),
-                new ItemStack(INGOT.getItem(), 1, 0), 20 * 12);
-        CircuitStamperCraftingRegistry.getInstance().register(new ItemStack(BLANK_CIRCUIT_BOARD.getItem(), 1, 2),
-                new ItemStack(INGOT.getItem(), 1, 2), 20 * 12);
-        CircuitStamperCraftingRegistry.getInstance().register(new ItemStack(BLANK_CIRCUIT_BOARD.getItem(), 1, 2),
-                new ItemStack(Items.diamond), ItemCircuitBoard.conductionColors[2], 20 * 12);
-    }
-
 }
