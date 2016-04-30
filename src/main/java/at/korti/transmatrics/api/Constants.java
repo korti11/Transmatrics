@@ -93,6 +93,9 @@ public final class Constants {
         //Connector
         public static final String CONNECTION_NAME = "tooltip.connector.connection.name";
         public static final String CONNECTION_POS = "tooltip.connector.connection.pos";
+
+        //Hammer
+        public static final String HAMMER_USES_LEFT = "tooltip.hammer.uses.left";
     }
 
     public static class Energy{

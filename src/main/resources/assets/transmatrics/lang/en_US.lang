@@ -94,6 +94,7 @@ network.already_connected.message=[Network] The nodes are already connected.
 tooltip.connector.connection.name=Name: %s
 tooltip.connector.connection.pos=Pos: [x: %d, y: %d, z: %d]
 tooltip.pulverizer.output.chance=Chance:
+tooltip.hammer.uses.left=Uses left: %d
 
 #Gui
 gui.tank.empty=Empty

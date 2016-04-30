@@ -11,7 +11,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 import static at.korti.transmatrics.api.Constants.TransmatricsBlock.*;
 import static at.korti.transmatrics.api.Constants.TransmatricsItem.*;
@@ -214,10 +216,32 @@ public final class Crafting {
                 "PCP", 'T', new ItemStack(ELECTRONICS.getItem(), 1, 3), 'P', new ItemStack(PLATE.getItem()), 'C',
                 new ItemStack(ELECTRONICS.getItem())
         );
+        // hammer
+        registerShapedOreRecipe(new ItemStack(HAMMER.getItem()),
+                " I ",
+                " SI",
+                "S  ", 'I', new ItemStack(Items.iron_ingot), 'S', new ItemStack(Items.stick)
+        );
+        // iron plate
+        registerShapelessOreRecipe(new ItemStack(PLATE.getItem()),
+                new ItemStack(HAMMER.getItem(), 1, OreDictionary.WILDCARD_VALUE),
+                new ItemStack(Items.iron_ingot)
+        );
+        for (int i = 1; i < ItemPlate.extensions.length; i++) {
+            registerShapelessOreRecipe(new ItemStack(PLATE.getItem(), 1, i),
+                    new ItemStack(HAMMER.getItem(), 1, OreDictionary.WILDCARD_VALUE),
+                    new ItemStack(INGOT.getItem(), 1, i - 1)
+            );
+        }
+
     }
 
     private static void registerShapedOreRecipe(ItemStack output, Object... recipe) {
         GameRegistry.addRecipe(new ShapedOreRecipe(output, recipe));
+    }
+
+    private static void registerShapelessOreRecipe(ItemStack output, Object... recipe) {
+        GameRegistry.addRecipe(new ShapelessOreRecipe(output, recipe));
     }
 
     private static void registerPulverizerCrafting() {
