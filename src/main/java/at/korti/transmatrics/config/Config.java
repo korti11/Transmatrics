@@ -9,14 +9,9 @@ import java.io.File;
  */
 public class Config {
 
-    public static boolean useCircuitSystem;
-
     public static void loadConfig(File file) {
         Configuration configuration = new Configuration(file);
         configuration.load();
-
-        useCircuitSystem = configuration.getBoolean("UseCircuitSystem", "Systems", false,
-                "The circuit system can be used to improve the machines over the crafting recipe.");
 
         configuration.save();
     }

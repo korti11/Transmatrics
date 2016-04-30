@@ -20,5 +20,7 @@ build
 # other
 eclipse
 run
+runServer
 classes
 TransmatricsInfo.txt
+Logo.png

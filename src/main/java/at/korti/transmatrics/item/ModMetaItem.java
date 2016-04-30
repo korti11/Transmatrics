@@ -4,8 +4,8 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
-import scala.actors.threadpool.Arrays;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
