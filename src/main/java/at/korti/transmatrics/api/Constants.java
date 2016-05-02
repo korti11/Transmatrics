@@ -209,6 +209,31 @@ public final class Constants {
         public static final int LAVA_GENERATOR_GUI_ID = 4;
     }
 
+    public static class OreDictionaryEntry{
+        // ingots
+        public static final String INGOT_COPPER = "ingotCopper";
+        public static final String INGOT_TIN = "ingotTin";
+        public static final String INGOT_SILVER = "ingotSilver";
+        public static final String INGOT_LEAD = "ingotLead";
+
+        // plates
+        public static final String PLATE_IRON = "plateIron";
+        public static final String PLATE_COPPER = "plateCopper";
+        public static final String PLATE_TIN = "plateTin";
+
+        // gears
+        public static final String GEAR_COPPER = "gearCopper";
+        public static final String GEAR_TIN = "gearTin";
+        public static final String GEAR_SILVER = "gearSilver";
+        public static final String GEAR_LEAD = "gearLead";
+
+        // ores
+        public static final String ORE_COPPER = "oreCopper";
+        public static final String ORE_TIN = "oreTin";
+        public static final String ORE_SILVER = "oreSilver";
+        public static final String ORE_LEAD = "oreLead";
+    }
+
     public enum TransmatricsBlock {
         SOLAR_PANEL("SolarPanel"),
         ADVANCED_SOLAR_PANEL("AdvancedSolarPanel"),
