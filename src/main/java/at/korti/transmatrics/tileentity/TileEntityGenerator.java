@@ -60,7 +60,8 @@ public abstract class TileEntityGenerator extends TileEntityNetworkNode implemen
                 }
             }
             markDirty();
-//            worldObj.markBlockForUpdate(this.getPos());
+            IBlockState state = worldObj.getBlockState(pos);
+            worldObj.notifyBlockUpdate(pos, state, state, 3);
         }
     }
 

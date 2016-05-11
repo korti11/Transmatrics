@@ -2,6 +2,7 @@ package at.korti.transmatrics.tileentity;
 
 import at.korti.transmatrics.api.Constants;
 import at.korti.transmatrics.util.helper.TextHelper;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryHelper;
@@ -79,7 +80,8 @@ public abstract class TileEntityInventory extends TileEntityEnergyNode implement
     public void syncClient() {
         if (!worldObj.isRemote) {
             markDirty();
-//            worldObj.markBlockForUpdate(pos);
+            IBlockState state = worldObj.getBlockState(pos);
+            worldObj.notifyBlockUpdate(pos, state, state, 3);
         }
     }
 

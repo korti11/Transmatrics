@@ -3,6 +3,7 @@ package at.korti.transmatrics.tileentity;
 import at.korti.transmatrics.api.energy.EnergyStorage;
 import at.korti.transmatrics.api.energy.IEnergyHandler;
 import at.korti.transmatrics.api.energy.IEnergyInfo;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
 
 /**
@@ -38,14 +39,16 @@ public abstract class TileEntityEnergyNode extends TileEntityNetworkNode impleme
 
     @Override
     public int receiveEnergy(int energy, boolean simulate) {
-//        worldObj.markBlockForUpdate(pos);
+        IBlockState state = worldObj.getBlockState(pos);
+        worldObj.notifyBlockUpdate(pos, state, state, 3);
         this.markDirty();
         return energyStorage.receiveEnergy(energy, simulate);
     }
 
     @Override
     public int extractEnergy(int energy, boolean simulate) {
-//        worldObj.markBlockForUpdate(pos);
+        IBlockState state = worldObj.getBlockState(pos);
+        worldObj.notifyBlockUpdate(pos, state, state, 3);
         this.markDirty();
         return energyStorage.extractEnergy(energy, simulate);
     }
