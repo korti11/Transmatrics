@@ -45,7 +45,6 @@ public abstract class FluidGeneratorBlock extends ActiveMachineBlock {
                 if (FluidUtil.interactWithTank(currentStack, playerIn, fluidGenerator, side)) {
                     return true;
                 }
-                return false;
             }
         }
 
