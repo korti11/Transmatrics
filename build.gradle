@@ -39,7 +39,7 @@ repositories{
 }
 
 minecraft {
-    version = "1.9-12.16.0.1866-1.9"
+    version = "1.9-12.16.1.1900"
     runDir = "run"
     mappings = "snapshot_20160424"
     useDepAts = true
