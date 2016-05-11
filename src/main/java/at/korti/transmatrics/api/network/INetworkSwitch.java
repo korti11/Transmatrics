@@ -18,4 +18,11 @@ public interface INetworkSwitch extends INetworkNode {
      */
     IStatusMessage disconnectedFromAllNodes();
 
+    /**
+     * Check if the node is in range.
+     * @param node The node to check.
+     * @return True if it is in range.
+     */
+    boolean isInRange(INetworkNode node);
+
 }
