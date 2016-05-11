@@ -302,6 +302,21 @@ public class TileEntityController extends TileEntityEnergySwitch {
             return getMaster().getMaxEnergyStored();
         }
     }
+
+    @Override
+    public boolean canProvideEnergy() {
+        for (BlockPos pos : extensions) {
+            TileEntityController controller = getController(pos);
+            if (controller.superCanProvideEnergy()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean superCanProvideEnergy() {
+        return super.canProvideEnergy();
+    }
     //endregion
 
     //region Tile Entity Controller
