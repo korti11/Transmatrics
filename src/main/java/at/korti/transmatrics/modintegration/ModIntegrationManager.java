@@ -5,6 +5,9 @@ import at.korti.transmatrics.modintegration.jei.JEIIntegration;
 import at.korti.transmatrics.modintegration.tconstruct.TConstruct;
 import at.korti.transmatrics.modintegration.waila.Waila;
 import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,21 +42,21 @@ public class ModIntegrationManager {
         }
     }
 
-    public static void preInit() {
+    public static void preInit(FMLPreInitializationEvent event) {
         for (IIntegration mod : integrationMods) {
-            mod.preInit();
+            mod.preInit(event);
         }
     }
 
-    public static void init() {
+    public static void init(FMLInitializationEvent event) {
         for (IIntegration mod : integrationMods) {
-            mod.init();
+            mod.init(event);
         }
     }
 
-    public static void postInit() {
+    public static void postInit(FMLPostInitializationEvent event) {
         for (IIntegration mod : integrationMods) {
-            mod.postInit();
+            mod.postInit(event);
         }
     }
 
