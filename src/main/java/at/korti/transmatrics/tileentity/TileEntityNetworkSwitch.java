@@ -97,10 +97,9 @@ public abstract class TileEntityNetworkSwitch extends TileEntity implements INet
         } else if (networkNodes.contains(node)) {
             return new StatusMessage(false, NetworkMessages.ALREADY_CONNECTED);
         }
-        if (node instanceof TileEntity) {
-            TileEntity te = (TileEntity) node;
-            double distance = Math.sqrt(te.getDistanceSq(pos.getX(), pos.getY(), pos.getZ()));
-            if (distance > (range / 2)) {
+        if (node instanceof TileEntity && !isSecond) {
+            if(!this.isInRange(node) &&
+                    (node instanceof INetworkSwitch ? !((INetworkSwitch) node).isInRange(this) : true)) {
                 return new StatusMessage(false, NetworkMessages.OUT_OF_RANGE);
             }
         }
@@ -159,6 +158,16 @@ public abstract class TileEntityNetworkSwitch extends TileEntity implements INet
     @Override
     public INetworkNode getConnection() {
         throw new UnsupportedOperationException("Method getConnection is not allowed in class TileEntityNetworkSwitch");
+    }
+
+    @Override
+    public boolean isInRange(INetworkNode node) {
+        if (node instanceof TileEntity) {
+            TileEntity te = (TileEntity) node;
+            double range = Math.sqrt(te.getDistanceSq(pos.getX(), pos.getY(), pos.getZ()));
+            return range < (this.range / 2);
+        }
+        return false;
     }
 
     public TileEntityController getController(BlockPos pos) {

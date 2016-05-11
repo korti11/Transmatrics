@@ -2,6 +2,8 @@ package at.korti.transmatrics.tileentity;
 
 import at.korti.transmatrics.api.Constants.NBT;
 import at.korti.transmatrics.api.Constants.NetworkMessages;
+import at.korti.transmatrics.api.energy.IEnergyConsumer;
+import at.korti.transmatrics.api.energy.IEnergyProducer;
 import at.korti.transmatrics.api.network.*;
 import at.korti.transmatrics.event.ConnectNetworkNodesEvent;
 import at.korti.transmatrics.event.DisconnectNetworkNodesEvent;
@@ -77,6 +79,10 @@ public abstract class TileEntityNetworkNode extends TileEntity implements INetwo
             return new StatusMessage(false, NetworkMessages.CAN_NOT_CONNECTED);
         } else if (this == node) {
             return new StatusMessage(false, NetworkMessages.SAME_NODE);
+        } else if ((!(this instanceof IEnergyProducer) && !(node instanceof IEnergyProducer)) &&
+                node instanceof INetworkNode && !(node instanceof INetworkSwitch) ||
+                ((this instanceof IEnergyProducer) && (this instanceof IEnergyProducer))) {
+            return new StatusMessage(false, NetworkMessages.MACHINES_CAN_NOT_CONNECTED);
         }
         if (!isSecond) {
             IStatusMessage message = node.connectToNode(this, true, simulate);
