@@ -24,6 +24,7 @@ public final class Constants {
     public static class ModIntegrationIds{
         public static final String WAILA = "Waila";
         public static final String JEI = "JEI";
+        public static final String TCONSTRUCT = "tconstruct";
     }
 
     public static class JEI{
