@@ -83,7 +83,7 @@ public abstract class TileEntityNetworkNode extends TileEntity implements INetwo
             return new StatusMessage(false, NetworkMessages.SAME_NODE);
         } else if ((!(this instanceof IEnergyProducer) && !(node instanceof IEnergyProducer)) &&
                 node instanceof INetworkNode && !(node instanceof INetworkSwitch) ||
-                ((this instanceof IEnergyProducer) && (this instanceof IEnergyProducer))) {
+                ((this instanceof IEnergyProducer) && (node instanceof IEnergyProducer))) {
             return new StatusMessage(false, NetworkMessages.MACHINES_CAN_NOT_CONNECTED);
         }
         if (!isSecond) {
