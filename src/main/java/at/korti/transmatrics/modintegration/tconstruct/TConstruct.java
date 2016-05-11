@@ -1,6 +1,7 @@
 package at.korti.transmatrics.modintegration.tconstruct;
 
 import at.korti.transmatrics.modintegration.IIntegration;
+import at.korti.transmatrics.modintegration.tconstruct.config.TConstructConfig;
 import at.korti.transmatrics.modintegration.tconstruct.helper.CraftingCrossOverHelper;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -12,7 +13,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 public class TConstruct implements IIntegration {
     @Override
     public void preInit(FMLPreInitializationEvent event) {
-
+        TConstructConfig.loadConfig(event.getSuggestedConfigurationFile());
     }
 
     @Override
@@ -22,7 +23,9 @@ public class TConstruct implements IIntegration {
 
     @Override
     public void postInit(FMLPostInitializationEvent event) {
-        CraftingCrossOverHelper.loadSmelteryCrossOver();
+        if(TConstructConfig.canUseSmelteryRecipes) {
+            CraftingCrossOverHelper.loadSmelteryCrossOver();
+        }
     }
 
     @Override
