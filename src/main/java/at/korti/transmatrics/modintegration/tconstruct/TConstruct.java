@@ -11,8 +11,12 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
  * Created by Korti on 11.05.2016.
  */
 public class TConstruct implements IIntegration {
+
+    public static boolean isLoaded;
+
     @Override
     public void preInit(FMLPreInitializationEvent event) {
+        isLoaded = true;
         TConstructConfig.loadConfig(event.getSuggestedConfigurationFile());
     }
 
@@ -26,7 +30,9 @@ public class TConstruct implements IIntegration {
         if(TConstructConfig.canUseSmelteryRecipes) {
             CraftingCrossOverHelper.loadSmelteryCrossOver();
         }
-        CraftingCrossOverHelper.loadCastingCrossOver();
+        if(TConstructConfig.canUseTableCastingRecipes) {
+            CraftingCrossOverHelper.loadCastingCrossOver();
+        }
     }
 
     @Override
