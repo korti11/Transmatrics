@@ -208,11 +208,13 @@ public final class Constants {
     }
 
     public static class GuiIds{
+        // Transmatrics
         public static final int PULVERIZER_GUI_ID = 0;
         public static final int POWERED_FURNACE_GUI_ID = 1;
         public static final int MAGNETIC_SMELTERY_GUI_ID = 2;
         public static final int LIQUID_CASTER_GUI_ID = 3;
         public static final int LAVA_GENERATOR_GUI_ID = 4;
+        public static final int ALLOY_MIXER_GUI_ID = 5;
     }
 
     public static class OreDictionaryEntry{
@@ -255,6 +257,7 @@ public final class Constants {
         POWERED_FURNACE("PoweredFurnace"),
         MAGNETIC_SMELTERY("MagneticSmeltery"),
         LIQUID_CASTER("LiquidCaster"),
+        ALLOY_MIXER("AlloyMixer"),
         ORE_BLOCK("Ore"),
         MACHINE_CASING("MachineCasing");
 

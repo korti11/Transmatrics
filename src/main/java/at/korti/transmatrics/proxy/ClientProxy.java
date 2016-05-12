@@ -2,6 +2,7 @@ package at.korti.transmatrics.proxy;
 
 import at.korti.transmatrics.client.renderer.FluidRenderer;
 import at.korti.transmatrics.fluid.FluidStateMapper;
+import at.korti.transmatrics.modintegration.ModIntegrationManager;
 import at.korti.transmatrics.registry.Blocks;
 import at.korti.transmatrics.registry.Fluids;
 import at.korti.transmatrics.registry.Items;
@@ -38,6 +39,7 @@ public class ClientProxy extends CommonProxy {
         super.init(event);
         Items.registerItemTextures();
         Blocks.registerBlockTextures();
+        ModIntegrationManager.clientInit();
     }
 
     @Override

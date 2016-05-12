@@ -58,7 +58,7 @@ public final class AlloyMixerCraftingRegistry implements IFluidCraftingRegistry<
 
     @Override
     public int[] getFluidCapacities() {
-        return new int[]{30000, 10000};
+        return new int[]{10000, 10000, 10000, 10000};
     }
 
     @Override
