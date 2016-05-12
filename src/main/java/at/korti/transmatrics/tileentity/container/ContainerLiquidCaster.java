@@ -1,7 +1,7 @@
 package at.korti.transmatrics.tileentity.container;
 
-import at.korti.transmatrics.api.crafting.ICasting;
 import at.korti.transmatrics.registry.crafting.LiquidCasterCraftingRegistry;
+import at.korti.transmatrics.registry.crafting.LiquidCasterCraftingRegistry.LiquidCasterCraftingEntry;
 import at.korti.transmatrics.tileentity.container.slot.CastSlot;
 import at.korti.transmatrics.tileentity.container.slot.OutputSlot;
 import at.korti.transmatrics.util.helper.InventoryHelper;
@@ -42,7 +42,8 @@ public class ContainerLiquidCaster extends FluidItemCraftingContainer {
 
                 slot.onSlotChange(tempStack, itemStack);
             } else if (!InventoryHelper.isInputSlot(craftingRegistry, index)) {
-                if (tempStack.getItem() instanceof ICasting) {
+                LiquidCasterCraftingEntry entry = ((LiquidCasterCraftingRegistry) craftingRegistry).find(tempStack);
+                if (entry != null) {
                     int startIndex = InventoryHelper.getMinIndex(craftingRegistry.getInputSlotsIds());
                     int endIndex = InventoryHelper.getMaxIndex(craftingRegistry.getInputSlotsIds());
                     if (!this.mergeItemStack(tempStack, startIndex, endIndex + 1, false)) {
