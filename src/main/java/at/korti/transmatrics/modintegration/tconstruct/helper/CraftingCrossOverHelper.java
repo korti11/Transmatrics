@@ -1,10 +1,13 @@
 package at.korti.transmatrics.modintegration.tconstruct.helper;
 
+import at.korti.transmatrics.registry.crafting.LiquidCasterCraftingRegistry;
+import at.korti.transmatrics.registry.crafting.LiquidCasterCraftingRegistry.LiquidCasterCraftingEntry;
 import at.korti.transmatrics.registry.crafting.MagneticSmelteryCraftingRegistry;
 import at.korti.transmatrics.registry.crafting.MagneticSmelteryCraftingRegistry.MagneticSmelteryCraftingEntry;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.library.smeltery.CastingRecipe;
 import slimeknights.tconstruct.library.smeltery.MeltingRecipe;
 
 import java.util.List;
@@ -29,6 +32,21 @@ public class CraftingCrossOverHelper {
             FluidStack output = meltingRecipe.getResult();
             for(ItemStack input : inputs) {
                 MagneticSmelteryCraftingRegistry.getInstance().register(input.copy(), output.copy(), 200);
+            }
+        }
+    }
+
+    public static void loadCastingCrossOver() {
+        List<CastingRecipe> castingRecipes = TinkerRegistry.getAllTableCastingRecipes();
+        for (CastingRecipe castingRecipe : castingRecipes) {
+            FluidStack input = castingRecipe.getFluid();
+            List<ItemStack> casts = castingRecipe.cast.getInputs();
+            ItemStack output = castingRecipe.getResult();
+            int time = castingRecipe.getTime();
+            for (ItemStack cast : casts) {
+                if (input != null && cast != null && output != null) {
+                    LiquidCasterCraftingRegistry.getInstance().register(input.copy(), cast.copy(), output.copy(), time);
+                }
             }
         }
     }

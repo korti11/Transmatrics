@@ -26,6 +26,7 @@ public class TConstruct implements IIntegration {
         if(TConstructConfig.canUseSmelteryRecipes) {
             CraftingCrossOverHelper.loadSmelteryCrossOver();
         }
+        CraftingCrossOverHelper.loadCastingCrossOver();
     }
 
     @Override
