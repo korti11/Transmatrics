@@ -172,6 +172,11 @@ public final class Constants {
         public static final int LIQUID_CASTER_CAPACITY = 5000;
         public static final int LIQUID_CASTER_RECEIVE = 500;
         public static final int LIQUID_CASTER_ENERGY_USE = 25;
+
+        //Alloy Mixer
+        public static final int ALLOY_MIXER_CAPACITY = 5000;
+        public static final int ALLOY_MIXER_RECEIVE = 500;
+        public static final int ALLOY_MIXER_ENERGY_USE = 25;
     }
 
     public static class Tanks{
@@ -308,7 +313,8 @@ public final class Constants {
         PULVERIZER("TilePulverizer"),
         POWERED_FURNACE("TilePoweredFurnace"),
         MAGNETIC_SMELTERY("TileMagneticSmeltery"),
-        LIQUID_CASTER("TileLiquidCaster");
+        LIQUID_CASTER("TileLiquidCaster"),
+        ALLOY_MIXER("TileAlloyMixer");
 
         private final String regName;
 

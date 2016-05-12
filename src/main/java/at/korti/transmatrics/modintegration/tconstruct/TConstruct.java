@@ -1,12 +1,15 @@
 package at.korti.transmatrics.modintegration.tconstruct;
 
+import at.korti.transmatrics.api.Constants.TransmatricsTileEntity;
 import at.korti.transmatrics.modintegration.IIntegration;
 import at.korti.transmatrics.modintegration.tconstruct.config.TConstructConfig;
 import at.korti.transmatrics.modintegration.tconstruct.helper.CraftingCrossOverHelper;
+import at.korti.transmatrics.modintegration.tconstruct.tileentity.TileEntityAlloyMixer;
 import at.korti.transmatrics.registry.Crafting;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import slimeknights.tconstruct.library.materials.Material;
 
 /**
@@ -21,6 +24,7 @@ public class TConstruct implements IIntegration {
         isLoaded = true;
         TConstructConfig.loadConfig(event.getSuggestedConfigurationFile());
         Crafting.FLUID_AMOUNT_PER_INGOT = Material.VALUE_Ingot;
+        GameRegistry.registerTileEntity(TileEntityAlloyMixer.class, TransmatricsTileEntity.ALLOY_MIXER.getRegName());
     }
 
     @Override
