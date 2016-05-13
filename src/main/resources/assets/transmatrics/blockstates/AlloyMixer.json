@@ -1,0 +1,34 @@
+{
+  "forge_marker": 1,
+  "variants": {
+    "facing": {
+      "north": {
+        "model": "transmatrics:AlloyMixer"
+      },
+      "south": {
+        "model": "transmatrics:AlloyMixer",
+        "y": 180
+      },
+      "west": {
+        "model": "transmatrics:AlloyMixer",
+        "y": 270
+      },
+      "east": {
+        "model": "transmatrics:AlloyMixer",
+        "y": 90
+      }
+    },
+    "active": {
+      "true":{
+        "textures":{
+          "north": "transmatrics:blocks/AlloyMixerFrontActive"
+        }
+      },
+      "false":{
+        "textures":{
+          "north": "transmatrics:blocks/AlloyMixerFrontDeactivate"
+        }
+      }
+    }
+  }
+}
