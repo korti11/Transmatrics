@@ -127,7 +127,7 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
         }
     }
 
-    private boolean areInputSlotsEmpty() {
+    protected boolean areInputSlotsEmpty() {
         int[] inputSlots = craftingRegistry.getInputSlotsIds();
         for (int i : inputSlots) {
             if (getStackInSlot(i) != null) {
@@ -137,7 +137,7 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
         return true;
     }
 
-    private boolean areOutputSlotsEmpty() {
+    protected boolean areOutputSlotsEmpty() {
         int[] outputSlots = craftingRegistry.getOutputSlotsIds();
         for (int i : outputSlots) {
             if (getStackInSlot(i) != null) {
@@ -157,7 +157,7 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
         return -1;
     }
 
-    private ItemStack[] getContent(int[] slots) {
+    protected ItemStack[] getContent(int[] slots) {
         ItemStack[] inputs = new ItemStack[slots.length];
         for (int i = 0; i < slots.length; i++) {
             inputs[i] = getStackInSlot(slots[i]);
@@ -165,7 +165,7 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
         return inputs;
     }
 
-    private boolean containsSlot(int[] slots, int searchSlot) {
+    protected boolean containsSlot(int[] slots, int searchSlot) {
         for (int slot : slots) {
             if (slot == searchSlot) {
                 return true;
@@ -174,11 +174,11 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
         return false;
     }
 
-    private boolean isInputSlot(int slot) {
+    protected boolean isInputSlot(int slot) {
         return containsSlot(craftingRegistry.getInputSlotsIds(), slot);
     }
 
-    private boolean isOutputSlot(int slot) {
+    protected boolean isOutputSlot(int slot) {
         return containsSlot(craftingRegistry.getOutputSlotsIds(), slot);
     }
 
@@ -190,7 +190,7 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
         return getContent(craftingRegistry.getOutputSlotsIds());
     }
 
-    private boolean equalOutputs(ICraftingEntry<ItemStack, ItemStack> entry) {
+    protected boolean equalOutputs(ICraftingEntry<ItemStack, ItemStack> entry) {
         ItemStack[] outputContent = getOutputs();
         for (int i = 0; i < outputContent.length && i < entry.getOutputs().length; i++) {
             if (outputContent[i] != null && !outputContent[i].isItemEqual(entry.getOutputs()[i])) {
@@ -200,7 +200,7 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
         return true;
     }
 
-    private boolean checkOutputStackSize(ICraftingEntry<ItemStack, ItemStack> entry) {
+    protected boolean checkOutputStackSize(ICraftingEntry<ItemStack, ItemStack> entry) {
         ItemStack[] outputContent = getOutputs();
         for (int i = 0; i < outputContent.length && i < entry.getOutputs().length; i++) {
             if(outputContent[i] != null) {
@@ -229,7 +229,7 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
         }
     }
 
-    private int getCraftingTime() {
+    protected int getCraftingTime() {
         ICraftingEntry entry = craftingRegistry.get(getInputs());
         if (entry != null) {
             return entry.getCraftingTime();
