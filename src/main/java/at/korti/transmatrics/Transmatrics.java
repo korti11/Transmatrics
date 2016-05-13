@@ -24,7 +24,8 @@ import org.apache.logging.log4j.Logger;
 /**
  * Created by Korti on 24.02.2016.
  */
-@Mod(modid = Constants.Mod.MODID, name = Constants.Mod.NAME, version = Constants.Mod.VERSION)
+@Mod(modid = Constants.Mod.MODID, name = Constants.Mod.NAME, version = Constants.Mod.VERSION,
+        dependencies = "after:" + Constants.ModIntegrationIds.TCONSTRUCT)
 public class Transmatrics {
 
     @Mod.Instance(Constants.Mod.MODID)

@@ -44,6 +44,7 @@ public class TConstruct implements IIntegration {
         if(TConstructConfig.canUseTableCastingRecipes) {
             CraftingCrossOverHelper.loadCastingCrossOver();
         }
+        CraftingCrossOverHelper.loadAlloyCrossOver();
     }
 
     @Override

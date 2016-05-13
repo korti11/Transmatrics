@@ -97,15 +97,17 @@ public final class AlloyMixerCraftingRegistry implements IFluidCraftingRegistry<
     @Override
     public ICraftingEntry get(FluidStack... inputs) {
         for (AlloyMixerCraftingEntry entry : recipes) {
-            boolean flag = true;
+            boolean flag = false;
             for (int i = 0; i < entry.getInputs().length; i++) {
+                flag = false;
                 FluidStack need = entry.getInputs()[i];
                 for (int l = 0; l < inputs.length; l++) {
                     FluidStack get = inputs[l];
-                    if (get.containsFluid(need)) {
-                        break;
-                    } else if (l + 1 == inputs.length) {
-                        flag = false;
+                    if (get != null) {
+                        if (get.containsFluid(need)) {
+                            flag = true;
+                            break;
+                        }
                     }
                 }
                 if (!flag) {
@@ -216,7 +218,7 @@ public final class AlloyMixerCraftingRegistry implements IFluidCraftingRegistry<
 
         @Override
         public int getCraftingTime() {
-            return 200;
+            return 0;
         }
 
         @Override

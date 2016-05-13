@@ -37,7 +37,7 @@ public abstract class TileEntityFluidCraftingMachine extends TileEntityInventory
     protected int maxEfficiency;
 
     protected TileEntityFluidCraftingMachine(int capacity, int maxReceive, int energyUse, String name, IFluidCraftingRegistry registry) {
-        super(capacity,maxReceive, registry.inventorySize(), registry.getStackLimit(), name);
+        super(capacity, maxReceive, registry.inventorySize(), registry.getStackLimit(), name);
         this.craftingRegistry = registry;
         this.initTanks();
         this.energyUse = energyUse;
@@ -169,7 +169,7 @@ public abstract class TileEntityFluidCraftingMachine extends TileEntityInventory
                 return false;
             } else if (areTanksEmpty(false)) {
                 return true;
-            } else if (!equalFluids(entry.getOutputs())) {
+            } else if (!equalFluids(false, entry.getOutputs())) {
                 return false;
             }
             return checkFluidSize(false, entry.getOutputs());
@@ -181,7 +181,7 @@ public abstract class TileEntityFluidCraftingMachine extends TileEntityInventory
                     return false;
                 } else if (areTanksEmpty(false)) {
                     return true;
-                } else if (!equalFluids(entry.getOutputs())) {
+                } else if (!equalFluids(false, entry.getOutputs())) {
                     return false;
                 }
                 return checkFluidSize(false, entry.getOutputs());
@@ -258,9 +258,11 @@ public abstract class TileEntityFluidCraftingMachine extends TileEntityInventory
         return false;
     }
 
-    private boolean equalFluids(FluidStack[] stacks) {
+    private boolean equalFluids(boolean input, FluidStack[] stacks) {
         boolean flag = true;
-        for (FluidTank tank : tanks) {
+        int[] tankIds = input ? craftingRegistry.getFluidInputIds() : craftingRegistry.getFluidOutputIds();
+        for (int tankId : tankIds) {
+            FluidTank tank = tanks[tankId];
             for (FluidStack stack : stacks) {
                 if (tank.getFluid() != null && tank.getFluid().getFluid() == stack.getFluid()) {
                     flag = true;
@@ -394,7 +396,9 @@ public abstract class TileEntityFluidCraftingMachine extends TileEntityInventory
 
     private void decreaseInputs(FluidStack... stacks) {
         for(FluidStack stack : stacks) {
-            drain(EnumFacing.UP, stack, true);
+            if(stack != null) {
+                getTankForFluid(true, stack.getFluid()).drain(stack.amount, true);
+            }
         }
     }
 
