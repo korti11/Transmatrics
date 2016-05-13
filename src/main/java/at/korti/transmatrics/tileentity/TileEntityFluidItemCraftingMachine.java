@@ -281,7 +281,7 @@ public abstract class TileEntityFluidItemCraftingMachine extends TileEntityInven
         int[] tankIds = input ? craftingRegistry.getFluidInputIds() : craftingRegistry.getFluidOutputIds();
         for (int tankId : tankIds) {
             FluidTank tank = tanks[tankId];
-            if (tank.getFluid() == null || tank.getFluid().getFluid() == fluid) {
+            if (tank.getFluid() != null && tank.getFluid().getFluid() == fluid) {
                 return tank;
             }
         }
