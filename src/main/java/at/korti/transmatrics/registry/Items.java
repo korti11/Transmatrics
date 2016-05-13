@@ -1,10 +1,11 @@
 package at.korti.transmatrics.registry;
 
-import at.korti.transmatrics.config.Config;
+import at.korti.transmatrics.api.Constants.Energy;
 import at.korti.transmatrics.item.crafting.ItemCast;
 import at.korti.transmatrics.item.crafting.ItemElectronics;
 import at.korti.transmatrics.item.crafting.ItemGear;
 import at.korti.transmatrics.item.crafting.ItemPlate;
+import at.korti.transmatrics.item.energy.ItemCapacitor;
 import at.korti.transmatrics.item.ore.ItemIngot;
 import at.korti.transmatrics.item.ore.ItemPulverizedDust;
 import at.korti.transmatrics.item.tool.ItemConnector;
@@ -17,11 +18,11 @@ import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.model.ModelLoader;
 
 import java.util.LinkedList;
 import java.util.List;
 
+import static at.korti.transmatrics.api.Constants.TransmatricsItem.LEAD_CAPACITOR;
 import static net.minecraftforge.fml.common.registry.GameRegistry.registerItem;
 
 /**
@@ -38,6 +39,7 @@ public final class Items {
     private static ItemCast itemCast;
     private static ItemElectronics itemElectronics;
     private static ItemPlate itemPlate;
+    private static ItemCapacitor itemLeadCapacitor;
 
     public static void registerItemsCommon() {
         registerItem(wrench = new ItemWrench());
@@ -49,6 +51,7 @@ public final class Items {
         registerItem(itemCast = new ItemCast());
         registerItem(itemElectronics = new ItemElectronics());
         registerItem(itemPlate = new ItemPlate());
+        registerItem(itemLeadCapacitor = new ItemCapacitor(LEAD_CAPACITOR.getRegName(), Energy.LEAD_CAPACITOR_CAPACITY));
     }
 
     public static void registerItemsClient() {
@@ -60,6 +63,8 @@ public final class Items {
         registerItemTexture(wrench);
         registerItemTexture(connector);
         registerItemTexture(hammer);
+        registerItemTexture(itemLeadCapacitor);
+
         registerMetaItemTexture(pulverizedDust);
         registerMetaItemTexture(itemIngot);
         registerMetaItemTexture(itemGear);

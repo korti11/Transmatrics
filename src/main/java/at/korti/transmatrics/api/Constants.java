@@ -97,6 +97,10 @@ public final class Constants {
 
         //Hammer
         public static final String HAMMER_USES_LEFT = "tooltip.hammer.uses.left";
+
+        //Capacitor
+        public static final String CAPACITOR_ENERGY_LABEL = "tooltip.capacitor.energy.label";
+        public static final String CAPACITOR_ENERGY = "tooltip.capacitor.energy";
     }
 
     public static class Energy{
@@ -177,6 +181,9 @@ public final class Constants {
         public static final int ALLOY_MIXER_CAPACITY = 5000;
         public static final int ALLOY_MIXER_RECEIVE = 500;
         public static final int ALLOY_MIXER_ENERGY_USE = 25;
+
+        //Capacitors
+        public static final int LEAD_CAPACITOR_CAPACITY = 1250;
     }
 
     public static class Tanks{
@@ -285,7 +292,8 @@ public final class Constants {
         CAST("Cast"),
         ELECTRONICS("Electronics"),
         PLATE("Plate"),
-        HAMMER("Hammer");
+        HAMMER("Hammer"),
+        LEAD_CAPACITOR("LeadCapacitor");
 
         private final String regName;
 
