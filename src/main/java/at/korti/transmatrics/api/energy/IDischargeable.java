@@ -16,4 +16,17 @@ public interface IDischargeable {
      */
     int discharge(ItemStack stack, int energy, boolean simulate);
 
+    /**
+     * Get the stored energy of the stack.
+     * @param stack Where the energy is stored.
+     * @return Stored energy.
+     */
+    int getEnergy(ItemStack stack);
+
+    /**
+     * Get the capacity of the stack.
+     * @return Capacity.
+     */
+    int getCapacity();
+
 }
