@@ -18,6 +18,7 @@ tile.Transmatrics.MagneticSmeltery.name=Magnetic Smeltery
 tile.Transmatrics.LiquidCaster.name=Liquid Caster
 tile.Transmatrics.MachineCasing.name=Machine Casing
 tile.Transmatrics.AlloyMixer.name=Alloy Mixer
+tile.Transmatrics.Charger.name=Energised Charger
 
 #Ore
 tile.Transmatrics.Ore.copper.name=Copper Ore
@@ -66,6 +67,9 @@ item.Transmatrics.Electronics.advancedCircuit.name=Advanced Circuit
 item.Transmatrics.Electronics.shortTransmitter.name=Short Transmitter
 item.Transmatrics.Electronics.transmitter.name=Transmitter
 item.Transmatrics.Electronics.longTransmitter.name=Long Transmitter
+
+#Capacitors
+item.Transmatrics.LeadCapacitor.name=Lead Capacitor
 
 #Fluids
 fluid.Transmatrics.hydrogengas.name=Hydrogen

@@ -85,6 +85,7 @@ public final class Blocks {
         registerBlockTexture(poweredFurnace);
         registerBlockTexture(magneticSmeltery);
         registerBlockTexture(liquidCaster);
+        registerBlockTexture(charger);
         registerMetaBlockTextures(oreBlock, OreBlock.OreType.values());
         registerBlockTexture(machineCasing);
     }
