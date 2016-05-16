@@ -35,6 +35,12 @@ public final class Constants {
         }
     }
 
+    public static class TConstructModifiers{
+        //Energetic
+        public static final String ENERGETIC_IDENTIFIER = "energetic";
+        public static final int ENERGETIC_COLOR = 0xffff33;
+    }
+
     public static class NBT {
         //Inventory
         public static final String SLOT = "slot";

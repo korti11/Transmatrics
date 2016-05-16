@@ -1,4 +1,4 @@
-itemGroup.transmatrics=Transmatrics
+﻿itemGroup.transmatrics=Transmatrics
 
 #Blocks
 tile.Transmatrics.SolarPanel.name=Solar Panel
@@ -110,3 +110,8 @@ gui.tank.empty=Empty
 jei.category.pulverizer.title=Pulverizer
 jei.category.magneticsmeltery.title=Magnetic Smeltery
 jei.category.liquidcaster.title=Liquid Caster
+
+#TConstruct Modifiers
+modifier.Transmatrics.energetic=Energetic
+modifier.energetic.desc=§oCharged!§r\nUse first energy instead of durability.
+#modifier.energetic.desc=§oSo strong!§r\nEach level adds a 15% chance to not use durability.

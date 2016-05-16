@@ -1,11 +1,13 @@
 package at.korti.transmatrics.modintegration.tconstruct;
 
+import at.korti.transmatrics.api.Constants;
 import at.korti.transmatrics.api.Constants.TransmatricsTileEntity;
 import at.korti.transmatrics.modintegration.IIntegration;
 import at.korti.transmatrics.modintegration.tconstruct.block.AlloyMixer;
 import at.korti.transmatrics.modintegration.tconstruct.config.TConstructConfig;
 import at.korti.transmatrics.modintegration.tconstruct.helper.CraftingCrossOverHelper;
 import at.korti.transmatrics.modintegration.tconstruct.tileentity.TileEntityAlloyMixer;
+import at.korti.transmatrics.modintegration.tconstruct.tools.modifier.ModEnergetic;
 import at.korti.transmatrics.registry.Crafting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.model.ModelResourceLocation;
@@ -14,6 +16,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.materials.Material;
 
 /**
@@ -22,6 +25,8 @@ import slimeknights.tconstruct.library.materials.Material;
 public class TConstruct implements IIntegration {
 
     private static AlloyMixer alloyMixer;
+
+    private static ModEnergetic modEnergetic;
 
     @Override
     public void preInit(FMLPreInitializationEvent event) {
@@ -45,6 +50,9 @@ public class TConstruct implements IIntegration {
             CraftingCrossOverHelper.loadCastingCrossOver();
         }
         CraftingCrossOverHelper.loadAlloyCrossOver();
+
+        TinkerRegistry.registerModifier(modEnergetic = new ModEnergetic());
+        modEnergetic.addItem(Constants.TransmatricsItem.LEAD_CAPACITOR.getItem());
     }
 
     @Override
