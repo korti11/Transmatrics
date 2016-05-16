@@ -22,6 +22,7 @@ public class ItemCapacitor extends ModItem implements IRechargeable{
     public ItemCapacitor(String name, int capacity) {
         super(name);
         this.setMaxDamage(capacity);
+        this.setMaxStackSize(1);
     }
 
     @Override

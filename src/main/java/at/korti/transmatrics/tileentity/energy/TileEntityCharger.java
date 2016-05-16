@@ -26,18 +26,25 @@ public class TileEntityCharger extends TileEntityInventory {
     @Override
     public void writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
-        compound.setInteger(NBT.ENERGY, storedEnergy);
-        compound.setInteger(NBT.CAPACITY, maxStoreEnergy);
+        compound.setInteger(NBT.CRAFTING_TIME, storedEnergy);
+        compound.setInteger(NBT.TOTAL_CRAFTING_TIME, maxStoreEnergy);
+    }
+
+    @Override
+    public void readFromNBT(NBTTagCompound compound) {
+        super.readFromNBT(compound);
+        this.storedEnergy = compound.getInteger(NBT.CRAFTING_TIME);
+        this.maxStoreEnergy = compound.getInteger(NBT.TOTAL_CRAFTING_TIME);
     }
 
     @Override
     public void setInventorySlotContents(int index, ItemStack stack) {
         super.setInventorySlotContents(index, stack);
-        if (stack != null && stack.getItem() instanceof IChargeable) {
+        if (stack != null && stack.getItem() instanceof IChargeable && index == 0) {
             IChargeable item = (IChargeable) stack.getItem();
             this.storedEnergy = item.getEnergy(stack);
             this.maxStoreEnergy = item.getCapacity();
-        } else if (stack == null) {
+        } else if (stack == null && index == 0) {
             this.storedEnergy = 0;
             this.maxStoreEnergy = 0;
         }
@@ -64,6 +71,10 @@ public class TileEntityCharger extends TileEntityInventory {
                         this.storedEnergy = item.getEnergy(stack);
                         markDirty = true;
                         isCharging = true;
+                        if (item.getEnergy(stack) == item.getCapacity()) {
+                            setInventorySlotContents(1, stack);
+                            setInventorySlotContents(0, null);
+                        }
                     }
                 }
             }
@@ -78,6 +89,7 @@ public class TileEntityCharger extends TileEntityInventory {
 
         if (markDirty) {
             this.markDirty();
+            worldObj.markBlockForUpdate(pos);
         }
     }
 

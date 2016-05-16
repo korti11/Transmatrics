@@ -5,6 +5,7 @@ import at.korti.transmatrics.modintegration.tconstruct.tileentity.ContainerAlloy
 import at.korti.transmatrics.tileentity.TileEntityFluidGenerator;
 import at.korti.transmatrics.tileentity.container.*;
 import at.korti.transmatrics.tileentity.crafting.*;
+import at.korti.transmatrics.tileentity.energy.TileEntityCharger;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -35,6 +36,8 @@ public class GuiHandler implements IGuiHandler {
                 return new ContainerFluidGenerator(player.inventory, (TileEntityFluidGenerator) world.getTileEntity(pos));
             case ALLOY_MIXER_GUI_ID:
                 return new ContainerAlloyMixer(player.inventory, (IInventory) world.getTileEntity(pos));
+            case CHARGER_GUI_ID:
+                return new ContainerCharger(player.inventory, (TileEntityCharger) world.getTileEntity(pos));
         }
 
         return null;
@@ -58,6 +61,8 @@ public class GuiHandler implements IGuiHandler {
                     return new GuiFluidGenerator(player.inventory, (TileEntityFluidGenerator) world.getTileEntity(pos));
                 case ALLOY_MIXER_GUI_ID:
                     return new GuiAlloyMixer(player.inventory, (IInventory) world.getTileEntity(pos));
+                case CHARGER_GUI_ID:
+                    return new GuiCharger(player.inventory, (TileEntityCharger) world.getTileEntity(pos));
             }
         }
         return null;
