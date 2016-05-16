@@ -1,7 +1,9 @@
 package at.korti.transmatrics.modintegration.tconstruct;
 
 import at.korti.transmatrics.api.Constants;
+import at.korti.transmatrics.api.Constants.TransmatricsItem;
 import at.korti.transmatrics.api.Constants.TransmatricsTileEntity;
+import at.korti.transmatrics.item.energy.ItemCapacitor;
 import at.korti.transmatrics.modintegration.IIntegration;
 import at.korti.transmatrics.modintegration.tconstruct.block.AlloyMixer;
 import at.korti.transmatrics.modintegration.tconstruct.config.TConstructConfig;
@@ -51,8 +53,8 @@ public class TConstruct implements IIntegration {
         }
         CraftingCrossOverHelper.loadAlloyCrossOver();
 
-        TinkerRegistry.registerModifier(modEnergetic = new ModEnergetic());
-        modEnergetic.addItem(Constants.TransmatricsItem.LEAD_CAPACITOR.getItem());
+        TinkerRegistry.registerModifier(modEnergetic = new ModEnergetic(
+                (ItemCapacitor) TransmatricsItem.LEAD_CAPACITOR.getItem()));
     }
 
     @Override

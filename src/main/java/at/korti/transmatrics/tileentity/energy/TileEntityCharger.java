@@ -1,13 +1,16 @@
 package at.korti.transmatrics.tileentity.energy;
 
+import at.korti.transmatrics.api.Constants;
 import at.korti.transmatrics.api.Constants.Energy;
 import at.korti.transmatrics.api.Constants.NBT;
 import at.korti.transmatrics.api.Constants.TransmatricsTileEntity;
 import at.korti.transmatrics.api.energy.IChargeable;
 import at.korti.transmatrics.block.ActiveMachineBlock;
+import at.korti.transmatrics.modintegration.tconstruct.helper.ModifierHelper;
 import at.korti.transmatrics.tileentity.TileEntityInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.fml.common.Loader;
 
 /**
  * Created by Korti on 16.05.2016.
@@ -65,13 +68,18 @@ public class TileEntityCharger extends TileEntityInventory {
             if (energyStorage.getEnergyStored() - energyUse >= 0 && getStackInSlot(0) != null) {
                 if(canCharge()) {
                     ItemStack stack = getStackInSlot(0);
+                    IChargeable chargeable = null;
                     if (stack.getItem() instanceof IChargeable) {
-                        IChargeable item = (IChargeable) stack.getItem();
-                        item.charge(stack, energyUse, false);
-                        this.storedEnergy = item.getEnergy(stack);
+                        chargeable = (IChargeable) stack.getItem();
+                    } else if (Loader.isModLoaded(Constants.ModIntegrationIds.TCONSTRUCT)) {
+                        chargeable = ModifierHelper.getChargeable(stack);
+                    }
+                    if (chargeable != null) {
+                        chargeable.charge(stack, energyUse, false);
+                        this.storedEnergy = chargeable.getEnergy(stack);
                         markDirty = true;
                         isCharging = true;
-                        if (item.getEnergy(stack) == item.getCapacity()) {
+                        if (chargeable.getEnergy(stack) == chargeable.getCapacity()) {
                             setInventorySlotContents(1, stack);
                             setInventorySlotContents(0, null);
                         }
@@ -97,11 +105,8 @@ public class TileEntityCharger extends TileEntityInventory {
         ItemStack stack = getStackInSlot(0);
         if (stack == null) {
             return false;
-        } else if (stack.getItem() instanceof IChargeable &&
-                getStackInSlot(1) == null) {
-            return true;
         }
-        return false;
+        return true;
     }
 
     @Override
