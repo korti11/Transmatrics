@@ -4,6 +4,7 @@ import at.korti.transmatrics.block.MachineCasing;
 import at.korti.transmatrics.block.ModBlock;
 import at.korti.transmatrics.block.OreBlock;
 import at.korti.transmatrics.block.crafting.*;
+import at.korti.transmatrics.block.energy.Charger;
 import at.korti.transmatrics.block.generator.*;
 import at.korti.transmatrics.block.network.Controller;
 import at.korti.transmatrics.block.network.LargeSwitch;
@@ -45,6 +46,7 @@ public final class Blocks {
     private static PoweredFurnace poweredFurnace;
     private static MagneticSmeltery magneticSmeltery;
     private static LiquidCaster liquidCaster;
+    private static Charger charger;
     private static OreBlock oreBlock;
     private static MachineCasing machineCasing;
 
@@ -63,6 +65,7 @@ public final class Blocks {
         registerBlock(poweredFurnace = new PoweredFurnace(), ItemMachineBlock.class);
         registerBlock(magneticSmeltery = new MagneticSmeltery(), ItemMachineBlock.class);
         registerBlock(liquidCaster = new LiquidCaster(), ItemMachineBlock.class);
+        registerBlock(charger = new Charger(), ItemMachineBlock.class);
         registerBlock(oreBlock = new OreBlock(), ItemOreBlock.class);
         registerBlock(machineCasing = new MachineCasing());
     }

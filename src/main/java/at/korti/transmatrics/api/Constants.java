@@ -182,6 +182,11 @@ public final class Constants {
         public static final int ALLOY_MIXER_RECEIVE = 500;
         public static final int ALLOY_MIXER_ENERGY_USE = 25;
 
+        //Charger
+        public static final int CHARGER_CAPACITY = 5000;
+        public static final int CHARGER_RECEIVE = 500;
+        public static final int CHARGER_ENERGY_USE = 5;
+
         //Capacitors
         public static final int LEAD_CAPACITOR_CAPACITY = 1250;
     }
@@ -222,6 +227,7 @@ public final class Constants {
         public static final int LIQUID_CASTER_GUI_ID = 3;
         public static final int LAVA_GENERATOR_GUI_ID = 4;
         public static final int ALLOY_MIXER_GUI_ID = 5;
+        public static final int CHARGER_GUI_ID = 6;
     }
 
     public static class OreDictionaryEntry{
@@ -265,6 +271,7 @@ public final class Constants {
         MAGNETIC_SMELTERY("MagneticSmeltery"),
         LIQUID_CASTER("LiquidCaster"),
         ALLOY_MIXER("AlloyMixer"),
+        CHARGER("Charger"),
         ORE_BLOCK("Ore"),
         MACHINE_CASING("MachineCasing");
 
@@ -325,7 +332,8 @@ public final class Constants {
         POWERED_FURNACE("TilePoweredFurnace"),
         MAGNETIC_SMELTERY("TileMagneticSmeltery"),
         LIQUID_CASTER("TileLiquidCaster"),
-        ALLOY_MIXER("TileAlloyMixer");
+        ALLOY_MIXER("TileAlloyMixer"),
+        CHARGER("TileCharger");
 
         private final String regName;
 
