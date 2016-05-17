@@ -1,0 +1,17 @@
+{
+  "textures": {
+    "battleaxe": "transmatrics:integration/tconstruct/battleaxe/Energetic",
+    "battlesign": "transmatrics:integration/tconstruct/battlesign/Energetic",
+    "broadsword": "transmatrics:integration/tconstruct/broadsword/Energetic",
+    "cleaver": "transmatrics:integration/tconstruct/cleaver/Energetic",
+    "excavator": "transmatrics:integration/tconstruct/excavator/Energetic",
+    "frypan": "transmatrics:integration/tconstruct/frypan/Energetic",
+    "hammer": "transmatrics:integration/tconstruct/hammer/Energetic",
+    "hatchet": "transmatrics:integration/tconstruct/hatchet/Energetic",
+    "longsword": "transmatrics:integration/tconstruct/longsword/Energetic",
+    "lumberaxe": "transmatrics:integration/tconstruct/lumberaxe/Energetic",
+    "mattock": "transmatrics:integration/tconstruct/mattock/Energetic",
+    "pickaxe": "transmatrics:integration/tconstruct/pickaxe/Energetic",
+    "shovel": "transmatrics:integration/tconstruct/shovel/Energetic"
+  }
+}

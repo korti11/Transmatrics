@@ -1,4 +1,4 @@
-itemGroup.transmatrics=Transmatrics
+﻿itemGroup.transmatrics=Transmatrics
 
 #Blocks
 tile.Transmatrics.SolarPanel.name=Solar Panel
@@ -17,6 +17,8 @@ tile.Transmatrics.PoweredFurnace.name=Powered Furnace
 tile.Transmatrics.MagneticSmeltery.name=Magnetic Smeltery
 tile.Transmatrics.LiquidCaster.name=Liquid Caster
 tile.Transmatrics.MachineCasing.name=Machine Casing
+tile.Transmatrics.AlloyMixer.name=Alloy Mixer
+tile.Transmatrics.Charger.name=Energised Charger
 
 #Ore
 tile.Transmatrics.Ore.copper.name=Copper Ore
@@ -66,6 +68,9 @@ item.Transmatrics.Electronics.shortTransmitter.name=Short Transmitter
 item.Transmatrics.Electronics.transmitter.name=Transmitter
 item.Transmatrics.Electronics.longTransmitter.name=Long Transmitter
 
+#Capacitors
+item.Transmatrics.LeadCapacitor.name=Lead Capacitor
+
 #Fluids
 fluid.Transmatrics.hydrogengas.name=Hydrogen
 tile.Transmatrics.hydrogengas.name=Hydrogen
@@ -95,6 +100,8 @@ tooltip.connector.connection.name=Name: %s
 tooltip.connector.connection.pos=Pos: [x: %d, y: %d, z: %d]
 tooltip.pulverizer.output.chance=Chance:
 tooltip.hammer.uses.left=Uses left: %d
+tooltip.capacitor.energy.label=Energy:
+tooltip.capacitor.energy=%d/%d TF
 
 #Gui
 gui.tank.empty=Empty
@@ -103,3 +110,8 @@ gui.tank.empty=Empty
 jei.category.pulverizer.title=Pulverizer
 jei.category.magneticsmeltery.title=Magnetic Smeltery
 jei.category.liquidcaster.title=Liquid Caster
+
+#TConstruct Modifiers
+modifier.Transmatrics.energetic=Energetic
+modifier.energetic.desc=§oCharged!§r\nUse first energy instead of durability.
+#modifier.energetic.desc=§oSo strong!§r\nEach level adds a 15% chance to not use durability.

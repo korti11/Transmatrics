@@ -24,7 +24,8 @@ import org.apache.logging.log4j.Logger;
 /**
  * Created by Korti on 24.02.2016.
  */
-@Mod(modid = Constants.Mod.MODID, name = Constants.Mod.NAME, version = Constants.Mod.VERSION)
+@Mod(modid = Constants.Mod.MODID, name = Constants.Mod.NAME, version = Constants.Mod.VERSION,
+        dependencies = "after:" + Constants.ModIntegrationIds.TCONSTRUCT)
 public class Transmatrics {
 
     @Mod.Instance(Constants.Mod.MODID)
@@ -55,22 +56,19 @@ public class Transmatrics {
         TileEntities.registerTileEntities();
         GameRegistry.registerWorldGenerator(new OreGeneration(), 1);
         proxy.preInit(event);
-        ModIntegrationManager.preInit();
     }
 
     @Mod.EventHandler
     public static void init(FMLInitializationEvent event) {
         Crafting.register();
-        proxy.init(event);
         TransmatricsPacketHandler.init();
-        ModIntegrationManager.init();
         NetworkRegistry.INSTANCE.registerGuiHandler(Transmatrics.instance, new GuiHandler());
+        proxy.init(event);
     }
 
     @Mod.EventHandler
     public static void postInit(FMLPostInitializationEvent event) {
         proxy.postInit(event);
-        ModIntegrationManager.postInit();
     }
 
 }

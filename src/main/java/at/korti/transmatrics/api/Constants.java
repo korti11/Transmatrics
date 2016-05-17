@@ -24,6 +24,7 @@ public final class Constants {
     public static class ModIntegrationIds{
         public static final String WAILA = "Waila";
         public static final String JEI = "JEI";
+        public static final String TCONSTRUCT = "tconstruct";
     }
 
     public static class JEI{
@@ -32,6 +33,12 @@ public final class Constants {
             public static final String MAGNETIC_SMELTERY = Mod.MODID + ":MagneticSmeltery";
             public static final String LIQUID_CASTER = Mod.MODID + ":LiquidCaster";
         }
+    }
+
+    public static class TConstructModifiers{
+        //Energetic
+        public static final String ENERGETIC_IDENTIFIER = "energetic";
+        public static final int ENERGETIC_COLOR = 0xffff33;
     }
 
     public static class NBT {
@@ -96,6 +103,10 @@ public final class Constants {
 
         //Hammer
         public static final String HAMMER_USES_LEFT = "tooltip.hammer.uses.left";
+
+        //Capacitor
+        public static final String CAPACITOR_ENERGY_LABEL = "tooltip.capacitor.energy.label";
+        public static final String CAPACITOR_ENERGY = "tooltip.capacitor.energy";
     }
 
     public static class Energy{
@@ -171,6 +182,19 @@ public final class Constants {
         public static final int LIQUID_CASTER_CAPACITY = 5000;
         public static final int LIQUID_CASTER_RECEIVE = 500;
         public static final int LIQUID_CASTER_ENERGY_USE = 25;
+
+        //Alloy Mixer
+        public static final int ALLOY_MIXER_CAPACITY = 5000;
+        public static final int ALLOY_MIXER_RECEIVE = 500;
+        public static final int ALLOY_MIXER_ENERGY_USE = 25;
+
+        //Charger
+        public static final int CHARGER_CAPACITY = 5000;
+        public static final int CHARGER_RECEIVE = 500;
+        public static final int CHARGER_ENERGY_USE = 5;
+
+        //Capacitors
+        public static final int LEAD_CAPACITOR_CAPACITY = 1250;
     }
 
     public static class Tanks{
@@ -202,11 +226,14 @@ public final class Constants {
     }
 
     public static class GuiIds{
+        // Transmatrics
         public static final int PULVERIZER_GUI_ID = 0;
         public static final int POWERED_FURNACE_GUI_ID = 1;
         public static final int MAGNETIC_SMELTERY_GUI_ID = 2;
         public static final int LIQUID_CASTER_GUI_ID = 3;
         public static final int LAVA_GENERATOR_GUI_ID = 4;
+        public static final int ALLOY_MIXER_GUI_ID = 5;
+        public static final int CHARGER_GUI_ID = 6;
     }
 
     public static class OreDictionaryEntry{
@@ -249,6 +276,8 @@ public final class Constants {
         POWERED_FURNACE("PoweredFurnace"),
         MAGNETIC_SMELTERY("MagneticSmeltery"),
         LIQUID_CASTER("LiquidCaster"),
+        ALLOY_MIXER("AlloyMixer"),
+        CHARGER("Charger"),
         ORE_BLOCK("Ore"),
         MACHINE_CASING("MachineCasing");
 
@@ -276,7 +305,8 @@ public final class Constants {
         CAST("Cast"),
         ELECTRONICS("Electronics"),
         PLATE("Plate"),
-        HAMMER("Hammer");
+        HAMMER("Hammer"),
+        LEAD_CAPACITOR("LeadCapacitor");
 
         private final String regName;
 
@@ -307,7 +337,9 @@ public final class Constants {
         PULVERIZER("TilePulverizer"),
         POWERED_FURNACE("TilePoweredFurnace"),
         MAGNETIC_SMELTERY("TileMagneticSmeltery"),
-        LIQUID_CASTER("TileLiquidCaster");
+        LIQUID_CASTER("TileLiquidCaster"),
+        ALLOY_MIXER("TileAlloyMixer"),
+        CHARGER("TileCharger");
 
         private final String regName;
 

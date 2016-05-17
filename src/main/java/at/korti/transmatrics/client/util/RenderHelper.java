@@ -10,6 +10,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
@@ -55,6 +56,10 @@ public class RenderHelper {
         }
         renderCutIcon(sprite, x + fullX * 16, y + fullY * 16, z, lastX, lastY, fullAmount == fullY ? lastAmount : 0);
         GlStateManager.color(1, 1, 1, 1);
+    }
+
+    public static void drawGuiFluid(FluidTankInfo tankInfo, int x, int y, float z, int width, int height) {
+        drawGuiFluid(tankInfo.fluid, x, y, z, width, height, tankInfo.capacity);
     }
 
     private static void renderCutIcon(TextureAtlasSprite sprite, int x, int y, float z, int width, int height, int cut) {

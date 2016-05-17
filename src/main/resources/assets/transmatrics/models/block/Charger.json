@@ -1,0 +1,7 @@
+{
+  "parent": "transmatrics:block/Machine",
+  "textures":{
+    "up": "transmatrics:blocks/GeneratorTop",
+    "north": "transmatrics:blocks/ChargerFrontDeactivate"
+  }
+}

@@ -2,8 +2,12 @@ package at.korti.transmatrics.modintegration;
 
 import at.korti.transmatrics.api.Constants.ModIntegrationIds;
 import at.korti.transmatrics.modintegration.jei.JEIIntegration;
+import at.korti.transmatrics.modintegration.tconstruct.TConstruct;
 import at.korti.transmatrics.modintegration.waila.Waila;
 import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,6 +26,7 @@ public class ModIntegrationManager {
         try {
             integrationClasses.put(ModIntegrationIds.WAILA, Waila.class);
             integrationClasses.put(ModIntegrationIds.JEI, JEIIntegration.class);
+            integrationClasses.put(ModIntegrationIds.TCONSTRUCT, TConstruct.class);
         } catch (Throwable throwable) {
             throwable.printStackTrace();
         }
@@ -37,27 +42,39 @@ public class ModIntegrationManager {
         }
     }
 
-    public static void preInit() {
+    public static void preInit(FMLPreInitializationEvent event) {
         for (IIntegration mod : integrationMods) {
-            mod.preInit();
+            mod.preInit(event);
         }
     }
 
-    public static void init() {
+    public static void init(FMLInitializationEvent event) {
         for (IIntegration mod : integrationMods) {
-            mod.init();
+            mod.init(event);
         }
     }
 
-    public static void postInit() {
+    public static void postInit(FMLPostInitializationEvent event) {
         for (IIntegration mod : integrationMods) {
-            mod.postInit();
+            mod.postInit(event);
+        }
+    }
+
+    public static void clientPreInit() {
+        for (IIntegration mod : integrationMods) {
+            mod.clientPreInit();
         }
     }
 
     public static void clientInit() {
         for (IIntegration mod : integrationMods) {
             mod.clientInit();
+        }
+    }
+
+    public static void clientPostInit() {
+        for (IIntegration mod : integrationMods) {
+            mod.clientPostInit();
         }
     }
 

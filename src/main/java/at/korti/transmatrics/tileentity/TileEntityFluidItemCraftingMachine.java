@@ -129,7 +129,7 @@ public abstract class TileEntityFluidItemCraftingMachine extends TileEntityInven
         }
     }
 
-    private int getCraftingTime() {
+    protected int getCraftingTime() {
         IFluidItemCraftingEntry entry = craftingRegistry.get(getFluidsInput(), getInventoryInputs());
         if (entry != null) {
             return entry.getCraftingTime();
@@ -137,7 +137,7 @@ public abstract class TileEntityFluidItemCraftingMachine extends TileEntityInven
         return 0;
     }
 
-    private boolean areInputSlotsEmpty() {
+    protected boolean areInputSlotsEmpty() {
         int[] inputSlots = craftingRegistry.getInputSlotsIds();
         for (int slot : inputSlots) {
             if (getStackInSlot(slot) != null) {
@@ -147,7 +147,7 @@ public abstract class TileEntityFluidItemCraftingMachine extends TileEntityInven
         return true;
     }
 
-    private boolean areOutputSlotsEmpty() {
+    protected boolean areOutputSlotsEmpty() {
         int[] inputSlots = craftingRegistry.getOutputSlotsIds();
         for (int slot : inputSlots) {
             if (getStackInSlot(slot) != null) {
@@ -157,7 +157,7 @@ public abstract class TileEntityFluidItemCraftingMachine extends TileEntityInven
         return true;
     }
 
-    private boolean areTanksEmpty(boolean input) {
+    protected boolean areTanksEmpty(boolean input) {
         int[] tankIds = input ? craftingRegistry.getFluidInputIds() : craftingRegistry.getOutputSlotsIds();
         for (int tankId : tankIds) {
             FluidTank tank = tanks[tankId];
@@ -168,7 +168,7 @@ public abstract class TileEntityFluidItemCraftingMachine extends TileEntityInven
         return true;
     }
 
-    private boolean canCraft() {
+    protected boolean canCraft() {
         if (areTanksEmpty(true) || areInputSlotsEmpty()) {
             return false;
         } else {
@@ -197,7 +197,7 @@ public abstract class TileEntityFluidItemCraftingMachine extends TileEntityInven
         }
     }
 
-    private ItemStack[] getInventoryContent(int[] slots) {
+    protected ItemStack[] getInventoryContent(int[] slots) {
         ItemStack[] inventoryContent = new ItemStack[slots.length];
         for (int i = 0; i < slots.length; i++) {
             inventoryContent[i] = getStackInSlot(slots[i]);
@@ -205,15 +205,15 @@ public abstract class TileEntityFluidItemCraftingMachine extends TileEntityInven
         return inventoryContent;
     }
 
-    private ItemStack[] getInventoryInputs() {
+    protected ItemStack[] getInventoryInputs() {
         return getInventoryContent(craftingRegistry.getInputSlotsIds());
     }
 
-    private ItemStack[] getInventoryOutputs() {
+    protected ItemStack[] getInventoryOutputs() {
         return getInventoryContent(craftingRegistry.getOutputSlotsIds());
     }
 
-    private FluidStack[] getFluids(int[] tankIds) {
+    protected FluidStack[] getFluids(int[] tankIds) {
         FluidStack[] stacks = new FluidStack[tankIds.length];
         for (int i = 0; i < tankIds.length; i++) {
             stacks[i] = tanks[tankIds[i]].getFluid();
@@ -225,7 +225,7 @@ public abstract class TileEntityFluidItemCraftingMachine extends TileEntityInven
         return getFluids(craftingRegistry.getFluidInputIds());
     }
 
-    private boolean equalInventoryOutputs(ItemStack[] outputs) {
+    protected boolean equalInventoryOutputs(ItemStack[] outputs) {
         ItemStack[] outputContent = getInventoryOutputs();
         for (int i = 0; i < outputContent.length && i < outputs.length; i++) {
             if (outputContent[i] != null && !outputContent[i].isItemEqual(outputs[i])) {
@@ -235,7 +235,7 @@ public abstract class TileEntityFluidItemCraftingMachine extends TileEntityInven
         return true;
     }
 
-    private boolean equalFluids(FluidStack[] stacks) {
+    protected boolean equalFluids(FluidStack[] stacks) {
         boolean flag = true;
         for (FluidTank tank : tanks) {
             for (FluidStack stack : stacks) {
@@ -253,7 +253,7 @@ public abstract class TileEntityFluidItemCraftingMachine extends TileEntityInven
         return true;
     }
 
-    private boolean checkOutputStackSize(ItemStack[] outputs) {
+    protected boolean checkOutputStackSize(ItemStack[] outputs) {
         ItemStack[] outputContent = getInventoryOutputs();
         for (int i = 0; i < outputContent.length && i < outputs.length; i++) {
             if (outputContent[i] != null) {
@@ -266,7 +266,7 @@ public abstract class TileEntityFluidItemCraftingMachine extends TileEntityInven
         return true;
     }
 
-    private boolean checkFluidSizes(boolean input, FluidStack[] outputs) {
+    protected boolean checkFluidSizes(boolean input, FluidStack[] outputs) {
         for (FluidStack stack : outputs) {
             FluidTank tank = getTankForFluid(input, stack.getFluid());
             int amount = tank.fill(stack, false);
@@ -277,18 +277,18 @@ public abstract class TileEntityFluidItemCraftingMachine extends TileEntityInven
         return true;
     }
 
-    private FluidTank getTankForFluid(boolean input, Fluid fluid) {
+    protected FluidTank getTankForFluid(boolean input, Fluid fluid) {
         int[] tankIds = input ? craftingRegistry.getFluidInputIds() : craftingRegistry.getFluidOutputIds();
         for (int tankId : tankIds) {
             FluidTank tank = tanks[tankId];
-            if (tank.getFluid() == null || tank.getFluid().getFluid() == fluid) {
+            if (tank.getFluid() != null && tank.getFluid().getFluid() == fluid) {
                 return tank;
             }
         }
         return findEmptyTank(input);
     }
 
-    private FluidTank findEmptyTank(boolean input) {
+    protected FluidTank findEmptyTank(boolean input) {
         int[] tankIds = input ? craftingRegistry.getFluidInputIds() : craftingRegistry.getFluidOutputIds();
         for (int tankId : tankIds) {
             FluidTank tank = tanks[tankId];
@@ -299,7 +299,7 @@ public abstract class TileEntityFluidItemCraftingMachine extends TileEntityInven
         return null;
     }
 
-    private void craft() {
+    protected void craft() {
         if (this.canCraft()) {
             boolean isFluidOutput = craftingRegistry.getOutputSlotsIds().length == 0;
             if (isFluidOutput) {
@@ -325,12 +325,12 @@ public abstract class TileEntityFluidItemCraftingMachine extends TileEntityInven
         }
     }
 
-    private void craftFluid(FluidStack stack) {
+    protected void craftFluid(FluidStack stack) {
         FluidTank tank = getTankForFluid(false, stack.getFluid());
         tank.fill(stack, true);
     }
 
-    private void craftItem(int outputSlot, ItemStack output) {
+    protected void craftItem(int outputSlot, ItemStack output) {
         if (CraftingHelper.chanceToCraft(craftingRegistry, outputSlot, getFluidsInput(), getInventoryInputs())) {
             if (getStackInSlot(outputSlot) == null) {
                 setInventorySlotContents(outputSlot, output.copy());
@@ -340,7 +340,7 @@ public abstract class TileEntityFluidItemCraftingMachine extends TileEntityInven
         }
     }
 
-    private void decreaseInputs(FluidStack[] inputs, ItemStack[] secondInputs) {
+    protected void decreaseInputs(FluidStack[] inputs, ItemStack[] secondInputs) {
         for (FluidStack stack : inputs) {
             getTankForFluid(true, stack.getFluid()).drain(stack.amount, true);
         }
@@ -355,7 +355,7 @@ public abstract class TileEntityFluidItemCraftingMachine extends TileEntityInven
         }
     }
 
-    private int getSlotForStack(boolean input, ItemStack stack) {
+    protected int getSlotForStack(boolean input, ItemStack stack) {
         int[] slots = input ? craftingRegistry.getInputSlotsIds() : craftingRegistry.getOutputSlotsIds();
         for (int slot : slots) {
             if (getStackInSlot(slot).isItemEqual(stack)) {
@@ -365,7 +365,7 @@ public abstract class TileEntityFluidItemCraftingMachine extends TileEntityInven
         return -1;
     }
 
-    private FluidTank firstFilledTank(boolean input) {
+    protected FluidTank firstFilledTank(boolean input) {
         int[] tankIds = input ? craftingRegistry.getFluidInputIds() : craftingRegistry.getFluidOutputIds();
         for (int tankId : tankIds) {
             FluidTank tank = tanks[tankId];

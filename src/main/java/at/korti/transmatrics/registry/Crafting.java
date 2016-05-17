@@ -23,7 +23,7 @@ import static at.korti.transmatrics.api.Constants.TransmatricsItem.*;
  */
 public final class Crafting {
 
-    private static final int FLUID_AMOUNT_PER_INGOT = 500;
+    public static int FLUID_AMOUNT_PER_INGOT = 500;
 
     public static void register() {
         registerCrafting();

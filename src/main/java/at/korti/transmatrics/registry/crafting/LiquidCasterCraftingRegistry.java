@@ -110,6 +110,15 @@ public final class LiquidCasterCraftingRegistry implements IFluidItemCraftingReg
         throw new UnsupportedOperationException();
     }
 
+    public LiquidCasterCraftingEntry find(ItemStack casting) {
+        for (LiquidCasterCraftingEntry entry : recipes) {
+            if (entry.getSecondInputs()[0].isItemEqual(casting)) {
+                return entry;
+            }
+        }
+        return null;
+    }
+
     @Override
     public ICraftingEntry remove(int index) {
         return recipes.remove(index);
