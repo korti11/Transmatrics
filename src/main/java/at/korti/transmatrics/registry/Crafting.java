@@ -220,7 +220,7 @@ public final class Crafting {
                 "LLL",
                 "CRC",
                 "LLL", 'L', new ItemStack(INGOT.getItem(), 1, 3), 'C', new ItemStack(INGOT.getItem()), 'R',
-                new ItemStack(Items.redstone)
+                new ItemStack(Items.REDSTONE)
         );
         // iron plate
         registerShapelessOreRecipe(new ItemStack(PLATE.getItem()),
