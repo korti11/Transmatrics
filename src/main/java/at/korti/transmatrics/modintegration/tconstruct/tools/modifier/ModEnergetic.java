@@ -9,8 +9,12 @@ import at.korti.transmatrics.util.helper.TextHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.oredict.OreDictionary;
+import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.library.modifiers.ModifierTrait;
 import slimeknights.tconstruct.library.utils.TinkerUtil;
+
+import java.util.List;
 
 /**
  * Created by Korti on 16.05.2016.
@@ -22,7 +26,7 @@ public class ModEnergetic extends ModifierTrait implements IRechargeable{
     public ModEnergetic(ItemCapacitor capacitor) {
         super(TConstructModifiers.ENERGETIC_IDENTIFIER, TConstructModifiers.ENERGETIC_COLOR);
         this.capacity = capacitor.getCapacity();
-        this.addItem(capacitor);
+        this.addItem(new ItemStack(capacitor, 1, OreDictionary.WILDCARD_VALUE), 1, 1);
     }
 
     @Override
