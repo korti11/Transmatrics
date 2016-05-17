@@ -215,6 +215,13 @@ public final class Crafting {
                 " SI",
                 "S  ", 'I', new ItemStack(Items.IRON_INGOT), 'S', new ItemStack(Items.STICK)
         );
+        // lead capacitor
+        registerShapedOreRecipe(new ItemStack(LEAD_CAPACITOR.getItem(), 1, LEAD_CAPACITOR.getItem().getMaxDamage()),
+                "LLL",
+                "CRC",
+                "LLL", 'L', new ItemStack(INGOT.getItem(), 1, 3), 'C', new ItemStack(INGOT.getItem()), 'R',
+                new ItemStack(Items.redstone)
+        );
         // iron plate
         registerShapelessOreRecipe(new ItemStack(PLATE.getItem()),
                 new ItemStack(HAMMER.getItem(), 1, OreDictionary.WILDCARD_VALUE),
