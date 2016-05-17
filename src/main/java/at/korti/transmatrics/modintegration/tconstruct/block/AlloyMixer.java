@@ -12,7 +12,7 @@ import net.minecraft.block.material.Material;
 public class AlloyMixer extends FluidCraftingMachineBlock {
 
     public AlloyMixer() {
-        super(Material.iron, TransmatricsBlock.ALLOY_MIXER.getRegName(), TileEntityAlloyMixer.class,
+        super(Material.IRON, TransmatricsBlock.ALLOY_MIXER.getRegName(), TileEntityAlloyMixer.class,
                 GuiIds.ALLOY_MIXER_GUI_ID);
     }
 }

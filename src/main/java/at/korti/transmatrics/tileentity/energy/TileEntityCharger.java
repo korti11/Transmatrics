@@ -104,7 +104,7 @@ public class TileEntityCharger extends TileEntityInventory {
 
         if (markDirty) {
             this.markDirty();
-            worldObj.markBlockForUpdate(pos);
+            syncClient();
         }
     }
 

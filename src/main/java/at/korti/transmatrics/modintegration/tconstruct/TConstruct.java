@@ -12,7 +12,7 @@ import at.korti.transmatrics.modintegration.tconstruct.tileentity.TileEntityAllo
 import at.korti.transmatrics.modintegration.tconstruct.tools.modifier.ModEnergetic;
 import at.korti.transmatrics.registry.Crafting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -39,7 +39,7 @@ public class TConstruct implements IIntegration {
         TConstructConfig.loadConfig(event.getSuggestedConfigurationFile());
         Crafting.FLUID_AMOUNT_PER_INGOT = Material.VALUE_Ingot;
         GameRegistry.registerTileEntity(TileEntityAlloyMixer.class, TransmatricsTileEntity.ALLOY_MIXER.getRegName());
-        GameRegistry.registerBlock(alloyMixer = new AlloyMixer());
+        GameRegistry.register(alloyMixer = new AlloyMixer());
     }
 
     @Override

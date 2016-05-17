@@ -14,6 +14,6 @@ import net.minecraft.tileentity.TileEntity;
 public class Charger extends CraftingMachineBlock {
 
     public Charger() {
-        super(Material.iron, TransmatricsBlock.CHARGER.getRegName(), TileEntityCharger.class, GuiIds.CHARGER_GUI_ID);
+        super(Material.IRON, TransmatricsBlock.CHARGER.getRegName(), TileEntityCharger.class, GuiIds.CHARGER_GUI_ID);
     }
 }

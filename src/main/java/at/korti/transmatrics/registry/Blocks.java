@@ -62,7 +62,7 @@ public final class Blocks {
         registerBlock(poweredFurnace = new PoweredFurnace(), new ItemMachineBlock(poweredFurnace));
         registerBlock(magneticSmeltery = new MagneticSmeltery(), new ItemMachineBlock(magneticSmeltery));
         registerBlock(liquidCaster = new LiquidCaster(), new ItemMachineBlock(liquidCaster));
-        registerBlock(charger = new Charger(), ItemMachineBlock.class);
+        registerBlock(charger = new Charger(), new ItemMachineBlock(charger));
         registerBlock(oreBlock = new OreBlock(), new ItemOreBlock(oreBlock));
         registerBlock(machineCasing = new MachineCasing());
     }

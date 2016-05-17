@@ -52,7 +52,7 @@ public final class Items {
         register(itemCast = new ItemCast());
         register(itemElectronics = new ItemElectronics());
         register(itemPlate = new ItemPlate());
-        registerItem(itemLeadCapacitor = new ItemCapacitor(LEAD_CAPACITOR.getRegName(), Energy.LEAD_CAPACITOR_CAPACITY));
+        register(itemLeadCapacitor = new ItemCapacitor(LEAD_CAPACITOR.getRegName(), Energy.LEAD_CAPACITOR_CAPACITY));
     }
 
     public static void registerItemsClient() {
