@@ -22,4 +22,8 @@ public class ModifierHelper {
         return null;
     }
 
+    public static boolean hasChargeable(ItemStack stack) {
+        return getChargeable(stack) != null;
+    }
+
 }

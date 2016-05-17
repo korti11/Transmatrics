@@ -32,6 +32,7 @@ public class ClientProxy extends CommonProxy {
         registerFluidModel(Fluids.moltenLead);
 
         MinecraftForge.EVENT_BUS.register(FluidRenderer.instance());
+        ModIntegrationManager.clientPreInit();
     }
 
     @Override
@@ -45,6 +46,7 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void postInit(FMLPostInitializationEvent event) {
         super.postInit(event);
+        ModIntegrationManager.clientPostInit();
     }
 
     private void registerFluidModel(Fluid fluid) {

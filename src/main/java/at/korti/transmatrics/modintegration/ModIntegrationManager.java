@@ -60,9 +60,21 @@ public class ModIntegrationManager {
         }
     }
 
+    public static void clientPreInit() {
+        for (IIntegration mod : integrationMods) {
+            mod.clientPreInit();
+        }
+    }
+
     public static void clientInit() {
         for (IIntegration mod : integrationMods) {
             mod.clientInit();
+        }
+    }
+
+    public static void clientPostInit() {
+        for (IIntegration mod : integrationMods) {
+            mod.clientPostInit();
         }
     }
 

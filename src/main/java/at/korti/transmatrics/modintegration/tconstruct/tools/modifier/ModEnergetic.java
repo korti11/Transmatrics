@@ -41,9 +41,12 @@ public class ModEnergetic extends ModifierTrait implements IRechargeable{
 
     @Override
     public String getTooltip(NBTTagCompound modifierTag, boolean detailed) {
-        int energy = modifierTag.getInteger(NBT.ENERGY);
-        int capacity = modifierTag.getInteger(NBT.CAPACITY);
-        return String.format("%s (%d/%d TF)", getLocalizedName(), energy, capacity);
+        if(!detailed) {
+            int energy = modifierTag.getInteger(NBT.ENERGY);
+            int capacity = getCapacity();
+            return String.format("%s (%d/%d TF)", getLocalizedName(), energy, capacity);
+        }
+        return super.getTooltip(modifierTag, detailed);
     }
 
     @Override

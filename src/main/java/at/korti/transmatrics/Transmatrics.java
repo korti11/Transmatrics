@@ -56,22 +56,19 @@ public class Transmatrics {
         TileEntities.registerTileEntities();
         GameRegistry.registerWorldGenerator(new OreGeneration(), 1);
         proxy.preInit(event);
-        ModIntegrationManager.preInit(event);
     }
 
     @Mod.EventHandler
     public static void init(FMLInitializationEvent event) {
         Crafting.register();
-        proxy.init(event);
         TransmatricsPacketHandler.init();
-        ModIntegrationManager.init(event);
         NetworkRegistry.INSTANCE.registerGuiHandler(Transmatrics.instance, new GuiHandler());
+        proxy.init(event);
     }
 
     @Mod.EventHandler
     public static void postInit(FMLPostInitializationEvent event) {
         proxy.postInit(event);
-        ModIntegrationManager.postInit(event);
     }
 
 }

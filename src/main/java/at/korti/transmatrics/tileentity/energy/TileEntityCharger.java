@@ -2,6 +2,7 @@ package at.korti.transmatrics.tileentity.energy;
 
 import at.korti.transmatrics.api.Constants;
 import at.korti.transmatrics.api.Constants.Energy;
+import at.korti.transmatrics.api.Constants.ModIntegrationIds;
 import at.korti.transmatrics.api.Constants.NBT;
 import at.korti.transmatrics.api.Constants.TransmatricsTileEntity;
 import at.korti.transmatrics.api.energy.IChargeable;
@@ -43,13 +44,19 @@ public class TileEntityCharger extends TileEntityInventory {
     @Override
     public void setInventorySlotContents(int index, ItemStack stack) {
         super.setInventorySlotContents(index, stack);
+        IChargeable item = null;
         if (stack != null && stack.getItem() instanceof IChargeable && index == 0) {
-            IChargeable item = (IChargeable) stack.getItem();
-            this.storedEnergy = item.getEnergy(stack);
-            this.maxStoreEnergy = item.getCapacity();
+            item = (IChargeable) stack.getItem();
+        } else if (Loader.isModLoaded(ModIntegrationIds.TCONSTRUCT) && ModifierHelper.hasChargeable(stack)) {
+            item = ModifierHelper.getChargeable(stack);
         } else if (stack == null && index == 0) {
             this.storedEnergy = 0;
             this.maxStoreEnergy = 0;
+            return;
+        }
+        if (item != null) {
+            this.storedEnergy = item.getEnergy(stack);
+            this.maxStoreEnergy = item.getCapacity();
         }
     }
 
@@ -71,7 +78,7 @@ public class TileEntityCharger extends TileEntityInventory {
                     IChargeable chargeable = null;
                     if (stack.getItem() instanceof IChargeable) {
                         chargeable = (IChargeable) stack.getItem();
-                    } else if (Loader.isModLoaded(Constants.ModIntegrationIds.TCONSTRUCT)) {
+                    } else if (Loader.isModLoaded(ModIntegrationIds.TCONSTRUCT)) {
                         chargeable = ModifierHelper.getChargeable(stack);
                     }
                     if (chargeable != null) {

@@ -1,7 +1,10 @@
 package at.korti.transmatrics.tileentity.container;
 
+import at.korti.transmatrics.api.Constants;
+import at.korti.transmatrics.api.Constants.ModIntegrationIds;
 import at.korti.transmatrics.api.crafting.ICraftingRegistry;
 import at.korti.transmatrics.api.energy.IChargeable;
+import at.korti.transmatrics.modintegration.tconstruct.helper.ModifierHelper;
 import at.korti.transmatrics.tileentity.container.slot.OutputSlot;
 import at.korti.transmatrics.util.helper.InventoryHelper;
 import net.minecraft.entity.player.EntityPlayer;
@@ -11,6 +14,7 @@ import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.common.Loader;
 
 /**
  * Created by Korti on 16.05.2016.
@@ -101,7 +105,8 @@ public class ContainerCharger extends Container{
 
                 slot.onSlotChange(tempStack, itemStack);
             } else if (index != 0) {
-                if (tempStack.getItem() instanceof IChargeable) {
+                if (tempStack.getItem() instanceof IChargeable || (Loader.isModLoaded(ModIntegrationIds.TCONSTRUCT) &&
+                        ModifierHelper.hasChargeable(tempStack))) {
                     if (!this.mergeItemStack(tempStack, 0, 1, false)) {
                         return null;
                     }

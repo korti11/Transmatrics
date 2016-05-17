@@ -15,6 +15,10 @@ public interface IIntegration {
 
     void postInit(FMLPostInitializationEvent event);
 
+    void clientPreInit();
+
     void clientInit();
+
+    void clientPostInit();
 
 }
