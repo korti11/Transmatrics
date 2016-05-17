@@ -12,6 +12,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.oredict.OreDictionary;
 import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.library.modifiers.ModifierTrait;
+import slimeknights.tconstruct.library.tinkering.Category;
+import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.utils.TinkerUtil;
 
 import java.util.List;
@@ -51,6 +53,11 @@ public class ModEnergetic extends ModifierTrait implements IRechargeable{
             return String.format("%s (%d/%d TF)", getLocalizedName(), energy, capacity);
         }
         return super.getTooltip(modifierTag, detailed);
+    }
+
+    @Override
+    public boolean canApplyCustom(ItemStack stack) {
+        return !((ToolCore) stack.getItem()).hasCategory(Category.NO_MELEE);
     }
 
     @Override
