@@ -30,9 +30,7 @@ public class ModItem extends Item {
     }
 
     @Override
-    public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
-        if(nameColor != EnumChatFormatting.WHITE) {
-            stack.setStackDisplayName(nameColor + TextHelper.localize(getUnlocalizedName(stack) + ".name") + EnumChatFormatting.RESET);
-        }
+    public String getItemStackDisplayName(ItemStack stack) {
+        return nameColor.toString() + super.getItemStackDisplayName(stack);
     }
 }
