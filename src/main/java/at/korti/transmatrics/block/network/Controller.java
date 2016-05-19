@@ -60,9 +60,11 @@ public class Controller extends MachineBlock{
     @Override
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
         TileEntityController controller = NetworkHandler.getController(worldIn, pos);
-        TileEntityController master = controller.getMaster();
-        List<INetworkNode> connectedNodes = new LinkedList<>(controller.getConnections());
-        controller.removeExtension();
+        TileEntityController master = controller != null ? controller.getMaster() : null;
+        List<INetworkNode> connectedNodes = controller != null ? new LinkedList<>(controller.getConnections()) : null;
+        if(controller != null) {
+            controller.removeExtension();
+        }
         super.breakBlock(worldIn, pos, state);
         if (master != null) {
             for (INetworkNode node : connectedNodes) {

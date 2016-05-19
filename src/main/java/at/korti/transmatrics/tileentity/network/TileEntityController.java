@@ -314,7 +314,12 @@ public class TileEntityController extends TileEntityEnergySwitch {
             }
             return false;
         } else {
-            return getMaster().canProvideEnergy();
+            TileEntityController master = getMaster();
+            if(master != null) {
+                return getMaster().canProvideEnergy();
+            } else {
+                return false;
+            }
         }
     }
 
@@ -405,7 +410,10 @@ public class TileEntityController extends TileEntityEnergySwitch {
                 }
             }
         } else {
-            getMaster().validateConstruction();
+            TileEntityController master = getMaster();
+            if(master != null) {
+                master.validateConstruction();
+            }
         }
     }
 
