@@ -36,8 +36,8 @@ public abstract class TileEntityFluidCraftingMachine extends TileEntityInventory
     protected int efficiency;
     protected int maxEfficiency;
 
-    protected TileEntityFluidCraftingMachine(int capacity, int maxReceive, int energyUse, String name, IFluidCraftingRegistry registry) {
-        super(capacity, maxReceive, registry.inventorySize(), registry.getStackLimit(), name);
+    protected TileEntityFluidCraftingMachine(int capacity, int maxReceive, int energyUse, boolean capacitorSlot, String name, IFluidCraftingRegistry registry) {
+        super(capacity, maxReceive, registry.inventorySize(), registry.getStackLimit(), capacitorSlot, name);
         this.craftingRegistry = registry;
         this.initTanks();
         this.energyUse = energyUse;

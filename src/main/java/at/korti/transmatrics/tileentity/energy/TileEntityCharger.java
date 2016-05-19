@@ -23,7 +23,7 @@ public class TileEntityCharger extends TileEntityInventory {
     private int maxStoreEnergy;
 
     public TileEntityCharger() {
-        super(Energy.CHARGER_CAPACITY, Energy.CHARGER_RECEIVE, 2, 1, TransmatricsTileEntity.CHARGER.getRegName());
+        super(Energy.CHARGER_CAPACITY, Energy.CHARGER_RECEIVE, 2, 1, false, TransmatricsTileEntity.CHARGER.getRegName());
         energyUse = Energy.CHARGER_ENERGY_USE;
     }
 

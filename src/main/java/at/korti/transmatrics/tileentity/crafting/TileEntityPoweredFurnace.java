@@ -11,7 +11,7 @@ import at.korti.transmatrics.tileentity.TileEntityCraftingMachine;
 public class TileEntityPoweredFurnace extends TileEntityCraftingMachine {
 
     public TileEntityPoweredFurnace() {
-        super(Energy.POWERED_FURNACE_CAPACITY, Energy.POWERED_FURNACE_RECEIVE, Energy.POWERED_FURNACE_ENERGY_USE,
+        super(Energy.POWERED_FURNACE_CAPACITY, Energy.POWERED_FURNACE_RECEIVE, Energy.POWERED_FURNACE_ENERGY_USE, true,
                 TransmatricsTileEntity.POWERED_FURNACE.getRegName(), FurnaceCraftingRegistry.getInstance());
     }
 

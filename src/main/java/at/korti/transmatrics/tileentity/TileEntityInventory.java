@@ -1,6 +1,7 @@
 package at.korti.transmatrics.tileentity;
 
 import at.korti.transmatrics.api.Constants;
+import at.korti.transmatrics.api.energy.IDischargeable;
 import at.korti.transmatrics.util.helper.TextHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -23,9 +24,13 @@ public abstract class TileEntityInventory extends TileEntityEnergyNode implement
     private ItemStack[] inventory;
     private int stackLimit;
     private String name;
+    private int capacitorSlot = -1;
 
-    protected TileEntityInventory(int capacity, int maxReceive, int inventorySize, int stackLimit, String name) {
+    protected TileEntityInventory(int capacity, int maxReceive, int inventorySize, int stackLimit, boolean capacitorSlot, String name) {
         super(capacity, maxReceive, 0);
+        if (capacitorSlot) {
+            this.capacitorSlot = inventorySize++;
+        }
         this.inventory = new ItemStack[inventorySize];
         this.stackLimit = stackLimit;
         this.name = name;
@@ -58,6 +63,21 @@ public abstract class TileEntityInventory extends TileEntityEnergyNode implement
             }
         }
         compound.setTag(Constants.NBT.INVENTORY, itemList);
+    }
+
+    @Override
+    public void update() {
+        super.update();
+        if (!worldObj.isRemote && capacitorSlot != -1) {
+            ItemStack stack = getStackInSlot(capacitorSlot);
+            if (stack != null && stack.getItem() instanceof IDischargeable) {
+                IDischargeable item = (IDischargeable) stack.getItem();
+                int energy = item.discharge(stack, Constants.Energy.DISCHARGE_RATE, true);
+                energy = energyStorage.receiveEnergy(energy, false);
+                item.discharge(stack, energy, false);
+                syncClient();
+            }
+        }
     }
 
     @Override
