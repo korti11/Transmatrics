@@ -90,7 +90,7 @@ public abstract class TileEntityNetworkSwitch extends TileEntity implements INet
         EVENT_BUS.post(new ConnectNetworkNodesEvent(this, node));
         if (networkNodes.size() == maxConnections) {
             return new StatusMessage(false, NetworkMessages.MAX_CONNECTIONS, maxConnections);
-        } else if (!canConnectToMachines && (node instanceof TileEntityGenerator)) {     //TODO: Check if the node is a machine
+        } else if (!canConnectToMachines && !(node instanceof INetworkSwitch)) {
             return new StatusMessage(false, NetworkMessages.MACHINES_CAN_NOT_CONNECTED);
         } else if (this == node) {
             return new StatusMessage(false, NetworkMessages.SAME_NODE);

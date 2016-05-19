@@ -324,22 +324,22 @@ public final class Constants {
     }
 
     public enum TransmatricsTileEntity {
-        SOLAR_PANEL("TileSolarPanel"),
-        ADVANCED_SOLAR_PANEL("TileAdvancedSolarPanel"),
-        LAVA_GENERATOR("TileLavaGenerator"),
-        THERMAL_GENERATOR("TileThermalGenerator"),
-        WINDMILL("TileWindmill"),
-        WATERMILL("TileWatermill"),
-        SMALL_SWITCH("TileSmallSwitch"),
-        MEDIUM_SWITCH("TileMediumSwitch"),
-        LARGE_SWITCH("TileLargeSwitch"),
-        CONTROLLER("TileController"),
-        PULVERIZER("TilePulverizer"),
-        POWERED_FURNACE("TilePoweredFurnace"),
-        MAGNETIC_SMELTERY("TileMagneticSmeltery"),
-        LIQUID_CASTER("TileLiquidCaster"),
-        ALLOY_MIXER("TileAlloyMixer"),
-        CHARGER("TileCharger");
+        SOLAR_PANEL("TMTileSolarPanel"),
+        ADVANCED_SOLAR_PANEL("TMTileAdvancedSolarPanel"),
+        LAVA_GENERATOR("TMTileLavaGenerator"),
+        THERMAL_GENERATOR("TMTileThermalGenerator"),
+        WINDMILL("TMTileWindmill"),
+        WATERMILL("TMTileWatermill"),
+        SMALL_SWITCH("TMTileSmallSwitch"),
+        MEDIUM_SWITCH("TMTileMediumSwitch"),
+        LARGE_SWITCH("TMTileLargeSwitch"),
+        CONTROLLER("TMTileController"),
+        PULVERIZER("TMTilePulverizer"),
+        POWERED_FURNACE("TMTilePoweredFurnace"),
+        MAGNETIC_SMELTERY("TMTileMagneticSmeltery"),
+        LIQUID_CASTER("TMTileLiquidCaster"),
+        ALLOY_MIXER("TMTileAlloyMixer"),
+        CHARGER("TMTileCharger");
 
         private final String regName;
 
