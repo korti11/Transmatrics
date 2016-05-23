@@ -1,6 +1,7 @@
 package at.korti.transmatrics.tileentity.container;
 
 import at.korti.transmatrics.registry.crafting.FurnaceCraftingRegistry;
+import at.korti.transmatrics.tileentity.TileEntityInventory;
 import at.korti.transmatrics.tileentity.container.slot.OutputSlot;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
@@ -11,7 +12,7 @@ import net.minecraft.inventory.Slot;
  */
 public class ContainerPoweredFurnace extends CraftingContainer {
 
-    public ContainerPoweredFurnace(InventoryPlayer inventoryPlayer, IInventory tileEntity) {
+    public ContainerPoweredFurnace(InventoryPlayer inventoryPlayer, TileEntityInventory tileEntity) {
         super(inventoryPlayer, tileEntity, FurnaceCraftingRegistry.getInstance());
     }
 

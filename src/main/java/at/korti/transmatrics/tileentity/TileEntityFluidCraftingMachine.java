@@ -494,7 +494,10 @@ public abstract class TileEntityFluidCraftingMachine extends TileEntityInventory
     public void setInventorySlotContents(int index, ItemStack stack) {
         boolean isSameItem = stack != null && stack.isItemEqual(getStackInSlot(index)) && ItemStack.areItemStackTagsEqual(stack, getStackInSlot(index));
         super.setInventorySlotContents(index, stack);
-        ICraftingRegistry.ICraftingEntry entry = craftingRegistry.get(getInventoryInputs());
+        ICraftingRegistry.ICraftingEntry entry = null;
+        if(!isFluidInput()) {
+            entry = craftingRegistry.get(getInventoryInputs());
+        }
         if (InventoryHelper.isInputSlot(craftingRegistry, index) && entry != null && !isSameItem) {
             this.totalCraftingTime = entry.getCraftingTime();
             craftingTime = 0;

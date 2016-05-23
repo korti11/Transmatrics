@@ -80,6 +80,14 @@ public abstract class TileEntityInventory extends TileEntityEnergyNode implement
         }
     }
 
+    public boolean hasCapacitorSlot() {
+        return capacitorSlot != -1;
+    }
+
+    public int getCapacitorSlot() {
+        return capacitorSlot;
+    }
+
     @Override
     public Packet getDescriptionPacket() {
         NBTTagCompound tagCompound = new NBTTagCompound();

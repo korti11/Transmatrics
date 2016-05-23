@@ -1,6 +1,7 @@
 package at.korti.transmatrics.tileentity.container;
 
 import at.korti.transmatrics.registry.crafting.PulverizerCraftingRegistry;
+import at.korti.transmatrics.tileentity.TileEntityInventory;
 import at.korti.transmatrics.tileentity.container.slot.OutputSlot;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
@@ -11,7 +12,7 @@ import net.minecraft.inventory.Slot;
  */
 public class ContainerPulverizer extends CraftingContainer {
 
-    public ContainerPulverizer(InventoryPlayer inventoryPlayer, IInventory tilePulverizer) {
+    public ContainerPulverizer(InventoryPlayer inventoryPlayer, TileEntityInventory tilePulverizer) {
         super(inventoryPlayer, tilePulverizer, PulverizerCraftingRegistry.getInstance());
 
     }

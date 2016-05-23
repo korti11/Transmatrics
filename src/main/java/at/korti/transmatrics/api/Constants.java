@@ -194,7 +194,7 @@ public final class Constants {
         public static final int CHARGER_ENERGY_USE = 5;
 
         //Capacitors
-        public static final int DISCHARGE_RATE = 50;
+        public static final int DISCHARGE_RATE = 10;
         public static final int LEAD_CAPACITOR_CAPACITY = 1250;
     }
 

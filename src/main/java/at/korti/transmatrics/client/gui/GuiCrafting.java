@@ -40,7 +40,7 @@ public abstract class GuiCrafting extends GuiContainer{
     }
 
     protected void addInformation(int mouseX, int mouseY, List<String> textLines) {
-        if (inventory instanceof IEnergyHandler && isInRect(mouseX, mouseY, 17, 10, 17 + 16, 10 + 64)) {
+        if (inventory instanceof IEnergyHandler && isInRect(mouseX, mouseY, 17, 10, 17 + 16, 10 + 43)) {
             IEnergyHandler machine = (IEnergyHandler) inventory;
             textLines.add(String.format("%d/%d TF", machine.getEnergyStored(), machine.getMaxEnergyStored()));
         }
