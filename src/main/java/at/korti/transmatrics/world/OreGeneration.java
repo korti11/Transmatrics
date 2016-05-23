@@ -25,6 +25,7 @@ public class OreGeneration implements IWorldGenerator {
         generateOre(TransmatricsBlock.ORE_BLOCK.getBlock(), 1, world, random, x, z, 8);
         generateOre(TransmatricsBlock.ORE_BLOCK.getBlock(), 2, world, random, x, z, 5);
         generateOre(TransmatricsBlock.ORE_BLOCK.getBlock(), 3, world, random, x, z, 4);
+        generateOre(TransmatricsBlock.ORE_BLOCK.getBlock(), 4, world, random, x, z, 5);
     }
 
     public void generateOre(Block ore, int meta, World world, Random random, int blockXPos, int blockZPos, int maxVeinSize){

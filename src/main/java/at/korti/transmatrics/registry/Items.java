@@ -40,6 +40,7 @@ public final class Items {
     private static ItemElectronics itemElectronics;
     private static ItemPlate itemPlate;
     private static ItemCapacitor itemLeadCapacitor;
+    private static ItemCapacitor itemInvarCapacitor;
 
     public static void registerItemsCommon() {
         registerItem(wrench = new ItemWrench());

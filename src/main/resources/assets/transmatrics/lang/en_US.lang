@@ -25,6 +25,7 @@ tile.Transmatrics.Ore.copper.name=Copper Ore
 tile.Transmatrics.Ore.tin.name=Tin Ore
 tile.Transmatrics.Ore.silver.name=Silver Ore
 tile.Transmatrics.Ore.lead.name=Lead Ore
+tile.Transmatrics.Ore.nickel.name=Nickel Ore
 
 #Items
 item.Transmatrics.Wrench.name=Wrench
@@ -38,12 +39,16 @@ item.Transmatrics.PulverizedDust.copper.name=Pulverized Copper
 item.Transmatrics.PulverizedDust.tin.name=Pulverized Tin
 item.Transmatrics.PulverizedDust.silver.name=Pulverized Silver
 item.Transmatrics.PulverizedDust.lead.name=Pulverized Lead
+item.Transmatrics.PulverizedDust.nickel.name=Pulverized Nickel
+item.Transmatrics.PulverizedDust.invar.name=Pulverized Invar
 
 #Ingots
 item.Transmatrics.Ingot.copper.name=Copper Ingot
 item.Transmatrics.Ingot.tin.name=Tin Ingot
 item.Transmatrics.Ingot.silver.name=Silver Ingot
 item.Transmatrics.Ingot.lead.name=Lead Ingot
+item.Transmatrics.Ingot.nickel.name=Nickel Ingot
+item.Transmatrics.Ingot.invar.name=Invar Ingot
 
 #Gears
 item.Transmatrics.Gear.copper.name=Copper Gear
@@ -72,8 +77,6 @@ item.Transmatrics.Electronics.longTransmitter.name=Long Transmitter
 item.Transmatrics.LeadCapacitor.name=Lead Capacitor
 
 #Fluids
-fluid.Transmatrics.hydrogengas.name=Hydrogen
-tile.Transmatrics.hydrogengas.name=Hydrogen
 fluid.Transmatrics.moltencopper.name=Molten Copper
 tile.Transmatrics.moltencopper.name=Molten Copper
 fluid.Transmatrics.moltentin.name=Molten Tin
@@ -82,6 +85,10 @@ fluid.Transmatrics.moltensilver.name=Molten Silver
 tile.Transmatrics.moltensilver.name=Molten Silver
 fluid.Transmatrics.moltenlead.name=Molten Lead
 tile.Transmatrics.moltenlead.name=Molten Lead
+fluid.Transmatrics.moltennickel.name=Molten Nickel
+tile.Transmatrics.moltennickel.name=Molten Nickel
+fluid.Transmatrics.molteninvar.name=Molten Invar
+tile.Transmatrics.molteninvar.name=Molten Invar
 
 #Network
 network.max_connections.message=[Network] The max connection points are reached. Max connections: %d

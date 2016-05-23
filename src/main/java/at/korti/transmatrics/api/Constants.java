@@ -357,7 +357,9 @@ public final class Constants {
         MOLTEN_COPPER("MoltenCopper"),
         MOLTEN_TIN("MoltenTin"),
         MOLTEN_SILVER("MoltenSilver"),
-        MOLTEN_LEAD("MoltenLead");
+        MOLTEN_LEAD("MoltenLead"),
+        MOLTEN_NICKEL("MoltenNickel"),
+        MOLTEN_INVAR("MoltenInvar");
 
         private final String regName;
 

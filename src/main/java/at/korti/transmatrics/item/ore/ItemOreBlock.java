@@ -33,6 +33,9 @@ public class ItemOreBlock extends ItemBlock {
             case 3:
                 extension = "lead";
                 break;
+            case 4:
+                extension = "nickel";
+                break;
             default:
                 extension = "unknown";
                 break;

@@ -20,17 +20,23 @@ public final class Fluids {
     public static Fluid moltenTin;
     public static Fluid moltenSilver;
     public static Fluid moltenLead;
+    public static Fluid moltenNickel;
+    public static Fluid moltenInvar;
 
     public static void registerFluids() {
         moltenCopper = createMoltenMetal(TransmatricsFluid.MOLTEN_COPPER.getRegName(), 0xef7e0c, 600, true);
         moltenTin = createMoltenMetal(TransmatricsFluid.MOLTEN_TIN.getRegName(), 0xffe6ff, 600, true);
         moltenSilver = createMoltenMetal(TransmatricsFluid.MOLTEN_SILVER.getRegName(), 0xccffff, 600, true);
         moltenLead = createMoltenMetal(TransmatricsFluid.MOLTEN_LEAD.getRegName(), 0x30193c, 600, true);
+        moltenNickel = createMoltenMetal(TransmatricsFluid.MOLTEN_NICKEL.getRegName(), 0xa3a375, 600, true);
+        moltenInvar = createMoltenMetal(TransmatricsFluid.MOLTEN_INVAR.getRegName(), 0xc2c2a3, 600, true);
 
         registerBlock(moltenCopper);
         registerBlock(moltenTin);
         registerBlock(moltenSilver);
         registerBlock(moltenLead);
+        registerBlock(moltenNickel);
+        registerBlock(moltenInvar);
     }
 
     private static Fluid createGas(String name, int color, boolean bucket) {

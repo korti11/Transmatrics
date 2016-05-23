@@ -30,6 +30,8 @@ public class ClientProxy extends CommonProxy {
         registerFluidModel(Fluids.moltenTin);
         registerFluidModel(Fluids.moltenSilver);
         registerFluidModel(Fluids.moltenLead);
+        registerFluidModel(Fluids.moltenNickel);
+        registerFluidModel(Fluids.moltenInvar);
 
         MinecraftForge.EVENT_BUS.register(FluidRenderer.instance());
         ModIntegrationManager.clientPreInit();

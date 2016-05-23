@@ -71,7 +71,8 @@ public class OreBlock extends ModBlock {
         COPPER(1),
         TIN(1),
         SILVER(2),
-        LEAD(2);
+        LEAD(2),
+        NICKEL(2);
 
         public final int meta;
         public final int harvestLevel;

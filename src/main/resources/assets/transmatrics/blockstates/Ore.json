@@ -26,6 +26,11 @@
         "textures": {
           "all": "transmatrics:blocks/LeadOre"
         }
+      },
+      "nickel":{
+        "textures":{
+          "all": "transmatrics:blocks/NickelOre"
+        }
       }
     }
   }

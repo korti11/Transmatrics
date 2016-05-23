@@ -15,6 +15,12 @@
     }],
     "moltenlead":[{
       "custom": {"fluid": "moltenlead"}
+    }],
+    "moltennickel":[{
+      "custom": {"fluid": "moltennickel"}
+    }],
+    "molteninvar":[{
+      "custom": {"fluid": "molteninvar"}
     }]
   }
 }
