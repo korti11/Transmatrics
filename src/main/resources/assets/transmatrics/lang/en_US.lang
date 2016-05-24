@@ -41,6 +41,7 @@ item.Transmatrics.PulverizedDust.silver.name=Pulverized Silver
 item.Transmatrics.PulverizedDust.lead.name=Pulverized Lead
 item.Transmatrics.PulverizedDust.nickel.name=Pulverized Nickel
 item.Transmatrics.PulverizedDust.invar.name=Pulverized Invar
+item.Transmatrics.PulverizedDust.electrum.name=Pulverized Electrum
 
 #Ingots
 item.Transmatrics.Ingot.copper.name=Copper Ingot
@@ -49,6 +50,7 @@ item.Transmatrics.Ingot.silver.name=Silver Ingot
 item.Transmatrics.Ingot.lead.name=Lead Ingot
 item.Transmatrics.Ingot.nickel.name=Nickel Ingot
 item.Transmatrics.Ingot.invar.name=Invar Ingot
+item.Transmatrics.Ingot.electrum.name=Electrum Ingot
 
 #Gears
 item.Transmatrics.Gear.copper.name=Copper Gear
@@ -90,6 +92,8 @@ fluid.Transmatrics.moltennickel.name=Molten Nickel
 tile.Transmatrics.moltennickel.name=Molten Nickel
 fluid.Transmatrics.molteninvar.name=Molten Invar
 tile.Transmatrics.molteninvar.name=Molten Invar
+fluid.Transmatrics.moltenelectrum.name=Molten Electrum
+tile.Transmatrics.moltenelectrum.name=Molten Electrum
 
 #Network
 network.max_connections.message=[Network] The max connection points are reached. Max connections: %d

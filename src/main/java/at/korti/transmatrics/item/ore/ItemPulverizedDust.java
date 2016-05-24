@@ -14,8 +14,8 @@ import java.util.List;
  */
 public class ItemPulverizedDust extends ModMetaItem{
 
-    private static final String[] extensions = {"iron", "gold", "copper", "tin", "silver", "lead", "nickel", "invar"};
-    private static final Integer[] colors = {0xd8af93, 0xfcee4b, 0xef7e0c, 0xf3f3f3, 0xc1dede, 0x30193c, 0xa3a375, 0xc2c2a3};
+    private static final String[] extensions = {"iron", "gold", "copper", "tin", "silver", "lead", "nickel", "invar", "electrum"};
+    private static final Integer[] colors = {0xd8af93, 0xfcee4b, 0xef7e0c, 0xf3f3f3, 0xc1dede, 0x30193c, 0xa3a375, 0xc2c2a3, 0xffd633};
 
     public ItemPulverizedDust() {
         super(TransmatricsItem.PULVERIZED_DUST.getRegName(), extensions);
