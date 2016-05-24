@@ -75,6 +75,7 @@ item.Transmatrics.Electronics.longTransmitter.name=Long Transmitter
 
 #Capacitors
 item.Transmatrics.LeadCapacitor.name=Lead Capacitor
+item.Transmatrics.InvarCapacitor.name=Invar Capacitor
 
 #Fluids
 fluid.Transmatrics.moltencopper.name=Molten Copper

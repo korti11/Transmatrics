@@ -22,6 +22,7 @@ import net.minecraft.util.ResourceLocation;
 import java.util.LinkedList;
 import java.util.List;
 
+import static at.korti.transmatrics.api.Constants.TransmatricsItem.INVAR_CAPACITOR;
 import static at.korti.transmatrics.api.Constants.TransmatricsItem.LEAD_CAPACITOR;
 import static net.minecraftforge.fml.common.registry.GameRegistry.registerItem;
 
@@ -53,6 +54,7 @@ public final class Items {
         registerItem(itemElectronics = new ItemElectronics());
         registerItem(itemPlate = new ItemPlate());
         registerItem(itemLeadCapacitor = new ItemCapacitor(LEAD_CAPACITOR.getRegName(), Energy.LEAD_CAPACITOR_CAPACITY));
+        registerItem(itemInvarCapacitor = new ItemCapacitor(INVAR_CAPACITOR.getRegName(), Energy.INVAR_CAPACITOR_CAPACITY));
     }
 
     public static void registerItemsClient() {
@@ -65,6 +67,7 @@ public final class Items {
         registerItemTexture(connector);
         registerItemTexture(hammer);
         registerItemTexture(itemLeadCapacitor);
+        registerItemTexture(itemInvarCapacitor);
 
         registerMetaItemTexture(pulverizedDust);
         registerMetaItemTexture(itemIngot);
