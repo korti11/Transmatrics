@@ -234,6 +234,10 @@ public final class Crafting {
                 new ItemStack(PULVERIZED_DUST.getItem(), 1, 6), new ItemStack(PULVERIZED_DUST.getItem()),
                 new ItemStack(PULVERIZED_DUST.getItem())
         );
+        // pulverized electrum
+        registerShapelessOreRecipe(new ItemStack(PULVERIZED_DUST.getItem(), 2, 8),
+                new ItemStack(PULVERIZED_DUST.getItem(), 1, 1), new ItemStack(PULVERIZED_DUST.getItem(), 1, 4)
+        );
         // iron plate
         registerShapelessOreRecipe(new ItemStack(PLATE.getItem()),
                 new ItemStack(HAMMER.getItem(), 1, OreDictionary.WILDCARD_VALUE),
@@ -278,9 +282,10 @@ public final class Crafting {
         PulverizerCraftingRegistry.getInstance().register(new ItemStack(INGOT.getItem(), 1, 0), 10 * 8, new ItemStack(PULVERIZED_DUST.getItem(), 1, 2));
         PulverizerCraftingRegistry.getInstance().register(new ItemStack(INGOT.getItem(), 1, 1), 10 * 8, new ItemStack(PULVERIZED_DUST.getItem(), 1, 3));
         PulverizerCraftingRegistry.getInstance().register(new ItemStack(INGOT.getItem(), 1, 2), 10 * 8, new ItemStack(PULVERIZED_DUST.getItem(), 1, 4));
-        PulverizerCraftingRegistry.getInstance().register(new ItemStack(INGOT.getItem(), 1, 3), 10 * 8, new ItemStack(PULVERIZED_DUST.getItem(), 1, 5));
-        PulverizerCraftingRegistry.getInstance().register(new ItemStack(INGOT.getItem(), 1, 4), 10 * 8, new ItemStack(PULVERIZED_DUST.getItem(), 1, 6));
+        PulverizerCraftingRegistry.getInstance().register(new ItemStack(INGOT.getItem(), 1, 3), 10 * 10, new ItemStack(PULVERIZED_DUST.getItem(), 1, 5));
+        PulverizerCraftingRegistry.getInstance().register(new ItemStack(INGOT.getItem(), 1, 4), 10 * 10, new ItemStack(PULVERIZED_DUST.getItem(), 1, 6));
         PulverizerCraftingRegistry.getInstance().register(new ItemStack(INGOT.getItem(), 1, 5), 10 * 8, new ItemStack(PULVERIZED_DUST.getItem(), 1, 7));
+        PulverizerCraftingRegistry.getInstance().register(new ItemStack(INGOT.getItem(), 1, 6), 10 * 8, new ItemStack(PULVERIZED_DUST.getItem(), 1, 8));
     }
 
     private static void registerFurnaceCrafting() {
@@ -292,6 +297,7 @@ public final class Crafting {
         FurnaceRecipes.instance().addSmeltingRecipe(new ItemStack(PULVERIZED_DUST.getItem(), 1, 5), new ItemStack(INGOT.getItem(), 1, 3), 0.9F);
         FurnaceRecipes.instance().addSmeltingRecipe(new ItemStack(PULVERIZED_DUST.getItem(), 1, 6), new ItemStack(INGOT.getItem(), 1, 4), 0.7F);
         FurnaceRecipes.instance().addSmeltingRecipe(new ItemStack(PULVERIZED_DUST.getItem(), 1, 7), new ItemStack(INGOT.getItem(), 1, 5), 0.9F);
+        FurnaceRecipes.instance().addSmeltingRecipe(new ItemStack(PULVERIZED_DUST.getItem(), 1, 8), new ItemStack(INGOT.getItem(), 1, 6), 0.9F);
 
         FurnaceRecipes.instance().addSmeltingRecipe(new ItemStack(ORE_BLOCK.getBlock(), 1, 0), new ItemStack(INGOT.getItem(), 1, 0), 0.5F);
         FurnaceRecipes.instance().addSmeltingRecipe(new ItemStack(ORE_BLOCK.getBlock(), 1, 1), new ItemStack(INGOT.getItem(), 1, 1), 0.6F);
@@ -306,6 +312,7 @@ public final class Crafting {
         MagneticSmelteryCraftingRegistry.getInstance().register(new ItemStack(INGOT.getItem(), 1, 3), Fluids.moltenLead, FLUID_AMOUNT_PER_INGOT, 20 * 10);
         MagneticSmelteryCraftingRegistry.getInstance().register(new ItemStack(INGOT.getItem(), 1, 4), Fluids.moltenNickel, FLUID_AMOUNT_PER_INGOT, 20 * 9);
         MagneticSmelteryCraftingRegistry.getInstance().register(new ItemStack(INGOT.getItem(), 1, 5), Fluids.moltenInvar, FLUID_AMOUNT_PER_INGOT, 20 * 9);
+        MagneticSmelteryCraftingRegistry.getInstance().register(new ItemStack(INGOT.getItem(), 1, 6), Fluids.moltenElectrum, FLUID_AMOUNT_PER_INGOT, 20 * 9);
 
         MagneticSmelteryCraftingRegistry.getInstance().register(new ItemStack(ORE_BLOCK.getBlock(), 1, 0), Fluids.moltenCopper, FLUID_AMOUNT_PER_INGOT * 2, 20 * 16);
         MagneticSmelteryCraftingRegistry.getInstance().register(new ItemStack(ORE_BLOCK.getBlock(), 1, 1), Fluids.moltenTin, FLUID_AMOUNT_PER_INGOT * 2, 20 * 16);
@@ -355,6 +362,10 @@ public final class Crafting {
         LiquidCasterCraftingRegistry.getInstance().register(
                 new FluidStack(Fluids.moltenInvar, FLUID_AMOUNT_PER_INGOT), new ItemStack(CAST.getItem(), 1, 0),
                 new ItemStack(INGOT.getItem(), 1, 5), 20 * 8
+        );
+        LiquidCasterCraftingRegistry.getInstance().register(
+                new FluidStack(Fluids.moltenElectrum, FLUID_AMOUNT_PER_INGOT), new ItemStack(CAST.getItem(), 1, 0),
+                new ItemStack(INGOT.getItem(), 1, 6), 20 * 8
         );
 
         LiquidCasterCraftingRegistry.getInstance().register(

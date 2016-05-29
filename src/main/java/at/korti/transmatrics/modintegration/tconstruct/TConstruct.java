@@ -85,6 +85,9 @@ public class TConstruct implements IIntegration {
         TinkerRegistry.registerAlloy(new FluidStack(Fluids.moltenInvar, Crafting.FLUID_AMOUNT_PER_INGOT * 3),
                 new FluidStack(Fluids.moltenNickel, Crafting.FLUID_AMOUNT_PER_INGOT),
                 new FluidStack(TinkerFluids.iron, Crafting.FLUID_AMOUNT_PER_INGOT * 2));
+        TinkerRegistry.registerAlloy(new FluidStack(Fluids.moltenElectrum, Crafting.FLUID_AMOUNT_PER_INGOT * 2),
+                new FluidStack(Fluids.moltenSilver, Crafting.FLUID_AMOUNT_PER_INGOT),
+                new FluidStack(TinkerFluids.gold, Crafting.FLUID_AMOUNT_PER_INGOT));
 
     }
 }
