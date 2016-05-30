@@ -78,3 +78,12 @@ processResources
 }
 
 version = "${config.minecraft_version}-${version}"
+
+task deobfJar(type: Jar){
+    from sourceSets.main.output
+    classifier = 'deobf'
+}
+
+artifacts{
+    archives deobfJar
+}
