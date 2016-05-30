@@ -56,7 +56,7 @@ public class TileEntityCharger extends TileEntityInventory {
         }
         if (item != null) {
             this.storedEnergy = item.getEnergy(stack);
-            this.maxStoreEnergy = item.getCapacity();
+            this.maxStoreEnergy = item.getCapacity(stack);
         }
     }
 
@@ -86,7 +86,7 @@ public class TileEntityCharger extends TileEntityInventory {
                         this.storedEnergy = chargeable.getEnergy(stack);
                         markDirty = true;
                         isCharging = true;
-                        if (chargeable.getEnergy(stack) == chargeable.getCapacity()) {
+                        if (chargeable.getEnergy(stack) == chargeable.getCapacity(stack)) {
                             setInventorySlotContents(1, stack);
                             setInventorySlotContents(0, null);
                         }

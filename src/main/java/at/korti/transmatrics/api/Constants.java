@@ -197,6 +197,7 @@ public final class Constants {
         public static final int DISCHARGE_RATE = 10;
         public static final int LEAD_CAPACITOR_CAPACITY = 1250;
         public static final int INVAR_CAPACITOR_CAPACITY = 2500;
+        public static final int ELECTRUM_CAPACITOR_CAPACITY = 5000;
     }
 
     public static class Tanks{
@@ -309,7 +310,8 @@ public final class Constants {
         PLATE("Plate"),
         HAMMER("Hammer"),
         LEAD_CAPACITOR("LeadCapacitor"),
-        INVAR_CAPACITOR("InvarCapacitor");
+        INVAR_CAPACITOR("InvarCapacitor"),
+        ELECTRUM_CAPACITOR("ElectrumCapacitor");
 
         private final String regName;
 

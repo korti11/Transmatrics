@@ -1,5 +1,6 @@
 package at.korti.transmatrics.modintegration.tconstruct.tools.modifier;
 
+import at.korti.transmatrics.api.Constants;
 import at.korti.transmatrics.api.Constants.Mod;
 import at.korti.transmatrics.api.Constants.NBT;
 import at.korti.transmatrics.api.Constants.TConstructModifiers;
@@ -23,10 +24,17 @@ public class ModEnergetic extends ModifierTrait implements IRechargeable{
 
     private final int capacity;
 
-    public ModEnergetic(ItemCapacitor capacitor) {
-        super(TConstructModifiers.ENERGETIC_IDENTIFIER, TConstructModifiers.ENERGETIC_COLOR);
+    public ModEnergetic(ItemCapacitor capacitor, String prefix) {
+        super(prefix + TextHelper.firstCharUppercase(getBaseIdentifier()), TConstructModifiers.ENERGETIC_COLOR);
         this.capacity = capacitor.getCapacity();
         this.addItem(new ItemStack(capacitor, 1, OreDictionary.WILDCARD_VALUE), 1, 1);
+    }
+
+    @Override
+    public void apply(NBTTagCompound root) {
+        super.apply(root);
+        NBTTagCompound tag = TinkerUtil.getModifierTag(root, getIdentifier());
+        tag.setInteger(NBT.CAPACITY, capacity);
     }
 
     @Override
@@ -39,7 +47,7 @@ public class ModEnergetic extends ModifierTrait implements IRechargeable{
 
     @Override
     public String getLocalizedName() {
-        String key = String.format("modifier.%s.%s", Mod.MODID, getIdentifier());
+        String key = String.format("modifier.%s.%s", Mod.MODID, getBaseIdentifier());
         return TextHelper.localize(key);
     }
 
@@ -47,15 +55,21 @@ public class ModEnergetic extends ModifierTrait implements IRechargeable{
     public String getTooltip(NBTTagCompound modifierTag, boolean detailed) {
         if(!detailed) {
             int energy = modifierTag.getInteger(NBT.ENERGY);
-            int capacity = getCapacity();
+            int capacity = modifierTag.getInteger(NBT.CAPACITY);
             return String.format("%s (%d/%d TF)", getLocalizedName(), energy, capacity);
         }
         return super.getTooltip(modifierTag, detailed);
     }
 
     @Override
+    public String getLocalizedDesc() {
+        String key = String.format("modifier.%s.desc", getBaseIdentifier());
+        return TextHelper.localize(key);
+    }
+
+    @Override
     public int charge(ItemStack stack, int energy, boolean simulate) {
-        int toStore = Math.min(energy, getCapacity() - getEnergy(stack));
+        int toStore = Math.min(energy, getCapacity(stack) - getEnergy(stack));
         if (!simulate) {
             NBTTagCompound tag = TinkerUtil.getModifierTag(stack, getIdentifier());
             tag.setInteger(NBT.ENERGY, getEnergy(stack) + toStore);
@@ -81,6 +95,16 @@ public class ModEnergetic extends ModifierTrait implements IRechargeable{
 
     @Override
     public int getCapacity() {
-        return capacity;
+        throw new UnsupportedOperationException("Method getCapacity is not allowed in class ModEnergtic");
+    }
+
+    @Override
+    public int getCapacity(ItemStack stack) {
+        NBTTagCompound tag = TinkerUtil.getModifierTag(stack, getIdentifier());
+        return tag.getInteger(NBT.CAPACITY);
+    }
+
+    public static String getBaseIdentifier() {
+        return TConstructModifiers.ENERGETIC_IDENTIFIER;
     }
 }

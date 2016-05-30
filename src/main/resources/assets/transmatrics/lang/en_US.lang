@@ -78,6 +78,7 @@ item.Transmatrics.Electronics.longTransmitter.name=Long Transmitter
 #Capacitors
 item.Transmatrics.LeadCapacitor.name=Lead Capacitor
 item.Transmatrics.InvarCapacitor.name=Invar Capacitor
+item.Transmatrics.ElectrumCapacitor.name=Electrum Capacitor
 
 #Fluids
 fluid.Transmatrics.moltencopper.name=Molten Copper
@@ -126,4 +127,3 @@ jei.category.liquidcaster.title=Liquid Caster
 #TConstruct Modifiers
 modifier.Transmatrics.energetic=Energetic
 modifier.energetic.desc=§oCharged!§r\nUse first energy instead of durability.
-#modifier.energetic.desc=§oSo strong!§r\nEach level adds a 15% chance to not use durability.

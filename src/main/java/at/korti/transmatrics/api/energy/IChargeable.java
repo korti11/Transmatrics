@@ -24,9 +24,16 @@ public interface IChargeable {
     int getEnergy(ItemStack stack);
 
     /**
-     * Get the capacity of the stack.
+     * Get the capacity of the item.
      * @return Capacity.
      */
     int getCapacity();
+
+    /**
+     * Get the capacity of the stack.
+     * @param stack Where the capacity is stored.
+     * @return Capacity.
+     */
+    int getCapacity(ItemStack stack);
 
 }

@@ -32,7 +32,9 @@ public class TConstruct implements IIntegration {
 
     private static AlloyMixer alloyMixer;
 
-    public static ModEnergetic modEnergetic;
+    public static ModEnergetic leadModEnergetic;
+    public static ModEnergetic invarModEnergetic;
+    public static ModEnergetic electrumModEnergetic;
 
     // client stuff
     private ToolClientProxy clientProxy;
@@ -60,8 +62,12 @@ public class TConstruct implements IIntegration {
         }
         CraftingCrossOverHelper.loadAlloyCrossOver();
 
-        TinkerRegistry.registerModifier(modEnergetic = new ModEnergetic(
-                (ItemCapacitor) TransmatricsItem.LEAD_CAPACITOR.getItem()));
+        TinkerRegistry.registerModifier(leadModEnergetic = new ModEnergetic(
+                (ItemCapacitor) TransmatricsItem.LEAD_CAPACITOR.getItem(), "lead"));
+        TinkerRegistry.registerModifier(invarModEnergetic = new ModEnergetic(
+                (ItemCapacitor) TransmatricsItem.INVAR_CAPACITOR.getItem(), "invar"));
+        TinkerRegistry.registerModifier(electrumModEnergetic = new ModEnergetic(
+                (ItemCapacitor) TransmatricsItem.ELECTRUM_CAPACITOR.getItem(), "electrum"));
     }
 
     @Override

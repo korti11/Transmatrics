@@ -229,6 +229,14 @@ public final class Crafting {
                 " I ", 'I', new ItemStack(INGOT.getItem(), 1, 5), 'C',
                 new ItemStack(LEAD_CAPACITOR.getItem(), 1, OreDictionary.WILDCARD_VALUE)
         );
+        // electrum capacitor
+        registerShapedOreRecipe(new ItemStack(ELECTRUM_CAPACITOR.getItem(), 1,
+                        ELECTRUM_CAPACITOR.getItem().getMaxDamage()),
+                " I ",
+                "ICI",
+                " I ", 'I', new ItemStack(INGOT.getItem(), 1, 6), 'C',
+                new ItemStack(INVAR_CAPACITOR.getItem(), 1, OreDictionary.WILDCARD_VALUE)
+        );
         // pulverized invar
         registerShapelessOreRecipe(new ItemStack(PULVERIZED_DUST.getItem(), 3, 7),
                 new ItemStack(PULVERIZED_DUST.getItem(), 1, 6), new ItemStack(PULVERIZED_DUST.getItem()),
