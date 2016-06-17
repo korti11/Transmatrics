@@ -3,7 +3,9 @@ package at.korti.transmatrics.util.helper;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
 import java.util.LinkedList;
@@ -65,6 +67,73 @@ public class WorldHelper {
         }
         if (getBlock(worldIn, posIn.down()).equals(searchBlockIn)) {
             neighbors.add(posIn.down());
+        }
+        return neighbors;
+    }
+
+    public static BlockPos hasNeighbor(World worldIn, BlockPos posIn, Class clazz) {
+        if (ReflectionHelper.hasClass(worldIn.getTileEntity(posIn.north()), clazz)) {
+            return posIn.north();
+        } else if (ReflectionHelper.hasClass(worldIn.getTileEntity(posIn.east()), clazz)) {
+            return posIn.east();
+        } else if (ReflectionHelper.hasClass(worldIn.getTileEntity(posIn.south()), clazz)) {
+            return posIn.south();
+        } else if (ReflectionHelper.hasClass(worldIn.getTileEntity(posIn.west()), clazz)) {
+            return posIn.west();
+        } else if (ReflectionHelper.hasClass(worldIn.getTileEntity(posIn.up()), clazz)) {
+            return posIn.up();
+        } else if (ReflectionHelper.hasClass(worldIn.getTileEntity(posIn.down()), clazz)) {
+            return posIn.down();
+        }
+        return null;
+    }
+
+    public static BlockPos hasNeighbor(World worldIn, BlockPos posIn, EnumFacing facing, Class clazz) {
+        if (ReflectionHelper.hasClass(worldIn.getTileEntity(posIn.offset(facing)), clazz)) {
+            return posIn.offset(facing);
+        }
+        return null;
+    }
+
+    public static List<BlockPos> hasNeighbors(World worldIn, BlockPos posIn, Class clazz) {
+        List<BlockPos> neighbors = new LinkedList<>();
+        if (ReflectionHelper.hasClass(worldIn.getTileEntity(posIn.north()), clazz)) {
+            neighbors.add(posIn.north());
+        }
+        if (ReflectionHelper.hasClass(worldIn.getTileEntity(posIn.east()), clazz)) {
+            neighbors.add(posIn.east());
+        }
+        if (ReflectionHelper.hasClass(worldIn.getTileEntity(posIn.south()), clazz)) {
+            neighbors.add(posIn.south());
+        }
+        if (ReflectionHelper.hasClass(worldIn.getTileEntity(posIn.west()), clazz)) {
+            neighbors.add(posIn.west());
+        }
+        if (ReflectionHelper.hasClass(worldIn.getTileEntity(posIn.up()), clazz)) {
+            neighbors.add(posIn.up());
+        }
+        if (ReflectionHelper.hasClass(worldIn.getTileEntity(posIn.down()), clazz)) {
+            neighbors.add(posIn.down());
+        }
+        return neighbors;
+    }
+
+    public static <T> T getNeighbor(World worldIn, BlockPos posIn, EnumFacing facing, Class<T> clazz) {
+        BlockPos pos = hasNeighbor(worldIn, posIn, facing, clazz);
+        if (pos != null) {
+            return ReflectionHelper.castTo(worldIn.getTileEntity(pos), clazz);
+        }
+        return null;
+    }
+
+    public static <T> List<T> getNeighbors(World worldIn, BlockPos posIn, Class<T> clazz) {
+        List<BlockPos> neighborsPos = hasNeighbors(worldIn, posIn, clazz);
+        List<T> neighbors = new LinkedList<>();
+        for (BlockPos pos : neighborsPos) {
+            TileEntity tileEntity = worldIn.getTileEntity(pos);
+            if(ReflectionHelper.hasClass(tileEntity, clazz)) {
+                neighbors.add(ReflectionHelper.castTo(tileEntity, clazz));
+            }
         }
         return neighbors;
     }

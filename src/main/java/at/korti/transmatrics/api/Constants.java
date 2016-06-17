@@ -25,6 +25,7 @@ public final class Constants {
         public static final String WAILA = "Waila";
         public static final String JEI = "JEI";
         public static final String TCONSTRUCT = "tconstruct";
+        public static final String BUILDCRAFT = "BuildCraft|Core";
     }
 
     public static class JEI{
@@ -110,6 +111,9 @@ public final class Constants {
     }
 
     public static class Energy{
+        //Integration
+        public static final int RF_CONVERT_MULTIPLIER = 2;
+
         //Solar Panel
         public static final int SOLAR_PANEL_GENERATE = 1;
         public static final int SOLAR_PANEL_CAPACITY = 1000;
@@ -192,6 +196,10 @@ public final class Constants {
         public static final int CHARGER_CAPACITY = 5000;
         public static final int CHARGER_RECEIVE = 500;
         public static final int CHARGER_ENERGY_USE = 5;
+
+        //RF Converter
+        public static final int RF_CONVERTER_CAPACITY = 5000;
+        public static final int RF_CONVERTER_TRANSFER = 500;
 
         //Capacitors
         public static final int DISCHARGE_RATE = 10;
@@ -282,7 +290,8 @@ public final class Constants {
         ALLOY_MIXER("AlloyMixer"),
         CHARGER("Charger"),
         ORE_BLOCK("Ore"),
-        MACHINE_CASING("MachineCasing");
+        MACHINE_CASING("MachineCasing"),
+        RF_CONVERTER("RFConverter");
 
         private final String regName;
 
@@ -344,7 +353,8 @@ public final class Constants {
         MAGNETIC_SMELTERY("TMTileMagneticSmeltery"),
         LIQUID_CASTER("TMTileLiquidCaster"),
         ALLOY_MIXER("TMTileAlloyMixer"),
-        CHARGER("TMTileCharger");
+        CHARGER("TMTileCharger"),
+        RF_CONVERTER("TMTileRFConverter");
 
         private final String regName;
 
