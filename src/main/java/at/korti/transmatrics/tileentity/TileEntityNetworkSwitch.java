@@ -28,12 +28,10 @@ import static net.minecraftforge.common.MinecraftForge.EVENT_BUS;
  */
 public abstract class TileEntityNetworkSwitch extends TileEntity implements INetworkSwitch, INetworkSwitchInfo, ITickable{
 
-    protected List<INetworkNode> networkNodes;
+    protected List<BlockPos> networkNodes;
     protected final int maxConnections;
     protected final boolean canConnectToMachines;
     protected final int range;
-    private NBTTagCompound tempCompound;
-    private boolean isLoaded = false;
     private BlockPos controller;
     protected int connectionPriority;
 
@@ -44,10 +42,14 @@ public abstract class TileEntityNetworkSwitch extends TileEntity implements INet
         this.range = range;
     }
 
+    protected List<INetworkNode> getNetworkNodes() {
+        return NetworkHandler.getNetworkNodes(worldObj, networkNodes);
+    }
+
     @Override
     public void writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
-        writeNodeToNBT(compound);
+        writeNodesToNBT(compound);
         compound.setInteger(NBT.CONNECTION_PRIORITY, getConnectionPriority());
         if(controller != null) {
             compound.setInteger(NBT.CONTROLLER_X, controller.getX());
@@ -56,16 +58,46 @@ public abstract class TileEntityNetworkSwitch extends TileEntity implements INet
         }
     }
 
+    public void writeNodesToNBT(NBTTagCompound tagCompound) {
+        List<INetworkNode> nodes = getNetworkNodes();
+        if(nodes != null) {
+            NBTTagList tagList = new NBTTagList();
+            for (INetworkNode networkNode : nodes) {
+                if (networkNode instanceof TileEntity) {
+                    TileEntity te = (TileEntity) networkNode;
+                    NBTTagCompound node = new NBTTagCompound();
+                    node.setInteger(NBT.NETWORK_X, te.getPos().getX());
+                    node.setInteger(NBT.NETWORK_Y, te.getPos().getY());
+                    node.setInteger(NBT.NETWORK_Z, te.getPos().getZ());
+                    tagList.appendTag(node);
+                }
+            }
+            tagCompound.setTag(NBT.NETWORK_NODES, tagList);
+        }
+    }
+
     @Override
     public void readFromNBT(NBTTagCompound compound) {
         super.readFromNBT(compound);
-        tempCompound = compound;
+        readNodesFromNBT(compound);
         connectionPriority = compound.getInteger(NBT.CONNECTION_PRIORITY);
         if(compound.hasKey(NBT.CONTROLLER_X)) {
             int x = compound.getInteger(NBT.CONTROLLER_X);
             int y = compound.getInteger(NBT.CONTROLLER_Y);
             int z = compound.getInteger(NBT.CONTROLLER_Z);
             controller = new BlockPos(x, y, z);
+        }
+    }
+
+    public void readNodesFromNBT(NBTTagCompound tagCompound) {
+        networkNodes.clear();
+        NBTTagList tagList = tagCompound.getTagList(NBT.NETWORK_NODES, 10);
+        for (int i = 0; i < tagList.tagCount(); i++) {
+            NBTTagCompound node = tagList.getCompoundTagAt(i);
+            int x = node.getInteger(NBT.NETWORK_X);
+            int y = node.getInteger(NBT.NETWORK_Y);
+            int z = node.getInteger(NBT.NETWORK_Z);
+            networkNodes.add(new BlockPos(x, y, z));
         }
     }
 
@@ -76,16 +108,12 @@ public abstract class TileEntityNetworkSwitch extends TileEntity implements INet
 
     @Override
     public void update() {
-        if (tempCompound != null && !isLoaded && !worldObj.isRemote) {
-            readNodeFromNBT(tempCompound);
-            isLoaded = true;
-            tempCompound = null;
-        }
+
     }
 
     @Override
     public List<INetworkNode> getConnections() {
-        return networkNodes;
+        return getNetworkNodes();
     }
 
     @Override
@@ -97,7 +125,7 @@ public abstract class TileEntityNetworkSwitch extends TileEntity implements INet
             return new StatusMessage(false, NetworkMessages.MACHINES_CAN_NOT_CONNECTED);
         } else if (this == node) {
             return new StatusMessage(false, NetworkMessages.SAME_NODE);
-        } else if (networkNodes.contains(node)) {
+        } else if (node instanceof TileEntity && networkNodes.contains(((TileEntity) node).getPos())) {
             return new StatusMessage(false, NetworkMessages.ALREADY_CONNECTED);
         }
         if (node instanceof TileEntity && !isSecond) {
@@ -112,8 +140,8 @@ public abstract class TileEntityNetworkSwitch extends TileEntity implements INet
                 return message;
             }
         }
-        if (!simulate) {
-            networkNodes.add(node);
+        if (!simulate && node instanceof TileEntity) {
+            networkNodes.add(((TileEntity) node).getPos());
             if (node.getController() != null && this.controller == null) {
                 this.connectToController(node.getController().getMaster().pos, node.getConnectionPriority() + 1);
             }
@@ -124,7 +152,7 @@ public abstract class TileEntityNetworkSwitch extends TileEntity implements INet
     @Override
     public IStatusMessage disconnectFromNode(INetworkNode node, boolean isSecond, boolean simulate) {
         EVENT_BUS.post(new DisconnectNetworkNodesEvent(this, node));
-        if (!networkNodes.contains(node)) {
+        if (node instanceof TileEntity && !networkNodes.contains(((TileEntity) node).getPos())) {
             return new StatusMessage(false, NetworkMessages.NOT_CONNECTED);
         }
         if (!isSecond) {
@@ -133,8 +161,8 @@ public abstract class TileEntityNetworkSwitch extends TileEntity implements INet
                 return message;
             }
         }
-        if (!simulate) {
-            networkNodes.remove(node);
+        if (!simulate && node instanceof TileEntity) {
+            networkNodes.remove(((TileEntity) node).getPos());
             node.disconnectFromController();
         }
         return new StatusMessage(true, NetworkMessages.SUCCESSFUL_DISCONNECTED);
@@ -142,7 +170,7 @@ public abstract class TileEntityNetworkSwitch extends TileEntity implements INet
 
     @Override
     public IStatusMessage disconnectedFromAllNodes() {
-        List<INetworkNode> tempNodes = new ArrayList<>(networkNodes);
+        List<INetworkNode> tempNodes = getNetworkNodes();
         for (INetworkNode node : tempNodes) {
             if (node instanceof INetworkSwitch) {
                 node.disconnectFromNode(this, true, false);
@@ -191,7 +219,8 @@ public abstract class TileEntityNetworkSwitch extends TileEntity implements INet
     public void connectToController(BlockPos controllerPos, int connectionPriority) {
         controller = controllerPos;
         this.connectionPriority = connectionPriority;
-        for (INetworkNode node : networkNodes) {
+        List<INetworkNode> nodes = getNetworkNodes();
+        for (INetworkNode node : nodes) {
             if (node.getController() == null) {
                 node.connectToController(controllerPos, connectionPriority + 1);
             }
@@ -202,7 +231,8 @@ public abstract class TileEntityNetworkSwitch extends TileEntity implements INet
     public void disconnectFromController() {
         controller = null;
         connectionPriority = 0;
-        for (INetworkNode node : networkNodes) {
+        List<INetworkNode> nodes = getNetworkNodes();
+        for (INetworkNode node : nodes) {
             if(node.getController() != null) {
                 node.disconnectFromController();
             }
@@ -217,39 +247,6 @@ public abstract class TileEntityNetworkSwitch extends TileEntity implements INet
     @Override
     public int getMaxNetworkConnections() {
         return maxConnections;
-    }
-
-    @Override
-    public void writeNodeToNBT(NBTTagCompound tagCompound) {
-        NBTTagList tagList = new NBTTagList();
-        for (INetworkNode networkNode : networkNodes) {
-            if (networkNode instanceof TileEntity) {
-                TileEntity te = (TileEntity) networkNode;
-                NBTTagCompound node = new NBTTagCompound();
-                node.setInteger(NBT.NETWORK_X, te.getPos().getX());
-                node.setInteger(NBT.NETWORK_Y, te.getPos().getY());
-                node.setInteger(NBT.NETWORK_Z, te.getPos().getZ());
-                tagList.appendTag(node);
-            }
-        }
-        tagCompound.setTag(NBT.NETWORK_NODES, tagList);
-    }
-
-    @Override
-    public void readNodeFromNBT(NBTTagCompound tagCompound) {
-        networkNodes.clear();
-        NBTTagList tagList = tagCompound.getTagList(NBT.NETWORK_NODES, 10);
-        for (int i = 0; i < tagList.tagCount(); i++) {
-            NBTTagCompound node = tagList.getCompoundTagAt(i);
-            int x = node.getInteger(NBT.NETWORK_X);
-            int y = node.getInteger(NBT.NETWORK_Y);
-            int z = node.getInteger(NBT.NETWORK_Z);
-            BlockPos blockPos = new BlockPos(x, y, z);
-            TileEntity te = worldObj.getTileEntity(blockPos);
-            if (te instanceof INetworkNode) {
-                networkNodes.add((INetworkNode) te);
-            }
-        }
     }
 
     @Override

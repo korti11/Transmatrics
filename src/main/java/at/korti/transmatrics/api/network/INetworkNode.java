@@ -23,10 +23,6 @@ public interface INetworkNode {
      */
     IStatusMessage disconnectFromNode(INetworkNode node, boolean isSecond, boolean simulate);
 
-    void writeNodeToNBT(NBTTagCompound tagCompound);
-
-    void readNodeFromNBT(NBTTagCompound tagCompound);
-
     void writeSelfToNBT(NBTTagCompound tagCompound);
 
     /**

@@ -30,6 +30,7 @@ public class TileEntityAlloyMixer extends TileEntityFluidCraftingMachine {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     protected void craft() {
         if (this.canCraft()) {
             ICraftingEntry<FluidStack, FluidStack> entry = craftingRegistry.get(getInputFluids());

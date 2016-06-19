@@ -361,8 +361,11 @@ public class TileEntityController extends TileEntityEnergySwitch {
                 TileEntityController newMaster = getController(extensions.get(0));
                 newMaster.setIsMaster();
                 newMaster.modifyEnergy(this.getEnergyStored());
-                for (INetworkNode node : networkNodes) {
-                    newMaster.connectToNode(node, false, false);
+                List<INetworkNode> nodes = getNetworkNodes();
+                if(nodes != null) {
+                    for (INetworkNode node : nodes) {
+                        newMaster.connectToNode(node, false, false);
+                    }
                 }
                 for (int i = 1; i < extensions.size(); i++) {
                     getController(extensions.get(i)).master = newMaster.getPos();

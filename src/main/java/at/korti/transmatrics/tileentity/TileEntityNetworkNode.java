@@ -2,7 +2,6 @@ package at.korti.transmatrics.tileentity;
 
 import at.korti.transmatrics.api.Constants.NBT;
 import at.korti.transmatrics.api.Constants.NetworkMessages;
-import at.korti.transmatrics.api.energy.IEnergyConsumer;
 import at.korti.transmatrics.api.energy.IEnergyProducer;
 import at.korti.transmatrics.api.network.*;
 import at.korti.transmatrics.event.ConnectNetworkNodesEvent;
@@ -15,9 +14,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ITickable;
 import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
 
-import static at.korti.transmatrics.util.helper.TextHelper.localize;
 import static net.minecraftforge.common.MinecraftForge.EVENT_BUS;
 
 /**
@@ -25,16 +22,23 @@ import static net.minecraftforge.common.MinecraftForge.EVENT_BUS;
  */
 public abstract class TileEntityNetworkNode extends TileEntity implements INetworkNode, ITickable, INetworkNodeInfo {
 
-    protected INetworkNode networkNode;
-    private NBTTagCompound tempCompound;
-    private boolean isLoaded = false;
+    protected BlockPos networkNode;
     private BlockPos controller;
     protected int connectionPriority;
+
+    protected INetworkNode getNetworkNode(){
+        return NetworkHandler.getNetworkNode(worldObj, networkNode);
+    }
 
     @Override
     public void writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
-        writeNodeToNBT(compound);
+        if(getNetworkNode() instanceof TileEntity) {
+            TileEntity te = (TileEntity) getNetworkNode();
+            compound.setInteger(NBT.NETWORK_X, te.getPos().getX());
+            compound.setInteger(NBT.NETWORK_Y, te.getPos().getY());
+            compound.setInteger(NBT.NETWORK_Z, te.getPos().getZ());
+        }
         compound.setInteger(NBT.CONNECTION_PRIORITY, connectionPriority);
         if(controller != null) {
             compound.setInteger(NBT.CONTROLLER_X, controller.getX());
@@ -46,8 +50,13 @@ public abstract class TileEntityNetworkNode extends TileEntity implements INetwo
     @Override
     public void readFromNBT(NBTTagCompound compound) {
         super.readFromNBT(compound);
-        tempCompound = compound;
         connectionPriority = compound.getInteger(NBT.CONNECTION_PRIORITY);
+        if(compound.hasKey(NBT.NETWORK_X)) {
+            int x = compound.getInteger(NBT.NETWORK_X);
+            int y = compound.getInteger(NBT.NETWORK_Y);
+            int z = compound.getInteger(NBT.NETWORK_Z);
+            networkNode = new BlockPos(x, y, z);
+        }
         if(compound.hasKey(NBT.CONTROLLER_X)) {
             int x = compound.getInteger(NBT.CONTROLLER_X);
             int y = compound.getInteger(NBT.CONTROLLER_Y);
@@ -63,21 +72,13 @@ public abstract class TileEntityNetworkNode extends TileEntity implements INetwo
 
     @Override
     public void update() {
-        if (tempCompound != null && !isLoaded && !worldObj.isRemote) {
-            readNodeFromNBT(tempCompound);
-            isLoaded = true;
-            tempCompound = null;
-        }
+
     }
 
     @Override
     public IStatusMessage connectToNode(INetworkNode node, boolean isSecond, boolean simulate) {
         EVENT_BUS.post(new ConnectNetworkNodesEvent(this, node));
-        if (networkNode != null) {
-            disconnectFromNode();
-            networkNode = node;
-            return new StatusMessage(true, NetworkMessages.SUCCESSFUL_RECONNECTED);
-        } else if (node == null) {
+        if (node == null || !(node instanceof TileEntity)) {
             return new StatusMessage(false, NetworkMessages.CAN_NOT_CONNECTED);
         } else if (this == node) {
             return new StatusMessage(false, NetworkMessages.SAME_NODE);
@@ -93,7 +94,10 @@ public abstract class TileEntityNetworkNode extends TileEntity implements INetwo
             }
         }
         if(!simulate) {
-            networkNode = node;
+            if(networkNode != null) {
+                disconnectFromNode();
+            }
+            networkNode = ((TileEntity)node).getPos();
             if (node.getController() != null && this.controller == null) {
                 controller = node.getController().getPos();
                 connectionPriority = node.getConnectionPriority() + 1;
@@ -123,12 +127,12 @@ public abstract class TileEntityNetworkNode extends TileEntity implements INetwo
 
     @Override
     public IStatusMessage disconnectFromNode() {
-        return disconnectFromNode(networkNode, false, false);
+        return disconnectFromNode(getNetworkNode(), false, false);
     }
 
     @Override
     public INetworkNode getConnection() {
-        return networkNode;
+        return getNetworkNode();
     }
 
     @Override
@@ -151,30 +155,6 @@ public abstract class TileEntityNetworkNode extends TileEntity implements INetwo
     public void disconnectFromController() {
         controller = null;
         connectionPriority = 0;
-    }
-
-    @Override
-    public void writeNodeToNBT(NBTTagCompound tagCompound) {
-        if (networkNode instanceof TileEntity) {
-            TileEntity te = (TileEntity) networkNode;
-            tagCompound.setInteger(NBT.NETWORK_X, te.getPos().getX());
-            tagCompound.setInteger(NBT.NETWORK_Y, te.getPos().getY());
-            tagCompound.setInteger(NBT.NETWORK_Z, te.getPos().getZ());
-        }
-    }
-
-    @Override
-    public void readNodeFromNBT(NBTTagCompound tagCompound) {
-        if (tagCompound.hasKey(NBT.NETWORK_X)) {
-            int x = tagCompound.getInteger(NBT.NETWORK_X);
-            int y = tagCompound.getInteger(NBT.NETWORK_Y);
-            int z = tagCompound.getInteger(NBT.NETWORK_Z);
-            BlockPos blockPos = new BlockPos(x, y, z);
-            TileEntity te = worldObj.getTileEntity(blockPos);
-            if (te instanceof INetworkNode) {
-                networkNode = (INetworkNode) te;
-            }
-        }
     }
 
     @Override

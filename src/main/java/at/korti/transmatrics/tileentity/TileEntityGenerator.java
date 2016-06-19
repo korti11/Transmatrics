@@ -50,14 +50,14 @@ public abstract class TileEntityGenerator extends TileEntityNetworkNode implemen
             if (canProduceEnergy()) {
                 energyStorage.modifyEnergy(energyPerTick);
             }
-            if (canProvideEnergy() && networkNode != null) {
-                if (networkNode.getController() == null) {
+            if (canProvideEnergy() && networkNode != null && getNetworkNode() != null) {
+                if (getNetworkNode().getController() == null) {
                     if(networkNode instanceof IEnergyConsumer) {
                         IEnergyConsumer consumer = (IEnergyConsumer) networkNode;
                         EnergyHandler.transferEnergy(this, consumer);
                     }
                 } else {
-                    TileEntityController controller = networkNode.getController();
+                    TileEntityController controller = getNetworkNode().getController();
                     EnergyHandler.transferEnergy(this, controller);
                 }
             }

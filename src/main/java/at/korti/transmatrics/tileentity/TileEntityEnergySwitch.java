@@ -6,6 +6,8 @@ import at.korti.transmatrics.api.network.INetworkNode;
 import at.korti.transmatrics.api.network.INetworkSwitch;
 import net.minecraft.nbt.NBTTagCompound;
 
+import java.util.List;
+
 /**
  * Created by Korti on 06.03.2016.
  */
@@ -42,14 +44,17 @@ public abstract class TileEntityEnergySwitch extends TileEntityNetworkSwitch imp
     public void update() {
         super.update();
         if (!worldObj.isRemote && canProvideEnergy()) {
-            for (INetworkNode node : networkNodes) {
-                if (node instanceof IEnergyConsumer) {
-                    IEnergyConsumer consumer = (IEnergyConsumer) node;
-                    if (node.getConnectionPriority() > this.getConnectionPriority() || (node.getConnectionPriority() == 0 && this.getConnectionPriority() == 0 && !(node instanceof INetworkSwitch))) {
+            List<INetworkNode> nodes = getNetworkNodes();
+            if(nodes != null) {
+                for (INetworkNode node : nodes) {
+                    if (node instanceof IEnergyConsumer) {
+                        IEnergyConsumer consumer = (IEnergyConsumer) node;
+                        if (node.getConnectionPriority() > this.getConnectionPriority() || (node.getConnectionPriority() == 0 && this.getConnectionPriority() == 0 && !(node instanceof INetworkSwitch))) {
 //                        if (consumer.getMaxEnergyStored() - consumer.getEnergyStored() <= energyStorage.getMaxEnergyStored() - energyStorage.getEnergyStored()) {
 //                            continue;
 //                        }
-                        EnergyHandler.transferEnergy(this, consumer);
+                            EnergyHandler.transferEnergy(this, consumer);
+                        }
                     }
                 }
             }
