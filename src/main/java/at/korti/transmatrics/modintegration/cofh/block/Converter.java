@@ -13,4 +13,9 @@ public class Converter extends MachineBlock {
     public Converter() {
         super(Material.iron, TransmatricsBlock.RF_CONVERTER.getRegName(), TileEntityEnergyConverter.class);
     }
+
+    @Override
+    public boolean isRotatable() {
+        return false;
+    }
 }

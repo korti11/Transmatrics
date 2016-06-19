@@ -82,6 +82,9 @@ public final class Constants {
         //Colored item
         public static final String COLOR_LAYERS = "color_layers";
         public static final String COLOR_LAYER = "color_layer_%d";
+
+        //Mode
+        public static final String MODE_NAME = "mode_name";
     }
 
     public static class NetworkMessages{

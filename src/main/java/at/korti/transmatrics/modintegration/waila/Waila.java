@@ -1,6 +1,7 @@
 package at.korti.transmatrics.modintegration.waila;
 
 import at.korti.transmatrics.api.Constants.ModIntegrationIds;
+import at.korti.transmatrics.api.block.IModeInfo;
 import at.korti.transmatrics.api.energy.IEnergyInfo;
 import at.korti.transmatrics.api.network.INetworkNodeInfo;
 import at.korti.transmatrics.api.network.INetworkSwitchInfo;
@@ -52,5 +53,7 @@ public class Waila implements IIntegration {
         registrar.registerNBTProvider(new WailaNetworkInfoHandler(), INetworkSwitchInfo.class);
         registrar.registerBodyProvider(new WailaNetworkInfoHandler(), INetworkNodeInfo.class);
         registrar.registerNBTProvider(new WailaNetworkInfoHandler(), INetworkNodeInfo.class);
+        registrar.registerBodyProvider(new WailaModeInfoHandler(), IModeInfo.class);
+        registrar.registerNBTProvider(new WailaModeInfoHandler(), IModeInfo.class);
     }
 }
