@@ -4,8 +4,11 @@ import at.korti.transmatrics.api.Constants.Energy;
 import at.korti.transmatrics.api.block.IChangeMode;
 import at.korti.transmatrics.api.block.IModeInfo;
 import at.korti.transmatrics.api.block.modes.InOutMode;
+import at.korti.transmatrics.api.energy.EnergyHandler;
 import at.korti.transmatrics.api.energy.IEnergyConsumer;
+import at.korti.transmatrics.api.network.INetworkNode;
 import at.korti.transmatrics.tileentity.TileEntityEnergyNode;
+import at.korti.transmatrics.tileentity.network.TileEntityController;
 import at.korti.transmatrics.util.helper.TextHelper;
 import at.korti.transmatrics.util.helper.WorldHelper;
 import cofh.api.energy.IEnergyProvider;
@@ -40,10 +43,17 @@ public class TileEntityEnergyConverter extends TileEntityEnergyNode implements I
                     }
                 }
             } else if (mode == InOutMode.IN) {
-                if (networkNode instanceof IEnergyConsumer) {
-                    int energy = ((IEnergyConsumer) networkNode).receiveEnergy(energyStorage.getMaxExtract(), true);
-                    energy = extractEnergy(energy, false);
-                    ((IEnergyConsumer) networkNode).receiveEnergy(energy, false);
+                if (networkNode != null && getNetworkNode() != null) {
+                    INetworkNode node = getNetworkNode();
+                    if (node.getController() == null) {
+                        if (node instanceof IEnergyConsumer) {
+                            IEnergyConsumer consumer = (IEnergyConsumer) node;
+                            EnergyHandler.transferEnergy(this, consumer);
+                        }
+                    } else {
+                        TileEntityController controller = getNetworkNode().getController();
+                        EnergyHandler.transferEnergy(this, controller);
+                    }
                 }
             }
         }
