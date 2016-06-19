@@ -1,6 +1,5 @@
 package at.korti.transmatrics.item.tool;
 
-import at.korti.transmatrics.api.Constants;
 import at.korti.transmatrics.api.Constants.NBT;
 import at.korti.transmatrics.api.Constants.ToolTips;
 import at.korti.transmatrics.api.Constants.TransmatricsItem;
@@ -86,7 +85,7 @@ public class ItemConnector extends ModItem {
         return super.onItemUseFirst(stack, player, world, pos, side, hitX, hitY, hitZ);
     }
 
-    private boolean hasNetworkNodeStored(ItemStack stack) {
+    public boolean hasNetworkNodeStored(ItemStack stack) {
         if (stack.getTagCompound() == null) {
             return false;
         } else {
