@@ -109,7 +109,7 @@ public abstract class TileEntityNetworkNode extends TileEntity implements INetwo
     @Override
     public IStatusMessage disconnectFromNode(INetworkNode node, boolean isSecond, boolean simulate) {
         EVENT_BUS.post(new DisconnectNetworkNodesEvent(this, node));
-        if (node == null || networkNode == null || networkNode != node) {
+        if (node == null || getNetworkNode() == null || getNetworkNode() != node) {
             return new StatusMessage(false, NetworkMessages.NOT_CONNECTED);
         }
 

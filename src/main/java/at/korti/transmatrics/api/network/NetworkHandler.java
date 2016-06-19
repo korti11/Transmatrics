@@ -1,7 +1,6 @@
 package at.korti.transmatrics.api.network;
 
 import at.korti.transmatrics.tileentity.network.TileEntityController;
-import jdk.nashorn.internal.ir.Block;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
