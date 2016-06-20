@@ -10,6 +10,9 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ITickable;
@@ -111,6 +114,26 @@ public abstract class TileEntityNetworkSwitch extends TileEntity implements INet
 
     }
 
+    protected void syncClient() {
+        if (!worldObj.isRemote) {
+            markDirty();
+            worldObj.markBlockForUpdate(pos);
+        }
+    }
+
+    @Override
+    public Packet getDescriptionPacket() {
+        NBTTagCompound compound = new NBTTagCompound();
+        writeNodesToNBT(compound);
+        return new S35PacketUpdateTileEntity(getPos(), -1, compound);
+    }
+
+    @Override
+    public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
+        super.onDataPacket(net, pkt);
+        readNodesFromNBT(pkt.getNbtCompound());
+    }
+
     @Override
     public List<INetworkNode> getConnections() {
         return getNetworkNodes();
@@ -145,6 +168,7 @@ public abstract class TileEntityNetworkSwitch extends TileEntity implements INet
             if (node.getController() != null && this.controller == null) {
                 this.connectToController(node.getController().getMaster().pos, node.getConnectionPriority() + 1);
             }
+            syncClient();
         }
         return new StatusMessage(true, NetworkMessages.SUCCESSFUL_CONNECTED);
     }
@@ -164,6 +188,7 @@ public abstract class TileEntityNetworkSwitch extends TileEntity implements INet
         if (!simulate && node instanceof TileEntity) {
             networkNodes.remove(((TileEntity) node).getPos());
             node.disconnectFromController();
+            syncClient();
         }
         return new StatusMessage(true, NetworkMessages.SUCCESSFUL_DISCONNECTED);
     }

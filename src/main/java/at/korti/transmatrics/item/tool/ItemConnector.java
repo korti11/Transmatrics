@@ -106,10 +106,10 @@ public class ItemConnector extends ModItem implements IChangeMode<ItemConnector.
                 tagCompound.removeTag(NBT.NETWORK_Y);
                 tagCompound.removeTag(NBT.NETWORK_Z);
                 tagCompound.removeTag(NBT.CLEAR_STORED_NETWORK);
-            } else if (playerIn.isSneaking()) {
-                cycleThroughMode(itemStackIn);
             } else if(tagCompound.hasKey(NBT.CLEAR_STORED_NETWORK) && !tagCompound.getBoolean(NBT.CLEAR_STORED_NETWORK)) {
                 tagCompound.setBoolean(NBT.CLEAR_STORED_NETWORK, true);
+            } else if (playerIn.isSneaking()) {
+                cycleThroughMode(itemStackIn);
             }
         }
         return super.onItemRightClick(itemStackIn, worldIn, playerIn);
@@ -181,7 +181,7 @@ public class ItemConnector extends ModItem implements IChangeMode<ItemConnector.
         }
     }
 
-    protected enum ConnectorMode{
+    public enum ConnectorMode{
         CONNECT,
         DISCONNECT,
         SHOW_CONNECTION

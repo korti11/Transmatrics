@@ -105,13 +105,6 @@ public abstract class TileEntityInventory extends TileEntityEnergyNode implement
         InventoryHelper.dropInventoryItems(worldObj, pos, this);
     }
 
-    public void syncClient() {
-        if (!worldObj.isRemote) {
-            markDirty();
-            worldObj.markBlockForUpdate(pos);
-        }
-    }
-
     //region IInventory
     @Override
     public int getSizeInventory() {

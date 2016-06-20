@@ -10,6 +10,9 @@ import at.korti.transmatrics.tileentity.network.TileEntityController;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ITickable;
@@ -33,12 +36,7 @@ public abstract class TileEntityNetworkNode extends TileEntity implements INetwo
     @Override
     public void writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
-        if(getNetworkNode() instanceof TileEntity) {
-            TileEntity te = (TileEntity) getNetworkNode();
-            compound.setInteger(NBT.NETWORK_X, te.getPos().getX());
-            compound.setInteger(NBT.NETWORK_Y, te.getPos().getY());
-            compound.setInteger(NBT.NETWORK_Z, te.getPos().getZ());
-        }
+        writeNetworkNodeToNBT(compound);
         compound.setInteger(NBT.CONNECTION_PRIORITY, connectionPriority);
         if(controller != null) {
             compound.setInteger(NBT.CONTROLLER_X, controller.getX());
@@ -47,21 +45,34 @@ public abstract class TileEntityNetworkNode extends TileEntity implements INetwo
         }
     }
 
+    private void writeNetworkNodeToNBT(NBTTagCompound compound) {
+        if(getNetworkNode() instanceof TileEntity) {
+            TileEntity te = (TileEntity) getNetworkNode();
+            compound.setInteger(NBT.NETWORK_X, te.getPos().getX());
+            compound.setInteger(NBT.NETWORK_Y, te.getPos().getY());
+            compound.setInteger(NBT.NETWORK_Z, te.getPos().getZ());
+        }
+    }
+
     @Override
     public void readFromNBT(NBTTagCompound compound) {
         super.readFromNBT(compound);
         connectionPriority = compound.getInteger(NBT.CONNECTION_PRIORITY);
-        if(compound.hasKey(NBT.NETWORK_X)) {
-            int x = compound.getInteger(NBT.NETWORK_X);
-            int y = compound.getInteger(NBT.NETWORK_Y);
-            int z = compound.getInteger(NBT.NETWORK_Z);
-            networkNode = new BlockPos(x, y, z);
-        }
+        readNetworkNodeFromNBT(compound);
         if(compound.hasKey(NBT.CONTROLLER_X)) {
             int x = compound.getInteger(NBT.CONTROLLER_X);
             int y = compound.getInteger(NBT.CONTROLLER_Y);
             int z = compound.getInteger(NBT.CONTROLLER_Z);
             controller = new BlockPos(x, y, z);
+        }
+    }
+
+    private void readNetworkNodeFromNBT(NBTTagCompound compound) {
+        if(compound.hasKey(NBT.NETWORK_X)) {
+            int x = compound.getInteger(NBT.NETWORK_X);
+            int y = compound.getInteger(NBT.NETWORK_Y);
+            int z = compound.getInteger(NBT.NETWORK_Z);
+            networkNode = new BlockPos(x, y, z);
         }
     }
 
@@ -73,6 +84,26 @@ public abstract class TileEntityNetworkNode extends TileEntity implements INetwo
     @Override
     public void update() {
 
+    }
+
+    @Override
+    public Packet getDescriptionPacket() {
+        NBTTagCompound compound = new NBTTagCompound();
+        writeNetworkNodeToNBT(compound);
+        return new S35PacketUpdateTileEntity(getPos(), -1, compound);
+    }
+
+    @Override
+    public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
+        super.onDataPacket(net, pkt);
+        readNetworkNodeFromNBT(pkt.getNbtCompound());
+    }
+
+    protected void syncClient() {
+        if (!worldObj.isRemote) {
+            markDirty();
+            worldObj.markBlockForUpdate(pos);
+        }
     }
 
     @Override
@@ -102,6 +133,7 @@ public abstract class TileEntityNetworkNode extends TileEntity implements INetwo
                 controller = node.getController().getPos();
                 connectionPriority = node.getConnectionPriority() + 1;
             }
+            syncClient();
         }
         return new StatusMessage(true, NetworkMessages.SUCCESSFUL_CONNECTED);
     }
@@ -121,6 +153,7 @@ public abstract class TileEntityNetworkNode extends TileEntity implements INetwo
         }
         if (!simulate) {
             networkNode = null;
+            syncClient();
         }
         return new StatusMessage(true, NetworkMessages.SUCCESSFUL_DISCONNECTED);
     }
