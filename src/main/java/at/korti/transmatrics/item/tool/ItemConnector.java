@@ -64,14 +64,22 @@ public class ItemConnector extends ModItem implements IChangeMode<ItemConnector.
                     TileEntity savedTile = world.getTileEntity(blockPos);
                     if (savedTile instanceof INetworkNode) {
                         INetworkNode savedNode = (INetworkNode) savedTile;
-                        IStatusMessage message;
+                        IStatusMessage message = null;
                         if (savedNode instanceof INetworkSwitch) {
-                            message = savedNode.connectToNode(networkNode, false, false);
+                            if(getCurrentMode(stack) == ConnectorMode.CONNECT) {
+                                message = savedNode.connectToNode(networkNode, false, false);
+                            } else if (getCurrentMode(stack) == ConnectorMode.DISCONNECT) {
+                                message = savedNode.disconnectFromNode(networkNode, false, false);
+                            }
                         } else {
-                            message = networkNode.connectToNode(savedNode, false, false);
+                            if(getCurrentMode(stack) == ConnectorMode.CONNECT) {
+                                message = networkNode.connectToNode(savedNode, false, false);
+                            } else if(getCurrentMode(stack) == ConnectorMode.DISCONNECT) {
+                                message = networkNode.disconnectFromNode(savedNode, false, false);
+                            }
                         }
-                        if (message.isSuccessful()) {
-                            stack.setTagCompound(new NBTTagCompound());
+                        if (message != null && message.isSuccessful()) {
+                            clearStoreNetworkNode(stack);
                         }
                         MessageHelper.sendMessages(player, message);
                     }
@@ -89,24 +97,16 @@ public class ItemConnector extends ModItem implements IChangeMode<ItemConnector.
     }
 
     public boolean hasNetworkNodeStored(ItemStack stack) {
-        if (stack.getTagCompound() == null) {
-            return false;
-        } else {
-            return stack.getTagCompound().hasKey(NBT.NETWORK_X);
-        }
+        return stack.getTagCompound() != null && stack.getTagCompound().hasKey(NBT.NETWORK_X);
     }
 
     @Override
     public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) {
         if(!worldIn.isRemote) {
             NBTTagCompound tagCompound = itemStackIn.getTagCompound();
-            if (playerIn.isSneaking() && tagCompound.hasKey(NBT.CLEAR_STORED_NETWORK) && tagCompound.getBoolean(NBT.CLEAR_STORED_NETWORK)) {
-                tagCompound.removeTag(NBT.NETWORK_BLOCK_NAME);
-                tagCompound.removeTag(NBT.NETWORK_X);
-                tagCompound.removeTag(NBT.NETWORK_Y);
-                tagCompound.removeTag(NBT.NETWORK_Z);
-                tagCompound.removeTag(NBT.CLEAR_STORED_NETWORK);
-            } else if(tagCompound.hasKey(NBT.CLEAR_STORED_NETWORK) && !tagCompound.getBoolean(NBT.CLEAR_STORED_NETWORK)) {
+            if (playerIn.isSneaking() && tagCompound != null && tagCompound.hasKey(NBT.CLEAR_STORED_NETWORK) && tagCompound.getBoolean(NBT.CLEAR_STORED_NETWORK)) {
+                clearStoreNetworkNode(itemStackIn);
+            } else if(tagCompound != null && tagCompound.hasKey(NBT.CLEAR_STORED_NETWORK) && !tagCompound.getBoolean(NBT.CLEAR_STORED_NETWORK)) {
                 tagCompound.setBoolean(NBT.CLEAR_STORED_NETWORK, true);
             } else if (playerIn.isSneaking()) {
                 cycleThroughMode(itemStackIn);
@@ -118,6 +118,17 @@ public class ItemConnector extends ModItem implements IChangeMode<ItemConnector.
     @Override
     public String getItemStackDisplayName(ItemStack stack) {
         return super.getItemStackDisplayName(stack) + "(" + getModeName(stack) + ")";
+    }
+
+    private void clearStoreNetworkNode(ItemStack stack) {
+        NBTTagCompound tagCompound = stack.getTagCompound();
+        if(tagCompound != null) {
+            tagCompound.removeTag(NBT.NETWORK_BLOCK_NAME);
+            tagCompound.removeTag(NBT.NETWORK_X);
+            tagCompound.removeTag(NBT.NETWORK_Y);
+            tagCompound.removeTag(NBT.NETWORK_Z);
+            tagCompound.removeTag(NBT.CLEAR_STORED_NETWORK);
+        }
     }
 
     @Override

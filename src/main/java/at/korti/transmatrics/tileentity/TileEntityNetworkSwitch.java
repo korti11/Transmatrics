@@ -180,7 +180,7 @@ public abstract class TileEntityNetworkSwitch extends TileEntity implements INet
             return new StatusMessage(false, NetworkMessages.NOT_CONNECTED);
         }
         if (!isSecond) {
-            IStatusMessage message = node.disconnectFromNode(node, true, simulate);
+            IStatusMessage message = node.disconnectFromNode(this, true, simulate);
             if (!message.isSuccessful()) {
                 return message;
             }

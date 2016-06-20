@@ -73,6 +73,8 @@ public abstract class TileEntityNetworkNode extends TileEntity implements INetwo
             int y = compound.getInteger(NBT.NETWORK_Y);
             int z = compound.getInteger(NBT.NETWORK_Z);
             networkNode = new BlockPos(x, y, z);
+        } else {
+            networkNode = null;
         }
     }
 
