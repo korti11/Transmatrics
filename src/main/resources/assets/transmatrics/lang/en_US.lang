@@ -115,6 +115,7 @@ tooltip.pulverizer.output.chance=Chance:
 tooltip.hammer.uses.left=Uses left: %d
 tooltip.capacitor.energy.label=Energy:
 tooltip.capacitor.energy=%d/%d TF
+tooltip.selected.mode=Mode: %s
 
 #Gui
 gui.tank.empty=Empty

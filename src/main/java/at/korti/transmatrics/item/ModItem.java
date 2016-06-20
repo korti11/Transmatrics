@@ -31,6 +31,6 @@ public class ModItem extends Item {
 
     @Override
     public String getItemStackDisplayName(ItemStack stack) {
-        return nameColor.toString() + super.getItemStackDisplayName(stack);
+        return nameColor.toString() + super.getItemStackDisplayName(stack) + EnumChatFormatting.RESET;
     }
 }

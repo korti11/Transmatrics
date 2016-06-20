@@ -24,7 +24,8 @@ public class ClientEventHandler {
         World world = player.worldObj;
         ItemStack currentItem = player.getCurrentEquippedItem();
 
-        if (currentItem.getItem() == TransmatricsApi.getItem(Constants.TransmatricsItem.CONNECTOR)) {
+        if (currentItem != null &&
+                currentItem.getItem() == TransmatricsApi.getItem(Constants.TransmatricsItem.CONNECTOR)) {
             ItemConnector connector = (ItemConnector) currentItem.getItem();
             if (connector.hasNetworkNodeStored(currentItem)) {
                 NBTTagCompound tagCompound = currentItem.getTagCompound();

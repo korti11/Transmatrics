@@ -85,6 +85,7 @@ public final class Constants {
 
         //Mode
         public static final String MODE_NAME = "mode_name";
+        public static final String SELECTED_MODE = "selected_mode";
     }
 
     public static class NetworkMessages{
@@ -111,6 +112,9 @@ public final class Constants {
         //Capacitor
         public static final String CAPACITOR_ENERGY_LABEL = "tooltip.capacitor.energy.label";
         public static final String CAPACITOR_ENERGY = "tooltip.capacitor.energy";
+
+        //Mode
+        public static final String SELECTED_MODE = "tooltip.selected.mode";
     }
 
     public static class Energy{

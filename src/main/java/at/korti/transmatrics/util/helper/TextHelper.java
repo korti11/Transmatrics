@@ -20,4 +20,15 @@ public class TextHelper {
         result = firstLetter.toString().toUpperCase() + input.substring(1);
         return result;
     }
+
+    public static String firstCharOfEachWordUppercase(String input) {
+        String[] words = input.split(" ");
+        StringBuilder stringBuilder = new StringBuilder();
+        for (String word : words) {
+            word = firstCharUppercase(word);
+            stringBuilder.append(word);
+            stringBuilder.append(" ");
+        }
+        return stringBuilder.deleteCharAt(stringBuilder.length() - 1).toString();
+    }
 }
