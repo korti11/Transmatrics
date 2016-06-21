@@ -1,6 +1,8 @@
 package at.korti.transmatrics.modintegration.cofh.tileentity;
 
+import at.korti.transmatrics.api.Constants;
 import at.korti.transmatrics.api.Constants.Energy;
+import at.korti.transmatrics.api.Constants.NBT;
 import at.korti.transmatrics.api.block.IChangeMode;
 import at.korti.transmatrics.api.block.IModeInfo;
 import at.korti.transmatrics.api.block.modes.InOutMode;
@@ -13,6 +15,7 @@ import at.korti.transmatrics.util.helper.TextHelper;
 import at.korti.transmatrics.util.helper.WorldHelper;
 import cofh.api.energy.IEnergyProvider;
 import cofh.api.energy.IEnergyReceiver;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.EnumFacing;
 
@@ -26,6 +29,19 @@ public class TileEntityEnergyConverter extends TileEntityEnergyNode implements I
     public TileEntityEnergyConverter() {
         super(Energy.RF_CONVERTER_CAPACITY, Energy.RF_CONVERTER_TRANSFER);
         this.mode = InOutMode.OUT;
+    }
+
+    @Override
+    public void writeToNBT(NBTTagCompound compound) {
+        super.writeToNBT(compound);
+        compound.setInteger(NBT.SELECTED_MODE, getCurrentMode().ordinal());
+    }
+
+    @Override
+    public void readFromNBT(NBTTagCompound compound) {
+        super.readFromNBT(compound);
+        int mode = compound.getInteger(NBT.SELECTED_MODE);
+        this.mode = getAllModes()[mode];
     }
 
     @Override
@@ -71,13 +87,13 @@ public class TileEntityEnergyConverter extends TileEntityEnergyNode implements I
     //region IEnergyProvider/IEnergyReceiver
     @Override
     public int extractEnergy(EnumFacing enumFacing, int i, boolean b) {
-        return energyStorage.extractEnergy(i * Energy.RF_CONVERT_MULTIPLIER, b);
+        return energyStorage.extractEnergy(i, b);
     }
 
     @Override
     public int receiveEnergy(EnumFacing enumFacing, int i, boolean b) {
         if (mode == InOutMode.IN) {
-            return energyStorage.receiveEnergy(i * Energy.RF_CONVERT_MULTIPLIER, b);
+            return energyStorage.receiveEnergy(i, b);
         } else {
             return 0;
         }

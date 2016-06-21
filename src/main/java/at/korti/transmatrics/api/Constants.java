@@ -118,101 +118,98 @@ public final class Constants {
     }
 
     public static class Energy{
-        //Integration
-        public static final int RF_CONVERT_MULTIPLIER = 2;
-
         //Solar Panel
-        public static final int SOLAR_PANEL_GENERATE = 1;
-        public static final int SOLAR_PANEL_CAPACITY = 1000;
-        public static final int SOLAR_PANEL_EXTRACTION = 10;
+        public static final int SOLAR_PANEL_GENERATE = 10;
+        public static final int SOLAR_PANEL_CAPACITY = 10000;
+        public static final int SOLAR_PANEL_EXTRACTION = 100;
 
         //Advanced Solar Panel
-        public static final int ADVANCED_SOLAR_PANEL_GENERATE = 10;
-        public static final int ADVANCED_SOLAR_PANEL_CAPACITY = 5000;
-        public static final int ADVANCED_SOLAR_PANEL_EXTRACTION = 100;
+        public static final int ADVANCED_SOLAR_PANEL_GENERATE = 40;
+        public static final int ADVANCED_SOLAR_PANEL_CAPACITY = 50000;
+        public static final int ADVANCED_SOLAR_PANEL_EXTRACTION = 1000;
 
         //Lava Generator
-        public static final int LAVA_GENERATOR_GENERATE = 3;
+        public static final int LAVA_GENERATOR_GENERATE = 20;
         public static final int LAVA_GENERATOR_FLUID_USE = 10;
-        public static final int LAVA_GENERATOR_CAPACITY = 2500;
-        public static final int LAVA_GENERATOR_EXTRACTION = 25;
+        public static final int LAVA_GENERATOR_CAPACITY = 25000;
+        public static final int LAVA_GENERATOR_EXTRACTION = 2500;
 
         //Windmill
-        public static final int WINDMILL_MIN_GENERATE = 5;
-        public static final int WINDMILL_MAX_GENERATE = 20;
+        public static final int WINDMILL_MIN_GENERATE = 10;
+        public static final int WINDMILL_MAX_GENERATE = 30;
         public static final int WINDMILL_MIN_HEIGHT = 80;
         public static final int WINDMILL_MAX_HEIGHT = 256;
-        public static final int WINDMILL_CAPACITY = 2000;
-        public static final int WINDMILL_EXTRACTION = 20;
+        public static final int WINDMILL_CAPACITY = 20000;
+        public static final int WINDMILL_EXTRACTION = 200;
 
         //Watermill
-        public static final int WATERMILL_GENERATE = 1;
-        public static final int WATERMILL_CAPACITY = 1000;
-        public static final int WATERMILL_EXTRACTION = 10;
+        public static final int WATERMILL_GENERATE = 10;
+        public static final int WATERMILL_CAPACITY = 10000;
+        public static final int WATERMILL_EXTRACTION = 100;
 
         //Thermal Generator
-        public static final int THERMAL_GENERATOR_MIN_GENERATE = 10;
-        public static final int THERMAL_GENERATOR_MAX_GENERATE = 100;
+        public static final int THERMAL_GENERATOR_MIN_GENERATE = 50;
+        public static final int THERMAL_GENERATOR_MAX_GENERATE = 500;
         public static final int THERMAL_GENERATOR_MIN_HEIGHT = 64;
         public static final int THERMAL_GENERATOR_MAX_HEIGHT = 12;
-        public static final int THERMAL_GENERATOR_CAPACITY = 10000;
-        public static final int THERMAL_GENERATOR_EXTRACTION = 100;
+        public static final int THERMAL_GENERATOR_CAPACITY = 50000;
+        public static final int THERMAL_GENERATOR_EXTRACTION = 1000;
 
         //Small Switch
-        public static final int SMALL_SWITCH_CAPACITY = 1250;
-        public static final int SMALL_SWITCH_TRANSFER = 125;
+        public static final int SMALL_SWITCH_CAPACITY = 12500;
+        public static final int SMALL_SWITCH_TRANSFER = 1250;
 
         //Medium Switch
-        public static final int MEDIUM_SWITCH_CAPACITY = 2500;
-        public static final int MEDIUM_SWITCH_TRANSFER = 250;
+        public static final int MEDIUM_SWITCH_CAPACITY = 25000;
+        public static final int MEDIUM_SWITCH_TRANSFER = 2500;
 
         //Large Switch
-        public static final int LARGE_SWITCH_CAPACITY = 5000;
-        public static final int LARGE_SWITCH_TRANSFER = 500;
+        public static final int LARGE_SWITCH_CAPACITY = 50000;
+        public static final int LARGE_SWITCH_TRANSFER = 5000;
 
         //Controller
-        public static final int CONTROLLER_CAPACITY = 20000;
-        public static final int CONTROLLER_TRANSFER = 1000;
+        public static final int CONTROLLER_CAPACITY = 100000;
+        public static final int CONTROLLER_TRANSFER = 10000;
 
         //Pulverizer
-        public static final int PULVERIZER_CAPACITY = 5000;
-        public static final int PULVERIZER_RECEIVE = 500;
+        public static final int PULVERIZER_CAPACITY = 50000;
+        public static final int PULVERIZER_RECEIVE = 5000;
         public static final int PULVERIZER_ENERGY_USE = 25;
 
         //Powered Furnace
-        public static final int POWERED_FURNACE_CAPACITY = 5000;
-        public static final int POWERED_FURNACE_RECEIVE = 500;
+        public static final int POWERED_FURNACE_CAPACITY = 50000;
+        public static final int POWERED_FURNACE_RECEIVE = 5000;
         public static final int POWERED_FURNACE_ENERGY_USE = 25;
 
         //Magnetic Smeltery
-        public static final int MAGNETIC_SMELTERY_CAPACITY = 5000;
-        public static final int MAGNETIC_SMELTERY_RECEIVE = 500;
+        public static final int MAGNETIC_SMELTERY_CAPACITY = 50000;
+        public static final int MAGNETIC_SMELTERY_RECEIVE = 5000;
         public static final int MAGNETIC_SMELTERY_ENERGY_USE = 25;
 
         //Liquid Caster
-        public static final int LIQUID_CASTER_CAPACITY = 5000;
-        public static final int LIQUID_CASTER_RECEIVE = 500;
+        public static final int LIQUID_CASTER_CAPACITY = 50000;
+        public static final int LIQUID_CASTER_RECEIVE = 5000;
         public static final int LIQUID_CASTER_ENERGY_USE = 25;
 
         //Alloy Mixer
-        public static final int ALLOY_MIXER_CAPACITY = 5000;
-        public static final int ALLOY_MIXER_RECEIVE = 500;
+        public static final int ALLOY_MIXER_CAPACITY = 50000;
+        public static final int ALLOY_MIXER_RECEIVE = 5000;
         public static final int ALLOY_MIXER_ENERGY_USE = 25;
 
         //Charger
-        public static final int CHARGER_CAPACITY = 5000;
-        public static final int CHARGER_RECEIVE = 500;
+        public static final int CHARGER_CAPACITY = 50000;
+        public static final int CHARGER_RECEIVE = 5000;
         public static final int CHARGER_ENERGY_USE = 5;
 
         //RF Converter
-        public static final int RF_CONVERTER_CAPACITY = 5000;
-        public static final int RF_CONVERTER_TRANSFER = 500;
+        public static final int RF_CONVERTER_CAPACITY = 50000;
+        public static final int RF_CONVERTER_TRANSFER = 5000;
 
         //Capacitors
         public static final int DISCHARGE_RATE = 10;
-        public static final int LEAD_CAPACITOR_CAPACITY = 1250;
-        public static final int INVAR_CAPACITOR_CAPACITY = 2500;
-        public static final int ELECTRUM_CAPACITOR_CAPACITY = 5000;
+        public static final int LEAD_CAPACITOR_CAPACITY = 12500;
+        public static final int INVAR_CAPACITOR_CAPACITY = 25000;
+        public static final int ELECTRUM_CAPACITOR_CAPACITY = 50000;
     }
 
     public static class Tanks{
