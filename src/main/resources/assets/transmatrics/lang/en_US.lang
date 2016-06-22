@@ -19,6 +19,7 @@ tile.Transmatrics.LiquidCaster.name=Liquid Caster
 tile.Transmatrics.MachineCasing.name=Machine Casing
 tile.Transmatrics.AlloyMixer.name=Alloy Mixer
 tile.Transmatrics.Charger.name=Energised Charger
+tile.Transmatrics.RFConverter.name=Energised RF-Converter
 
 #Ore
 tile.Transmatrics.Ore.copper.name=Copper Ore
