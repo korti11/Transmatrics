@@ -187,7 +187,13 @@ public abstract class TileEntityNetworkSwitch extends TileEntity implements INet
         }
         if (!simulate && node instanceof TileEntity) {
             networkNodes.remove(((TileEntity) node).getPos());
-            node.disconnectFromController();
+            if(!isSecond) {
+                if(node.getConnectionPriority() > connectionPriority) {
+                    node.disconnectFromController();
+                } else if (node.getConnectionPriority() < connectionPriority) {
+                    this.disconnectFromController();
+                }
+            }
             syncClient();
         }
         return new StatusMessage(true, NetworkMessages.SUCCESSFUL_DISCONNECTED);
@@ -252,15 +258,52 @@ public abstract class TileEntityNetworkSwitch extends TileEntity implements INet
         }
     }
 
-    @Override
-    public void disconnectFromController() {
-        controller = null;
-        connectionPriority = 0;
+    private void overrideController(BlockPos controllerPos, int connectionPriority, INetworkNode preventedNode) {
+        controller = controllerPos;
+        this.connectionPriority = connectionPriority;
         List<INetworkNode> nodes = getNetworkNodes();
         for (INetworkNode node : nodes) {
-            if(node.getController() != null) {
-                node.disconnectFromController();
+            if (!preventedNode.equals(node)) {
+                node.connectToController(controllerPos, connectionPriority + 1);
             }
+        }
+    }
+
+    @Override
+    public boolean reconnectToController(INetworkSwitch startNode, INetworkSwitch prevNode) {
+        List<INetworkNode> nodes = getNetworkNodes();
+        boolean flag = false;
+        INetworkNode foundNode = null;
+        for(INetworkNode node : nodes) {
+            if (node instanceof INetworkSwitch) {
+                if (startNode == this || this.getConnectionPriority() < prevNode.getConnectionPriority()) {
+                    flag = ((INetworkSwitch) node).reconnectToController(startNode,this);
+                } else {
+                    return true;
+                }
+            }
+            if (flag) {
+                foundNode = node;
+                break;
+            }
+        }
+        if (flag && startNode == this) {
+            overrideController(foundNode.getController().pos, foundNode.getConnectionPriority() + 1, foundNode);
+        }
+        return flag;
+    }
+
+    @Override
+    public void disconnectFromController() {
+        if(!reconnectToController(this,this)) {
+            List<INetworkNode> nodes = getNetworkNodes();
+            for (INetworkNode node : nodes) {
+                if (node.getController() != null && node.getConnectionPriority() > connectionPriority) {
+                    node.disconnectFromController();
+                }
+            }
+            controller = null;
+            connectionPriority = 0;
         }
     }
 

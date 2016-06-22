@@ -25,4 +25,12 @@ public interface INetworkSwitch extends INetworkNode {
      */
     boolean isInRange(INetworkNode node);
 
+    /**
+     * Reconnect over another to the controller.
+     * @param startNode The node the want reconnect to the controller.
+     * @param prevNode
+     * @return If it can reconnected.
+     */
+    boolean reconnectToController(INetworkSwitch startNode, INetworkSwitch prevNode);
+
 }
