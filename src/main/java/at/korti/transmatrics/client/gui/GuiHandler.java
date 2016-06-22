@@ -3,6 +3,7 @@ package at.korti.transmatrics.client.gui;
 import at.korti.transmatrics.modintegration.tconstruct.client.GuiAlloyMixer;
 import at.korti.transmatrics.modintegration.tconstruct.tileentity.ContainerAlloyMixer;
 import at.korti.transmatrics.tileentity.TileEntityFluidGenerator;
+import at.korti.transmatrics.tileentity.TileEntityInventory;
 import at.korti.transmatrics.tileentity.container.*;
 import at.korti.transmatrics.tileentity.crafting.*;
 import at.korti.transmatrics.tileentity.energy.TileEntityCharger;
@@ -35,7 +36,7 @@ public class GuiHandler implements IGuiHandler {
             case LAVA_GENERATOR_GUI_ID:
                 return new ContainerFluidGenerator(player.inventory, (TileEntityFluidGenerator) world.getTileEntity(pos));
             case ALLOY_MIXER_GUI_ID:
-                return new ContainerAlloyMixer(player.inventory, (IInventory) world.getTileEntity(pos));
+                return new ContainerAlloyMixer(player.inventory, (TileEntityInventory) world.getTileEntity(pos));
             case CHARGER_GUI_ID:
                 return new ContainerCharger(player.inventory, (TileEntityCharger) world.getTileEntity(pos));
         }
@@ -60,7 +61,7 @@ public class GuiHandler implements IGuiHandler {
                 case LAVA_GENERATOR_GUI_ID:
                     return new GuiFluidGenerator(player.inventory, (TileEntityFluidGenerator) world.getTileEntity(pos));
                 case ALLOY_MIXER_GUI_ID:
-                    return new GuiAlloyMixer(player.inventory, (IInventory) world.getTileEntity(pos));
+                    return new GuiAlloyMixer(player.inventory, (TileEntityInventory) world.getTileEntity(pos));
                 case CHARGER_GUI_ID:
                     return new GuiCharger(player.inventory, (TileEntityCharger) world.getTileEntity(pos));
             }

@@ -1,6 +1,7 @@
 package at.korti.transmatrics.item.tool;
 
 import at.korti.transmatrics.api.Constants.TransmatricsItem;
+import at.korti.transmatrics.api.block.IChangeMode;
 import at.korti.transmatrics.api.block.IDismantable;
 import at.korti.transmatrics.api.block.IRotatable;
 import at.korti.transmatrics.item.ModItem;
@@ -30,6 +31,7 @@ public class ItemWrench extends ModItem {
     public EnumActionResult onItemUseFirst(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
         IBlockState blockState = world.getBlockState(pos);
         Block affectedBlock = blockState.getBlock();
+        TileEntity affectedTileEntity = world.getTileEntity(pos);
 
         if (player.isSneaking()) {
             if (affectedBlock instanceof IDismantable) {
@@ -38,6 +40,9 @@ public class ItemWrench extends ModItem {
         } else {
             if (affectedBlock instanceof IRotatable) {
                 ((IRotatable) affectedBlock).rotate(world, player, pos, blockState);
+            }
+            if(affectedTileEntity instanceof IChangeMode){
+                ((IChangeMode) affectedTileEntity).cycleThroughMode();
             }
         }
 

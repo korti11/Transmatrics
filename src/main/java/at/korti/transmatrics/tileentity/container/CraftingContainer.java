@@ -2,6 +2,8 @@ package at.korti.transmatrics.tileentity.container;
 
 import at.korti.transmatrics.api.crafting.ICraftingRegistry;
 import at.korti.transmatrics.api.crafting.ICraftingRegistry.ICraftingEntry;
+import at.korti.transmatrics.tileentity.TileEntityInventory;
+import at.korti.transmatrics.tileentity.container.slot.CapacitorSlot;
 import at.korti.transmatrics.util.helper.InventoryHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -16,7 +18,7 @@ import net.minecraft.item.ItemStack;
  */
 public abstract class CraftingContainer extends Container {
 
-    private final IInventory tileEntity;
+    private final TileEntityInventory tileEntity;
     private final ICraftingRegistry<ItemStack> craftingRegistry;
 
     private final int playerMinIndex;
@@ -29,16 +31,23 @@ public abstract class CraftingContainer extends Container {
     private int efficiency;
     private int maxEfficiency;
 
-    public CraftingContainer(InventoryPlayer inventoryPlayer, IInventory tileEntity, ICraftingRegistry<ItemStack> registry) {
+    public CraftingContainer(InventoryPlayer inventoryPlayer, TileEntityInventory tileEntity, ICraftingRegistry<ItemStack> registry) {
         this.tileEntity = tileEntity;
         this.craftingRegistry = registry;
         addTileEntitySlots(tileEntity);
+        addCapacitorSlot();
         this.playerMinIndex = this.inventorySlots.size();
         addPlayerSlots(inventoryPlayer);
         this.playerMaxIndex = this.inventorySlots.size();
     }
 
     public abstract void addTileEntitySlots(IInventory inventory);
+
+    public void addCapacitorSlot() {
+        if (tileEntity.hasCapacitorSlot()) {
+            addSlotToContainer(new CapacitorSlot(tileEntity, tileEntity.getCapacitorSlot(), 17, 58));
+        }
+    }
 
     public void addPlayerSlots(InventoryPlayer inventoryPlayer) {
         for (int i = 0; i < 3; i++) {

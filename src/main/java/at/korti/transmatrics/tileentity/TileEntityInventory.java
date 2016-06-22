@@ -1,6 +1,7 @@
 package at.korti.transmatrics.tileentity;
 
 import at.korti.transmatrics.api.Constants;
+import at.korti.transmatrics.api.energy.IDischargeable;
 import at.korti.transmatrics.util.helper.TextHelper;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -23,9 +24,13 @@ public abstract class TileEntityInventory extends TileEntityEnergyNode implement
     private ItemStack[] inventory;
     private int stackLimit;
     private String name;
+    private int capacitorSlot = -1;
 
-    protected TileEntityInventory(int capacity, int maxReceive, int inventorySize, int stackLimit, String name) {
+    protected TileEntityInventory(int capacity, int maxReceive, int inventorySize, int stackLimit, boolean capacitorSlot, String name) {
         super(capacity, maxReceive, 0);
+        if (capacitorSlot) {
+            this.capacitorSlot = inventorySize++;
+        }
         this.inventory = new ItemStack[inventorySize];
         this.stackLimit = stackLimit;
         this.name = name;
@@ -61,6 +66,29 @@ public abstract class TileEntityInventory extends TileEntityEnergyNode implement
     }
 
     @Override
+    public void update() {
+        super.update();
+        if (!worldObj.isRemote && capacitorSlot != -1) {
+            ItemStack stack = getStackInSlot(capacitorSlot);
+            if (stack != null && stack.getItem() instanceof IDischargeable) {
+                IDischargeable item = (IDischargeable) stack.getItem();
+                int energy = item.discharge(stack, Constants.Energy.DISCHARGE_RATE, true);
+                energy = energyStorage.receiveEnergy(energy, false);
+                item.discharge(stack, energy, false);
+                syncClient();
+            }
+        }
+    }
+
+    public boolean hasCapacitorSlot() {
+        return capacitorSlot != -1;
+    }
+
+    public int getCapacitorSlot() {
+        return capacitorSlot;
+    }
+
+    @Override
     public Packet getDescriptionPacket() {
         NBTTagCompound tagCompound = new NBTTagCompound();
         writeToNBT(tagCompound);
@@ -75,14 +103,6 @@ public abstract class TileEntityInventory extends TileEntityEnergyNode implement
 
     public void dropItems() {
         InventoryHelper.dropInventoryItems(worldObj, pos, this);
-    }
-
-    public void syncClient() {
-        if (!worldObj.isRemote) {
-            markDirty();
-            IBlockState state = worldObj.getBlockState(pos);
-            worldObj.notifyBlockUpdate(pos, state, state, 3);
-        }
     }
 
     //region IInventory

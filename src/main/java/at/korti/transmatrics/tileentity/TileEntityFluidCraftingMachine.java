@@ -36,8 +36,8 @@ public abstract class TileEntityFluidCraftingMachine extends TileEntityInventory
     protected int efficiency;
     protected int maxEfficiency;
 
-    protected TileEntityFluidCraftingMachine(int capacity, int maxReceive, int energyUse, String name, IFluidCraftingRegistry registry) {
-        super(capacity, maxReceive, registry.inventorySize(), registry.getStackLimit(), name);
+    protected TileEntityFluidCraftingMachine(int capacity, int maxReceive, int energyUse, boolean capacitorSlot, String name, IFluidCraftingRegistry registry) {
+        super(capacity, maxReceive, registry.inventorySize(), registry.getStackLimit(), capacitorSlot, name);
         this.craftingRegistry = registry;
         this.initTanks();
         this.energyUse = energyUse;
@@ -160,6 +160,7 @@ public abstract class TileEntityFluidCraftingMachine extends TileEntityInventory
         return true;
     }
 
+    @SuppressWarnings("unchecked")
     protected boolean canCraft() {
         if (isFluidInput() ? areTanksEmpty(true) : areInputSlotsEmpty()) {
             return false;
@@ -266,8 +267,7 @@ public abstract class TileEntityFluidCraftingMachine extends TileEntityInventory
             for (FluidStack stack : stacks) {
                 if (tank.getFluid() != null && tank.getFluid().getFluid() == stack.getFluid()) {
                     flag = true;
-                    continue;
-                } else if (tank.getFluid() != null && tank.getFluid().getFluid() != stack.getFluid()) {
+                } else if (tank.getFluid() != null) {
                     flag = false;
                 }
             }
@@ -334,6 +334,7 @@ public abstract class TileEntityFluidCraftingMachine extends TileEntityInventory
         return getFluids(craftingRegistry.getFluidInputIds());
     }
 
+    @SuppressWarnings("unchecked")
     protected int getCraftingTime() {
         ICraftingEntry entry = craftingRegistry.get(isFluidInput() ? getInputFluids() : getInventoryInputs());
         if (entry != null) {
@@ -342,6 +343,7 @@ public abstract class TileEntityFluidCraftingMachine extends TileEntityInventory
         return 0;
     }
 
+    @SuppressWarnings("unchecked")
     protected void craft() {
         if (this.canCraft()) {
             if(!isFluidInput()) {
@@ -491,10 +493,14 @@ public abstract class TileEntityFluidCraftingMachine extends TileEntityInventory
 
     //region IInventory
     @Override
+    @SuppressWarnings("unchecked")
     public void setInventorySlotContents(int index, ItemStack stack) {
         boolean isSameItem = stack != null && stack.isItemEqual(getStackInSlot(index)) && ItemStack.areItemStackTagsEqual(stack, getStackInSlot(index));
         super.setInventorySlotContents(index, stack);
-        ICraftingRegistry.ICraftingEntry entry = craftingRegistry.get(getInventoryInputs());
+        ICraftingRegistry.ICraftingEntry entry = null;
+        if(!isFluidInput()) {
+            entry = craftingRegistry.get(getInventoryInputs());
+        }
         if (InventoryHelper.isInputSlot(craftingRegistry, index) && entry != null && !isSameItem) {
             this.totalCraftingTime = entry.getCraftingTime();
             craftingTime = 0;

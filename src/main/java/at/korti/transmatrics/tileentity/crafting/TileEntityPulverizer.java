@@ -11,7 +11,7 @@ import at.korti.transmatrics.tileentity.TileEntityCraftingMachine;
 public class TileEntityPulverizer extends TileEntityCraftingMachine {
 
     public TileEntityPulverizer() {
-        super(Energy.PULVERIZER_CAPACITY, Energy.PULVERIZER_RECEIVE, Energy.PULVERIZER_ENERGY_USE,
+        super(Energy.PULVERIZER_CAPACITY, Energy.PULVERIZER_RECEIVE, Energy.PULVERIZER_ENERGY_USE, true,
                 TransmatricsTileEntity.PULVERIZER.getRegName(), PulverizerCraftingRegistry.getInstance());
     }
 

@@ -20,7 +20,7 @@ import static net.minecraftforge.common.MinecraftForge.EVENT_BUS;
 public class TileEntityAlloyMixer extends TileEntityFluidCraftingMachine {
 
     public TileEntityAlloyMixer() {
-        super(Energy.ALLOY_MIXER_CAPACITY, Energy.ALLOY_MIXER_RECEIVE, Energy.ALLOY_MIXER_ENERGY_USE,
+        super(Energy.ALLOY_MIXER_CAPACITY, Energy.ALLOY_MIXER_RECEIVE, Energy.ALLOY_MIXER_ENERGY_USE, true,
                 TransmatricsTileEntity.ALLOY_MIXER.getRegName(), AlloyMixerCraftingRegistry.getInstance());
     }
 
@@ -30,6 +30,7 @@ public class TileEntityAlloyMixer extends TileEntityFluidCraftingMachine {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     protected void craft() {
         if (this.canCraft()) {
             ICraftingEntry<FluidStack, FluidStack> entry = craftingRegistry.get(getInputFluids());

@@ -23,6 +23,8 @@ import net.minecraftforge.fml.client.FMLClientHandler;
 import java.util.LinkedList;
 import java.util.List;
 
+import static at.korti.transmatrics.api.Constants.TransmatricsItem.ELECTRUM_CAPACITOR;
+import static at.korti.transmatrics.api.Constants.TransmatricsItem.INVAR_CAPACITOR;
 import static at.korti.transmatrics.api.Constants.TransmatricsItem.LEAD_CAPACITOR;
 import static net.minecraftforge.fml.common.registry.GameRegistry.register;
 
@@ -41,6 +43,8 @@ public final class Items {
     private static ItemElectronics itemElectronics;
     private static ItemPlate itemPlate;
     private static ItemCapacitor itemLeadCapacitor;
+    private static ItemCapacitor itemInvarCapacitor;
+    private static ItemCapacitor itemElectrumCapacitor;
 
     public static void registerItemsCommon() {
         register(wrench = new ItemWrench());
@@ -53,6 +57,8 @@ public final class Items {
         register(itemElectronics = new ItemElectronics());
         register(itemPlate = new ItemPlate());
         register(itemLeadCapacitor = new ItemCapacitor(LEAD_CAPACITOR.getRegName(), Energy.LEAD_CAPACITOR_CAPACITY));
+        register(itemInvarCapacitor = new ItemCapacitor(INVAR_CAPACITOR.getRegName(), Energy.INVAR_CAPACITOR_CAPACITY));
+        register(itemElectrumCapacitor = new ItemCapacitor(ELECTRUM_CAPACITOR.getRegName(), Energy.ELECTRUM_CAPACITOR_CAPACITY));
     }
 
     public static void registerItemsClient() {
@@ -65,6 +71,8 @@ public final class Items {
         registerItemTexture(connector);
         registerItemTexture(hammer);
         registerItemTexture(itemLeadCapacitor);
+        registerItemTexture(itemInvarCapacitor);
+        registerItemTexture(itemElectrumCapacitor);
 
         registerMetaItemTexture(pulverizedDust);
         registerMetaItemTexture(itemIngot);

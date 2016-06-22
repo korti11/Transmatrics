@@ -2,6 +2,7 @@ package at.korti.transmatrics.client.gui;
 
 import at.korti.transmatrics.client.util.RenderHelper;
 import at.korti.transmatrics.tileentity.TileEntityFluidCraftingMachine;
+import at.korti.transmatrics.tileentity.TileEntityInventory;
 import at.korti.transmatrics.tileentity.container.ContainerMagneticSmeltery;
 import at.korti.transmatrics.util.helper.TextHelper;
 import net.minecraft.client.Minecraft;
@@ -18,7 +19,7 @@ import java.util.List;
  */
 public class GuiMagneticSmeltery extends GuiCrafting {
 
-    public GuiMagneticSmeltery(InventoryPlayer inventoryPlayer, IInventory inventory) {
+    public GuiMagneticSmeltery(InventoryPlayer inventoryPlayer, TileEntityInventory inventory) {
         super(new ContainerMagneticSmeltery(inventoryPlayer, inventory), inventory, "textures/gui/MagneticSmeltery.png");
     }
 
@@ -44,8 +45,8 @@ public class GuiMagneticSmeltery extends GuiCrafting {
         int craftingProgress = getCraftingProgress(24);
         this.drawTexturedModalRect(i + 79, j + 34, 176, 14, craftingProgress + 1, 16);
 
-        int energyBar = getEnergyBar(64);
-        this.drawTexturedModalRect(i + 17, j + 10 + 64 - energyBar, 176, 31 + 64 - energyBar, 16, energyBar + 1);
+        int energyBar = getEnergyBar(43);
+        this.drawTexturedModalRect(i + 17, j + 10 + 43 - energyBar, 176, 31 + 43 - energyBar, 16, energyBar + 1);
 
         int efficiencyBar = getEfficiencyBar(14);
         this.drawTexturedModalRect(i + 56, j + 53 + 14 - efficiencyBar, 176, 14 - efficiencyBar, 14, efficiencyBar);

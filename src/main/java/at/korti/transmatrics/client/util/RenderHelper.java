@@ -2,13 +2,22 @@ package at.korti.transmatrics.client.util;
 
 import at.korti.transmatrics.client.renderer.FluidRenderer;
 import at.korti.transmatrics.client.renderer.FluidRenderer.FluidType;
+import at.korti.transmatrics.util.helper.WorldHelper;
+import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.BlockPos;
+import net.minecraft.world.World;
+import net.minecraftforge.client.event.DrawBlockHighlightEvent;
+import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fml.relauncher.Side;
@@ -84,6 +93,28 @@ public class RenderHelper {
         float blue = (color & 0xFF) / 255.0F;
 
         GlStateManager.color(red, green, blue, 1.0F);
+    }
+
+    @SideOnly(Side.CLIENT)
+    public static void renderBlockBoundary(World worldIn, EntityPlayer player, BlockPos pos, int color, float partialTicks){
+        Block block = WorldHelper.getBlock(worldIn, pos);
+
+        GlStateManager.enableBlend();
+        GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
+        setGLColorFromInt(color);
+        GL11.glLineWidth(2.0F);
+        GlStateManager.disableTexture2D();
+        GlStateManager.depthMask(false);
+
+        block.setBlockBoundsBasedOnState(worldIn, pos);
+        double d0 = player.lastTickPosX + (player.posX - player.lastTickPosX) * (double)partialTicks;
+        double d1 = player.lastTickPosY + (player.posY - player.lastTickPosY) * (double)partialTicks;
+        double d2 = player.lastTickPosZ + (player.posZ - player.lastTickPosZ) * (double)partialTicks;
+        RenderGlobal.drawSelectionBoundingBox(block.getSelectedBoundingBox(worldIn, pos).expand(0.0020000000949949026D, 0.0020000000949949026D, 0.0020000000949949026D).offset(-d0, -d1, -d2));
+
+        GlStateManager.depthMask(true);
+        GlStateManager.enableTexture2D();
+        GlStateManager.disableBlend();
     }
 
 }

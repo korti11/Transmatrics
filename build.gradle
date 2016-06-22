@@ -36,6 +36,10 @@ repositories{
     maven {
         url "http://mobiusstrip.eu/maven"
     }
+    ivy{
+        name "BuildCraft"
+        artifactPattern "http://www.mod-buildcraft.com/releases/BuildCraft/[revision]/[module]-[revision](-[classifier]).[ext]"
+    }
 }
 
 minecraft {
@@ -53,6 +57,7 @@ dependencies {
     deobfCompile "mezz.jei:jei_${config.minecraft_version}:${config.jei_version}"
     deobfCompile "slimeknights.mantle:Mantle:${config.minecraft_version}-${config.mantel_version}"
     deobfCompile "slimeknights:TConstruct:${config.minecraft_version}-${config.tic_version}"
+    deobfCompile name: "buildcraft", version: config.buildcraft_version, classifier: "api"
 
     compile "mcp.mobius.waila:Waila:${config.waila_version}"
 }
@@ -78,3 +83,12 @@ processResources
 }
 
 version = "${config.minecraft_version}-${version}"
+
+task deobfJar(type: Jar){
+    from sourceSets.main.output
+    classifier = 'deobf'
+}
+
+artifacts{
+    archives deobfJar
+}

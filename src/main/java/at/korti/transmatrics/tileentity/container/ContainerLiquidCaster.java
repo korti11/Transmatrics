@@ -2,6 +2,7 @@ package at.korti.transmatrics.tileentity.container;
 
 import at.korti.transmatrics.registry.crafting.LiquidCasterCraftingRegistry;
 import at.korti.transmatrics.registry.crafting.LiquidCasterCraftingRegistry.LiquidCasterCraftingEntry;
+import at.korti.transmatrics.tileentity.TileEntityInventory;
 import at.korti.transmatrics.tileentity.container.slot.CastSlot;
 import at.korti.transmatrics.tileentity.container.slot.OutputSlot;
 import at.korti.transmatrics.util.helper.InventoryHelper;
@@ -16,7 +17,7 @@ import net.minecraft.item.ItemStack;
  */
 public class ContainerLiquidCaster extends FluidItemCraftingContainer {
 
-    public ContainerLiquidCaster(InventoryPlayer inventoryPlayer, IInventory tileEntity) {
+    public ContainerLiquidCaster(InventoryPlayer inventoryPlayer, TileEntityInventory tileEntity) {
         super(inventoryPlayer, tileEntity, LiquidCasterCraftingRegistry.getInstance());
     }
 

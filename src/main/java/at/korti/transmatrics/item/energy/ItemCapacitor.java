@@ -54,6 +54,11 @@ public class ItemCapacitor extends ModItem implements IRechargeable{
     }
 
     @Override
+    public int getCapacity(ItemStack stack) {
+        return getCapacity();
+    }
+
+    @Override
     public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
         super.getSubItems(itemIn, tab, subItems);
         subItems.add(new ItemStack(this, 1, this.getMaxDamage()));

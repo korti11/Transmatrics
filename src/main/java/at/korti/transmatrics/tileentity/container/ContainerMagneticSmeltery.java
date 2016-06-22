@@ -1,6 +1,7 @@
 package at.korti.transmatrics.tileentity.container;
 
 import at.korti.transmatrics.registry.crafting.MagneticSmelteryCraftingRegistry;
+import at.korti.transmatrics.tileentity.TileEntityInventory;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
@@ -10,7 +11,7 @@ import net.minecraft.inventory.Slot;
  */
 public class ContainerMagneticSmeltery extends CraftingContainer {
 
-    public ContainerMagneticSmeltery(InventoryPlayer inventoryPlayer, IInventory tileEntity) {
+    public ContainerMagneticSmeltery(InventoryPlayer inventoryPlayer, TileEntityInventory tileEntity) {
         super(inventoryPlayer, tileEntity, MagneticSmelteryCraftingRegistry.getInstance());
     }
 

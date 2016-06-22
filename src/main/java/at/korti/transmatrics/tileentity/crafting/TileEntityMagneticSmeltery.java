@@ -12,7 +12,7 @@ public class TileEntityMagneticSmeltery extends TileEntityFluidCraftingMachine {
 
     public TileEntityMagneticSmeltery() {
         super(Energy.MAGNETIC_SMELTERY_CAPACITY, Energy.MAGNETIC_SMELTERY_RECEIVE, Energy.MAGNETIC_SMELTERY_ENERGY_USE,
-                TransmatricsTileEntity.MAGNETIC_SMELTERY.getRegName(), MagneticSmelteryCraftingRegistry.getInstance());
+                true, TransmatricsTileEntity.MAGNETIC_SMELTERY.getRegName(), MagneticSmelteryCraftingRegistry.getInstance());
     }
 
     @Override

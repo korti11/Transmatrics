@@ -4,6 +4,8 @@ import at.korti.transmatrics.api.crafting.ICraftingRegistry;
 import at.korti.transmatrics.api.crafting.ICraftingRegistry.ICraftingEntry;
 import at.korti.transmatrics.api.crafting.IFluidItemCraftingRegistry;
 import at.korti.transmatrics.tileentity.TileEntityFluidItemCraftingMachine;
+import at.korti.transmatrics.tileentity.TileEntityInventory;
+import at.korti.transmatrics.tileentity.container.slot.CapacitorSlot;
 import at.korti.transmatrics.util.helper.InventoryHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -19,7 +21,7 @@ import net.minecraftforge.fluids.FluidStack;
  */
 public abstract class FluidItemCraftingContainer extends Container {
 
-    protected final IInventory tileEntity;
+    protected final TileEntityInventory tileEntity;
     protected final IFluidItemCraftingRegistry craftingRegistry;
 
     protected final int playerMinIndex;
@@ -32,16 +34,23 @@ public abstract class FluidItemCraftingContainer extends Container {
     private int efficiency;
     private int maxEfficiency;
 
-    public FluidItemCraftingContainer(InventoryPlayer inventoryPlayer, IInventory tileEntity, IFluidItemCraftingRegistry registry) {
+    public FluidItemCraftingContainer(InventoryPlayer inventoryPlayer, TileEntityInventory tileEntity, IFluidItemCraftingRegistry registry) {
         this.tileEntity = tileEntity;
         this.craftingRegistry = registry;
         addTileEntitySlots(tileEntity);
+        addCapacitorSlot();
         this.playerMinIndex = this.inventorySlots.size();
         addPlayerSlots(inventoryPlayer);
         this.playerMaxIndex = this.inventorySlots.size();
     }
 
     public abstract void addTileEntitySlots(IInventory inventory);
+
+    public void addCapacitorSlot() {
+        if (tileEntity.hasCapacitorSlot()) {
+            addSlotToContainer(new CapacitorSlot(tileEntity, tileEntity.getCapacitorSlot(), 17, 58));
+        }
+    }
 
     public void addPlayerSlots(InventoryPlayer inventoryPlayer) {
         for (int i = 0; i < 3; i++) {

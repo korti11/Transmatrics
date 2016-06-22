@@ -11,7 +11,7 @@ import at.korti.transmatrics.tileentity.TileEntityFluidItemCraftingMachine;
 public class TileEntityLiquidCaster extends TileEntityFluidItemCraftingMachine {
 
     public TileEntityLiquidCaster() {
-        super(Energy.LIQUID_CASTER_CAPACITY, Energy.LIQUID_CASTER_RECEIVE, Energy.LIQUID_CASTER_ENERGY_USE,
+        super(Energy.LIQUID_CASTER_CAPACITY, Energy.LIQUID_CASTER_RECEIVE, Energy.LIQUID_CASTER_ENERGY_USE, true,
                 TransmatricsTileEntity.LIQUID_CASTER.getRegName(), LiquidCasterCraftingRegistry.getInstance());
     }
 

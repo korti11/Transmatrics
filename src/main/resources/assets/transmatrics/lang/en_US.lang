@@ -19,12 +19,14 @@ tile.Transmatrics.LiquidCaster.name=Liquid Caster
 tile.Transmatrics.MachineCasing.name=Machine Casing
 tile.Transmatrics.AlloyMixer.name=Alloy Mixer
 tile.Transmatrics.Charger.name=Energised Charger
+tile.Transmatrics.RFConverter.name=Energised RF-Converter
 
 #Ore
 tile.Transmatrics.Ore.copper.name=Copper Ore
 tile.Transmatrics.Ore.tin.name=Tin Ore
 tile.Transmatrics.Ore.silver.name=Silver Ore
 tile.Transmatrics.Ore.lead.name=Lead Ore
+tile.Transmatrics.Ore.nickel.name=Nickel Ore
 
 #Items
 item.Transmatrics.Wrench.name=Wrench
@@ -38,12 +40,18 @@ item.Transmatrics.PulverizedDust.copper.name=Pulverized Copper
 item.Transmatrics.PulverizedDust.tin.name=Pulverized Tin
 item.Transmatrics.PulverizedDust.silver.name=Pulverized Silver
 item.Transmatrics.PulverizedDust.lead.name=Pulverized Lead
+item.Transmatrics.PulverizedDust.nickel.name=Pulverized Nickel
+item.Transmatrics.PulverizedDust.invar.name=Pulverized Invar
+item.Transmatrics.PulverizedDust.electrum.name=Pulverized Electrum
 
 #Ingots
 item.Transmatrics.Ingot.copper.name=Copper Ingot
 item.Transmatrics.Ingot.tin.name=Tin Ingot
 item.Transmatrics.Ingot.silver.name=Silver Ingot
 item.Transmatrics.Ingot.lead.name=Lead Ingot
+item.Transmatrics.Ingot.nickel.name=Nickel Ingot
+item.Transmatrics.Ingot.invar.name=Invar Ingot
+item.Transmatrics.Ingot.electrum.name=Electrum Ingot
 
 #Gears
 item.Transmatrics.Gear.copper.name=Copper Gear
@@ -70,10 +78,10 @@ item.Transmatrics.Electronics.longTransmitter.name=Long Transmitter
 
 #Capacitors
 item.Transmatrics.LeadCapacitor.name=Lead Capacitor
+item.Transmatrics.InvarCapacitor.name=Invar Capacitor
+item.Transmatrics.ElectrumCapacitor.name=Electrum Capacitor
 
 #Fluids
-fluid.Transmatrics.hydrogengas.name=Hydrogen
-tile.Transmatrics.hydrogengas.name=Hydrogen
 fluid.Transmatrics.moltencopper.name=Molten Copper
 tile.Transmatrics.moltencopper.name=Molten Copper
 fluid.Transmatrics.moltentin.name=Molten Tin
@@ -82,6 +90,12 @@ fluid.Transmatrics.moltensilver.name=Molten Silver
 tile.Transmatrics.moltensilver.name=Molten Silver
 fluid.Transmatrics.moltenlead.name=Molten Lead
 tile.Transmatrics.moltenlead.name=Molten Lead
+fluid.Transmatrics.moltennickel.name=Molten Nickel
+tile.Transmatrics.moltennickel.name=Molten Nickel
+fluid.Transmatrics.molteninvar.name=Molten Invar
+tile.Transmatrics.molteninvar.name=Molten Invar
+fluid.Transmatrics.moltenelectrum.name=Molten Electrum
+tile.Transmatrics.moltenelectrum.name=Molten Electrum
 
 #Network
 network.max_connections.message=[Network] The max connection points are reached. Max connections: %d
@@ -102,6 +116,7 @@ tooltip.pulverizer.output.chance=Chance:
 tooltip.hammer.uses.left=Uses left: %d
 tooltip.capacitor.energy.label=Energy:
 tooltip.capacitor.energy=%d/%d TF
+tooltip.selected.mode=Mode: %s
 
 #Gui
 gui.tank.empty=Empty
@@ -114,4 +129,3 @@ jei.category.liquidcaster.title=Liquid Caster
 #TConstruct Modifiers
 modifier.Transmatrics.energetic=Energetic
 modifier.energetic.desc=§oCharged!§r\nUse first energy instead of durability.
-#modifier.energetic.desc=§oSo strong!§r\nEach level adds a 15% chance to not use durability.

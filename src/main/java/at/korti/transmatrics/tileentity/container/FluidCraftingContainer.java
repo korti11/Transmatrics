@@ -1,6 +1,8 @@
 package at.korti.transmatrics.tileentity.container;
 
 import at.korti.transmatrics.api.crafting.ICraftingRegistry;
+import at.korti.transmatrics.tileentity.TileEntityInventory;
+import at.korti.transmatrics.tileentity.container.slot.CapacitorSlot;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -8,6 +10,7 @@ import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fluids.FluidStack;
 
 /**
@@ -15,7 +18,7 @@ import net.minecraftforge.fluids.FluidStack;
  */
 public abstract class FluidCraftingContainer extends Container {
 
-    private final IInventory tileEntity;
+    private final TileEntityInventory tileEntity;
     private final ICraftingRegistry<FluidStack> craftingRegistry;
 
     private int craftingTime;
@@ -25,15 +28,22 @@ public abstract class FluidCraftingContainer extends Container {
     private int efficiency;
     private int maxEfficiency;
 
-    public FluidCraftingContainer(InventoryPlayer player, IInventory tileEntity, ICraftingRegistry<FluidStack> craftingRegistry) {
+    public FluidCraftingContainer(InventoryPlayer player, TileEntityInventory tileEntity, ICraftingRegistry<FluidStack> craftingRegistry) {
         this.tileEntity = tileEntity;
         this.craftingRegistry = craftingRegistry;
+        addCapacitorSlot();
         addPlayerSlots(player);
     }
 
     @Override
     public boolean canInteractWith(EntityPlayer playerIn) {
         return tileEntity.isUseableByPlayer(playerIn);
+    }
+
+    public void addCapacitorSlot() {
+        if (tileEntity.hasCapacitorSlot()) {
+            addSlotToContainer(new CapacitorSlot(tileEntity, tileEntity.getCapacitorSlot(), 17, 58));
+        }
     }
 
     public void addPlayerSlots(InventoryPlayer inventoryPlayer) {

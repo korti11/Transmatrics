@@ -29,4 +29,11 @@ public interface IDischargeable {
      */
     int getCapacity();
 
+    /**
+     * Get the capacity of the stack.
+     * @param stack Where the capacity is stored.
+     * @return Capacity.
+     */
+    int getCapacity(ItemStack stack);
+
 }

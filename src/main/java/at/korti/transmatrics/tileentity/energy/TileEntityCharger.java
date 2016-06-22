@@ -23,7 +23,7 @@ public class TileEntityCharger extends TileEntityInventory {
     private int maxStoreEnergy;
 
     public TileEntityCharger() {
-        super(Energy.CHARGER_CAPACITY, Energy.CHARGER_RECEIVE, 2, 1, TransmatricsTileEntity.CHARGER.getRegName());
+        super(Energy.CHARGER_CAPACITY, Energy.CHARGER_RECEIVE, 2, 1, false, TransmatricsTileEntity.CHARGER.getRegName());
         energyUse = Energy.CHARGER_ENERGY_USE;
     }
 
@@ -56,7 +56,7 @@ public class TileEntityCharger extends TileEntityInventory {
         }
         if (item != null) {
             this.storedEnergy = item.getEnergy(stack);
-            this.maxStoreEnergy = item.getCapacity();
+            this.maxStoreEnergy = item.getCapacity(stack);
         }
     }
 
@@ -86,7 +86,7 @@ public class TileEntityCharger extends TileEntityInventory {
                         this.storedEnergy = chargeable.getEnergy(stack);
                         markDirty = true;
                         isCharging = true;
-                        if (chargeable.getEnergy(stack) == chargeable.getCapacity()) {
+                        if (chargeable.getEnergy(stack) == chargeable.getCapacity(stack)) {
                             setInventorySlotContents(1, stack);
                             setInventorySlotContents(0, null);
                         }
