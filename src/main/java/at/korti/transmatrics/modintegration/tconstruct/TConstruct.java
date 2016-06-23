@@ -23,11 +23,11 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import slimeknights.mantle.client.book.repository.FileRepository;
-import slimeknights.tconstruct.library.TinkerRegistry;
-import slimeknights.tconstruct.library.book.TinkerBook;
-import slimeknights.tconstruct.library.materials.Material;
-import slimeknights.tconstruct.shared.TinkerFluids;
+//import slimeknights.mantle.client.book.repository.FileRepository;
+//import slimeknights.tconstruct.library.TinkerRegistry;
+//import slimeknights.tconstruct.library.book.TinkerBook;
+//import slimeknights.tconstruct.library.materials.Material;
+//import slimeknights.tconstruct.shared.TinkerFluids;
 
 /**
  * Created by Korti on 11.05.2016.
@@ -46,16 +46,16 @@ public class TConstruct implements IIntegration {
     @Override
     public void preInit(FMLPreInitializationEvent event) {
         TConstructConfig.loadConfig(event.getSuggestedConfigurationFile());
-        Crafting.FLUID_AMOUNT_PER_INGOT = Material.VALUE_Ingot;
+//        Crafting.FLUID_AMOUNT_PER_INGOT = Material.VALUE_Ingot;
         GameRegistry.registerTileEntity(TileEntityAlloyMixer.class, TransmatricsTileEntity.ALLOY_MIXER.getRegName());
         GameRegistry.register(alloyMixer = new AlloyMixer());
 
-        TinkerRegistry.registerModifier(leadModEnergetic = new ModEnergetic(
-                (ItemCapacitor) TransmatricsItem.LEAD_CAPACITOR.getItem(), "lead"));
-        TinkerRegistry.registerModifier(invarModEnergetic = new ModEnergetic(
-                (ItemCapacitor) TransmatricsItem.INVAR_CAPACITOR.getItem(), "invar"));
-        TinkerRegistry.registerModifier(electrumModEnergetic = new ModEnergetic(
-                (ItemCapacitor) TransmatricsItem.ELECTRUM_CAPACITOR.getItem(), "electrum"));
+//        TinkerRegistry.registerModifier(leadModEnergetic = new ModEnergetic(
+//                (ItemCapacitor) TransmatricsItem.LEAD_CAPACITOR.getItem(), "lead"));
+//        TinkerRegistry.registerModifier(invarModEnergetic = new ModEnergetic(
+//                (ItemCapacitor) TransmatricsItem.INVAR_CAPACITOR.getItem(), "invar"));
+//        TinkerRegistry.registerModifier(electrumModEnergetic = new ModEnergetic(
+//                (ItemCapacitor) TransmatricsItem.ELECTRUM_CAPACITOR.getItem(), "electrum"));
     }
 
     @Override
@@ -89,17 +89,17 @@ public class TConstruct implements IIntegration {
 
     @Override
     public void clientPostInit() {
-        clientProxy.registerModels();
-        TinkerBook.INSTANCE.addRepository(new FileRepository(Mod.MODID + ":integration/tconstruct/book"));
+//        clientProxy.registerModels();
+//        TinkerBook.INSTANCE.addRepository(new FileRepository(Mod.MODID + ":integration/tconstruct/book"));
     }
 
     private void initCrafting() {
-        TinkerRegistry.registerAlloy(new FluidStack(Fluids.moltenInvar, Crafting.FLUID_AMOUNT_PER_INGOT * 3),
-                new FluidStack(Fluids.moltenNickel, Crafting.FLUID_AMOUNT_PER_INGOT),
-                new FluidStack(TinkerFluids.iron, Crafting.FLUID_AMOUNT_PER_INGOT * 2));
-        TinkerRegistry.registerAlloy(new FluidStack(Fluids.moltenElectrum, Crafting.FLUID_AMOUNT_PER_INGOT * 2),
-                new FluidStack(Fluids.moltenSilver, Crafting.FLUID_AMOUNT_PER_INGOT),
-                new FluidStack(TinkerFluids.gold, Crafting.FLUID_AMOUNT_PER_INGOT));
+//        TinkerRegistry.registerAlloy(new FluidStack(Fluids.moltenInvar, Crafting.FLUID_AMOUNT_PER_INGOT * 3),
+//                new FluidStack(Fluids.moltenNickel, Crafting.FLUID_AMOUNT_PER_INGOT),
+//                new FluidStack(TinkerFluids.iron, Crafting.FLUID_AMOUNT_PER_INGOT * 2));
+//        TinkerRegistry.registerAlloy(new FluidStack(Fluids.moltenElectrum, Crafting.FLUID_AMOUNT_PER_INGOT * 2),
+//                new FluidStack(Fluids.moltenSilver, Crafting.FLUID_AMOUNT_PER_INGOT),
+//                new FluidStack(TinkerFluids.gold, Crafting.FLUID_AMOUNT_PER_INGOT));
 
     }
 }

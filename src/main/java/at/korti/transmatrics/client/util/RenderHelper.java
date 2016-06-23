@@ -108,7 +108,7 @@ public class RenderHelper {
         double d0 = player.lastTickPosX + (player.posX - player.lastTickPosX) * (double)partialTicks;
         double d1 = player.lastTickPosY + (player.posY - player.lastTickPosY) * (double)partialTicks;
         double d2 = player.lastTickPosZ + (player.posZ - player.lastTickPosZ) * (double)partialTicks;
-        RenderGlobal.drawSelectionBoundingBox(state.getSelectedBoundingBox(worldIn, pos).expand(0.0020000000949949026D, 0.0020000000949949026D, 0.0020000000949949026D).offset(-d0, -d1, -d2));
+        RenderGlobal.func_189697_a(state.getSelectedBoundingBox(worldIn, pos).expand(0.0020000000949949026D, 0.0020000000949949026D, 0.0020000000949949026D).offset(-d0, -d1, -d2), 0F, 0F, 0F, 0.4F);
 
         GlStateManager.depthMask(true);
         GlStateManager.enableTexture2D();

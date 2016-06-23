@@ -43,7 +43,7 @@ repositories{
 }
 
 minecraft {
-    version = "1.9.4-12.17.0.1980-1.10.0"
+    version = "1.10-12.18.0.1982-1.10.0"
     runDir = "run"
     mappings = "snapshot_20160531"
     useDepAts = true
@@ -54,9 +54,10 @@ minecraft {
 }
 
 dependencies {
-    deobfCompile "mezz.jei:jei_${config.minecraft_version}:${config.jei_version}"
-    deobfCompile "slimeknights.mantle:Mantle:${config.minecraft_version}-${config.mantel_version}"
-    deobfCompile "slimeknights:TConstruct:${config.minecraft_version}-${config.tic_version}"
+//    deobfCompile "mezz.jei:jei_${config.minecraft_version}:${config.jei_version}"
+//    deobfCompile "slimeknights.mantle:Mantle:${config.minecraft_version}-${config.mantel_version}"
+//    deobfCompile "slimeknights:TConstruct:${config.minecraft_version}-${config.tic_version}"
+    deobfCompile "mezz.jei:jei_1.9.4:${config.jei_version}"
     provided  name: "buildcraft", version: config.buildcraft_version, classifier: "api"
 
     compile "mcp.mobius.waila:Waila:${config.waila_version}"

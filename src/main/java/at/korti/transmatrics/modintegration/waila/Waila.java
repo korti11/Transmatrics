@@ -6,7 +6,6 @@ import at.korti.transmatrics.api.energy.IEnergyInfo;
 import at.korti.transmatrics.api.network.INetworkNodeInfo;
 import at.korti.transmatrics.api.network.INetworkSwitchInfo;
 import at.korti.transmatrics.modintegration.IIntegration;
-//import mcp.mobius.waila.api.IWailaRegistrar;
 import mcp.mobius.waila.api.IWailaRegistrar;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLInterModComms;
