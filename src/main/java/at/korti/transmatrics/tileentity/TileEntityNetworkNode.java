@@ -12,7 +12,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
-import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
@@ -92,11 +92,11 @@ public abstract class TileEntityNetworkNode extends TileEntity implements INetwo
     public Packet getDescriptionPacket() {
         NBTTagCompound compound = new NBTTagCompound();
         writeNetworkNodeToNBT(compound);
-        return new S35PacketUpdateTileEntity(getPos(), -1, compound);
+        return new SPacketUpdateTileEntity(getPos(), -1, compound);
     }
 
     @Override
-    public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
+    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
         super.onDataPacket(net, pkt);
         readNetworkNodeFromNBT(pkt.getNbtCompound());
     }
@@ -104,7 +104,8 @@ public abstract class TileEntityNetworkNode extends TileEntity implements INetwo
     protected void syncClient() {
         if (!worldObj.isRemote) {
             markDirty();
-            worldObj.markBlockForUpdate(pos);
+            IBlockState state = worldObj.getBlockState(pos);
+            worldObj.notifyBlockUpdate(pos, state, state, 3);
         }
     }
 

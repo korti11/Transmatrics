@@ -6,12 +6,13 @@ import at.korti.transmatrics.api.network.INetworkNode;
 import at.korti.transmatrics.api.network.INetworkSwitch;
 import at.korti.transmatrics.item.tool.ItemConnector;
 import at.korti.transmatrics.item.tool.ItemConnector.ConnectorMode;
+import at.korti.transmatrics.util.helper.InventoryHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -30,10 +31,9 @@ public class ClientEventHandler {
         Minecraft minecraft = Minecraft.getMinecraft();
         EntityPlayerSP player = minecraft.thePlayer;
         World world = player.worldObj;
-        ItemStack currentItem = player.getCurrentEquippedItem();
+        ItemStack currentItem = InventoryHelper.getStackFromHandForItem(player, Constants.TransmatricsItem.CONNECTOR.getItem());
 
-        if (currentItem != null &&
-                currentItem.getItem() == TransmatricsApi.getItem(Constants.TransmatricsItem.CONNECTOR)) {
+        if (currentItem != null) {
             ItemConnector connector = (ItemConnector) currentItem.getItem();
             if (connector.hasNetworkNodeStored(currentItem)) {
                 NBTTagCompound tagCompound = currentItem.getTagCompound();
@@ -41,7 +41,7 @@ public class ClientEventHandler {
                 int y = tagCompound.getInteger(Constants.NBT.NETWORK_Y);
                 int z = tagCompound.getInteger(Constants.NBT.NETWORK_Z);
                 BlockPos pos = new BlockPos(x, y, z);
-                RenderHelper.renderBlockBoundary(world, player, pos, 0xffff1a, event.partialTicks);
+                RenderHelper.renderBlockBoundary(world, player, pos, 0xffff1a, event.getPartialTicks());
 
                 if (connector.getCurrentMode(currentItem) == ConnectorMode.DISCONNECT ||
                         connector.getCurrentMode(currentItem) == ConnectorMode.SHOW_CONNECTION) {
@@ -57,7 +57,7 @@ public class ClientEventHandler {
                         for (INetworkNode networkNode : connections) {
                             if (networkNode instanceof TileEntity) {
                                 BlockPos tePos = ((TileEntity) networkNode).getPos();
-                                RenderHelper.renderBlockBoundary(world, player, tePos, 0x00ff00, event.partialTicks);
+                                RenderHelper.renderBlockBoundary(world, player, tePos, 0x00ff00, event.getPartialTicks());
                             }
                         }
                     }

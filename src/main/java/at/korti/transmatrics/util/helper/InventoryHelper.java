@@ -2,6 +2,8 @@ package at.korti.transmatrics.util.helper;
 
 import at.korti.transmatrics.api.crafting.ICraftingRegistry;
 import at.korti.transmatrics.api.crafting.IFluidCraftingRegistry;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import org.apache.commons.lang3.ArrayUtils;
@@ -29,6 +31,12 @@ public class InventoryHelper {
             }
         }
         return slots;
+    }
+
+    public static ItemStack getStackFromHandForItem(EntityPlayer player, Item item) {
+        return player.getHeldItemMainhand() != null && player.getHeldItemMainhand().getItem() == item ?
+                player.getHeldItemMainhand() : player.getHeldItemOffhand() != null &&
+                player.getHeldItemOffhand().getItem() == item ? player.getHeldItemOffhand() : null;
     }
 
     public static boolean canFill(IFluidCraftingRegistry registry, EnumFacing facing) {

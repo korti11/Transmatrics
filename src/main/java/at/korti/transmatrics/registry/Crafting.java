@@ -284,8 +284,8 @@ public final class Crafting {
         PulverizerCraftingRegistry.getInstance().register(new ItemStack(ORE_BLOCK.getBlock(), 1, 3), 20 * 10, new ItemStack(PULVERIZED_DUST.getItem(), 2, 5));
         PulverizerCraftingRegistry.getInstance().register(new ItemStack(ORE_BLOCK.getBlock(), 1, 4), 20 * 8, new ItemStack(PULVERIZED_DUST.getItem(), 2, 6));
 
-        PulverizerCraftingRegistry.getInstance().register(new ItemStack(Items.iron_ingot), 10 * 7, new ItemStack(PULVERIZED_DUST.getItem(), 1, 0));
-        PulverizerCraftingRegistry.getInstance().register(new ItemStack(Items.gold_ingot), 10 * 9, new ItemStack(PULVERIZED_DUST.getItem(), 1, 1));
+        PulverizerCraftingRegistry.getInstance().register(new ItemStack(Items.IRON_INGOT), 10 * 7, new ItemStack(PULVERIZED_DUST.getItem(), 1, 0));
+        PulverizerCraftingRegistry.getInstance().register(new ItemStack(Items.GOLD_INGOT), 10 * 9, new ItemStack(PULVERIZED_DUST.getItem(), 1, 1));
 
         PulverizerCraftingRegistry.getInstance().register(new ItemStack(INGOT.getItem(), 1, 0), 10 * 8, new ItemStack(PULVERIZED_DUST.getItem(), 1, 2));
         PulverizerCraftingRegistry.getInstance().register(new ItemStack(INGOT.getItem(), 1, 1), 10 * 8, new ItemStack(PULVERIZED_DUST.getItem(), 1, 3));

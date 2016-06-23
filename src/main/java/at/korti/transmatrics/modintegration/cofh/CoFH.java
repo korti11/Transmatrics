@@ -1,12 +1,11 @@
 package at.korti.transmatrics.modintegration.cofh;
 
-import at.korti.transmatrics.api.Constants;
 import at.korti.transmatrics.api.Constants.TransmatricsTileEntity;
 import at.korti.transmatrics.modintegration.IIntegration;
 import at.korti.transmatrics.modintegration.cofh.block.Converter;
 import at.korti.transmatrics.modintegration.cofh.tileentity.TileEntityEnergyConverter;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;

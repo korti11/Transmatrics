@@ -68,11 +68,11 @@ public class OreBlock extends ModBlock {
     }
 
     public enum OreType implements IStringSerializable {
-        COPPER(1),
-        TIN(1),
-        SILVER(2),
-        LEAD(2),
-        NICKEL(2);
+        copper(1),
+        tin(1),
+        silver(2),
+        lead(2),
+        nickel(2);
 
         public final int meta;
         public final int harvestLevel;

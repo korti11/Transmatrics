@@ -1,6 +1,5 @@
 package at.korti.transmatrics.modintegration.waila;
 
-import at.korti.transmatrics.api.Constants;
 import at.korti.transmatrics.api.Constants.NBT;
 import at.korti.transmatrics.api.block.IChangeMode;
 import at.korti.transmatrics.api.block.IModeInfo;
@@ -11,8 +10,8 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -50,7 +49,7 @@ public class WailaModeInfoHandler implements IWailaDataProvider {
             IModeInfo<Enum> modeInfo = (IModeInfo<Enum>) te;
             tag.setString(NBT.MODE_NAME,
                     modeInfo.getColorForMode(changeMode.getCurrentMode()) + modeInfo.getCurrentModeName()
-                            + EnumChatFormatting.RESET);
+                            + TextFormatting.RESET);
         }
         return tag;
     }

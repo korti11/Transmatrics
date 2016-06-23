@@ -16,8 +16,8 @@ import at.korti.transmatrics.util.helper.WorldHelper;
 import cofh.api.energy.IEnergyProvider;
 import cofh.api.energy.IEnergyReceiver;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.text.TextFormatting;
 
 /**
  * Created by Korti on 30.05.2016.
@@ -149,14 +149,14 @@ public class TileEntityEnergyConverter extends TileEntityEnergyNode implements I
     }
 
     @Override
-    public EnumChatFormatting getColorForMode(InOutMode mode) {
+    public TextFormatting getColorForMode(InOutMode mode) {
         switch (mode){
             case IN:
-                return EnumChatFormatting.BLUE;
+                return TextFormatting.BLUE;
             case OUT:
-                return EnumChatFormatting.GOLD;
+                return TextFormatting.GOLD;
             default:
-                return EnumChatFormatting.WHITE;
+                return TextFormatting.WHITE;
         }
     }
     //endregion

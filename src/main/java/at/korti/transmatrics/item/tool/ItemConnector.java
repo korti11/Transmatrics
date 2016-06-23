@@ -105,7 +105,7 @@ public class ItemConnector extends ModItem implements IChangeMode<ItemConnector.
     }
 
     @Override
-    public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) {
+    public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
         if(!worldIn.isRemote) {
             NBTTagCompound tagCompound = itemStackIn.getTagCompound();
             if (playerIn.isSneaking() && tagCompound != null && tagCompound.hasKey(NBT.CLEAR_STORED_NETWORK) && tagCompound.getBoolean(NBT.CLEAR_STORED_NETWORK)) {
@@ -116,7 +116,7 @@ public class ItemConnector extends ModItem implements IChangeMode<ItemConnector.
                 cycleThroughMode(itemStackIn);
             }
         }
-        return super.onItemRightClick(itemStackIn, worldIn, playerIn);
+        return super.onItemRightClick(itemStackIn, worldIn, playerIn, hand);
     }
 
     @Override
@@ -180,19 +180,19 @@ public class ItemConnector extends ModItem implements IChangeMode<ItemConnector.
     private String getModeName(ItemStack stack) {
         ConnectorMode mode = getCurrentMode(stack);
         String modeName = mode.name().replace("_", " ").toLowerCase();
-        return getColorForMode(mode) + TextHelper.firstCharOfEachWordUppercase(modeName) + EnumChatFormatting.RESET;
+        return getColorForMode(mode) + TextHelper.firstCharOfEachWordUppercase(modeName) + TextFormatting.RESET;
     }
 
-    private EnumChatFormatting getColorForMode(ConnectorMode connectorMode) {
+    private TextFormatting getColorForMode(ConnectorMode connectorMode) {
         switch (connectorMode) {
             case CONNECT:
-                return EnumChatFormatting.GREEN;
+                return TextFormatting.GREEN;
             case DISCONNECT:
-                return EnumChatFormatting.RED;
+                return TextFormatting.RED;
             case SHOW_CONNECTION:
-                return EnumChatFormatting.YELLOW;
+                return TextFormatting.YELLOW;
             default:
-                return EnumChatFormatting.WHITE;
+                return TextFormatting.WHITE;
         }
     }
 

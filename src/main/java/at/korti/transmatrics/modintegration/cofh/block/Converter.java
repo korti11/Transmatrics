@@ -11,7 +11,7 @@ import net.minecraft.block.material.Material;
 public class Converter extends MachineBlock {
 
     public Converter() {
-        super(Material.iron, TransmatricsBlock.RF_CONVERTER.getRegName(), TileEntityEnergyConverter.class);
+        super(Material.IRON, TransmatricsBlock.RF_CONVERTER.getRegName(), TileEntityEnergyConverter.class);
     }
 
     @Override
