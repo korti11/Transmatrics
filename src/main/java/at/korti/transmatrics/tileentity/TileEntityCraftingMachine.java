@@ -39,11 +39,12 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
 
     //region TileEntity
     @Override
-    public void writeToNBT(NBTTagCompound compound) {
-        super.writeToNBT(compound);
+    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+        compound = super.writeToNBT(compound);
         compound.setInteger(NBT.CRAFTING_TIME, craftingTime);
         compound.setInteger(NBT.TOTAL_CRAFTING_TIME, totalCraftingTime);
         compound.setInteger(NBT.CRAFTING_EFFICIENCY, efficiency);
+        return compound;
     }
 
     @Override

@@ -35,8 +35,8 @@ public class TileEntityController extends TileEntityEnergySwitch {
 
     //region Tile Entity
     @Override
-    public void writeToNBT(NBTTagCompound compound) {
-        super.writeToNBT(compound);
+    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+        compound = super.writeToNBT(compound);
         compound.setBoolean(NBT.IS_MASTER, isMaster);       // Set if it is the master controller tile entity.
         if (isMaster) {         // Check if it is the master controller.
             NBTTagList extensions = new NBTTagList();
@@ -53,6 +53,7 @@ public class TileEntityController extends TileEntityEnergySwitch {
             compound.setInteger(NBT.EXT_CONTROLLER_Y, master.getY());
             compound.setInteger(NBT.EXT_CONTROLLER_Z, master.getZ());
         }
+        return compound;
     }
 
     @Override

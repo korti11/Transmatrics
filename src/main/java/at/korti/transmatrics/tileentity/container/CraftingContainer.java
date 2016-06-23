@@ -8,7 +8,7 @@ import at.korti.transmatrics.util.helper.InventoryHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
-import net.minecraft.inventory.ICrafting;
+import net.minecraft.inventory.IContainerListener;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
@@ -62,8 +62,8 @@ public abstract class CraftingContainer extends Container {
     }
 
     @Override
-    public void onCraftGuiOpened(ICrafting listener) {
-        super.onCraftGuiOpened(listener);
+    public void addListener(IContainerListener listener) {
+        super.addListener(listener);
         listener.sendAllWindowProperties(this, tileEntity);
     }
 
@@ -72,30 +72,30 @@ public abstract class CraftingContainer extends Container {
         super.detectAndSendChanges();
 
         for (int i = 0; i < this.listeners.size(); i++) {
-            ICrafting iCrafting = this.listeners.get(i);
+            IContainerListener listener = this.listeners.get(i);
 
             if (this.craftingTime != tileEntity.getField(0)) {
-                iCrafting.sendProgressBarUpdate(this, 0, this.craftingTime = tileEntity.getField(0));
+                listener.sendProgressBarUpdate(this, 0, this.craftingTime = tileEntity.getField(0));
             }
 
             if (this.totalCraftingTime != tileEntity.getField(1)) {
-                iCrafting.sendProgressBarUpdate(this, 1, this.totalCraftingTime = tileEntity.getField(1));
+                listener.sendProgressBarUpdate(this, 1, this.totalCraftingTime = tileEntity.getField(1));
             }
 
             if (this.energyStored != tileEntity.getField(2)) {
-                iCrafting.sendProgressBarUpdate(this, 2, this.energyStored = tileEntity.getField(2));
+                listener.sendProgressBarUpdate(this, 2, this.energyStored = tileEntity.getField(2));
             }
 
             if (this.maxEnergyStored != tileEntity.getField(3)) {
-                iCrafting.sendProgressBarUpdate(this, 3, this.maxEnergyStored = tileEntity.getField(3));
+                listener.sendProgressBarUpdate(this, 3, this.maxEnergyStored = tileEntity.getField(3));
             }
 
             if (this.efficiency != tileEntity.getField(4)) {
-                iCrafting.sendProgressBarUpdate(this, 4, this.efficiency = tileEntity.getField(4));
+                listener.sendProgressBarUpdate(this, 4, this.efficiency = tileEntity.getField(4));
             }
 
             if (this.maxEfficiency != tileEntity.getField(5)) {
-                iCrafting.sendProgressBarUpdate(this, 5, this.maxEfficiency = tileEntity.getField(5));
+                listener.sendProgressBarUpdate(this, 5, this.maxEfficiency = tileEntity.getField(5));
             }
         }
     }

@@ -18,6 +18,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
+import net.minecraftforge.fluids.capability.IFluidTankProperties;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
@@ -65,8 +66,8 @@ public class RenderHelper {
         GlStateManager.color(1, 1, 1, 1);
     }
 
-    public static void drawGuiFluid(FluidTankInfo tankInfo, int x, int y, float z, int width, int height) {
-        drawGuiFluid(tankInfo.fluid, x, y, z, width, height, tankInfo.capacity);
+    public static void drawGuiFluid(IFluidTankProperties tankInfo, int x, int y, float z, int width, int height) {
+        drawGuiFluid(tankInfo.getContents(), x, y, z, width, height, tankInfo.getCapacity());
     }
 
     private static void renderCutIcon(TextureAtlasSprite sprite, int x, int y, float z, int width, int height, int cut) {

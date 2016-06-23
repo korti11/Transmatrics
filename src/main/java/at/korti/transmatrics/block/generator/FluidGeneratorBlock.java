@@ -39,7 +39,7 @@ public abstract class FluidGeneratorBlock extends ActiveMachineBlock {
             TileEntity tile = worldIn.getTileEntity(pos);
             if (tile instanceof TileEntityFluidGenerator) {
                 TileEntityFluidGenerator fluidGenerator = (TileEntityFluidGenerator) tile;
-                if (FluidUtil.interactWithTank(currentStack, playerIn, fluidGenerator, side)) {
+                if (FluidUtil.interactWithFluidHandler(currentStack, fluidGenerator, playerIn)) {
                     return true;
                 }
             }

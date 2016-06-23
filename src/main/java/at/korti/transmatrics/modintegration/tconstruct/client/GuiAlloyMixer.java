@@ -10,7 +10,8 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.fluids.FluidTankInfo;
-import net.minecraftforge.fluids.IFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidTankProperties;
 
 import java.util.List;
 
@@ -28,31 +29,31 @@ public class GuiAlloyMixer extends GuiCrafting {
         super.addInformation(mouseX, mouseY, textLines);
         if (inventory instanceof TileEntityFluidCraftingMachine && isInRect(mouseX, mouseY, 148, 10, 148 + 16, 10 + 64)) {
             TileEntityFluidCraftingMachine machine = (TileEntityFluidCraftingMachine) inventory;
-            FluidTankInfo tankInfo = machine.getTankInfo(EnumFacing.UP)[3];
-            textLines.add(tankInfo.fluid != null ? tankInfo.fluid.getLocalizedName() : TextHelper.localize("gui.tank.empty"));
+            IFluidTankProperties tankInfo = machine.getTankProperties()[3];
+            textLines.add(tankInfo.getContents() != null ? tankInfo.getContents().getLocalizedName() : TextHelper.localize("gui.tank.empty"));
             textLines.add(String.format("%d/%d mB",
-                    tankInfo.fluid != null ? tankInfo.fluid.amount : 0, tankInfo.capacity));
+                    tankInfo.getContents() != null ? tankInfo.getContents().amount : 0, tankInfo.getCapacity()));
         }
         if (inventory instanceof IFluidHandler){
             IFluidHandler machine = (IFluidHandler) inventory;
             if(isInRect(mouseX, mouseY, 56, 10, 56 + 16, 10 + 64)){
-                FluidTankInfo tankInfo = machine.getTankInfo(EnumFacing.UP)[0];
-                textLines.add(tankInfo.fluid != null ? tankInfo.fluid.getLocalizedName() :
+                IFluidTankProperties tankInfo = machine.getTankProperties()[0];
+                textLines.add(tankInfo.getContents() != null ? tankInfo.getContents().getLocalizedName() :
                         TextHelper.localize("gui.tank.empty"));
                 textLines.add(String.format("%d/%d mB",
-                        tankInfo.fluid != null ? tankInfo.fluid.amount : 0, tankInfo.capacity));
+                        tankInfo.getContents() != null ? tankInfo.getContents().amount : 0, tankInfo.getCapacity()));
             } else if(isInRect(mouseX, mouseY, 77, 10, 77 + 16, 10 + 64)) {
-                FluidTankInfo tankInfo = machine.getTankInfo(EnumFacing.UP)[1];
-                textLines.add(tankInfo.fluid != null ? tankInfo.fluid.getLocalizedName() :
+                IFluidTankProperties tankInfo = machine.getTankProperties()[1];
+                textLines.add(tankInfo.getContents() != null ? tankInfo.getContents().getLocalizedName() :
                         TextHelper.localize("gui.tank.empty"));
                 textLines.add(String.format("%d/%d mB",
-                        tankInfo.fluid != null ? tankInfo.fluid.amount : 0, tankInfo.capacity));
+                        tankInfo.getContents() != null ? tankInfo.getContents().amount : 0, tankInfo.getCapacity()));
             } else if(isInRect(mouseX, mouseY, 98, 10, 98 + 16, 10 + 64)) {
-                FluidTankInfo tankInfo = machine.getTankInfo(EnumFacing.UP)[2];
-                textLines.add(tankInfo.fluid != null ? tankInfo.fluid.getLocalizedName() :
+                IFluidTankProperties tankInfo = machine.getTankProperties()[2];
+                textLines.add(tankInfo.getContents() != null ? tankInfo.getContents().getLocalizedName() :
                         TextHelper.localize("gui.tank.empty"));
                 textLines.add(String.format("%d/%d mB",
-                        tankInfo.fluid != null ? tankInfo.fluid.amount : 0, tankInfo.capacity));
+                        tankInfo.getContents() != null ? tankInfo.getContents().amount : 0, tankInfo.getCapacity()));
             }
         }
     }
@@ -75,7 +76,7 @@ public class GuiAlloyMixer extends GuiCrafting {
 
         if (inventory instanceof TileEntityFluidCraftingMachine) {
             TileEntityFluidCraftingMachine fluidCraftingMachine = (TileEntityFluidCraftingMachine) inventory;
-            FluidTankInfo[] tankInfos = fluidCraftingMachine.getTankInfo(EnumFacing.UP);
+            IFluidTankProperties[] tankInfos = fluidCraftingMachine.getTankProperties();
             for (int l = 0; l < tankInfos.length - 1; l++) {
                 RenderHelper.drawGuiFluid(tankInfos[l], i + 56 + ((16 + 5) * l), j + 10, zLevel, 16, 64);
             }

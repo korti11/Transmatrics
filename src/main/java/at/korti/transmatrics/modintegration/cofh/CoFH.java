@@ -21,7 +21,7 @@ public class CoFH implements IIntegration {
 
     @Override
     public void preInit(FMLPreInitializationEvent event) {
-        GameRegistry.registerBlock(rfConverter = new Converter());
+        GameRegistry.register(rfConverter = new Converter());
         GameRegistry.registerTileEntity(TileEntityEnergyConverter.class,
                 TransmatricsTileEntity.RF_CONVERTER.getRegName());
     }

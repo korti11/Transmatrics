@@ -1,16 +1,13 @@
 package at.korti.transmatrics.tileentity.container;
 
-import at.korti.transmatrics.api.Constants;
 import at.korti.transmatrics.api.Constants.ModIntegrationIds;
-import at.korti.transmatrics.api.crafting.ICraftingRegistry;
 import at.korti.transmatrics.api.energy.IChargeable;
 import at.korti.transmatrics.modintegration.tconstruct.helper.ModifierHelper;
 import at.korti.transmatrics.tileentity.container.slot.OutputSlot;
-import at.korti.transmatrics.util.helper.InventoryHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
-import net.minecraft.inventory.ICrafting;
+import net.minecraft.inventory.IContainerListener;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
@@ -53,8 +50,8 @@ public class ContainerCharger extends Container{
     }
 
     @Override
-    public void onCraftGuiOpened(ICrafting listener) {
-        super.onCraftGuiOpened(listener);
+    public void addListener(IContainerListener listener) {
+        super.addListener(listener);
         listener.sendAllWindowProperties(this, inventory);
     }
 
@@ -63,22 +60,22 @@ public class ContainerCharger extends Container{
         super.detectAndSendChanges();
 
         for (int i = 0; i < this.listeners.size(); i++) {
-            ICrafting iCrafting = this.listeners.get(i);
+            IContainerListener listener = this.listeners.get(i);
 
             if (this.chargingProgress != inventory.getField(0)) {
-                iCrafting.sendProgressBarUpdate(this, 0, this.chargingProgress = inventory.getField(0));
+                listener.sendProgressBarUpdate(this, 0, this.chargingProgress = inventory.getField(0));
             }
 
             if (this.totalChargingProgress != inventory.getField(1)) {
-                iCrafting.sendProgressBarUpdate(this, 1, this.totalChargingProgress = inventory.getField(1));
+                listener.sendProgressBarUpdate(this, 1, this.totalChargingProgress = inventory.getField(1));
             }
 
             if (this.energyStored != inventory.getField(2)) {
-                iCrafting.sendProgressBarUpdate(this, 2, this.energyStored = inventory.getField(2));
+                listener.sendProgressBarUpdate(this, 2, this.energyStored = inventory.getField(2));
             }
 
             if (this.maxEnergyStored != inventory.getField(3)) {
-                iCrafting.sendProgressBarUpdate(this, 3, this.maxEnergyStored = inventory.getField(3));
+                listener.sendProgressBarUpdate(this, 3, this.maxEnergyStored = inventory.getField(3));
             }
 
         }

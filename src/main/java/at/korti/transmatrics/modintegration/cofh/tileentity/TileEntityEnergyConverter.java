@@ -32,9 +32,10 @@ public class TileEntityEnergyConverter extends TileEntityEnergyNode implements I
     }
 
     @Override
-    public void writeToNBT(NBTTagCompound compound) {
-        super.writeToNBT(compound);
+    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+        compound = super.writeToNBT(compound);
         compound.setInteger(NBT.SELECTED_MODE, getCurrentMode().ordinal());
+        return compound;
     }
 
     @Override

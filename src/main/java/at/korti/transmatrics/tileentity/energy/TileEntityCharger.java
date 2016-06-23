@@ -28,10 +28,11 @@ public class TileEntityCharger extends TileEntityInventory {
     }
 
     @Override
-    public void writeToNBT(NBTTagCompound compound) {
-        super.writeToNBT(compound);
+    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+        compound = super.writeToNBT(compound);
         compound.setInteger(NBT.CRAFTING_TIME, storedEnergy);
         compound.setInteger(NBT.TOTAL_CRAFTING_TIME, maxStoreEnergy);
+        return compound;
     }
 
     @Override

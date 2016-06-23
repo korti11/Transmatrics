@@ -30,9 +30,10 @@ public abstract class TileEntityEnergySwitch extends TileEntityNetworkSwitch imp
     }
 
     @Override
-    public void writeToNBT(NBTTagCompound compound) {
-        super.writeToNBT(compound);
+    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+        compound = super.writeToNBT(compound);
         energyStorage.writeToNBT(compound);
+        return compound;
     }
 
     @Override

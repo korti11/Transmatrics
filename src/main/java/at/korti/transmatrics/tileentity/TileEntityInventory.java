@@ -16,6 +16,8 @@ import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 
+import javax.annotation.Nullable;
+
 /**
  * Created by Korti on 25.02.2016.
  */
@@ -50,8 +52,8 @@ public abstract class TileEntityInventory extends TileEntityEnergyNode implement
     }
 
     @Override
-    public void writeToNBT(NBTTagCompound compound) {
-        super.writeToNBT(compound);
+    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+        compound = super.writeToNBT(compound);
         NBTTagList itemList = new NBTTagList();
         for (int i = 0; i < getSizeInventory(); i++) {
             ItemStack stack = getStackInSlot(i);
@@ -63,6 +65,7 @@ public abstract class TileEntityInventory extends TileEntityEnergyNode implement
             }
         }
         compound.setTag(Constants.NBT.INVENTORY, itemList);
+        return compound;
     }
 
     @Override
@@ -88,8 +91,9 @@ public abstract class TileEntityInventory extends TileEntityEnergyNode implement
         return capacitorSlot;
     }
 
+    @Nullable
     @Override
-    public Packet getDescriptionPacket() {
+    public SPacketUpdateTileEntity getUpdatePacket() {
         NBTTagCompound tagCompound = new NBTTagCompound();
         writeToNBT(tagCompound);
         return new SPacketUpdateTileEntity(getPos(), -1, tagCompound);

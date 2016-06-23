@@ -34,4 +34,10 @@ public class LiquidCasterRecipeHandler implements IRecipeHandler<LiquidCasterRec
     public boolean isRecipeValid(@Nonnull LiquidCasterRecipeJEI recipe) {
         return recipe.getFluidInputs().size() > 0 && recipe.getInputs().size() > 0 && recipe.getOutputs().size() > 0;
     }
+
+    @Nonnull
+    @Override
+    public String getRecipeCategoryUid(@Nonnull LiquidCasterRecipeJEI recipe) {
+        return JEI.Categories.LIQUID_CASTER;
+    }
 }

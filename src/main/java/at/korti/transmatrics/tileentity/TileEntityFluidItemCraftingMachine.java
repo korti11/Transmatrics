@@ -14,12 +14,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumFacing;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fluids.*;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTank;
+import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidTankProperties;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import javax.annotation.Nullable;
 
 import static net.minecraftforge.common.MinecraftForge.EVENT_BUS;
 
@@ -46,8 +47,8 @@ public abstract class TileEntityFluidItemCraftingMachine extends TileEntityInven
 
     //region TileEntity
     @Override
-    public void writeToNBT(NBTTagCompound compound) {
-        super.writeToNBT(compound);
+    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+        compound = super.writeToNBT(compound);
         compound.setInteger(NBT.CRAFTING_TIME, craftingTime);
         compound.setInteger(NBT.TOTAL_CRAFTING_TIME, totalCraftingTime);
         compound.setInteger(NBT.CRAFTING_EFFICIENCY, efficiency);
@@ -58,6 +59,7 @@ public abstract class TileEntityFluidItemCraftingMachine extends TileEntityInven
             tanks.appendTag(nbtTank);
         }
         compound.setTag(NBT.CRAFTING_TANKS, tanks);
+        return compound;
     }
 
     @Override
@@ -448,23 +450,34 @@ public abstract class TileEntityFluidItemCraftingMachine extends TileEntityInven
 
     //region IFluidHandler
     @Override
-    public int fill(EnumFacing from, FluidStack resource, boolean doFill) {
+    public IFluidTankProperties[] getTankProperties() {
+        IFluidTankProperties[] properties = new IFluidTankProperties[tanks.length];
+        for (int i = 0; i < properties.length; i++) {
+            properties[i] = tanks[i].getTankProperties()[0];
+        }
+        return properties;
+    }
+
+    @Override
+    public int fill(FluidStack resource, boolean doFill) {
         FluidTank tank = getTankForFluid(true, resource.getFluid());
         int result = tank.fill(resource, doFill);
         syncClient();
         return result;
     }
 
+    @Nullable
     @Override
-    public FluidStack drain(EnumFacing from, FluidStack resource, boolean doDrain) {
+    public FluidStack drain(FluidStack resource, boolean doDrain) {
         FluidTank tank = getTankForFluid(false, resource.getFluid());
-        FluidStack stack = tank.drain(resource.amount, doDrain);
+        FluidStack stack = tank.drain(resource, doDrain);
         syncClient();
         return stack;
     }
 
+    @Nullable
     @Override
-    public FluidStack drain(EnumFacing from, int maxDrain, boolean doDrain) {
+    public FluidStack drain(int maxDrain, boolean doDrain) {
         FluidTank tank = firstFilledTank(false);
         FluidStack stack;
         if (tank != null) {
@@ -475,25 +488,6 @@ public abstract class TileEntityFluidItemCraftingMachine extends TileEntityInven
             syncClient();
         }
         return stack;
-    }
-
-    @Override
-    public boolean canFill(EnumFacing from, Fluid fluid) {
-        return craftingRegistry.canFill(fluid, from);
-    }
-
-    @Override
-    public boolean canDrain(EnumFacing from, Fluid fluid) {
-        return craftingRegistry.canDrain(fluid, from);
-    }
-
-    @Override
-    public FluidTankInfo[] getTankInfo(EnumFacing from) {
-        FluidTankInfo[] tankInfos = new FluidTankInfo[tanks.length];
-        for (int i = 0; i < tankInfos.length; i++) {
-            tankInfos[i] = tanks[i].getInfo();
-        }
-        return tankInfos;
     }
     //endregion
 

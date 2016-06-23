@@ -1,7 +1,6 @@
 package at.korti.transmatrics.block.crafting;
 
 import at.korti.transmatrics.block.CraftingMachineBlock;
-import at.korti.transmatrics.tileentity.TileEntityFluidGenerator;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -12,7 +11,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidUtil;
-import net.minecraftforge.fluids.IFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandler;
 
 /**
  * Created by Korti on 31.03.2016.
@@ -30,7 +29,7 @@ public abstract class FluidCraftingMachineBlock extends CraftingMachineBlock{
             TileEntity tile = worldIn.getTileEntity(pos);
             if (tile instanceof IFluidHandler) {
                 IFluidHandler fluidHandler = (IFluidHandler) tile;
-                if (FluidUtil.interactWithTank(currentStack, playerIn, fluidHandler, side)) {
+                if (FluidUtil.interactWithFluidHandler(currentStack, fluidHandler, playerIn)) {
                     return true;
                 }
             }

@@ -8,7 +8,8 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.fluids.FluidTankInfo;
-import net.minecraftforge.fluids.IFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidTankProperties;
 
 import java.util.List;
 
@@ -29,11 +30,11 @@ public class GuiLiquidCaster extends GuiCrafting {
         if (inventory instanceof IFluidHandler &&
                 isInRect(mouseX, mouseY, 56, 10, 56 + 16, 10 + 64)) {
             IFluidHandler machine = (IFluidHandler) inventory;
-            FluidTankInfo tankInfo = machine.getTankInfo(EnumFacing.UP)[0];
-            textLines.add(tankInfo.fluid != null ? tankInfo.fluid.getLocalizedName() :
+            IFluidTankProperties tankInfo = machine.getTankProperties()[0];
+            textLines.add(tankInfo.getContents() != null ? tankInfo.getContents().getLocalizedName() :
                     TextHelper.localize("gui.tank.empty"));
             textLines.add(String.format("%d/%d mB",
-                    tankInfo.fluid != null ? tankInfo.fluid.amount : 0, tankInfo.capacity));
+                    tankInfo.getContents() != null ? tankInfo.getContents().amount : 0, tankInfo.getCapacity()));
         }
     }
 
@@ -55,8 +56,8 @@ public class GuiLiquidCaster extends GuiCrafting {
 
         if (inventory instanceof IFluidHandler) {
             IFluidHandler fluidCraftingMachine = (IFluidHandler) inventory;
-            FluidTankInfo tankInfo = fluidCraftingMachine.getTankInfo(EnumFacing.UP)[0];
-            RenderHelper.drawGuiFluid(tankInfo.fluid, i + 56, j + 10, zLevel, 16, 64, tankInfo.capacity);
+            IFluidTankProperties tankInfo = fluidCraftingMachine.getTankProperties()[0];
+            RenderHelper.drawGuiFluid(tankInfo.getContents(), i + 56, j + 10, zLevel, 16, 64, tankInfo.getCapacity());
         }
     }
 }

@@ -34,4 +34,10 @@ public class PulverizerRecipeHandler implements IRecipeHandler<PulverizerRecipeJ
     public boolean isRecipeValid(@Nonnull PulverizerRecipeJEI recipe) {
         return recipe.getInputs().size() > 0 && recipe.getOutputs().size() > 0;
     }
+
+    @Nonnull
+    @Override
+    public String getRecipeCategoryUid(@Nonnull PulverizerRecipeJEI recipe) {
+        return JEI.Categories.PULVERIZER;
+    }
 }

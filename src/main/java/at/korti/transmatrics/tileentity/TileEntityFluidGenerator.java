@@ -2,7 +2,13 @@ package at.korti.transmatrics.tileentity;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
-import net.minecraftforge.fluids.*;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTank;
+import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidTankProperties;
+
+import javax.annotation.Nullable;
 
 /**
  * Created by Korti on 26.02.2016.
@@ -30,9 +36,10 @@ public abstract class TileEntityFluidGenerator extends TileEntityGenerator imple
     }
 
     @Override
-    public void writeToNBT(NBTTagCompound compound) {
-        super.writeToNBT(compound);
+    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+        compound = super.writeToNBT(compound);
         internalTank.writeToNBT(compound);
+        return compound;
     }
 
     @Override
@@ -45,7 +52,7 @@ public abstract class TileEntityFluidGenerator extends TileEntityGenerator imple
     public void update() {
         super.update();
         if (canProduceEnergy()) {
-            drain(EnumFacing.UP, fluidUse, true);
+            drain(fluidUse, true);
         }
     }
 
@@ -55,32 +62,24 @@ public abstract class TileEntityFluidGenerator extends TileEntityGenerator imple
     }
 
     @Override
-    public int fill(EnumFacing from, FluidStack resource, boolean doFill) {
+    public IFluidTankProperties[] getTankProperties() {
+        return internalTank.getTankProperties();
+    }
+
+    @Override
+    public int fill(FluidStack resource, boolean doFill) {
         return internalTank.fill(resource, doFill);
     }
 
+    @Nullable
     @Override
-    public FluidStack drain(EnumFacing from, FluidStack resource, boolean doDrain) {
-        return internalTank.drain(resource.amount, doDrain);
+    public FluidStack drain(FluidStack resource, boolean doDrain) {
+        return internalTank.drain(resource, doDrain);
     }
 
+    @Nullable
     @Override
-    public FluidStack drain(EnumFacing from, int maxDrain, boolean doDrain) {
+    public FluidStack drain(int maxDrain, boolean doDrain) {
         return internalTank.drain(maxDrain, doDrain);
-    }
-
-    @Override
-    public boolean canFill(EnumFacing from, Fluid fluid) {
-        return fluid.equals(takeIn);
-    }
-
-    @Override
-    public boolean canDrain(EnumFacing from, Fluid fluid) {
-        return true;
-    }
-
-    @Override
-    public FluidTankInfo[] getTankInfo(EnumFacing from) {
-        return new FluidTankInfo[]{internalTank.getInfo()};
     }
 }

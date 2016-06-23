@@ -11,6 +11,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidTankInfo;
+import net.minecraftforge.fluids.capability.IFluidTankProperties;
 
 import java.util.List;
 
@@ -28,10 +29,10 @@ public class GuiMagneticSmeltery extends GuiCrafting {
         super.addInformation(mouseX, mouseY, textLines);
         if (inventory instanceof TileEntityFluidCraftingMachine && isInRect(mouseX, mouseY, 107, 10, 107 + 16, 10 + 64)) {
             TileEntityFluidCraftingMachine machine = (TileEntityFluidCraftingMachine) inventory;
-            FluidTankInfo tankInfo = machine.getTankInfo(EnumFacing.UP)[0];
-            textLines.add(tankInfo.fluid != null ? tankInfo.fluid.getLocalizedName() : TextHelper.localize("gui.tank.empty"));
+            IFluidTankProperties tankInfo = machine.getTankProperties()[0];
+            textLines.add(tankInfo.getContents() != null ? tankInfo.getContents().getLocalizedName() : TextHelper.localize("gui.tank.empty"));
             textLines.add(String.format("%d/%d mB",
-                    tankInfo.fluid != null ? tankInfo.fluid.amount : 0, tankInfo.capacity));
+                    tankInfo.getContents() != null ? tankInfo.getContents().amount : 0, tankInfo.getCapacity()));
         }
     }
 
@@ -53,8 +54,8 @@ public class GuiMagneticSmeltery extends GuiCrafting {
 
         if (inventory instanceof TileEntityFluidCraftingMachine) {
             TileEntityFluidCraftingMachine fluidCraftingMachine = (TileEntityFluidCraftingMachine) inventory;
-            FluidTankInfo tankInfo = fluidCraftingMachine.getTankInfo(EnumFacing.UP)[0];
-            RenderHelper.drawGuiFluid(tankInfo.fluid, i + 107, j + 10, zLevel, 16, 64, tankInfo.capacity);
+            IFluidTankProperties tankInfo = fluidCraftingMachine.getTankProperties()[0];
+            RenderHelper.drawGuiFluid(tankInfo.getContents(), i + 107, j + 10, zLevel, 16, 64, tankInfo.getCapacity());
         }
     }
 }

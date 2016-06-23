@@ -18,6 +18,8 @@ import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import javax.annotation.Nullable;
+
 import static net.minecraftforge.common.MinecraftForge.EVENT_BUS;
 
 /**
@@ -33,9 +35,15 @@ public abstract class TileEntityNetworkNode extends TileEntity implements INetwo
         return NetworkHandler.getNetworkNode(worldObj, networkNode);
     }
 
+//    @Override
+//    public void writeToNBT(NBTTagCompound compound) {
+//
+//    }
+
+
     @Override
-    public void writeToNBT(NBTTagCompound compound) {
-        super.writeToNBT(compound);
+    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+        compound = super.writeToNBT(compound);
         writeNetworkNodeToNBT(compound);
         compound.setInteger(NBT.CONNECTION_PRIORITY, connectionPriority);
         if(controller != null) {
@@ -43,6 +51,7 @@ public abstract class TileEntityNetworkNode extends TileEntity implements INetwo
             compound.setInteger(NBT.CONTROLLER_Y, controller.getY());
             compound.setInteger(NBT.CONTROLLER_Z, controller.getZ());
         }
+        return compound;
     }
 
     private void writeNetworkNodeToNBT(NBTTagCompound compound) {
@@ -88,8 +97,9 @@ public abstract class TileEntityNetworkNode extends TileEntity implements INetwo
 
     }
 
+    @Nullable
     @Override
-    public Packet getDescriptionPacket() {
+    public SPacketUpdateTileEntity getUpdatePacket() {
         NBTTagCompound compound = new NBTTagCompound();
         writeNetworkNodeToNBT(compound);
         return new SPacketUpdateTileEntity(getPos(), -1, compound);

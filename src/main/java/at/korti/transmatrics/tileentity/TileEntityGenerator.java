@@ -13,6 +13,8 @@ import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import javax.annotation.Nullable;
+
 /**
  * Created by Korti on 25.02.2016.
  */
@@ -31,9 +33,10 @@ public abstract class TileEntityGenerator extends TileEntityNetworkNode implemen
     }
 
     @Override
-    public void writeToNBT(NBTTagCompound compound) {
-        super.writeToNBT(compound);
+    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+        compound = super.writeToNBT(compound);
         energyStorage.writeToNBT(compound);
+        return compound;
     }
 
     @Override
@@ -102,8 +105,9 @@ public abstract class TileEntityGenerator extends TileEntityNetworkNode implemen
         return getEnergyStored() < getMaxEnergyStored();
     }
 
+    @Nullable
     @Override
-    public Packet getDescriptionPacket() {
+    public SPacketUpdateTileEntity getUpdatePacket() {
         NBTTagCompound tagCompound = new NBTTagCompound();
         writeToNBT(tagCompound);
         return new SPacketUpdateTileEntity(this.getPos(), -1, tagCompound);

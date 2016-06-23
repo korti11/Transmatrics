@@ -33,4 +33,9 @@ public class MagneticSmelteryRecipeHandler implements IRecipeHandler<MagneticSme
         return recipe.getFluidOutputs().size() > 0 && recipe.getInputs().size() > 0;
     }
 
+    @Nonnull
+    @Override
+    public String getRecipeCategoryUid(@Nonnull MagneticSmelteryRecipeJEI recipe) {
+        return Constants.JEI.Categories.MAGNETIC_SMELTERY;
+    }
 }

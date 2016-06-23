@@ -5,6 +5,8 @@ import at.korti.transmatrics.block.ModFluidBlock;
 import at.korti.transmatrics.fluid.GasColored;
 import at.korti.transmatrics.fluid.MoltenMetal;
 import net.minecraft.block.material.MapColor;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.BlockFluidBase;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -69,7 +71,11 @@ public final class Fluids {
 
     private static BlockFluidBase registerBlock(Fluid fluid) {
         BlockFluidBase block = new ModFluidBlock(fluid, MapColor.ADOBE);
-        GameRegistry.registerBlock(block, fluid.getName());
+        block.setRegistryName(Mod.MODID, fluid.getName());
+        ItemBlock itemBlock = new ItemBlock(block);
+        itemBlock.setRegistryName(block.getRegistryName());
+        GameRegistry.register(block);
+        GameRegistry.register(itemBlock);
         return block;
     }
 }
