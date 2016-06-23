@@ -417,7 +417,7 @@ public abstract class TileEntityFluidCraftingMachine extends TileEntityInventory
     }
 
     protected void calculateMaxEfficiency() {
-        this.maxEfficiency = energyStorage.getCapacity() / 1000;
+        this.maxEfficiency = energyStorage.getCapacity() / Constants.Energy.EFFICIENCY_DIVIDER;
     }
     //endregion
 
