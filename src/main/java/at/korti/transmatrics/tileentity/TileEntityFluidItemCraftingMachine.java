@@ -1,5 +1,6 @@
 package at.korti.transmatrics.tileentity;
 
+import at.korti.transmatrics.api.Constants;
 import at.korti.transmatrics.api.Constants.NBT;
 import at.korti.transmatrics.api.crafting.ICraftingRegistry;
 import at.korti.transmatrics.api.crafting.IFluidItemCraftingRegistry;
@@ -377,7 +378,7 @@ public abstract class TileEntityFluidItemCraftingMachine extends TileEntityInven
     }
 
     protected void calculateMaxEfficiency() {
-        this.maxEfficiency = energyStorage.getCapacity() / 1000;
+        this.maxEfficiency = energyStorage.getCapacity() / Constants.Energy.EFFICIENCY_DIVIDER;
     }
     //endregion
 

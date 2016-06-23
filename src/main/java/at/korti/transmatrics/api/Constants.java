@@ -210,6 +210,9 @@ public final class Constants {
         public static final int LEAD_CAPACITOR_CAPACITY = 12500;
         public static final int INVAR_CAPACITOR_CAPACITY = 25000;
         public static final int ELECTRUM_CAPACITOR_CAPACITY = 50000;
+
+        //Efficiency
+        public static final int EFFICIENCY_DIVIDER = 10000;
     }
 
     public static class Tanks{
