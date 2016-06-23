@@ -30,7 +30,10 @@ public class ItemCapacitor extends ModItem implements IRechargeable{
         super.addInformation(stack, playerIn, tooltip, advanced);
 
         tooltip.add(TextHelper.localize(ToolTips.CAPACITOR_ENERGY_LABEL));
-        tooltip.add(TextHelper.localize(ToolTips.CAPACITOR_ENERGY, stack.getMaxDamage() - stack.getItemDamage(), stack.getMaxDamage()));
+        int energy = getEnergy(stack);
+        energy = energy > 0 ? energy : 0;
+        int capacity = getCapacity(stack);
+        tooltip.add(TextHelper.localize(ToolTips.CAPACITOR_ENERGY, energy, capacity));
     }
 
     @Override

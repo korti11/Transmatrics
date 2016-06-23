@@ -1,0 +1,16 @@
+{
+  "modifier": "invarenergetic",
+  "text":[
+    {
+      "text": "Adding an invar capacitor brings the power to have a rechargeable tool."
+    }
+  ],
+  "effects":[
+    "Adds a storage to store energy",
+    "Use first energy and then durability"
+  ],
+  "demoTool":[
+    "tconstruct:pickaxe",
+    "tconstruct:broadsword"
+  ]
+}

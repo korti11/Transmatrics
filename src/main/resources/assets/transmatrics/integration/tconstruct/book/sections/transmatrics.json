@@ -1,0 +1,14 @@
+[
+  {
+    "type": "modifier",
+    "data": "modifiers/lead_energetic.json"
+  },
+  {
+    "type": "modifier",
+    "data": "modifiers/invar_energetic.json"
+  },
+  {
+    "type": "modifier",
+    "data": "modifiers/electrum_energetic.json"
+  }
+]

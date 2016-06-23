@@ -1,5 +1,7 @@
 package at.korti.transmatrics.modintegration.tconstruct;
 
+import at.korti.transmatrics.api.Constants;
+import at.korti.transmatrics.api.Constants.Mod;
 import at.korti.transmatrics.api.Constants.TransmatricsItem;
 import at.korti.transmatrics.api.Constants.TransmatricsTileEntity;
 import at.korti.transmatrics.item.energy.ItemCapacitor;
@@ -21,7 +23,9 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import slimeknights.mantle.client.book.repository.FileRepository;
 import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.library.book.TinkerBook;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.shared.TinkerFluids;
 
@@ -45,6 +49,13 @@ public class TConstruct implements IIntegration {
         Crafting.FLUID_AMOUNT_PER_INGOT = Material.VALUE_Ingot;
         GameRegistry.registerTileEntity(TileEntityAlloyMixer.class, TransmatricsTileEntity.ALLOY_MIXER.getRegName());
         GameRegistry.register(alloyMixer = new AlloyMixer());
+
+        TinkerRegistry.registerModifier(leadModEnergetic = new ModEnergetic(
+                (ItemCapacitor) TransmatricsItem.LEAD_CAPACITOR.getItem(), "lead"));
+        TinkerRegistry.registerModifier(invarModEnergetic = new ModEnergetic(
+                (ItemCapacitor) TransmatricsItem.INVAR_CAPACITOR.getItem(), "invar"));
+        TinkerRegistry.registerModifier(electrumModEnergetic = new ModEnergetic(
+                (ItemCapacitor) TransmatricsItem.ELECTRUM_CAPACITOR.getItem(), "electrum"));
     }
 
     @Override
@@ -62,12 +73,6 @@ public class TConstruct implements IIntegration {
         }
         CraftingCrossOverHelper.loadAlloyCrossOver();
 
-        TinkerRegistry.registerModifier(leadModEnergetic = new ModEnergetic(
-                (ItemCapacitor) TransmatricsItem.LEAD_CAPACITOR.getItem(), "lead"));
-        TinkerRegistry.registerModifier(invarModEnergetic = new ModEnergetic(
-                (ItemCapacitor) TransmatricsItem.INVAR_CAPACITOR.getItem(), "invar"));
-        TinkerRegistry.registerModifier(electrumModEnergetic = new ModEnergetic(
-                (ItemCapacitor) TransmatricsItem.ELECTRUM_CAPACITOR.getItem(), "electrum"));
     }
 
     @Override
@@ -85,6 +90,7 @@ public class TConstruct implements IIntegration {
     @Override
     public void clientPostInit() {
         clientProxy.registerModels();
+        TinkerBook.INSTANCE.addRepository(new FileRepository(Mod.MODID + ":integration/tconstruct/book"));
     }
 
     private void initCrafting() {
