@@ -86,6 +86,19 @@ public final class Constants {
         //Mode
         public static final String MODE_NAME = "mode_name";
         public static final String SELECTED_MODE = "selected_mode";
+
+        //Dimension block pos
+        public static final String POS_X = "pos_x";
+        public static final String POS_Y = "pos_y";
+        public static final String POS_Z = "pos_z";
+        public static final String DIM_ID = "dim_id";
+
+        //Quantum Bridge
+        public static final String QUANTUM_BRIDGE_ONE = "quantum_bridge_one";
+        public static final String QUANTUM_BRIDGE_TWO = "quantum_bridge_two";
+
+        //Quantum Bridge Mapper
+        public static final String QUANTUM_BRIDGE_MAP_NAMES = "quantum_bridge_map_names";
     }
 
     public static class NetworkMessages{
