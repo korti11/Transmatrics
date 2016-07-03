@@ -2,6 +2,8 @@ package at.korti.transmatrics.item.ore;
 
 import at.korti.transmatrics.api.Constants.TransmatricsItem;
 import at.korti.transmatrics.item.ModMetaItem;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.relauncher.Side;
 
 /**
  * Created by Korti on 28.03.2016.
@@ -14,7 +16,9 @@ public class ItemIngot extends ModMetaItem{
     public ItemIngot() {
         super(TransmatricsItem.INGOT.getRegName(), extensions);
 
-        this.addColors(colors);
+        if(FMLCommonHandler.instance().getSide() == Side.CLIENT) {
+            this.addColors(colors);
+        }
     }
 
 }

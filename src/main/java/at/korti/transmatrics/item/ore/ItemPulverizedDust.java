@@ -6,6 +6,8 @@ import at.korti.transmatrics.item.ModMetaItem;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.relauncher.Side;
 
 import java.util.List;
 
@@ -20,6 +22,8 @@ public class ItemPulverizedDust extends ModMetaItem{
     public ItemPulverizedDust() {
         super(TransmatricsItem.PULVERIZED_DUST.getRegName(), extensions);
 
-        this.addColors(colors);
+        if(FMLCommonHandler.instance().getSide() == Side.CLIENT) {
+            this.addColors(colors);
+        }
     }
 }

@@ -19,6 +19,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.FMLClientHandler;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -82,6 +84,7 @@ public final class Items {
         registerMetaItemTexture(itemPlate);
     }
 
+    @SideOnly(Side.CLIENT)
     public static void registerColorHandler() {
         FMLClientHandler.instance().getClient().getItemColors().registerItemColorHandler(pulverizedDust.colorHandler, pulverizedDust);
         FMLClientHandler.instance().getClient().getItemColors().registerItemColorHandler(itemIngot.colorHandler, itemIngot);

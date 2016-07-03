@@ -2,6 +2,8 @@ package at.korti.transmatrics.item.crafting;
 
 import at.korti.transmatrics.api.Constants.TransmatricsItem;
 import at.korti.transmatrics.item.ModMetaItem;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.relauncher.Side;
 
 /**
  * Created by Korti on 01.04.2016.
@@ -14,7 +16,9 @@ public class ItemGear extends ModMetaItem {
     public ItemGear() {
         super(TransmatricsItem.GEAR.getRegName(), extensions);
 
-        this.addColors(colors);
+        if(FMLCommonHandler.instance().getSide() == Side.CLIENT) {
+            this.addColors(colors);
+        }
     }
 
 }
