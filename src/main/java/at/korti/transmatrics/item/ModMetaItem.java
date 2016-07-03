@@ -6,6 +6,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fml.client.FMLClientHandler;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -17,6 +20,7 @@ import java.util.List;
 public abstract class ModMetaItem extends ModItem {
 
     private final String[] extensions;
+    @SideOnly(Side.CLIENT)
     public ModMetaItemColorHandler colorHandler;
 
     public ModMetaItem(String name, TextFormatting nameColor, String... extensions) {
@@ -24,21 +28,26 @@ public abstract class ModMetaItem extends ModItem {
 
         this.setHasSubtypes(true);
         this.extensions = extensions;
-        this.colorHandler = new ModMetaItemColorHandler();
+        if(FMLCommonHandler.instance().getSide() == Side.CLIENT) {
+            this.colorHandler = new ModMetaItemColorHandler();
+        }
     }
 
     public ModMetaItem(String name, String... extensions) {
         this(name, TextFormatting.WHITE, extensions);
     }
 
+    @SideOnly(Side.CLIENT)
     protected void addColor(int index, int color) {
         colorHandler.addColor(index, color);
     }
 
+    @SideOnly(Side.CLIENT)
     protected void addColor(int color) {
         colorHandler.addColor(color);
     }
 
+    @SideOnly(Side.CLIENT)
     protected void addColors(Integer[] colors) {
         this.colorHandler.addColors(colors);
     }
@@ -66,6 +75,7 @@ public abstract class ModMetaItem extends ModItem {
         }
     }
 
+    @SideOnly(Side.CLIENT)
     public static class ModMetaItemColorHandler implements IItemColor {
 
         private List<Integer> colors;
