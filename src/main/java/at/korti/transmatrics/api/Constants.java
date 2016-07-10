@@ -260,8 +260,23 @@ public final class Constants {
         public static final String INGOT_TIN = "ingotTin";
         public static final String INGOT_SILVER = "ingotSilver";
         public static final String INGOT_LEAD = "ingotLead";
+        public static final String INGOT_NICKEL = "ingotNickel";
+        public static final String INGOT_INVAR = "ingotInvar";
+        public static final String INGOT_ELECTRUM = "ingotElectrum";
+
+        // dusts
+        public static final String DUST_IRON = "dustIron";
+        public static final String DUST_GOLD = "dustGold";
+        public static final String DUST_COPPER = "dustCopper";
+        public static final String DUST_TIN = "dustTin";
+        public static final String DUST_SILVER = "dustSilver";
+        public static final String DUST_LEAD = "dustLead";
+        public static final String DUST_NICKEL = "dustNickel";
+        public static final String DUST_INVAR = "dustInvar";
+        public static final String DUST_ELECTRUM = "dustElectrum";
 
         // plates
+        public static final String PLATE = "plate";
         public static final String PLATE_IRON = "plateIron";
         public static final String PLATE_COPPER = "plateCopper";
         public static final String PLATE_TIN = "plateTin";
@@ -277,6 +292,7 @@ public final class Constants {
         public static final String ORE_TIN = "oreTin";
         public static final String ORE_SILVER = "oreSilver";
         public static final String ORE_LEAD = "oreLead";
+        public static final String ORE_NICKEL = "oreNickel";
     }
 
     public enum TransmatricsBlock {
