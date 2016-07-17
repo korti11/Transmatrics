@@ -2,6 +2,7 @@ package at.korti.transmatrics.util.helper;
 
 import at.korti.transmatrics.api.crafting.ICraftingRegistry;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -20,5 +21,13 @@ public class ItemStackHelper {
             return oreDictNames;
         }
         return new String[0];
+    }
+
+    public static NBTTagCompound getCompound(ItemStack stack) {
+        NBTTagCompound tagCompound;
+        if ((tagCompound = stack.getTagCompound()) == null) {
+            stack.setTagCompound(tagCompound = new NBTTagCompound());
+        }
+        return tagCompound;
     }
 }
