@@ -18,13 +18,6 @@ public abstract class FluidCraftingContainer extends Container {
     private final TileEntityInventory tileEntity;
     private final ICraftingRegistry<FluidStack> craftingRegistry;
 
-    private int craftingTime;
-    private int totalCraftingTime;
-    private int energyStored;
-    private int maxEnergyStored;
-    private int efficiency;
-    private int maxEfficiency;
-
     public FluidCraftingContainer(InventoryPlayer player, TileEntityInventory tileEntity, ICraftingRegistry<FluidStack> craftingRegistry) {
         this.tileEntity = tileEntity;
         this.craftingRegistry = craftingRegistry;
@@ -53,49 +46,5 @@ public abstract class FluidCraftingContainer extends Container {
         for (int i = 0; i < 9; i++) {
             addSlotToContainer(new Slot(inventoryPlayer, i, 8 + i * 18, 142));
         }
-    }
-
-    @Override
-    public void addListener(IContainerListener listener) {
-        super.addListener(listener);
-        listener.sendAllWindowProperties(this, tileEntity);
-    }
-
-    @Override
-    public void detectAndSendChanges() {
-        super.detectAndSendChanges();
-
-        for (int i = 0; i < this.listeners.size(); i++) {
-            IContainerListener listener = this.listeners.get(i);
-
-            if (this.craftingTime != tileEntity.getField(0)) {
-                listener.sendProgressBarUpdate(this, 0, this.craftingTime = tileEntity.getField(0));
-            }
-
-            if (this.totalCraftingTime != tileEntity.getField(1)) {
-                listener.sendProgressBarUpdate(this, 1, this.totalCraftingTime = tileEntity.getField(1));
-            }
-
-            if (this.energyStored != tileEntity.getField(2)) {
-                listener.sendProgressBarUpdate(this, 2, this.energyStored = tileEntity.getField(2));
-            }
-
-            if (this.maxEnergyStored != tileEntity.getField(3)) {
-                listener.sendProgressBarUpdate(this, 3, this.maxEnergyStored = tileEntity.getField(3));
-            }
-
-            if (this.efficiency != tileEntity.getField(4)) {
-                listener.sendProgressBarUpdate(this, 4, this.efficiency = tileEntity.getField(4));
-            }
-
-            if (this.maxEfficiency != tileEntity.getField(5)) {
-                listener.sendProgressBarUpdate(this, 5, this.maxEfficiency = tileEntity.getField(5));
-            }
-        }
-    }
-
-    @Override
-    public void updateProgressBar(int id, int data) {
-        this.tileEntity.setField(id, data);
     }
 }
