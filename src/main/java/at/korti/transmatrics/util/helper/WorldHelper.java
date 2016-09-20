@@ -7,6 +7,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -136,6 +137,10 @@ public class WorldHelper {
             }
         }
         return neighbors;
+    }
+
+    public static World getWorld(int dimensionID) {
+        return FMLCommonHandler.instance().getMinecraftServerInstance().worldServerForDimension(dimensionID);
     }
 
 }

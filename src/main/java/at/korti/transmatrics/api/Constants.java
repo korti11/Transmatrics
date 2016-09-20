@@ -96,9 +96,11 @@ public final class Constants {
         //Quantum Bridge
         public static final String QUANTUM_BRIDGE_ONE = "quantum_bridge_one";
         public static final String QUANTUM_BRIDGE_TWO = "quantum_bridge_two";
+        public static final String QUANTUM_BRIDGE_MAP_NAME = "quantum_bridge_map_name";
 
         //Quantum Bridge Mapper
         public static final String QUANTUM_BRIDGE_MAP_NAMES = "quantum_bridge_map_names";
+        public static final String QUANTUM_BRIDGE_COUNT = "quantum_bridge_count";
     }
 
     public static class NetworkMessages{
@@ -183,6 +185,11 @@ public final class Constants {
         //Controller
         public static final int CONTROLLER_CAPACITY = 100000;
         public static final int CONTROLLER_TRANSFER = 10000;
+
+        //Quantum Bridge
+        public static final int QUANTUM_BRIDGE_CAPACITY = 75000;
+        public static final int QUANTUM_BRIDGE_TRANSFER = 7500;
+        public static final int QUANTUM_BRIDGE_ENERGY_USE = 25;
 
         //Pulverizer
         public static final int PULVERIZER_CAPACITY = 50000;
@@ -327,7 +334,8 @@ public final class Constants {
         CHARGER("Charger"),
         ORE_BLOCK("Ore"),
         MACHINE_CASING("MachineCasing"),
-        RF_CONVERTER("RFConverter");
+        RF_CONVERTER("RFConverter"),
+        QUANTUM_BRIDGE("QuantumBridge");
 
         private final String regName;
 
@@ -390,7 +398,8 @@ public final class Constants {
         LIQUID_CASTER("TMTileLiquidCaster"),
         ALLOY_MIXER("TMTileAlloyMixer"),
         CHARGER("TMTileCharger"),
-        RF_CONVERTER("TMTileRFConverter");
+        RF_CONVERTER("TMTileRFConverter"),
+        QUANTUM_BRIDGE("TMTileQuantumBridge");
 
         private final String regName;
 

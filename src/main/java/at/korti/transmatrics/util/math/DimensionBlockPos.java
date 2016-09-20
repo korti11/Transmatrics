@@ -20,6 +20,11 @@ public class DimensionBlockPos extends BlockPos {
         this.dimensionID = dimensionID;
     }
 
+    public DimensionBlockPos(Vec3i source, int dimensionID) {
+        super(source);
+        this.dimensionID = dimensionID;
+    }
+
     public NBTTagCompound writeToNBT(NBTTagCompound tagCompound) {
         if (tagCompound == null) {
             tagCompound = new NBTTagCompound();
@@ -40,6 +45,10 @@ public class DimensionBlockPos extends BlockPos {
             return new DimensionBlockPos(x, y, z, dimID);
         }
         return null;
+    }
+
+    public int getDimensionID() {
+        return dimensionID;
     }
 
     @Override

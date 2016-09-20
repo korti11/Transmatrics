@@ -3,6 +3,7 @@ package at.korti.transmatrics.util.helper;
 import at.korti.transmatrics.api.crafting.ICraftingRegistry;
 import at.korti.transmatrics.api.crafting.IFluidCraftingRegistry;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
@@ -37,6 +38,11 @@ public class InventoryHelper {
         return player.getHeldItemMainhand() != null && player.getHeldItemMainhand().getItem() == item ?
                 player.getHeldItemMainhand() : player.getHeldItemOffhand() != null &&
                 player.getHeldItemOffhand().getItem() == item ? player.getHeldItemOffhand() : null;
+    }
+
+    public static boolean isInInventory(EntityPlayer player, ItemStack stack) {
+        InventoryPlayer inventoryPlayer = player.inventory;
+        return inventoryPlayer.getSlotFor(stack) != -1;
     }
 
     public static boolean canFill(IFluidCraftingRegistry registry, EnumFacing facing) {

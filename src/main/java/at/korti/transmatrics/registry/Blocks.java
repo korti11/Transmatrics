@@ -5,11 +5,9 @@ import at.korti.transmatrics.block.OreBlock;
 import at.korti.transmatrics.block.crafting.*;
 import at.korti.transmatrics.block.energy.Charger;
 import at.korti.transmatrics.block.generator.*;
-import at.korti.transmatrics.block.network.Controller;
-import at.korti.transmatrics.block.network.LargeSwitch;
-import at.korti.transmatrics.block.network.MediumSwitch;
-import at.korti.transmatrics.block.network.SmallSwitch;
+import at.korti.transmatrics.block.network.*;
 import at.korti.transmatrics.item.crafting.ItemMachineBlock;
+import at.korti.transmatrics.item.network.ItemQuantumBridgeBlock;
 import at.korti.transmatrics.item.ore.ItemOreBlock;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -46,6 +44,7 @@ public final class Blocks {
     private static Charger charger;
     private static OreBlock oreBlock;
     private static MachineCasing machineCasing;
+    private static QuantumBridge quantumBridge;
 
     public static void registerBlocksCommon() {
         registerBlock(solarPanel = new SolarPanel());
@@ -65,6 +64,7 @@ public final class Blocks {
         registerBlock(charger = new Charger(), new ItemMachineBlock(charger));
         registerBlock(oreBlock = new OreBlock(), new ItemOreBlock(oreBlock));
         registerBlock(machineCasing = new MachineCasing());
+        registerBlock(quantumBridge = new QuantumBridge(), new ItemQuantumBridgeBlock(quantumBridge));
     }
 
     private static void registerBlock(Block block) {
