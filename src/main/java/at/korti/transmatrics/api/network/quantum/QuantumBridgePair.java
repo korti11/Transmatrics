@@ -1,6 +1,5 @@
 package at.korti.transmatrics.api.network.quantum;
 
-import at.korti.transmatrics.api.Constants;
 import at.korti.transmatrics.api.Constants.NBT;
 import at.korti.transmatrics.util.math.DimensionBlockPos;
 import net.minecraft.nbt.NBTTagCompound;
@@ -28,10 +27,14 @@ public class QuantumBridgePair extends WorldSavedData {
     public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
         NBTTagCompound quantumBridgeOne = new NBTTagCompound();
         NBTTagCompound quantumBridgeTwo = new NBTTagCompound();
-        this.quantumBridgeOne.writeToNBT(quantumBridgeOne);
-        this.quantumBridgeTwo.writeToNBT(quantumBridgeTwo);
-        nbt.setTag(NBT.QUANTUM_BRIDGE_ONE, quantumBridgeOne);
-        nbt.setTag(NBT.QUANTUM_BRIDGE_TWO, quantumBridgeTwo);
+        if(this.quantumBridgeOne != null) {
+            this.quantumBridgeOne.writeToNBT(quantumBridgeOne);
+            nbt.setTag(NBT.QUANTUM_BRIDGE_ONE, quantumBridgeOne);
+        }
+        if(this.quantumBridgeTwo != null) {
+            this.quantumBridgeTwo.writeToNBT(quantumBridgeTwo);
+            nbt.setTag(NBT.QUANTUM_BRIDGE_TWO, quantumBridgeTwo);
+        }
         return nbt;
     }
 

@@ -4,10 +4,7 @@ import at.korti.transmatrics.config.Config;
 import at.korti.transmatrics.tileentity.crafting.*;
 import at.korti.transmatrics.tileentity.energy.TileEntityCharger;
 import at.korti.transmatrics.tileentity.generator.*;
-import at.korti.transmatrics.tileentity.network.TileEntityController;
-import at.korti.transmatrics.tileentity.network.TileEntityLargeSwitch;
-import at.korti.transmatrics.tileentity.network.TileEntityMediumSwitch;
-import at.korti.transmatrics.tileentity.network.TileEntitySmallSwitch;
+import at.korti.transmatrics.tileentity.network.*;
 
 import static at.korti.transmatrics.api.Constants.TransmatricsTileEntity.*;
 import static net.minecraftforge.fml.common.registry.GameRegistry.registerTileEntity;
@@ -33,6 +30,7 @@ public final class TileEntities {
         registerTileEntity(TileEntityMagneticSmeltery.class, MAGNETIC_SMELTERY.getRegName());
         registerTileEntity(TileEntityLiquidCaster.class, LIQUID_CASTER.getRegName());
         registerTileEntity(TileEntityCharger.class, CHARGER.getRegName());
+        registerTileEntity(TileEntityQuantumBridge.class, QUANTUM_BRIDGE.getRegName());
     }
 
 }

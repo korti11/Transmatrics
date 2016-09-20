@@ -15,11 +15,10 @@ public final class QuantumBridgeHandler {
 
     private final static String MAPPER_ID = "tm_quantum_mapper";
 
-    private final QuantumBridgeMapper quantumBridgeMapper;
-    private int bridgeCounter = 0;
+    private final QuantumBridgeMapper mapper;
 
     private QuantumBridgeHandler() {
-        quantumBridgeMapper = loadMapper();
+        mapper = loadMapper();
     }
 
     public static QuantumBridgeHandler instance() {
@@ -38,34 +37,41 @@ public final class QuantumBridgeHandler {
         if (mapper == null) {
             mapper = new QuantumBridgeMapper(MAPPER_ID);
             world.setItemData(MAPPER_ID, mapper);
+            mapper.setDirty(true);
         }
         return mapper;
     }
 
-    private World getWorld() {
+    private static World getWorld() {
         if (FMLCommonHandler.instance().getMinecraftServerInstance() != null) {
-            return FMLCommonHandler.instance().getMinecraftServerInstance().worldServers[0];
+            if(FMLCommonHandler.instance().getMinecraftServerInstance().worldServers != null &&
+                    FMLCommonHandler.instance().getMinecraftServerInstance().worldServers.length > 0) {
+                return FMLCommonHandler.instance().getMinecraftServerInstance().worldServers[0];
+            }
         }
         return null;
     }
 
     public static String createQuantumBridge() {
         QuantumBridgeHandler instance = instance();
-        String bridgeMapName = generateBridgeMapName();
-        QuantumBridgePair bridgePair = new QuantumBridgePair(bridgeMapName);
         World world = instance.getWorld();
         if (world == null) {
             throw new RuntimeException("Couldn't create quantum bridge!");
         }
+        String bridgeMapName = generateBridgeMapName();
+        QuantumBridgePair bridgePair = new QuantumBridgePair(bridgeMapName);
         world.setItemData(bridgeMapName, bridgePair);
+        bridgePair.setDirty(true);
+        instance.mapper.addMapName(bridgeMapName);
+        instance.mapper.setDirty(true);
         return bridgeMapName;
     }
 
     private static String generateBridgeMapName() {
         QuantumBridgeHandler instance = instance();
         StringBuilder builder = new StringBuilder("tm_quantum_bridge_");
-        builder.append(instance.bridgeCounter);
-        instance.bridgeCounter++;
+        builder.append(instance.mapper.bridgeCount);
+        instance.mapper.bridgeCount++;
         return builder.toString();
     }
 
@@ -107,11 +113,12 @@ public final class QuantumBridgeHandler {
         } else {
             throw new RuntimeException("Positions can not be override.");
         }
+        bridgePair.setDirty(true);
     }
 
     public static void clearQuantumBridgePos(String bridgeMapName, DimensionBlockPos currentPos) {
         QuantumBridgePair bridgePair = getQuantumBridgePair(bridgeMapName);
-        if (bridgeMapName == null) {
+        if (bridgePair == null) {
             throw new RuntimeException("Couldn't find ah quantum bridge with the map name: " + bridgeMapName);
         }
         if (currentPos.equals(bridgePair.quantumBridgeOne)) {
@@ -119,12 +126,13 @@ public final class QuantumBridgeHandler {
         } else if(currentPos.equals(bridgePair.quantumBridgeTwo)) {
             bridgePair.quantumBridgeTwo = null;
         }
+        bridgePair.setDirty(true);
     }
 
     public static List<String> getQuantumBridgeMapNames() {
         QuantumBridgeHandler instance = instance();
-        if (instance.quantumBridgeMapper != null) {
-            return instance.quantumBridgeMapper.getMapNames();
+        if (instance.mapper != null) {
+            return instance.mapper.getMapNames();
         }
         return null;
     }

@@ -1,6 +1,5 @@
 package at.korti.transmatrics.api.network.quantum;
 
-import at.korti.transmatrics.api.Constants;
 import at.korti.transmatrics.api.Constants.NBT;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.nbt.NBTTagCompound;
@@ -17,6 +16,7 @@ import java.util.List;
 public final class QuantumBridgeMapper extends WorldSavedData {
 
     private final List<String> quantumBridgeMapNames;
+    public int bridgeCount;
 
     public QuantumBridgeMapper(String name) {
         super(name);
@@ -40,6 +40,7 @@ public final class QuantumBridgeMapper extends WorldSavedData {
                 quantumBridgeMapNames.add(mapList.getStringTagAt(i));
             }
         }
+        bridgeCount = nbt.getInteger(NBT.QUANTUM_BRIDGE_COUNT);
     }
 
     @Override
@@ -49,6 +50,7 @@ public final class QuantumBridgeMapper extends WorldSavedData {
             mapList.appendTag(new NBTTagString(mapName));
         }
         nbt.setTag(NBT.QUANTUM_BRIDGE_MAP_NAMES, mapList);
+        nbt.setInteger(NBT.QUANTUM_BRIDGE_COUNT, bridgeCount);
         return nbt;
     }
 }
