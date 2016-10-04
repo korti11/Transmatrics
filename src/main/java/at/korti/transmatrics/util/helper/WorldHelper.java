@@ -1,5 +1,6 @@
 package at.korti.transmatrics.util.helper;
 
+import at.korti.transmatrics.util.math.DimensionBlockPos;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
@@ -49,25 +50,25 @@ public class WorldHelper {
         return null;
     }
 
-    public static List<BlockPos> hasNeighbors(World worldIn, BlockPos posIn, Block searchBlockIn) {
-        List<BlockPos> neighbors = new LinkedList<>();
+    public static List<DimensionBlockPos> hasNeighbors(World worldIn, BlockPos posIn, Block searchBlockIn) {
+        List<DimensionBlockPos> neighbors = new LinkedList<>();
         if (getBlock(worldIn, posIn.north()).equals(searchBlockIn)) {
-            neighbors.add(posIn.north());
+            neighbors.add(getDimPos(worldIn, posIn.north()));
         }
         if(getBlock(worldIn, posIn.east()).equals(searchBlockIn)) {
-            neighbors.add(posIn.east());
+            neighbors.add(getDimPos(worldIn, posIn.east()));
         }
         if (getBlock(worldIn, posIn.south()).equals(searchBlockIn)) {
-            neighbors.add(posIn.south());
+            neighbors.add(getDimPos(worldIn, posIn.south()));
         }
         if (getBlock(worldIn, posIn.west()).equals(searchBlockIn)) {
-            neighbors.add(posIn.west());
+            neighbors.add(getDimPos(worldIn, posIn.west()));
         }
         if (getBlock(worldIn, posIn.up()).equals(searchBlockIn)) {
-            neighbors.add(posIn.up());
+            neighbors.add(getDimPos(worldIn, posIn.up()));
         }
         if (getBlock(worldIn, posIn.down()).equals(searchBlockIn)) {
-            neighbors.add(posIn.down());
+            neighbors.add(getDimPos(worldIn, posIn.up()));
         }
         return neighbors;
     }
@@ -143,4 +144,11 @@ public class WorldHelper {
         return FMLCommonHandler.instance().getMinecraftServerInstance().worldServerForDimension(dimensionID);
     }
 
+    public static DimensionBlockPos getDimPosForTileEntity(TileEntity tileEntity) {
+        return getDimPos(tileEntity.getWorld(), tileEntity.getPos());
+    }
+
+    public static DimensionBlockPos getDimPos(World worldIn, BlockPos posIn) {
+        return new DimensionBlockPos(posIn, worldIn.provider.getDimension());
+    }
 }

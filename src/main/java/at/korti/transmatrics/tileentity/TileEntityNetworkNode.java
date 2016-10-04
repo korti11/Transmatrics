@@ -7,6 +7,7 @@ import at.korti.transmatrics.api.network.*;
 import at.korti.transmatrics.event.ConnectNetworkNodesEvent;
 import at.korti.transmatrics.event.DisconnectNetworkNodesEvent;
 import at.korti.transmatrics.tileentity.network.TileEntityController;
+import at.korti.transmatrics.util.math.DimensionBlockPos;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
@@ -28,18 +29,12 @@ import static net.minecraftforge.common.MinecraftForge.EVENT_BUS;
 public abstract class TileEntityNetworkNode extends TileEntity implements INetworkNode, ITickable, INetworkNodeInfo {
 
     protected BlockPos networkNode;
-    private BlockPos controller;
+    private DimensionBlockPos controller;
     protected int connectionPriority;
 
     protected INetworkNode getNetworkNode(){
         return NetworkHandler.getNetworkNode(worldObj, networkNode);
     }
-
-//    @Override
-//    public void writeToNBT(NBTTagCompound compound) {
-//
-//    }
-
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
@@ -50,6 +45,7 @@ public abstract class TileEntityNetworkNode extends TileEntity implements INetwo
             compound.setInteger(NBT.CONTROLLER_X, controller.getX());
             compound.setInteger(NBT.CONTROLLER_Y, controller.getY());
             compound.setInteger(NBT.CONTROLLER_Z, controller.getZ());
+            compound.setInteger(NBT.DIM_ID, controller.getDimensionID());
         }
         return compound;
     }
@@ -72,7 +68,8 @@ public abstract class TileEntityNetworkNode extends TileEntity implements INetwo
             int x = compound.getInteger(NBT.CONTROLLER_X);
             int y = compound.getInteger(NBT.CONTROLLER_Y);
             int z = compound.getInteger(NBT.CONTROLLER_Z);
-            controller = new BlockPos(x, y, z);
+            int dimID = compound.getInteger(NBT.DIM_ID);
+            controller = new DimensionBlockPos(x, y, z, dimID);
         }
     }
 
@@ -143,7 +140,7 @@ public abstract class TileEntityNetworkNode extends TileEntity implements INetwo
             }
             networkNode = ((TileEntity)node).getPos();
             if (node.getController() != null && this.controller == null) {
-                controller = node.getController().getPos();
+                controller = node.getController().getDimPos();
                 connectionPriority = node.getConnectionPriority() + 1;
             }
             syncClient();
@@ -183,7 +180,7 @@ public abstract class TileEntityNetworkNode extends TileEntity implements INetwo
 
     @Override
     public TileEntityController getController() {
-        return NetworkHandler.getController(worldObj, controller);
+        return NetworkHandler.getController(controller);
     }
 
     @Override
@@ -192,7 +189,7 @@ public abstract class TileEntityNetworkNode extends TileEntity implements INetwo
     }
 
     @Override
-    public void connectToController(BlockPos controllerPos, int connectionPriority) {
+    public void connectToController(DimensionBlockPos controllerPos, int connectionPriority) {
         controller = controllerPos;
         this.connectionPriority = connectionPriority;
     }

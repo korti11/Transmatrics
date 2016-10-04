@@ -110,7 +110,8 @@ public final class QuantumBridgeHandler {
             bridgePair.quantumBridgeOne = currentPos;
         } else if (bridgePair.quantumBridgeTwo == null) {
             bridgePair.quantumBridgeTwo = currentPos;
-        } else {
+        }
+        else {
             throw new RuntimeException("Positions can not be override.");
         }
         bridgePair.setDirty(true);

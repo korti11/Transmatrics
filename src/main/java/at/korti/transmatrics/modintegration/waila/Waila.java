@@ -6,6 +6,7 @@ import at.korti.transmatrics.api.energy.IEnergyInfo;
 import at.korti.transmatrics.api.network.INetworkNodeInfo;
 import at.korti.transmatrics.api.network.INetworkSwitchInfo;
 import at.korti.transmatrics.modintegration.IIntegration;
+import at.korti.transmatrics.tileentity.network.TileEntityQuantumBridge;
 import mcp.mobius.waila.api.IWailaRegistrar;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLInterModComms;
@@ -55,5 +56,7 @@ public class Waila implements IIntegration {
         registrar.registerNBTProvider(new WailaNetworkInfoHandler(), INetworkNodeInfo.class);
         registrar.registerBodyProvider(new WailaModeInfoHandler(), IModeInfo.class);
         registrar.registerNBTProvider(new WailaModeInfoHandler(), IModeInfo.class);
+        registrar.registerBodyProvider(new WailaQuantumIDInfoHandler(), TileEntityQuantumBridge.class);
+        registrar.registerNBTProvider(new WailaQuantumIDInfoHandler(), TileEntityQuantumBridge.class);
     }
 }

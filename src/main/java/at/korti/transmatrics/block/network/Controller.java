@@ -6,6 +6,7 @@ import at.korti.transmatrics.api.network.NetworkHandler;
 import at.korti.transmatrics.block.MachineBlock;
 import at.korti.transmatrics.tileentity.network.TileEntityController;
 import at.korti.transmatrics.util.helper.WorldHelper;
+import at.korti.transmatrics.util.math.DimensionBlockPos;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
@@ -29,7 +30,7 @@ public class Controller extends MachineBlock{
         TileEntity te = worldIn.getTileEntity(pos);
         if (te instanceof TileEntityController) {
             TileEntityController controller = (TileEntityController) te;
-            List<BlockPos> neighbors = WorldHelper.hasNeighbors(worldIn, pos, TransmatricsBlock.CONTROLLER.getBlock());
+            List<DimensionBlockPos> neighbors = WorldHelper.hasNeighbors(worldIn, pos, TransmatricsBlock.CONTROLLER.getBlock());
             boolean isConnected = false;
 
             for(BlockPos neighborPos : neighbors){
@@ -58,7 +59,7 @@ public class Controller extends MachineBlock{
 
     @Override
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-        TileEntityController controller = NetworkHandler.getController(worldIn, pos);
+        TileEntityController controller = NetworkHandler.getController(WorldHelper.getDimPos(worldIn, pos));
         TileEntityController master = controller != null ? controller.getMaster() : null;
         List<INetworkNode> connectedNodes = controller != null ? new LinkedList<>(controller.getConnections()) : null;
         if(controller != null) {
@@ -71,7 +72,7 @@ public class Controller extends MachineBlock{
             }
         }
         BlockPos neighbor = WorldHelper.hasNeighbor(worldIn, pos, TransmatricsBlock.CONTROLLER.getBlock());
-        controller = NetworkHandler.getController(worldIn, neighbor);
+        controller = NetworkHandler.getController(WorldHelper.getDimPos(worldIn, neighbor));
         if (controller != null) {
             controller.validateConstruction();
         }

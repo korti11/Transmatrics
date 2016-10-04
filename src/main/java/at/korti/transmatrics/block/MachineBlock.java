@@ -94,7 +94,7 @@ public abstract class MachineBlock extends ModBlockContainer implements IDismant
     @Override
     protected BlockStateContainer createBlockState() {
         if(isRotatable()) {
-            return new BlockStateContainer(this, new IProperty[]{FACING});
+            return new BlockStateContainer(this, FACING);
         }
         return super.createBlockState();
     }
@@ -120,7 +120,7 @@ public abstract class MachineBlock extends ModBlockContainer implements IDismant
         // disable normal drop
     }
 
-    public void breakBlock(World worldIn, BlockPos pos, IBlockState state, @Nonnull ItemStack stack) {
+    private void breakBlock(World worldIn, BlockPos pos, IBlockState state, @Nonnull ItemStack stack) {
         TileEntity tileEntity = worldIn.getTileEntity(pos);
         if(tileEntity != null) {
             if (tileEntity instanceof INetworkSwitch) {
@@ -128,9 +128,13 @@ public abstract class MachineBlock extends ModBlockContainer implements IDismant
             } else if (tileEntity instanceof INetworkNode) {
                 ((INetworkNode) tileEntity).disconnectFromNode();
             }
-            WorldHelper.spawnItem(worldIn, stack, pos);
+            WorldHelper.spawnItem(worldIn, writeToStack(tileEntity, stack), pos);
             super.breakBlock(worldIn, pos, state);
         }
+    }
+
+    protected ItemStack writeToStack(TileEntity tileEntity, @Nonnull ItemStack stack){
+        return stack;
     }
 
     @Override

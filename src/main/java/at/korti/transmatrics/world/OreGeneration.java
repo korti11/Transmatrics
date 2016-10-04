@@ -18,7 +18,10 @@ public class OreGeneration implements IWorldGenerator {
 
     @Override
     public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
-        generate(world, random, chunkX, chunkZ);
+        int dimID = world.provider.getDimension();
+        if(dimID != -1 && dimID != 1) {
+            generate(world, random, chunkX, chunkZ);
+        }
     }
 
     public void generate(World world, Random random, int x, int z) {

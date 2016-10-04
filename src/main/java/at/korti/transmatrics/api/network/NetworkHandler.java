@@ -1,6 +1,8 @@
 package at.korti.transmatrics.api.network;
 
 import at.korti.transmatrics.tileentity.network.TileEntityController;
+import at.korti.transmatrics.util.helper.WorldHelper;
+import at.korti.transmatrics.util.math.DimensionBlockPos;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -13,9 +15,10 @@ import java.util.List;
  */
 public final class NetworkHandler {
 
-    public static TileEntityController getController(World worldIn, BlockPos posIn) {
-        if(worldIn != null && posIn != null) {
-            TileEntity te = worldIn.getTileEntity(posIn);
+    public static TileEntityController getController(DimensionBlockPos posIn) {
+        if(posIn != null) {
+            World world = WorldHelper.getWorld(posIn.getDimensionID());
+            TileEntity te = world.getTileEntity(posIn);
             if (te instanceof TileEntityController) {
                 return (TileEntityController) te;
             }

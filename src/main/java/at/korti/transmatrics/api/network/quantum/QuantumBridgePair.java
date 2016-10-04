@@ -19,8 +19,12 @@ public class QuantumBridgePair extends WorldSavedData {
 
     @Override
     public void readFromNBT(NBTTagCompound nbt) {
-        this.quantumBridgeOne = DimensionBlockPos.readFromNBT(nbt.getCompoundTag(NBT.QUANTUM_BRIDGE_ONE));
-        this.quantumBridgeTwo = DimensionBlockPos.readFromNBT(nbt.getCompoundTag(NBT.QUANTUM_BRIDGE_TWO));
+        if(nbt.hasKey(NBT.QUANTUM_BRIDGE_ONE)) {
+            this.quantumBridgeOne = DimensionBlockPos.readFromNBT(nbt.getCompoundTag(NBT.QUANTUM_BRIDGE_ONE));
+        }
+        if(nbt.hasKey(NBT.QUANTUM_BRIDGE_TWO)) {
+            this.quantumBridgeTwo = DimensionBlockPos.readFromNBT(nbt.getCompoundTag(NBT.QUANTUM_BRIDGE_TWO));
+        }
     }
 
     @Override

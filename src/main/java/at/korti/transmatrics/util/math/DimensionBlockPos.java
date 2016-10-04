@@ -53,8 +53,10 @@ public class DimensionBlockPos extends BlockPos {
 
     @Override
     public boolean equals(Object object) {
-        if (!(object instanceof DimensionBlockPos)) {
+        if (!(object instanceof BlockPos)) {
             return false;
+        } else if(!(object instanceof DimensionBlockPos)){
+            return super.equals(object);
         } else if(dimensionID == ((DimensionBlockPos) object).dimensionID) {
             return super.equals(object);
         }

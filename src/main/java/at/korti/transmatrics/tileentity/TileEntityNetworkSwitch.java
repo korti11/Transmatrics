@@ -6,6 +6,7 @@ import at.korti.transmatrics.api.network.*;
 import at.korti.transmatrics.event.ConnectNetworkNodesEvent;
 import at.korti.transmatrics.event.DisconnectNetworkNodesEvent;
 import at.korti.transmatrics.tileentity.network.TileEntityController;
+import at.korti.transmatrics.util.math.DimensionBlockPos;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
@@ -33,7 +34,7 @@ public abstract class TileEntityNetworkSwitch extends TileEntity implements INet
     protected final int maxConnections;
     protected final boolean canConnectToMachines;
     protected final int range;
-    private BlockPos controller;
+    private DimensionBlockPos controller;
     protected int connectionPriority;
 
     public TileEntityNetworkSwitch(int maxConnections, boolean canConnectToMachines, int range) {
@@ -71,6 +72,7 @@ public abstract class TileEntityNetworkSwitch extends TileEntity implements INet
                     node.setInteger(NBT.NETWORK_X, te.getPos().getX());
                     node.setInteger(NBT.NETWORK_Y, te.getPos().getY());
                     node.setInteger(NBT.NETWORK_Z, te.getPos().getZ());
+                    node.setInteger(NBT.DIM_ID, te.getWorld().provider.getDimension());
                     tagList.appendTag(node);
                 }
             }
@@ -87,7 +89,8 @@ public abstract class TileEntityNetworkSwitch extends TileEntity implements INet
             int x = compound.getInteger(NBT.CONTROLLER_X);
             int y = compound.getInteger(NBT.CONTROLLER_Y);
             int z = compound.getInteger(NBT.CONTROLLER_Z);
-            controller = new BlockPos(x, y, z);
+            int dimID = compound.getInteger(NBT.DIM_ID);
+            controller = new DimensionBlockPos(x, y, z, dimID);
         }
     }
 
@@ -167,7 +170,7 @@ public abstract class TileEntityNetworkSwitch extends TileEntity implements INet
         if (!simulate && node instanceof TileEntity) {
             networkNodes.add(((TileEntity) node).getPos());
             if (node.getController() != null && this.controller == null) {
-                this.connectToController(node.getController().getMaster().pos, node.getConnectionPriority() + 1);
+                this.connectToController(node.getController().getMaster().getDimPos(), node.getConnectionPriority() + 1);
             }
             syncClient();
         }
@@ -233,8 +236,8 @@ public abstract class TileEntityNetworkSwitch extends TileEntity implements INet
         return false;
     }
 
-    public TileEntityController getController(BlockPos pos) {
-        return NetworkHandler.getController(worldObj, pos);
+    public TileEntityController getController(DimensionBlockPos pos) {
+        return NetworkHandler.getController(pos);
     }
 
     @Override
@@ -248,7 +251,7 @@ public abstract class TileEntityNetworkSwitch extends TileEntity implements INet
     }
 
     @Override
-    public void connectToController(BlockPos controllerPos, int connectionPriority) {
+    public void connectToController(DimensionBlockPos controllerPos, int connectionPriority) {
         controller = controllerPos;
         this.connectionPriority = connectionPriority;
         List<INetworkNode> nodes = getNetworkNodes();
@@ -259,7 +262,11 @@ public abstract class TileEntityNetworkSwitch extends TileEntity implements INet
         }
     }
 
-    private void overrideController(BlockPos controllerPos, int connectionPriority, INetworkNode preventedNode) {
+    public DimensionBlockPos getDimPos() {
+        return new DimensionBlockPos(this.getPos(), worldObj.provider.getDimension());
+    }
+
+    private void overrideController(DimensionBlockPos controllerPos, int connectionPriority, INetworkNode preventedNode) {
         controller = controllerPos;
         this.connectionPriority = connectionPriority;
         List<INetworkNode> nodes = getNetworkNodes();
@@ -289,7 +296,7 @@ public abstract class TileEntityNetworkSwitch extends TileEntity implements INet
             }
         }
         if (flag && startNode == this) {
-            overrideController(foundNode.getController().pos, foundNode.getConnectionPriority() + 1, foundNode);
+            overrideController(foundNode.getController().getDimPos(), foundNode.getConnectionPriority() + 1, foundNode);
         }
         return flag;
     }
