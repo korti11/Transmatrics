@@ -151,4 +151,9 @@ public class WorldHelper {
     public static DimensionBlockPos getDimPos(World worldIn, BlockPos posIn) {
         return new DimensionBlockPos(posIn, worldIn.provider.getDimension());
     }
+
+    public static TileEntity getTileEntity(DimensionBlockPos dimensionBlockPos) {
+        World world = getWorld(dimensionBlockPos.getDimensionID());
+        return world.getTileEntity(dimensionBlockPos);
+    }
 }

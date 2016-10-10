@@ -1,5 +1,7 @@
 package at.korti.transmatrics.api.network.quantum;
 
+import at.korti.transmatrics.tileentity.network.TileEntityQuantumBridge;
+import at.korti.transmatrics.util.helper.WorldHelper;
 import at.korti.transmatrics.util.math.DimensionBlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.FMLCommonHandler;
@@ -16,6 +18,7 @@ public final class QuantumBridgeHandler {
     private final static String MAPPER_ID = "tm_quantum_mapper";
 
     private final QuantumBridgeMapper mapper;
+    private static boolean hasChunkLoaded = false;
 
     private QuantumBridgeHandler() {
         mapper = loadMapper();
@@ -128,6 +131,27 @@ public final class QuantumBridgeHandler {
             bridgePair.quantumBridgeTwo = null;
         }
         bridgePair.setDirty(true);
+    }
+
+    public static void forceChunkLoading() {
+        if(!hasChunkLoaded) {
+            List<String> bridgeNames = getQuantumBridgeMapNames();
+            if (bridgeNames != null) {
+                for (String bridgeName : bridgeNames) {
+                    QuantumBridgePair bridgePair = getQuantumBridgePair(bridgeName);
+                    TileEntityQuantumBridge bridge;
+                    if (bridgePair.quantumBridgeOne != null) {
+                        bridge = (TileEntityQuantumBridge) WorldHelper.getTileEntity(bridgePair.quantumBridgeOne);
+                        bridge.forceChunkLoading();
+                    }
+                    if (bridgePair.quantumBridgeTwo != null) {
+                        bridge = (TileEntityQuantumBridge) WorldHelper.getTileEntity(bridgePair.quantumBridgeTwo);
+                        bridge.forceChunkLoading();
+                    }
+                }
+            }
+            hasChunkLoaded = true;
+        }
     }
 
     public static List<String> getQuantumBridgeMapNames() {

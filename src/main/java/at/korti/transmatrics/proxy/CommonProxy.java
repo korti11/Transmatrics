@@ -1,9 +1,11 @@
 package at.korti.transmatrics.proxy;
 
+import at.korti.transmatrics.event.EventHandler;
 import at.korti.transmatrics.modintegration.ModIntegrationManager;
 import at.korti.transmatrics.registry.Blocks;
 import at.korti.transmatrics.registry.Items;
 import at.korti.transmatrics.registry.OreDicts;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -18,6 +20,7 @@ public class CommonProxy {
         Blocks.registerBlocksCommon();
         OreDicts.registerOreDict();
         ModIntegrationManager.preInit(event);
+        MinecraftForge.EVENT_BUS.register(new EventHandler());
     }
 
     public void init(FMLInitializationEvent event) {

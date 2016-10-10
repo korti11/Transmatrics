@@ -1,7 +1,9 @@
 package at.korti.transmatrics.tileentity.network;
 
+import at.korti.transmatrics.Transmatrics;
 import at.korti.transmatrics.api.Constants;
 import at.korti.transmatrics.api.Constants.Energy;
+import at.korti.transmatrics.api.Constants.Mod;
 import at.korti.transmatrics.api.Constants.NBT;
 import at.korti.transmatrics.api.Constants.Network;
 import at.korti.transmatrics.api.energy.EnergyHandler;
@@ -14,11 +16,17 @@ import at.korti.transmatrics.tileentity.TileEntityEnergySwitch;
 import at.korti.transmatrics.tileentity.TileEntityNetworkSwitch;
 import at.korti.transmatrics.util.helper.WorldHelper;
 import at.korti.transmatrics.util.math.DimensionBlockPos;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeChunkManager;
+import net.minecraftforge.common.ForgeChunkManager.Ticket;
 import org.apache.logging.log4j.core.helpers.NameUtil;
+
+import java.util.List;
 
 /**
  * Created by Korti on 27.06.2016.
@@ -28,11 +36,18 @@ public class TileEntityQuantumBridge extends TileEntityEnergySwitch {
     private String quantumBridgeMapName;
     private final int energyUse;
     private boolean brigdeConnected = false;
+    private Ticket chunkLoadTicket;
 
     public TileEntityQuantumBridge() {
         super(Network.SMALL_SWITCH_MAX_CONNECTIONS, Network.LARGE_SWITCH_MACHINES_CONNECT,
                 Network.LARGE_SWITCH_RANGE, Energy.QUANTUM_BRIDGE_CAPACITY, Energy.QUANTUM_BRIDGE_TRANSFER);
         this.energyUse = Energy.QUANTUM_BRIDGE_ENERGY_USE;
+        ForgeChunkManager.setForcedChunkLoadingCallback(Transmatrics.instance, new ForgeChunkManager.LoadingCallback() {
+            @Override
+            public void ticketsLoaded(List<Ticket> tickets, World world) {
+
+            }
+        });
     }
 
     @Override
@@ -54,7 +69,26 @@ public class TileEntityQuantumBridge extends TileEntityEnergySwitch {
             QuantumBridgeHandler.setQuantumBridgePos(this.quantumBridgeMapName, new DimensionBlockPos(getPos(),
                     worldObj.provider.getDimension()));
             connectQuantumBridge();
+            chunkLoadTicket = ForgeChunkManager.requestTicket(Transmatrics.instance, this.getWorld(), ForgeChunkManager.Type.NORMAL);
+            forceChunks();
         }
+    }
+
+    public void forceChunkLoading() {
+        if (chunkLoadTicket != null) {
+            chunkLoadTicket = ForgeChunkManager.requestTicket(Transmatrics.instance, this.getWorld(), ForgeChunkManager.Type.NORMAL);
+        }
+        forceChunks();
+    }
+
+    @Override
+    public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
+        boolean flag = super.shouldRefresh(world, pos, oldState, newState);
+        if (flag) {
+            ForgeChunkManager.releaseTicket(chunkLoadTicket);
+            chunkLoadTicket = null;
+        }
+        return flag;
     }
 
     public String getQuantumBridgeMapName() {
@@ -76,7 +110,7 @@ public class TileEntityQuantumBridge extends TileEntityEnergySwitch {
                     }
                 }
             }
-
+            System.out.println("Chunk loaded - Bridge ID: " + quantumBridgeMapName + ", Dimension ID: " + worldObj.provider.getDimension());
             if(!brigdeConnected){
                 connectQuantumBridge();
             } else {
@@ -134,5 +168,16 @@ public class TileEntityQuantumBridge extends TileEntityEnergySwitch {
         boolean flag = super.reconnectToController(startNode, prevNode) &&
                 quantumBridge.reconnectToController(quantumBridge, quantumBridge);
         return flag;
+    }
+
+    private void forceChunks() {
+        ChunkPos chunkPos = worldObj.getChunkFromBlockCoords(getPos()).getChunkCoordIntPair();
+        ChunkPos tempPos;
+        for(int x = -1; x <= 1; x++) {
+            for(int z = -1; z <= 1; z++) {
+                tempPos = new ChunkPos(chunkPos.chunkXPos + x, chunkPos.chunkZPos + z);
+                ForgeChunkManager.forceChunk(chunkLoadTicket, tempPos);
+            }
+        }
     }
 }
