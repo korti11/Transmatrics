@@ -7,6 +7,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryHelper;
+import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -15,6 +16,8 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
 
@@ -45,7 +48,7 @@ public abstract class TileEntityInventory extends TileEntityEnergyNode implement
         NBTTagList itemList = compound.getTagList(Constants.NBT.INVENTORY, 10);
         for (int i = 0; i < itemList.tagCount(); i++) {
             NBTTagCompound item = itemList.getCompoundTagAt(i);
-            ItemStack stack = ItemStack.loadItemStackFromNBT(item);
+            ItemStack stack = new ItemStack(item);
             int slot = item.getShort(Constants.NBT.SLOT);
             inventory[slot] = stack;
         }
@@ -71,7 +74,7 @@ public abstract class TileEntityInventory extends TileEntityEnergyNode implement
     @Override
     public void update() {
         super.update();
-        if (!worldObj.isRemote && capacitorSlot != -1) {
+        if (!getWorld().isRemote && capacitorSlot != -1) {
             ItemStack stack = getStackInSlot(capacitorSlot);
             if (stack != null && stack.getItem() instanceof IDischargeable) {
                 IDischargeable item = (IDischargeable) stack.getItem();
@@ -100,13 +103,14 @@ public abstract class TileEntityInventory extends TileEntityEnergyNode implement
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
         super.onDataPacket(net, pkt);
         readFromNBT(pkt.getNbtCompound());
     }
 
     public void dropItems() {
-        InventoryHelper.dropInventoryItems(worldObj, pos, this);
+        InventoryHelper.dropInventoryItems(getWorld(), pos, this);
     }
 
     //region IInventory
@@ -124,7 +128,7 @@ public abstract class TileEntityInventory extends TileEntityEnergyNode implement
     public ItemStack decrStackSize(int index, int count) {
         ItemStack stack = getStackInSlot(index);
         if (stack != null) {
-            if (stack.stackSize <= count) {
+            if (stack.getCount() <= count) {
                 setInventorySlotContents(index, null);
             } else {
                 stack = stack.splitStack(count);
@@ -146,8 +150,8 @@ public abstract class TileEntityInventory extends TileEntityEnergyNode implement
     @Override
     public void setInventorySlotContents(int index, ItemStack stack) {
         inventory[index] = stack;
-        if (stack != null && stack.stackSize > getInventoryStackLimit()) {
-            stack.stackSize = getInventoryStackLimit();
+        if (stack.getCount() > getInventoryStackLimit()) {
+            stack.setCount(getInventoryStackLimit());
         }
         syncClient();
     }
@@ -158,7 +162,7 @@ public abstract class TileEntityInventory extends TileEntityEnergyNode implement
     }
 
     @Override
-    public boolean isUseableByPlayer(EntityPlayer player) {
+    public boolean isUsableByPlayer(EntityPlayer player) {
         return player.getDistanceSq(this.getPos()) <= 64;
     }
 
@@ -181,6 +185,17 @@ public abstract class TileEntityInventory extends TileEntityEnergyNode implement
     public void clear() {
         this.inventory = new ItemStack[getSizeInventory()];
     }
+
+    @Override
+    public boolean isEmpty() {
+        for (ItemStack stack : inventory) {
+            if (stack != null) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     //endregion
 
     //region IWorldNameable

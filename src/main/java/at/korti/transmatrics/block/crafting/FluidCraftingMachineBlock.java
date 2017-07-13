@@ -23,21 +23,14 @@ public abstract class FluidCraftingMachineBlock extends CraftingMachineBlock{
     }
 
     @Override
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
-        ItemStack currentStack = heldItem;
-        if (currentStack != null) {
-            TileEntity tile = worldIn.getTileEntity(pos);
-            if (tile instanceof IFluidHandler) {
-                IFluidHandler fluidHandler = (IFluidHandler) tile;
-                if (FluidUtil.interactWithFluidHandler(currentStack, fluidHandler, playerIn)) {
-                    return true;
-                }
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+        TileEntity tile = worldIn.getTileEntity(pos);
+        if (tile instanceof IFluidHandler) {
+            if (FluidUtil.interactWithFluidHandler(playerIn, hand, worldIn, pos, side)) {
+                return true;
             }
         }
 
-        if (super.onBlockActivated(worldIn, pos, state, playerIn, hand, heldItem, side, hitX, hitY, hitZ)) {
-            return true;
-        }
-        return false;
+        return super.onBlockActivated(worldIn, pos, state, playerIn, hand, side, hitX, hitY, hitZ);
     }
 }

@@ -16,6 +16,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,10 +29,11 @@ import java.util.List;
 public class ClientEventHandler {
 
     @SubscribeEvent
+    @SideOnly(Side.CLIENT)
     public void renderBlockBoundry(RenderWorldLastEvent event) {
         Minecraft minecraft = Minecraft.getMinecraft();
-        EntityPlayerSP player = minecraft.thePlayer;
-        World world = player.worldObj;
+        EntityPlayerSP player = minecraft.player;
+        World world = player.world;
         ItemStack currentItem = InventoryHelper.getStackFromHandForItem(player, Constants.TransmatricsItem.CONNECTOR.getItem());
 
         if (currentItem != null) {

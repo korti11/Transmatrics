@@ -269,11 +269,11 @@ public final class Crafting {
     }
 
     private static void registerShapedOreRecipe(ItemStack output, Object... recipe) {
-        GameRegistry.addRecipe(new ShapedOreRecipe(output, recipe));
+        //GameRegistry.addRecipe(new ShapedOreRecipe(output, recipe));
     }
 
     private static void registerShapelessOreRecipe(ItemStack output, Object... recipe) {
-        GameRegistry.addRecipe(new ShapelessOreRecipe(output, recipe));
+        //GameRegistry.addRecipe(new ShapelessOreRecipe(output, recipe));
     }
 
     private static void registerPulverizerCrafting() {

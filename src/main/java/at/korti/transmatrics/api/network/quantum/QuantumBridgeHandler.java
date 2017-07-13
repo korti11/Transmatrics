@@ -36,10 +36,10 @@ public final class QuantumBridgeHandler {
         if (world == null) {
             throw new RuntimeException("Couldn't load quantum bridge mapper from world!");
         }
-        QuantumBridgeMapper mapper = (QuantumBridgeMapper) world.loadItemData(QuantumBridgeMapper.class, MAPPER_ID);
+        QuantumBridgeMapper mapper = (QuantumBridgeMapper) world.loadData(QuantumBridgeMapper.class, MAPPER_ID);
         if (mapper == null) {
             mapper = new QuantumBridgeMapper(MAPPER_ID);
-            world.setItemData(MAPPER_ID, mapper);
+            world.setData(MAPPER_ID, mapper);
             mapper.setDirty(true);
         }
         return mapper;
@@ -47,9 +47,9 @@ public final class QuantumBridgeHandler {
 
     private static World getWorld() {
         if (FMLCommonHandler.instance().getMinecraftServerInstance() != null) {
-            if(FMLCommonHandler.instance().getMinecraftServerInstance().worldServers != null &&
-                    FMLCommonHandler.instance().getMinecraftServerInstance().worldServers.length > 0) {
-                return FMLCommonHandler.instance().getMinecraftServerInstance().worldServers[0];
+            if(FMLCommonHandler.instance().getMinecraftServerInstance().worlds != null &&
+                    FMLCommonHandler.instance().getMinecraftServerInstance().worlds.length > 0) {
+                return FMLCommonHandler.instance().getMinecraftServerInstance().worlds[0];
             }
         }
         return null;
@@ -57,13 +57,13 @@ public final class QuantumBridgeHandler {
 
     public static String createQuantumBridge() {
         QuantumBridgeHandler instance = instance();
-        World world = instance.getWorld();
+        World world = getWorld();
         if (world == null) {
             throw new RuntimeException("Couldn't create quantum bridge!");
         }
         String bridgeMapName = generateBridgeMapName();
         QuantumBridgePair bridgePair = new QuantumBridgePair(bridgeMapName);
-        world.setItemData(bridgeMapName, bridgePair);
+        world.setData(bridgeMapName, bridgePair);
         bridgePair.setDirty(true);
         instance.mapper.addMapName(bridgeMapName);
         instance.mapper.setDirty(true);
@@ -84,7 +84,7 @@ public final class QuantumBridgeHandler {
         if (world == null) {
             throw new RuntimeException("Couldn't load quantum bridge!");
         }
-        return (QuantumBridgePair) world.loadItemData(QuantumBridgePair.class, bridgeMapName);
+        return (QuantumBridgePair) world.loadData(QuantumBridgePair.class, bridgeMapName);
     }
 
     public static DimensionBlockPos getQuantumBridge(String bridgeMapName, boolean second) {

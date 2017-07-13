@@ -398,7 +398,7 @@ public class TileEntityController extends TileEntityEnergySwitch {
             for (DimensionBlockPos extension : copy) {
                 removeExtension(getController(extension));
             }
-            List<DimensionBlockPos> neighbors = WorldHelper.hasNeighbors(worldObj, pos, TransmatricsBlock.CONTROLLER.getBlock());
+            List<DimensionBlockPos> neighbors = WorldHelper.hasNeighbors(getWorld(), pos, TransmatricsBlock.CONTROLLER.getBlock());
             for (DimensionBlockPos neighbor : neighbors) {
                 TileEntityController controller = getController(neighbor);
                 if (controller != null) {
@@ -429,7 +429,7 @@ public class TileEntityController extends TileEntityEnergySwitch {
         if (masterController != null && masterController != this) {
             masterController.addExtensions(this);
         }
-        List<DimensionBlockPos> neighbors = WorldHelper.hasNeighbors(worldObj, pos, TransmatricsBlock.CONTROLLER.getBlock());
+        List<DimensionBlockPos> neighbors = WorldHelper.hasNeighbors(getWorld(), pos, TransmatricsBlock.CONTROLLER.getBlock());
         for (DimensionBlockPos neighbor : neighbors) {
             TileEntityController controller = getController(neighbor);
             if (controller != null) {

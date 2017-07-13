@@ -1,8 +1,6 @@
 package at.korti.transmatrics.tileentity.container;
 
-import at.korti.transmatrics.api.Constants.ModIntegrationIds;
 import at.korti.transmatrics.api.energy.IChargeable;
-import at.korti.transmatrics.modintegration.tconstruct.helper.ModifierHelper;
 import at.korti.transmatrics.tileentity.container.slot.OutputSlot;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -11,7 +9,6 @@ import net.minecraft.inventory.IContainerListener;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.common.Loader;
 
 /**
  * Created by Korti on 16.05.2016.
@@ -46,7 +43,7 @@ public class ContainerCharger extends Container{
 
     @Override
     public boolean canInteractWith(EntityPlayer playerIn) {
-        return inventory.isUseableByPlayer(playerIn);
+        return inventory.isUsableByPlayer(playerIn);
     }
 
     @Override
@@ -63,19 +60,19 @@ public class ContainerCharger extends Container{
             IContainerListener listener = this.listeners.get(i);
 
             if (this.chargingProgress != inventory.getField(0)) {
-                listener.sendProgressBarUpdate(this, 0, this.chargingProgress = inventory.getField(0));
+                listener.sendWindowProperty(this, 0, this.chargingProgress = inventory.getField(0));
             }
 
             if (this.totalChargingProgress != inventory.getField(1)) {
-                listener.sendProgressBarUpdate(this, 1, this.totalChargingProgress = inventory.getField(1));
+                listener.sendWindowProperty(this, 1, this.totalChargingProgress = inventory.getField(1));
             }
 
             if (this.energyStored != inventory.getField(2)) {
-                listener.sendProgressBarUpdate(this, 2, this.energyStored = inventory.getField(2));
+                listener.sendWindowProperty(this, 2, this.energyStored = inventory.getField(2));
             }
 
             if (this.maxEnergyStored != inventory.getField(3)) {
-                listener.sendProgressBarUpdate(this, 3, this.maxEnergyStored = inventory.getField(3));
+                listener.sendWindowProperty(this, 3, this.maxEnergyStored = inventory.getField(3));
             }
 
         }
@@ -102,8 +99,7 @@ public class ContainerCharger extends Container{
 
                 slot.onSlotChange(tempStack, itemStack);
             } else if (index != 0) {
-                if (tempStack.getItem() instanceof IChargeable || (Loader.isModLoaded(ModIntegrationIds.TCONSTRUCT) &&
-                        ModifierHelper.hasChargeable(tempStack))) {
+                if (tempStack.getItem() instanceof IChargeable) {
                     if (!this.mergeItemStack(tempStack, 0, 1, false)) {
                         return null;
                     }
@@ -118,17 +114,17 @@ public class ContainerCharger extends Container{
                 return null;
             }
 
-            if (tempStack.stackSize == 0) {
+            if (tempStack.getCount() == 0) {
                 slot.putStack(null);
             } else {
                 slot.onSlotChanged();
             }
 
-            if (tempStack.stackSize == itemStack.stackSize) {
+            if (tempStack.getCount() == itemStack.getCount()) {
                 return null;
             }
 
-            slot.onPickupFromSlot(playerIn, tempStack);
+            slot.onTake(playerIn, tempStack);
         }
         return itemStack;
     }

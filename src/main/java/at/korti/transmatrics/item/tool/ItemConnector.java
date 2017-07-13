@@ -1,6 +1,5 @@
 package at.korti.transmatrics.item.tool;
 
-import at.korti.transmatrics.api.Constants;
 import at.korti.transmatrics.api.Constants.NBT;
 import at.korti.transmatrics.api.Constants.ToolTips;
 import at.korti.transmatrics.api.Constants.TransmatricsItem;
@@ -12,6 +11,7 @@ import at.korti.transmatrics.item.ModItem;
 import at.korti.transmatrics.util.helper.MessageHelper;
 import at.korti.transmatrics.util.helper.TextHelper;
 import at.korti.transmatrics.util.helper.WorldHelper;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -23,7 +23,10 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 /**
@@ -38,8 +41,9 @@ public class ItemConnector extends ModItem implements IChangeMode<ItemConnector.
     }
 
     @Override
-    public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
-        super.addInformation(stack, playerIn, tooltip, advanced);
+    @SideOnly(Side.CLIENT)
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+        super.addInformation(stack, worldIn, tooltip, flagIn);
 
         NBTTagCompound compound = stack.getTagCompound();
         if(compound != null && compound.hasKey(NBT.NETWORK_BLOCK_NAME)) {
@@ -54,7 +58,8 @@ public class ItemConnector extends ModItem implements IChangeMode<ItemConnector.
     }
 
     @Override
-    public EnumActionResult onItemUseFirst(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
+    public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
+        ItemStack stack = player.getHeldItem(hand);
         if(!world.isRemote) {
             TileEntity te = world.getTileEntity(pos);
             if (te instanceof INetworkNode) {
@@ -97,7 +102,7 @@ public class ItemConnector extends ModItem implements IChangeMode<ItemConnector.
                 }
             }
         }
-        return super.onItemUseFirst(stack, player, world, pos, side, hitX, hitY, hitZ, hand);
+        return super.onItemUseFirst(player, world, pos, side, hitX, hitY, hitZ, hand);
     }
 
     public boolean hasNetworkNodeStored(ItemStack stack) {
@@ -105,18 +110,19 @@ public class ItemConnector extends ModItem implements IChangeMode<ItemConnector.
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+        ItemStack stack = playerIn.getHeldItem(handIn);
         if(!worldIn.isRemote) {
-            NBTTagCompound tagCompound = itemStackIn.getTagCompound();
+            NBTTagCompound tagCompound = stack.getTagCompound();
             if (playerIn.isSneaking() && tagCompound != null && tagCompound.hasKey(NBT.CLEAR_STORED_NETWORK) && tagCompound.getBoolean(NBT.CLEAR_STORED_NETWORK)) {
-                clearStoreNetworkNode(itemStackIn);
+                clearStoreNetworkNode(stack);
             } else if(tagCompound != null && tagCompound.hasKey(NBT.CLEAR_STORED_NETWORK) && !tagCompound.getBoolean(NBT.CLEAR_STORED_NETWORK)) {
                 tagCompound.setBoolean(NBT.CLEAR_STORED_NETWORK, true);
             } else if (playerIn.isSneaking()) {
-                cycleThroughMode(itemStackIn);
+                cycleThroughMode(stack);
             }
         }
-        return super.onItemRightClick(itemStackIn, worldIn, playerIn, hand);
+        return super.onItemRightClick(worldIn, playerIn, handIn);
     }
 
     @Override

@@ -15,17 +15,16 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static net.minecraftforge.fml.common.registry.GameRegistry.register;
-import static net.minecraftforge.fml.common.registry.GameRegistry.registerWithItem;
+import net.minecraft.util.NonNullList;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.registries.IForgeRegistry;
 
 /**
  * Created by Korti on 01.03.2016.
  */
-public final class Blocks {
+public final class BlockRegistry {
 
     private static SolarPanel solarPanel;
     private static AdvancedSolarPanel advancedSolarPanel;
@@ -46,7 +45,24 @@ public final class Blocks {
     private static MachineCasing machineCasing;
     private static QuantumBridge quantumBridge;
 
-    public static void registerBlocksCommon() {
+    private IForgeRegistry<Block> registry;
+
+    @SideOnly(Side.SERVER)
+    public void handleBlockRegisterServer(RegistryEvent.Register<Block> event) {
+        this.registry = event.getRegistry();
+        this.registerBlocksCommon();
+        OreDicts.registerOreDictBlocks();
+    }
+
+    @SideOnly(Side.CLIENT)
+    public void handleBlockRegisterClient(RegistryEvent.Register<Block> event) {
+        this.registry = event.getRegistry();
+        this.registerBlocksCommon();
+        this.registerBlockTextures();
+        OreDicts.registerOreDictBlocks();
+    }
+
+    private void registerBlocksCommon() {
         registerBlock(solarPanel = new SolarPanel());
         registerBlock(advancedSolarPanel = new AdvancedSolarPanel());
         registerBlock(lavaGenerator = new LavaGenerator());
@@ -67,17 +83,18 @@ public final class Blocks {
         registerBlock(quantumBridge = new QuantumBridge(), new ItemQuantumBridgeBlock(quantumBridge));
     }
 
-    private static void registerBlock(Block block) {
-        register(block);
-        register(new ItemBlock(block).setRegistryName(block.getRegistryName()));
+    private void registerBlock(Block block) {
+        registry.register(block);
+        //registry.register(new ItemBlock(block).setRegistryName(block.getRegistryName()));
     }
 
-    private static void registerBlock(Block block, ItemBlock itemBlock) {
-        register(block);
-        register(itemBlock);
+    private void registerBlock(Block block, ItemBlock itemBlock) {
+        registry.register(block);
+        //registry.register(itemBlock);
     }
 
-    public static void registerBlockTextures() {
+    @SideOnly(Side.CLIENT)
+    private void registerBlockTextures() {
         registerBlockTexture(solarPanel);
         registerBlockTexture(advancedSolarPanel);
         registerBlockTexture(lavaGenerator);
@@ -97,14 +114,16 @@ public final class Blocks {
         registerBlockTexture(machineCasing);
     }
 
-    private static void registerBlockTexture(Block block) {
+    @SideOnly(Side.CLIENT)
+    private void registerBlockTexture(Block block) {
         Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(block), 0, new ModelResourceLocation(block.getRegistryName(), "inventory"));
     }
 
-    private static <E extends Enum<E>> void registerMetaBlockTextures(Block block, Enum<E>... variants) {
+    @SideOnly(Side.CLIENT)
+    private <E extends Enum<E>> void registerMetaBlockTextures(Block block, Enum<E>... variants) {
         Item blockItem = Item.getItemFromBlock(block);
-        List<ItemStack> subItems = new ArrayList<>();
-        block.getSubBlocks(blockItem, null, subItems);
+        NonNullList<ItemStack> subItems = NonNullList.create();
+        block.getSubBlocks(null, subItems);
         for (int i = 0; i < subItems.size(); i++) {
             Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(blockItem, subItems.get(i).getMetadata(),
                     new ModelResourceLocation(block.getRegistryName(), "type=" + variants[i].toString()));

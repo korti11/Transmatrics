@@ -25,7 +25,7 @@ public class WorldHelper {
         double d2 = (double) (worldIn.rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
         EntityItem item = new EntityItem(worldIn, posIn.getX() + d0, posIn.getY() + d1, posIn.getZ() + d2, itemStackIn);
         item.setPickupDelay(10);
-        worldIn.spawnEntityInWorld(item);
+        worldIn.spawnEntity(item);
     }
 
     public static Block getBlock(World worldIn, BlockPos posIn) {
@@ -141,7 +141,7 @@ public class WorldHelper {
     }
 
     public static World getWorld(int dimensionID) {
-        return FMLCommonHandler.instance().getMinecraftServerInstance().worldServerForDimension(dimensionID);
+        return FMLCommonHandler.instance().getMinecraftServerInstance().getWorld(dimensionID);
     }
 
     public static DimensionBlockPos getDimPosForTileEntity(TileEntity tileEntity) {

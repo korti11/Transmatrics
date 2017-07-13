@@ -3,7 +3,7 @@ package at.korti.transmatrics.api.network.quantum;
 import at.korti.transmatrics.api.Constants.NBT;
 import at.korti.transmatrics.util.math.DimensionBlockPos;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.world.WorldSavedData;
+import net.minecraft.world.storage.WorldSavedData;
 
 /**
  * Created by Korti on 26.06.2016.

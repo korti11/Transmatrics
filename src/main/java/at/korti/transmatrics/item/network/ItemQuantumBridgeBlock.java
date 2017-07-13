@@ -9,6 +9,8 @@ import at.korti.transmatrics.util.helper.InventoryHelper;
 import at.korti.transmatrics.util.helper.WorldHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -17,7 +19,10 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 /**
@@ -31,15 +36,18 @@ public class ItemQuantumBridgeBlock extends ItemMachineBlock {
     }
 
     @Override
-    public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
-        super.addInformation(stack, playerIn, tooltip, advanced);
+    @SideOnly(Side.CLIENT)
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+        super.addInformation(stack, worldIn, tooltip, flagIn);
+
         NBTTagCompound tagCompound;
+        EntityPlayer player = Minecraft.getMinecraft().player;
         if ((tagCompound = stack.getTagCompound()) == null) {
             stack.setTagCompound(tagCompound = new NBTTagCompound());
         }
-        if(InventoryHelper.isInInventory(playerIn, stack) && playerIn.worldObj.isRemote) {
+        if(InventoryHelper.isInInventory(player, stack)) {
             if (!tagCompound.hasKey(NBT.QUANTUM_BRIDGE_MAP_NAME)) {
-                TransmatricsPacketHandler.sendToServer(new CreateQuantumIdMessage(playerIn.inventory.getSlotFor(stack)));
+                TransmatricsPacketHandler.sendToServer(new CreateQuantumIdMessage(player.inventory.getSlotFor(stack)));
             }
             tooltip.add("ID: " + tagCompound.getString(NBT.QUANTUM_BRIDGE_MAP_NAME));
         }

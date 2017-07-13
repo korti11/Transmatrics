@@ -45,7 +45,7 @@ public abstract class TileEntityEnergySwitch extends TileEntityNetworkSwitch imp
     @Override
     public void update() {
         super.update();
-        if (!worldObj.isRemote && canProvideEnergy()) {
+        if (!getWorld().isRemote && canProvideEnergy()) {
             List<INetworkNode> nodes = getNetworkNodes();
             if(nodes != null) {
                 for (INetworkNode node : nodes) {
@@ -65,16 +65,16 @@ public abstract class TileEntityEnergySwitch extends TileEntityNetworkSwitch imp
 
     @Override
     public int receiveEnergy(int energy, boolean simulate) {
-        IBlockState state = worldObj.getBlockState(pos);
-        worldObj.notifyBlockUpdate(pos, state, state, 3);
+        IBlockState state = getWorld().getBlockState(pos);
+        getWorld().notifyBlockUpdate(pos, state, state, 3);
         this.markDirty();
         return energyStorage.receiveEnergy(energy, simulate);
     }
 
     @Override
     public int extractEnergy(int energy, boolean simulate) {
-        IBlockState state = worldObj.getBlockState(pos);
-        worldObj.notifyBlockUpdate(pos, state, state, 3);
+        IBlockState state = getWorld().getBlockState(pos);
+        getWorld().notifyBlockUpdate(pos, state, state, 3);
         this.markDirty();
         return energyStorage.extractEnergy(energy, simulate);
     }

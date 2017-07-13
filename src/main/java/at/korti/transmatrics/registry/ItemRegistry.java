@@ -17,23 +17,23 @@ import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.client.FMLClientHandler;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.LinkedList;
-import java.util.List;
+import net.minecraftforge.registries.IForgeRegistry;
 
 import static at.korti.transmatrics.api.Constants.TransmatricsItem.ELECTRUM_CAPACITOR;
 import static at.korti.transmatrics.api.Constants.TransmatricsItem.INVAR_CAPACITOR;
 import static at.korti.transmatrics.api.Constants.TransmatricsItem.LEAD_CAPACITOR;
-import static net.minecraftforge.fml.common.registry.GameRegistry.register;
 
 /**
  * Created by Korti on 29.02.2016.
  */
-public final class Items {
+public final class ItemRegistry {
 
     private static ItemWrench wrench;
     private static ItemConnector connector;
@@ -48,27 +48,50 @@ public final class Items {
     private static ItemCapacitor itemInvarCapacitor;
     private static ItemCapacitor itemElectrumCapacitor;
 
-    public static void registerItemsCommon() {
-        register(wrench = new ItemWrench());
-        register(connector = new ItemConnector());
-        register(hammer = new ItemHammer());
-        register(pulverizedDust = new ItemPulverizedDust());
-        register(itemIngot = new ItemIngot());
-        register(itemGear = new ItemGear());
-        register(itemCast = new ItemCast());
-        register(itemElectronics = new ItemElectronics());
-        register(itemPlate = new ItemPlate());
-        register(itemLeadCapacitor = new ItemCapacitor(LEAD_CAPACITOR.getRegName(), Energy.LEAD_CAPACITOR_CAPACITY));
-        register(itemInvarCapacitor = new ItemCapacitor(INVAR_CAPACITOR.getRegName(), Energy.INVAR_CAPACITOR_CAPACITY));
-        register(itemElectrumCapacitor = new ItemCapacitor(ELECTRUM_CAPACITOR.getRegName(), Energy.ELECTRUM_CAPACITOR_CAPACITY));
+    private IForgeRegistry<Item> registry;
+
+    @SideOnly(Side.SERVER)
+    @SubscribeEvent
+    public void handleItemRegisterServer(RegistryEvent.Register<Item> event) {
+        this.registry = event.getRegistry();
+        this.registerItemsCommon();
+        OreDicts.registerOreDictItems();
     }
 
-    public static void registerItemsClient() {
-        addItemVariants(itemCast, itemCast.extensions);
-        addItemVariants(itemElectronics, itemElectronics.extensions);
+    @SideOnly(Side.CLIENT)
+    @SubscribeEvent
+    public void handleItemRegisterClient(RegistryEvent.Register<Item> event) {
+        this.registry = event.getRegistry();
+        this.registerItemsCommon();
+        this.registerItemsClient();
+        OreDicts.registerOreDictItems();
     }
 
-    public static void registerItemTextures() {
+    private void registerItemsCommon() {
+        registry.register(wrench = new ItemWrench());
+        registry.register(connector = new ItemConnector());
+        registry.register(hammer = new ItemHammer());
+        registry.register(pulverizedDust = new ItemPulverizedDust());
+        registry.register(itemIngot = new ItemIngot());
+        registry.register(itemGear = new ItemGear());
+        registry.register(itemCast = new ItemCast());
+        registry.register(itemElectronics = new ItemElectronics());
+        registry.register(itemPlate = new ItemPlate());
+        registry.register(itemLeadCapacitor = new ItemCapacitor(LEAD_CAPACITOR.getRegName(), Energy.LEAD_CAPACITOR_CAPACITY));
+        registry.register(itemInvarCapacitor = new ItemCapacitor(INVAR_CAPACITOR.getRegName(), Energy.INVAR_CAPACITOR_CAPACITY));
+        registry.register(itemElectrumCapacitor = new ItemCapacitor(ELECTRUM_CAPACITOR.getRegName(), Energy.ELECTRUM_CAPACITOR_CAPACITY));
+    }
+
+    @SideOnly(Side.CLIENT)
+    private void registerItemsClient() {
+        addItemVariants(itemCast, ItemCast.extensions);
+        addItemVariants(itemElectronics, ItemElectronics.extensions);
+        registerItemTextures();
+        registerColorHandler();
+    }
+
+    @SideOnly(Side.CLIENT)
+    private void registerItemTextures() {
         registerItemTexture(wrench);
         registerItemTexture(connector);
         registerItemTexture(hammer);
@@ -79,34 +102,37 @@ public final class Items {
         registerMetaItemTexture(pulverizedDust);
         registerMetaItemTexture(itemIngot);
         registerMetaItemTexture(itemGear);
-        registerMetaItemTexture(itemCast, itemCast.extensions);
-        registerMetaItemTexture(itemElectronics, itemElectronics.extensions);
+        registerMetaItemTexture(itemCast, ItemCast.extensions);
+        registerMetaItemTexture(itemElectronics, ItemElectronics.extensions);
         registerMetaItemTexture(itemPlate);
     }
 
     @SideOnly(Side.CLIENT)
-    public static void registerColorHandler() {
+    private void registerColorHandler() {
         FMLClientHandler.instance().getClient().getItemColors().registerItemColorHandler(pulverizedDust.colorHandler, pulverizedDust);
         FMLClientHandler.instance().getClient().getItemColors().registerItemColorHandler(itemIngot.colorHandler, itemIngot);
         FMLClientHandler.instance().getClient().getItemColors().registerItemColorHandler(itemGear.colorHandler, itemGear);
         FMLClientHandler.instance().getClient().getItemColors().registerItemColorHandler(itemPlate.colorHandler, itemPlate);
     }
 
-    private static void registerItemTexture(Item item) {
+    @SideOnly(Side.CLIENT)
+    private void registerItemTexture(Item item) {
         Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, 0, new ModelResourceLocation(item.getRegistryName(), "inventory"));
     }
 
-    private static void registerMetaItemTexture(Item item) {
-        List<ItemStack> subItems = new LinkedList<>();
-        item.getSubItems(item, null, subItems);
+    @SideOnly(Side.CLIENT)
+    private void registerMetaItemTexture(Item item) {
+        NonNullList<ItemStack> subItems = NonNullList.create();
+        item.getSubItems(null, subItems);
         for (int i = 0; i < subItems.size(); i++) {
             Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, i, new ModelResourceLocation(item.getRegistryName(), "inventory"));
         }
     }
 
-    private static void registerMetaItemTexture(Item item, String[] extensions) {
-        List<ItemStack> subItems = new LinkedList<>();
-        item.getSubItems(item, null, subItems);
+    @SideOnly(Side.CLIENT)
+    private void registerMetaItemTexture(Item item, String[] extensions) {
+        NonNullList<ItemStack> subItems = NonNullList.create();
+        item.getSubItems(null, subItems);
         for (int i = 0; i < subItems.size(); i++) {
             String extension = TextHelper.firstCharUppercase(extensions[i]);
             Minecraft.getMinecraft().getRenderItem().getItemModelMesher().
@@ -114,9 +140,10 @@ public final class Items {
         }
     }
 
-    private static void addItemVariants(Item item, String[] extensions) {
-        List<ItemStack> subItems = new LinkedList<>();
-        item.getSubItems(item, null, subItems);
+    @SideOnly(Side.CLIENT)
+    private void addItemVariants(Item item, String[] extensions) {
+        NonNullList<ItemStack> subItems = NonNullList.create();
+        item.getSubItems(null, subItems);
         for(int i = 0; i < subItems.size(); i++) {
             String extension = TextHelper.firstCharUppercase(extensions[i]);
             ModelBakery.registerItemVariants(item,

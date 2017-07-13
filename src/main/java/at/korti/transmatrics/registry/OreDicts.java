@@ -15,7 +15,7 @@ import static at.korti.transmatrics.api.Constants.TransmatricsItem.PLATE;
  */
 public class OreDicts {
 
-    public static void registerOreDict() {
+    public static void registerOreDictItems() {
         // ingots
         OreDictionary.registerOre(INGOT_COPPER, new ItemStack(INGOT.getItem(), 1, 0));
         OreDictionary.registerOre(INGOT_TIN, new ItemStack(INGOT.getItem(), 1, 1));
@@ -49,7 +49,9 @@ public class OreDicts {
         OreDictionary.registerOre(GEAR_TIN, new ItemStack(GEAR.getItem(), 1, 1));
         OreDictionary.registerOre(GEAR_SILVER, new ItemStack(GEAR.getItem(), 1, 2));
         OreDictionary.registerOre(GEAR_LEAD, new ItemStack(GEAR.getItem(), 1, 3));
+    }
 
+    public static void registerOreDictBlocks() {
         // ores
         OreDictionary.registerOre(ORE_COPPER, new ItemStack(ORE_BLOCK.getBlock(), 1, 0));
         OreDictionary.registerOre(ORE_TIN, new ItemStack(ORE_BLOCK.getBlock(), 1, 1));

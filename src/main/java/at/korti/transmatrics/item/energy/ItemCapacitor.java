@@ -7,11 +7,17 @@ import at.korti.transmatrics.api.energy.IChargeable;
 import at.korti.transmatrics.api.energy.IRechargeable;
 import at.korti.transmatrics.item.ModItem;
 import at.korti.transmatrics.util.helper.TextHelper;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 /**
@@ -26,9 +32,9 @@ public class ItemCapacitor extends ModItem implements IRechargeable{
     }
 
     @Override
-    public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
-        super.addInformation(stack, playerIn, tooltip, advanced);
-
+    @SideOnly(Side.CLIENT)
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+        super.addInformation(stack, worldIn, tooltip, flagIn);
         tooltip.add(TextHelper.localize(ToolTips.CAPACITOR_ENERGY_LABEL));
         int energy = getEnergy(stack);
         energy = energy > 0 ? energy : 0;
@@ -62,8 +68,8 @@ public class ItemCapacitor extends ModItem implements IRechargeable{
     }
 
     @Override
-    public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
-        super.getSubItems(itemIn, tab, subItems);
-        subItems.add(new ItemStack(this, 1, this.getMaxDamage()));
+    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
+        super.getSubItems(tab, items);
+        items.add(new ItemStack(this, 1, this.getMaxDamage()));
     }
 }

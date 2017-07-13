@@ -7,12 +7,18 @@ import at.korti.transmatrics.modintegration.jei.TransmatricsPlugin;
 import at.korti.transmatrics.util.helper.TextHelper;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IRecipeLayout;
+import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeCategory;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fluids.FluidStack;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by Korti on 14.04.2016.
@@ -45,27 +51,25 @@ public class LiquidCasterRecipeCategory implements IRecipeCategory {
     }
 
     @Override
-    public void drawExtras(@Nonnull Minecraft minecraft) {
-
+    public String getModName() {
+        return Constants.Mod.NAME;
     }
 
     @Override
-    public void drawAnimations(@Nonnull Minecraft minecraft) {
+    public void setRecipe(IRecipeLayout recipeLayout, IRecipeWrapper recipeWrapper, IIngredients ingredients) {
+        if(!(recipeWrapper instanceof LiquidCasterRecipeJEI)){
+            return;
+        }
 
-    }
-
-    @Override
-    public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IRecipeWrapper recipeWrapper) {
         int capacity = LiquidCasterCraftingRegistry.getInstance().getFluidCapacities()[0];
+
         recipeLayout.getFluidStacks().init(FLUID_INPUT_SLOT, true, 1, 1, 16, 64, capacity, true, null);
+
         recipeLayout.getItemStacks().init(ITEM_INPUT_SLOT, true, 26, 5);
         recipeLayout.getItemStacks().init(OUTPUT_SLOT, false, 60, 25);
 
-        if (recipeWrapper instanceof LiquidCasterRecipeJEI) {
-            LiquidCasterRecipeJEI recipe = (LiquidCasterRecipeJEI) recipeWrapper;
-            recipeLayout.getFluidStacks().set(FLUID_INPUT_SLOT, recipe.getFluidInputs());
-            recipeLayout.getItemStacks().set(ITEM_INPUT_SLOT, recipe.getInputs());
-            recipeLayout.getItemStacks().set(OUTPUT_SLOT, recipe.getOutputs());
-        }
+        recipeLayout.getFluidStacks().set(FLUID_INPUT_SLOT, ingredients.getInputs(FluidStack.class).get(0));
+        recipeLayout.getItemStacks().set(ITEM_INPUT_SLOT, ingredients.getInputs(ItemStack.class).get(0));
+        recipeLayout.getItemStacks().set(OUTPUT_SLOT, ingredients.getOutputs(ItemStack.class).get(0));
     }
 }

@@ -10,6 +10,7 @@ import at.korti.transmatrics.event.MachineCraftingEvent;
 import at.korti.transmatrics.util.helper.CraftingHelper;
 import at.korti.transmatrics.util.helper.InventoryHelper;
 import net.minecraft.inventory.ISidedInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -96,7 +97,7 @@ public abstract class TileEntityFluidItemCraftingMachine extends TileEntityInven
             return;
         }
 
-        if (!worldObj.isRemote) {
+        if (!getWorld().isRemote) {
             if (this.energyStorage.getEnergyStored() - energyUse >= 0 && !areTanksEmpty(true) && !areInputSlotsEmpty()) {
                 if (canCraft()) {
                     this.efficiency = energyStorage.getEnergyStored() / (energyStorage.getCapacity() / maxEfficiency);
@@ -118,12 +119,12 @@ public abstract class TileEntityFluidItemCraftingMachine extends TileEntityInven
                 this.craftingTime = 0;
                 this.efficiency = Math.max(efficiency - 1, 0);
             }
-            if (isCrafting && !ActiveMachineBlock.isActive(worldObj, pos)) {
+            if (isCrafting && !ActiveMachineBlock.isActive(getWorld(), pos)) {
                 markDirty = true;
-                ActiveMachineBlock.setState(true, this.worldObj, this.pos);
-            } else if (!isCrafting && ActiveMachineBlock.isActive(worldObj, pos)) {
+                ActiveMachineBlock.setState(true, this.getWorld(), this.pos);
+            } else if (!isCrafting && ActiveMachineBlock.isActive(getWorld(), pos)) {
                 markDirty = true;
-                ActiveMachineBlock.setState(false, this.worldObj, this.pos);
+                ActiveMachineBlock.setState(false, this.getWorld(), this.pos);
             }
         }
 
@@ -260,7 +261,7 @@ public abstract class TileEntityFluidItemCraftingMachine extends TileEntityInven
         ItemStack[] outputContent = getInventoryOutputs();
         for (int i = 0; i < outputContent.length && i < outputs.length; i++) {
             if (outputContent[i] != null) {
-                int result = outputContent[i].stackSize + outputs[i].stackSize;
+                int result = outputContent[i].getCount() + outputs[i].getCount();
                 if (result > getInventoryStackLimit() || result > outputContent[i].getMaxStackSize()) {
                     return false;
                 }
@@ -338,7 +339,8 @@ public abstract class TileEntityFluidItemCraftingMachine extends TileEntityInven
             if (getStackInSlot(outputSlot) == null) {
                 setInventorySlotContents(outputSlot, output.copy());
             } else if (getStackInSlot(outputSlot).isItemEqual(output)) {
-                getStackInSlot(outputSlot).stackSize += output.stackSize;
+                ItemStack outStack = getStackInSlot(outputSlot);
+                outStack.setCount(outStack.getCount() + output.getCount());
             }
         }
     }
@@ -350,8 +352,9 @@ public abstract class TileEntityFluidItemCraftingMachine extends TileEntityInven
         for (ItemStack stack : secondInputs) {
             int slot = getSlotForStack(true, stack);
             if (slot != -1 && craftingRegistry.decreaseItemForSlot(slot)) {
-                getStackInSlot(slot).stackSize -= stack.stackSize;
-                if (getStackInSlot(slot).stackSize <= 0) {
+                ItemStack stackInSlot = getStackInSlot(slot);
+                stackInSlot.setCount(stackInSlot.getCount() - stack.getCount());
+                if (stackInSlot.getCount() <= 0) {
                     setInventorySlotContents(slot, null);
                 }
             }

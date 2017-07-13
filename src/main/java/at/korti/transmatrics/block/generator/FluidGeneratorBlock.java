@@ -29,25 +29,21 @@ public abstract class FluidGeneratorBlock extends ActiveMachineBlock {
     }
 
     @Override
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
-        if (super.onBlockActivated(worldIn, pos, state, playerIn, hand, heldItem, side, hitX, hitY, hitZ)) {
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        if (super.onBlockActivated(worldIn, pos, state, playerIn, hand, facing, hitX, hitY, hitZ)) {
             return true;
         }
 
-        ItemStack currentStack = heldItem;
-        if (currentStack != null) {
-            TileEntity tile = worldIn.getTileEntity(pos);
-            if (tile instanceof TileEntityFluidGenerator) {
-                TileEntityFluidGenerator fluidGenerator = (TileEntityFluidGenerator) tile;
-                if (FluidUtil.interactWithFluidHandler(currentStack, fluidGenerator, playerIn)) {
-                    return true;
-                }
+        TileEntity tile = worldIn.getTileEntity(pos);
+        if (tile instanceof TileEntityFluidGenerator) {
+            if (FluidUtil.interactWithFluidHandler(playerIn, hand, worldIn, pos, facing)) {
+                return true;
             }
         }
 
-        ItemStack currentItem = heldItem;
-        if (currentItem != null && (currentItem.getItem() instanceof ItemConnector || currentItem.getItem() instanceof ItemWrench)) {
-            return super.onBlockActivated(worldIn, pos, state, playerIn, hand, heldItem, side, hitX, hitY, hitZ);
+        ItemStack currentItem = playerIn.getHeldItem(hand);
+        if (currentItem.getItem() instanceof ItemConnector || currentItem.getItem() instanceof ItemWrench) {
+            return super.onBlockActivated(worldIn, pos, state, playerIn, hand, facing, hitX, hitY, hitZ);
         }
         if (worldIn.getTileEntity(pos).getClass().equals(tileEntityClass) && !playerIn.isSneaking()) {
             playerIn.openGui(Transmatrics.instance, guiId, worldIn, pos.getX(), pos.getY(), pos.getZ());

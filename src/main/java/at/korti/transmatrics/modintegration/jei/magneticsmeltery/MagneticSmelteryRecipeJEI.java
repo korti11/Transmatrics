@@ -1,7 +1,9 @@
 package at.korti.transmatrics.modintegration.jei.magneticsmeltery;
 
 import at.korti.transmatrics.registry.crafting.MagneticSmelteryCraftingRegistry.MagneticSmelteryCraftingEntry;
+import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.BlankRecipeWrapper;
+import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -12,7 +14,7 @@ import java.util.List;
 /**
  * Created by Korti on 14.04.2016.
  */
-public class MagneticSmelteryRecipeJEI extends BlankRecipeWrapper {
+public class MagneticSmelteryRecipeJEI implements IRecipeWrapper {
 
     private final ItemStack input;
 
@@ -23,15 +25,9 @@ public class MagneticSmelteryRecipeJEI extends BlankRecipeWrapper {
         this.output = entry.getOutputs()[0];
     }
 
-    @Nonnull
     @Override
-    public List getInputs() {
-        return Collections.singletonList(input);
-    }
-
-    @Nonnull
-    @Override
-    public List<FluidStack> getFluidOutputs() {
-        return Collections.singletonList(output);
+    public void getIngredients(IIngredients ingredients) {
+        ingredients.setInput(ItemStack.class, input);
+        ingredients.setOutput(FluidStack.class, output);
     }
 }

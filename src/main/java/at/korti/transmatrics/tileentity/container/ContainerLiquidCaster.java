@@ -61,17 +61,17 @@ public class ContainerLiquidCaster extends FluidItemCraftingContainer {
                 return null;
             }
 
-            if (tempStack.stackSize == 0) {
+            if (tempStack.getCount() == 0) {
                 slot.putStack(null);
             } else {
                 slot.onSlotChanged();
             }
 
-            if (tempStack.stackSize == itemStack.stackSize) {
+            if (tempStack.getCount() == itemStack.getCount()) {
                 return null;
             }
 
-            slot.onPickupFromSlot(playerIn, tempStack);
+            slot.onTake(playerIn, tempStack);
         }
         return itemStack;
     }

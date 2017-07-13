@@ -23,7 +23,7 @@ public class TileEntityWindmill extends TileEntityHeightGenerator {
 
     @Override
     public void onLoad() {
-        int seaLevel = worldObj.getSeaLevel();
+        int seaLevel = getWorld().getSeaLevel();
         if (minHeight - seaLevel > 16) {
             int diff = maxHeight - minHeight;
             minHeight = seaLevel + 16;
@@ -41,23 +41,23 @@ public class TileEntityWindmill extends TileEntityHeightGenerator {
         for (int x = pos.getX() - (RANGE / 2); x < pos.getX() + (RANGE / 2); x++) {
             for (int z = pos.getZ() - (RANGE / 2); z < pos.getZ() + (RANGE / 2); z++) {
                 BlockPos blockPos = new BlockPos(x, pos.getY(), z);
-                if (!worldObj.canBlockSeeSky(new BlockPos(x, pos.getY() + 1, z))) {
+                if (!getWorld().canBlockSeeSky(new BlockPos(x, pos.getY() + 1, z))) {
                     return false;
-                } else if (!worldObj.isAirBlock(blockPos) &&
-                        !worldObj.getBlockState(blockPos).getBlock().equals(TransmatricsBlock.WINDMILL.getBlock())) {
+                } else if (!getWorld().isAirBlock(blockPos) &&
+                        !getWorld().getBlockState(blockPos).getBlock().equals(TransmatricsBlock.WINDMILL.getBlock())) {
                     return false;
                 }
             }
         }
 
-        IBlockState state = worldObj.getBlockState(pos);
+        IBlockState state = getWorld().getBlockState(pos);
         MachineBlock block = (MachineBlock) state.getBlock();
         EnumFacing facing = block.getFacing(state);
         BlockPos blockPos = new BlockPos(pos.getX(), pos.getY(), pos.getZ());
 
         for (int i = 0; i < RANGE / 2; i++) {
             blockPos = blockPos.offset(facing);
-            if (!worldObj.isAirBlock(blockPos)) {
+            if (!getWorld().isAirBlock(blockPos)) {
                 return false;
             }
         }

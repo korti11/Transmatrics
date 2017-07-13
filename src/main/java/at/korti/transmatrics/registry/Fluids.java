@@ -4,13 +4,17 @@ import at.korti.transmatrics.api.Constants.Mod;
 import at.korti.transmatrics.block.ModFluidBlock;
 import at.korti.transmatrics.fluid.GasColored;
 import at.korti.transmatrics.fluid.MoltenMetal;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fluids.BlockFluidBase;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import static at.korti.transmatrics.api.Constants.TransmatricsFluid.*;
 
@@ -36,22 +40,13 @@ public final class Fluids {
         moltenInvar = createMoltenMetal(MOLTEN_INVAR.getRegName(), 0xc2c2a3, 600, true);
         moltenElectrum = createMoltenMetal(MOLTEN_ELECTRUM.getRegName(), 0xffd633, 600, true);
 
-        registerBlock(moltenCopper);
-        registerBlock(moltenTin);
-        registerBlock(moltenSilver);
-        registerBlock(moltenLead);
-        registerBlock(moltenNickel);
-        registerBlock(moltenInvar);
-        registerBlock(moltenElectrum);
-    }
-
-    private static Fluid createGas(String name, int color, boolean bucket) {
-        GasColored gas = new GasColored(name, color);
-        gas = registerFluid(gas);
-        if (bucket) {
-            FluidRegistry.addBucketForFluid(gas);
-        }
-        return gas;
+//        registerBlock(moltenCopper);
+//        registerBlock(moltenTin);
+//        registerBlock(moltenSilver);
+//        registerBlock(moltenLead);
+//        registerBlock(moltenNickel);
+//        registerBlock(moltenInvar);
+//        registerBlock(moltenElectrum);
     }
 
     private static Fluid createMoltenMetal(String name, int color, int temperture, boolean bucket) {
@@ -69,13 +64,13 @@ public final class Fluids {
         return fluid;
     }
 
-    private static BlockFluidBase registerBlock(Fluid fluid) {
-        BlockFluidBase block = new ModFluidBlock(fluid, MapColor.ADOBE);
-        block.setRegistryName(Mod.MODID, fluid.getName());
-        ItemBlock itemBlock = new ItemBlock(block);
-        itemBlock.setRegistryName(block.getRegistryName());
-        GameRegistry.register(block);
-        GameRegistry.register(itemBlock);
-        return block;
-    }
+//    private static BlockFluidBase registerBlock(Fluid fluid) {
+//        BlockFluidBase block = new ModFluidBlock(fluid, MapColor.ADOBE);
+//        block.setRegistryName(Mod.MODID, fluid.getName());
+//        ItemBlock itemBlock = new ItemBlock(block);
+//        itemBlock.setRegistryName(block.getRegistryName());
+//        GameRegistry.register(block);
+//        GameRegistry.register(itemBlock);
+//        return block;
+//    }
 }

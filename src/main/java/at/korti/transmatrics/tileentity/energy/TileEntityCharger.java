@@ -1,17 +1,13 @@
 package at.korti.transmatrics.tileentity.energy;
 
-import at.korti.transmatrics.api.Constants;
 import at.korti.transmatrics.api.Constants.Energy;
-import at.korti.transmatrics.api.Constants.ModIntegrationIds;
 import at.korti.transmatrics.api.Constants.NBT;
 import at.korti.transmatrics.api.Constants.TransmatricsTileEntity;
 import at.korti.transmatrics.api.energy.IChargeable;
 import at.korti.transmatrics.block.ActiveMachineBlock;
-import at.korti.transmatrics.modintegration.tconstruct.helper.ModifierHelper;
 import at.korti.transmatrics.tileentity.TileEntityInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.fml.common.Loader;
 
 /**
  * Created by Korti on 16.05.2016.
@@ -48,8 +44,6 @@ public class TileEntityCharger extends TileEntityInventory {
         IChargeable item = null;
         if (stack != null && stack.getItem() instanceof IChargeable && index == 0) {
             item = (IChargeable) stack.getItem();
-        } else if (Loader.isModLoaded(ModIntegrationIds.TCONSTRUCT) && ModifierHelper.hasChargeable(stack)) {
-            item = ModifierHelper.getChargeable(stack);
         } else if (stack == null && index == 0) {
             this.storedEnergy = 0;
             this.maxStoreEnergy = 0;
@@ -72,15 +66,13 @@ public class TileEntityCharger extends TileEntityInventory {
         boolean markDirty = false;
         boolean isCharging = false;
 
-        if (!worldObj.isRemote) {
+        if (!getWorld().isRemote) {
             if (energyStorage.getEnergyStored() - energyUse >= 0 && getStackInSlot(0) != null) {
                 if(canCharge()) {
                     ItemStack stack = getStackInSlot(0);
                     IChargeable chargeable = null;
                     if (stack.getItem() instanceof IChargeable) {
                         chargeable = (IChargeable) stack.getItem();
-                    } else if (Loader.isModLoaded(ModIntegrationIds.TCONSTRUCT)) {
-                        chargeable = ModifierHelper.getChargeable(stack);
                     }
                     if (chargeable != null) {
                         chargeable.charge(stack, energyUse, false);
@@ -94,12 +86,12 @@ public class TileEntityCharger extends TileEntityInventory {
                     }
                 }
             }
-            if (isCharging && !ActiveMachineBlock.isActive(worldObj, pos)) {
+            if (isCharging && !ActiveMachineBlock.isActive(getWorld(), pos)) {
                 markDirty = true;
-                ActiveMachineBlock.setState(true, worldObj, pos);
-            } else if (!isCharging && ActiveMachineBlock.isActive(worldObj, pos)) {
+                ActiveMachineBlock.setState(true, getWorld(), pos);
+            } else if (!isCharging && ActiveMachineBlock.isActive(getWorld(), pos)) {
                 markDirty = true;
-                ActiveMachineBlock.setState(false, worldObj, pos);
+                ActiveMachineBlock.setState(false, getWorld(), pos);
             }
         }
 

@@ -1,8 +1,8 @@
-package at.korti.transmatrics.modintegration.cofh.block;
+package at.korti.transmatrics.modintegration.redstoneflux.block;
 
 import at.korti.transmatrics.api.Constants.TransmatricsBlock;
 import at.korti.transmatrics.block.MachineBlock;
-import at.korti.transmatrics.modintegration.cofh.tileentity.TileEntityEnergyConverter;
+import at.korti.transmatrics.modintegration.redstoneflux.tileentity.TileEntityEnergyConverter;
 import net.minecraft.block.material.Material;
 
 /**

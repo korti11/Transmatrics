@@ -24,7 +24,6 @@ import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.ForgeChunkManager.Ticket;
-import org.apache.logging.log4j.core.helpers.NameUtil;
 
 import java.util.List;
 
@@ -64,10 +63,10 @@ public class TileEntityQuantumBridge extends TileEntityEnergySwitch {
     }
 
     public void onCreate(NBTTagCompound compound) {
-        if(!worldObj.isRemote) {
+        if(!getWorld().isRemote) {
             this.quantumBridgeMapName = compound.getString(NBT.QUANTUM_BRIDGE_MAP_NAME);
             QuantumBridgeHandler.setQuantumBridgePos(this.quantumBridgeMapName, new DimensionBlockPos(getPos(),
-                    worldObj.provider.getDimension()));
+                    getWorld().provider.getDimension()));
             connectQuantumBridge();
             chunkLoadTicket = ForgeChunkManager.requestTicket(Transmatrics.instance, this.getWorld(), ForgeChunkManager.Type.NORMAL);
             forceChunks();
@@ -98,7 +97,7 @@ public class TileEntityQuantumBridge extends TileEntityEnergySwitch {
     @Override
     public void update() {
         super.update();
-        if(!worldObj.isRemote) {
+        if(!getWorld().isRemote) {
             if (canProvideEnergy()) {
                 energyStorage.modifyEnergy(-energyUse);
             }
@@ -110,7 +109,7 @@ public class TileEntityQuantumBridge extends TileEntityEnergySwitch {
                     }
                 }
             }
-            System.out.println("Chunk loaded - Bridge ID: " + quantumBridgeMapName + ", Dimension ID: " + worldObj.provider.getDimension());
+            System.out.println("Chunk loaded - Bridge ID: " + quantumBridgeMapName + ", Dimension ID: " + getWorld().provider.getDimension());
             if(!brigdeConnected){
                 connectQuantumBridge();
             } else {
@@ -135,13 +134,13 @@ public class TileEntityQuantumBridge extends TileEntityEnergySwitch {
 
     private TileEntityQuantumBridge getDifferentQuantumNode() {
         if (quantumBridgeMapName != null && !quantumBridgeMapName.isEmpty()) {
-            int dimID = worldObj.provider.getDimension();
+            int dimID = getWorld().provider.getDimension();
             DimensionBlockPos dimPos = QuantumBridgeHandler.getDifferentQuantumBridgePos(quantumBridgeMapName,
                     new DimensionBlockPos(pos, dimID));
             if (dimPos != null) {
                 World world;
                 if (dimID == dimPos.getDimensionID()) {
-                    world = worldObj;
+                    world = getWorld();
                 } else {
                     world = WorldHelper.getWorld(dimPos.getDimensionID());
                 }
@@ -171,11 +170,11 @@ public class TileEntityQuantumBridge extends TileEntityEnergySwitch {
     }
 
     private void forceChunks() {
-        ChunkPos chunkPos = worldObj.getChunkFromBlockCoords(getPos()).getChunkCoordIntPair();
+        ChunkPos chunkPos = getWorld().getChunkFromBlockCoords(getPos()).getPos();
         ChunkPos tempPos;
         for(int x = -1; x <= 1; x++) {
             for(int z = -1; z <= 1; z++) {
-                tempPos = new ChunkPos(chunkPos.chunkXPos + x, chunkPos.chunkZPos + z);
+                tempPos = new ChunkPos(chunkPos.x + x, chunkPos.z + z);
                 ForgeChunkManager.forceChunk(chunkLoadTicket, tempPos);
             }
         }

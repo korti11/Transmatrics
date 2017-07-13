@@ -2,22 +2,20 @@ package at.korti.transmatrics.client.util;
 
 import at.korti.transmatrics.client.renderer.FluidRenderer;
 import at.korti.transmatrics.client.renderer.FluidRenderer.FluidType;
-import at.korti.transmatrics.util.helper.WorldHelper;
-import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.client.renderer.vertex.VertexBuffer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.capability.IFluidTankProperties;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -66,13 +64,15 @@ public class RenderHelper {
         GlStateManager.color(1, 1, 1, 1);
     }
 
+    @SideOnly(Side.CLIENT)
     public static void drawGuiFluid(IFluidTankProperties tankInfo, int x, int y, float z, int width, int height) {
         drawGuiFluid(tankInfo.getContents(), x, y, z, width, height, tankInfo.getCapacity());
     }
 
+    @SideOnly(Side.CLIENT)
     private static void renderCutIcon(TextureAtlasSprite sprite, int x, int y, float z, int width, int height, int cut) {
         Tessellator tessellator = Tessellator.getInstance();
-        VertexBuffer renderer = tessellator.getBuffer();
+        BufferBuilder renderer = tessellator.getBuffer();
         renderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
         vertexUV(renderer, x, y + height, z, sprite.getMinU(), sprite.getInterpolatedV(height));
         vertexUV(renderer, x + width, y + height, z, sprite.getInterpolatedU(width), sprite.getInterpolatedV(height));
@@ -81,7 +81,8 @@ public class RenderHelper {
         tessellator.draw();
     }
 
-    private static void vertexUV(VertexBuffer renderer, double x, double y, double z, double u, double v) {
+    @SideOnly(Side.CLIENT)
+    private static void vertexUV(BufferBuilder renderer, double x, double y, double z, double u, double v) {
         renderer.pos(x, y, z).tex(u, v).endVertex();
     }
 
@@ -108,7 +109,7 @@ public class RenderHelper {
         double d0 = player.lastTickPosX + (player.posX - player.lastTickPosX) * (double)partialTicks;
         double d1 = player.lastTickPosY + (player.posY - player.lastTickPosY) * (double)partialTicks;
         double d2 = player.lastTickPosZ + (player.posZ - player.lastTickPosZ) * (double)partialTicks;
-        RenderGlobal.func_189697_a(state.getSelectedBoundingBox(worldIn, pos).expand(0.0020000000949949026D, 0.0020000000949949026D, 0.0020000000949949026D).offset(-d0, -d1, -d2), 0F, 0F, 0F, 0.4F);
+        RenderGlobal.drawSelectionBoundingBox(state.getSelectedBoundingBox(worldIn, pos).expand(0.0020000000949949026D, 0.0020000000949949026D, 0.0020000000949949026D).offset(-d0, -d1, -d2), 0F, 0F, 0F, 0.4F);
 
         GlStateManager.depthMask(true);
         GlStateManager.enableTexture2D();

@@ -16,7 +16,7 @@ public class TileEntityThermalGenerator extends TileEntityHeightGenerator {
 
     @Override
     public void onLoad() {
-        int seaLevel = worldObj.getSeaLevel();
+        int seaLevel = getWorld().getSeaLevel();
         if (minHeight > seaLevel) {
             int diff = minHeight - seaLevel;
             minHeight = seaLevel;
@@ -28,10 +28,10 @@ public class TileEntityThermalGenerator extends TileEntityHeightGenerator {
     @Override
     public void update() {
         super.update();
-        if (canProduceEnergy() && !ActiveMachineBlock.isActive(worldObj, pos) && !worldObj.isRemote) {
-            ActiveMachineBlock.setState(true, worldObj, pos);
-        } else if (!canProduceEnergy() && ActiveMachineBlock.isActive(worldObj, pos) && !worldObj.isRemote) {
-            ActiveMachineBlock.setState(false, worldObj, pos);
+        if (canProduceEnergy() && !ActiveMachineBlock.isActive(getWorld(), pos) && !getWorld().isRemote) {
+            ActiveMachineBlock.setState(true, getWorld(), pos);
+        } else if (!canProduceEnergy() && ActiveMachineBlock.isActive(getWorld(), pos) && !getWorld().isRemote) {
+            ActiveMachineBlock.setState(false, getWorld(), pos);
         }
     }
 }

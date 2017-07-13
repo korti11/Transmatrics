@@ -9,6 +9,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IStringSerializable;
+import net.minecraft.util.NonNullList;
 
 import java.util.List;
 
@@ -61,9 +62,9 @@ public class OreBlock extends ModBlock {
     }
 
     @Override
-    public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
+    public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
         for (OreType oreType : OreType.values()) {
-            list.add(new ItemStack(itemIn, 1, oreType.meta));
+            items.add(new ItemStack(this, 1, oreType.meta));
         }
     }
 

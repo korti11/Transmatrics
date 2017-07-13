@@ -75,27 +75,27 @@ public abstract class CraftingContainer extends Container {
             IContainerListener listener = this.listeners.get(i);
 
             if (this.craftingTime != tileEntity.getField(0)) {
-                listener.sendProgressBarUpdate(this, 0, this.craftingTime = tileEntity.getField(0));
+                listener.sendWindowProperty(this, 0, this.craftingTime = tileEntity.getField(0));
             }
 
             if (this.totalCraftingTime != tileEntity.getField(1)) {
-                listener.sendProgressBarUpdate(this, 1, this.totalCraftingTime = tileEntity.getField(1));
+                listener.sendWindowProperty(this, 1, this.totalCraftingTime = tileEntity.getField(1));
             }
 
             if (this.energyStored != tileEntity.getField(2)) {
-                listener.sendProgressBarUpdate(this, 2, this.energyStored = tileEntity.getField(2));
+                listener.sendWindowProperty(this, 2, this.energyStored = tileEntity.getField(2));
             }
 
             if (this.maxEnergyStored != tileEntity.getField(3)) {
-                listener.sendProgressBarUpdate(this, 3, this.maxEnergyStored = tileEntity.getField(3));
+                listener.sendWindowProperty(this, 3, this.maxEnergyStored = tileEntity.getField(3));
             }
 
             if (this.efficiency != tileEntity.getField(4)) {
-                listener.sendProgressBarUpdate(this, 4, this.efficiency = tileEntity.getField(4));
+                listener.sendWindowProperty(this, 4, this.efficiency = tileEntity.getField(4));
             }
 
             if (this.maxEfficiency != tileEntity.getField(5)) {
-                listener.sendProgressBarUpdate(this, 5, this.maxEfficiency = tileEntity.getField(5));
+                listener.sendWindowProperty(this, 5, this.maxEfficiency = tileEntity.getField(5));
             }
         }
     }
@@ -107,7 +107,7 @@ public abstract class CraftingContainer extends Container {
 
     @Override
     public boolean canInteractWith(EntityPlayer playerIn) {
-        return tileEntity.isUseableByPlayer(playerIn);
+        return tileEntity.isUsableByPlayer(playerIn);
     }
 
     @Override
@@ -144,17 +144,17 @@ public abstract class CraftingContainer extends Container {
                 return null;
             }
 
-            if (tempStack.stackSize == 0) {
+            if (tempStack.getCount() == 0) {
                 slot.putStack(null);
             } else {
                 slot.onSlotChanged();
             }
 
-            if (tempStack.stackSize == itemStack.stackSize) {
+            if (tempStack.getCount() == itemStack.getCount()) {
                 return null;
             }
 
-            slot.onPickupFromSlot(playerIn, tempStack);
+            slot.onTake(playerIn, tempStack);
         }
         return itemStack;
     }

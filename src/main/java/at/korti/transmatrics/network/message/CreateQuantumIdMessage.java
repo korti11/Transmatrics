@@ -42,7 +42,7 @@ public class CreateQuantumIdMessage implements IMessage {
         @Override
         public IMessage onMessage(CreateQuantumIdMessage message, MessageContext ctx) {
             if (ctx.side == Side.SERVER && message.slot != -1) {
-                EntityPlayer player = ctx.getServerHandler().playerEntity;
+                EntityPlayer player = ctx.getServerHandler().player;
                 ItemStack stack = player.inventory.getStackInSlot(message.slot);
                 NBTTagCompound compound;
                 if(stack != null) {

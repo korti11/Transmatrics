@@ -12,6 +12,8 @@ import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
 
@@ -48,7 +50,7 @@ public abstract class TileEntityGenerator extends TileEntityNetworkNode implemen
     @Override
     public void update() {
         super.update();
-        if(!worldObj.isRemote) {
+        if(!getWorld().isRemote) {
             if (canProduceEnergy()) {
                 energyStorage.modifyEnergy(energyPerTick);
             }
@@ -65,8 +67,8 @@ public abstract class TileEntityGenerator extends TileEntityNetworkNode implemen
                 }
             }
             markDirty();
-            IBlockState state = worldObj.getBlockState(pos);
-            worldObj.notifyBlockUpdate(pos, state, state, 3);
+            IBlockState state = getWorld().getBlockState(pos);
+            getWorld().notifyBlockUpdate(pos, state, state, 3);
         }
     }
 
@@ -114,6 +116,7 @@ public abstract class TileEntityGenerator extends TileEntityNetworkNode implemen
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
         super.onDataPacket(net, pkt);
         readFromNBT(pkt.getNbtCompound());

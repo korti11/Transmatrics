@@ -7,10 +7,13 @@ import at.korti.transmatrics.modintegration.jei.TransmatricsPlugin;
 import at.korti.transmatrics.util.helper.TextHelper;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IRecipeLayout;
+import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeCategory;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fluids.FluidStack;
 
 import javax.annotation.Nonnull;
 
@@ -48,21 +51,22 @@ public class MagneticSmelteryRecipeCategory implements IRecipeCategory {
     }
 
     @Override
-    public void drawAnimations(@Nonnull Minecraft minecraft) {
-
+    public String getModName() {
+        return Constants.Mod.NAME;
     }
 
     @Override
-    public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IRecipeWrapper recipeWrapper) {
+    public void setRecipe(IRecipeLayout recipeLayout, IRecipeWrapper recipeWrapper, IIngredients ingredients) {
+        if (!(recipeWrapper instanceof MagneticSmelteryRecipeJEI)) {
+            return;
+        }
+
         int tankCapacity = MagneticSmelteryCraftingRegistry.getInstance().getFluidCapacities()[0];
         recipeLayout.getItemStacks().init(INPUT_SLOT, true, 0, 24);
         recipeLayout.getFluidStacks().init(OUTPUT_SLOT, false, 52, 1, 16, 64,
                 tankCapacity, true, null);
 
-        if (recipeWrapper instanceof MagneticSmelteryRecipeJEI) {
-            MagneticSmelteryRecipeJEI recipe = (MagneticSmelteryRecipeJEI) recipeWrapper;
-            recipeLayout.getItemStacks().set(INPUT_SLOT, recipe.getInputs());
-            recipeLayout.getFluidStacks().set(OUTPUT_SLOT, recipe.getFluidOutputs());
-        }
+        recipeLayout.getItemStacks().set(INPUT_SLOT, ingredients.getInputs(ItemStack.class).get(0));
+        recipeLayout.getFluidStacks().set(OUTPUT_SLOT, ingredients.getInputs(FluidStack.class).get(0));
     }
 }

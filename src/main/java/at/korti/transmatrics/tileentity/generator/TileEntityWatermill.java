@@ -24,12 +24,12 @@ public class TileEntityWatermill extends TileEntityGenerator{
     }
 
     private boolean isInWater() {
-        IBlockState state = worldObj.getBlockState(pos);
+        IBlockState state = getWorld().getBlockState(pos);
         if(state.getBlock() instanceof MachineBlock) {
             MachineBlock block = (MachineBlock) state.getBlock();
             EnumFacing facing = block.getFacing(state);
             BlockPos blockPos = pos.offset(facing);
-            return worldObj.getBlockState(blockPos).getBlock().equals(Blocks.WATER);
+            return getWorld().getBlockState(blockPos).getBlock().equals(Blocks.WATER);
         }
         return false;
     }

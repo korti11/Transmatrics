@@ -40,16 +40,16 @@ public abstract class TileEntityEnergyNode extends TileEntityNetworkNode impleme
 
     @Override
     public int receiveEnergy(int energy, boolean simulate) {
-        IBlockState state = worldObj.getBlockState(pos);
-        worldObj.notifyBlockUpdate(pos, state, state, 3);
+        IBlockState state = getWorld().getBlockState(pos);
+        getWorld().notifyBlockUpdate(pos, state, state, 3);
         this.markDirty();
         return energyStorage.receiveEnergy(energy, simulate);
     }
 
     @Override
     public int extractEnergy(int energy, boolean simulate) {
-        IBlockState state = worldObj.getBlockState(pos);
-        worldObj.notifyBlockUpdate(pos, state, state, 3);
+        IBlockState state = getWorld().getBlockState(pos);
+        getWorld().notifyBlockUpdate(pos, state, state, 3);
         this.markDirty();
         return energyStorage.extractEnergy(energy, simulate);
     }

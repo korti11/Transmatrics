@@ -4,9 +4,8 @@ import at.korti.transmatrics.client.renderer.FluidRenderer;
 import at.korti.transmatrics.client.util.ClientEventHandler;
 import at.korti.transmatrics.fluid.FluidStateMapper;
 import at.korti.transmatrics.modintegration.ModIntegrationManager;
-import at.korti.transmatrics.registry.Blocks;
+import at.korti.transmatrics.registry.BlockRegistry;
 import at.korti.transmatrics.registry.Fluids;
-import at.korti.transmatrics.registry.Items;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.model.ModelLoader;
@@ -15,17 +14,18 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
  * Created by Korti on 24.02.2016.
  */
+@SideOnly(Side.CLIENT)
 public class ClientProxy extends CommonProxy {
 
     @Override
     public void preInit(FMLPreInitializationEvent event) {
         super.preInit(event);
-
-        Items.registerItemsClient();
 
         registerFluidModel(Fluids.moltenCopper);
         registerFluidModel(Fluids.moltenTin);
@@ -43,9 +43,6 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void init(FMLInitializationEvent event) {
         super.init(event);
-        Items.registerItemTextures();
-        Items.registerColorHandler();
-        Blocks.registerBlockTextures();
         ModIntegrationManager.clientInit();
     }
 

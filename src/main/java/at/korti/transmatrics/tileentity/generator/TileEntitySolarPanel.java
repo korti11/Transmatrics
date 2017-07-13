@@ -18,7 +18,7 @@ public class TileEntitySolarPanel extends TileEntityGenerator {
 
     @Override
     public boolean canProduceEnergy() {
-        if (worldObj.provider.isDaytime() && worldObj.canBlockSeeSky(this.getPos()) && super.canProduceEnergy()) {
+        if (getWorld().provider.isDaytime() && getWorld().canBlockSeeSky(this.getPos()) && super.canProduceEnergy()) {
             return true;
         }
         return false;

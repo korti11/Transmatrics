@@ -29,7 +29,7 @@ public class ItemWrench extends ModItem {
     }
 
     @Override
-    public EnumActionResult onItemUseFirst(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
+    public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
         IBlockState blockState = world.getBlockState(pos);
         Block affectedBlock = blockState.getBlock();
         TileEntity affectedTileEntity = world.getTileEntity(pos);
@@ -47,6 +47,7 @@ public class ItemWrench extends ModItem {
             }
         }
 
-        return super.onItemUseFirst(stack, player, world, pos, side, hitX, hitY, hitZ, hand);
+
+        return super.onItemUseFirst(player, world, pos, side, hitX, hitY, hitZ, hand);
     }
 }

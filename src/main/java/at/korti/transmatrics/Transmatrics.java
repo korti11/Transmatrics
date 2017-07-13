@@ -11,6 +11,7 @@ import at.korti.transmatrics.registry.*;
 import at.korti.transmatrics.world.OreGeneration;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -42,8 +43,8 @@ public class Transmatrics {
 
     public static CreativeTabs creativeTab = new CreativeTabs(Constants.Mod.CREATIVE_TAB_LABEL) {
         @Override
-        public Item getTabIconItem() {
-            return TransmatricsItem.WRENCH.getItem();
+        public ItemStack getTabIconItem() {
+            return new ItemStack(TransmatricsItem.WRENCH.getItem());
         }
     };
 

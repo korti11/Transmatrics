@@ -95,7 +95,7 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
             return;
         }
 
-        if (!this.worldObj.isRemote) {
+        if (!this.getWorld().isRemote) {
             if (this.energyStorage.getEnergyStored() - energyUse >= 0 && !areInputSlotsEmpty()) {
                 if (canCraft()) {
                     this.efficiency = energyStorage.getEnergyStored() / (energyStorage.getCapacity() / maxEfficiency);
@@ -115,12 +115,12 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
                     this.efficiency = Math.max(efficiency - 1, 0);
                 }
             }
-            if (isCrafting && !ActiveMachineBlock.isActive(worldObj, pos)) {
+            if (isCrafting && !ActiveMachineBlock.isActive(getWorld(), pos)) {
                 markDirty = true;
-                ActiveMachineBlock.setState(true, this.worldObj, this.pos);
-            } else if(!isCrafting && ActiveMachineBlock.isActive(worldObj, pos)) {
+                ActiveMachineBlock.setState(true, this.getWorld(), this.pos);
+            } else if(!isCrafting && ActiveMachineBlock.isActive(getWorld(), pos)) {
                 markDirty = true;
-                ActiveMachineBlock.setState(false, this.worldObj, this.pos);
+                ActiveMachineBlock.setState(false, this.getWorld(), this.pos);
             }
         }
 
@@ -206,7 +206,7 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
         ItemStack[] outputContent = getOutputs();
         for (int i = 0; i < outputContent.length && i < entry.getOutputs().length; i++) {
             if(outputContent[i] != null) {
-                int result = outputContent[i].stackSize + entry.getOutputs()[i].stackSize;
+                int result = outputContent[i].getCount() + entry.getOutputs()[i].getCount();
                 if (result > getInventoryStackLimit() || result > outputContent[i].getMaxStackSize()) {
                     return false;
                 }
@@ -258,7 +258,8 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
             if (getStackInSlot(slot) == null) {
                 setInventorySlotContents(slot, stack.copy());
             } else if (getStackInSlot(slot).isItemEqual(stack)) {
-                getStackInSlot(slot).stackSize += stack.stackSize;
+                int stackSize = getStackInSlot(slot).getCount();
+                getStackInSlot(slot).setCount(stackSize + stack.getCount());
             }
         }
     }
@@ -267,8 +268,9 @@ public abstract class TileEntityCraftingMachine extends TileEntityInventory impl
         for (ItemStack stack : stacks) {
             int slot = getSlotForStack(true, stack);
             if(slot != -1 && craftingRegistry.decreaseItemForSlot(slot)) {
-                getStackInSlot(slot).stackSize -= stack.stackSize;
-                if (getStackInSlot(slot).stackSize <= 0) {
+                int stackSize = getStackInSlot(slot).getCount();
+                getStackInSlot(slot).setCount(stackSize - stack.getCount());
+                if (getStackInSlot(slot).getCount() <= 0) {
                     setInventorySlotContents(slot, null);
                 }
             }

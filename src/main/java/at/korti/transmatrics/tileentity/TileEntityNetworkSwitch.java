@@ -18,6 +18,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -45,7 +47,7 @@ public abstract class TileEntityNetworkSwitch extends TileEntity implements INet
     }
 
     protected List<INetworkNode> getNetworkNodes() {
-        return NetworkHandler.getNetworkNodes(worldObj, networkNodes);
+        return NetworkHandler.getNetworkNodes(getWorld(), networkNodes);
     }
 
     @Override
@@ -117,10 +119,10 @@ public abstract class TileEntityNetworkSwitch extends TileEntity implements INet
     }
 
     protected void syncClient() {
-        if (!worldObj.isRemote) {
+        if (!getWorld().isRemote) {
             markDirty();
-            IBlockState state = worldObj.getBlockState(pos);
-            worldObj.notifyBlockUpdate(pos, state, state, 3);
+            IBlockState state = getWorld().getBlockState(pos);
+            getWorld().notifyBlockUpdate(pos, state, state, 3);
         }
     }
 
@@ -133,6 +135,7 @@ public abstract class TileEntityNetworkSwitch extends TileEntity implements INet
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
         super.onDataPacket(net, pkt);
         readNodesFromNBT(pkt.getNbtCompound());
@@ -263,7 +266,7 @@ public abstract class TileEntityNetworkSwitch extends TileEntity implements INet
     }
 
     public DimensionBlockPos getDimPos() {
-        return new DimensionBlockPos(this.getPos(), worldObj.provider.getDimension());
+        return new DimensionBlockPos(this.getPos(), getWorld().provider.getDimension());
     }
 
     private void overrideController(DimensionBlockPos controllerPos, int connectionPriority, INetworkNode preventedNode) {

@@ -1,6 +1,5 @@
-package at.korti.transmatrics.modintegration.cofh.tileentity;
+package at.korti.transmatrics.modintegration.redstoneflux.tileentity;
 
-import at.korti.transmatrics.api.Constants;
 import at.korti.transmatrics.api.Constants.Energy;
 import at.korti.transmatrics.api.Constants.NBT;
 import at.korti.transmatrics.api.block.IChangeMode;
@@ -13,8 +12,8 @@ import at.korti.transmatrics.tileentity.TileEntityEnergyNode;
 import at.korti.transmatrics.tileentity.network.TileEntityController;
 import at.korti.transmatrics.util.helper.TextHelper;
 import at.korti.transmatrics.util.helper.WorldHelper;
-import cofh.api.energy.IEnergyProvider;
-import cofh.api.energy.IEnergyReceiver;
+import cofh.redstoneflux.api.IEnergyProvider;
+import cofh.redstoneflux.api.IEnergyReceiver;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.text.TextFormatting;
@@ -49,10 +48,10 @@ public class TileEntityEnergyConverter extends TileEntityEnergyNode implements I
     public void update() {
         super.update();
 
-        if(canProvideEnergy() && !worldObj.isRemote) {
+        if(canProvideEnergy() && !getWorld().isRemote) {
             if(mode == InOutMode.OUT) {
                 for (EnumFacing facing : EnumFacing.VALUES) {
-                    IEnergyReceiver receiver = WorldHelper.getNeighbor(worldObj, pos, facing, IEnergyReceiver.class);
+                    IEnergyReceiver receiver = WorldHelper.getNeighbor(getWorld(), pos, facing, IEnergyReceiver.class);
                     if (receiver != null) {
                         int energy = receiver.receiveEnergy(facing.getOpposite(), energyStorage.getMaxExtract(), true);
                         energy = extractEnergy(energy, false);
