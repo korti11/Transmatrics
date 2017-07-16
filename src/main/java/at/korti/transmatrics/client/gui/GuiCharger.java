@@ -10,7 +10,7 @@ import net.minecraft.inventory.IInventory;
 public class GuiCharger extends GuiCrafting {
 
     public GuiCharger(InventoryPlayer inventoryPlayer, IInventory inventory) {
-        super(new ContainerCharger(inventoryPlayer, inventory), inventory, "textures/gui/Charger.png");
+        super(new ContainerCharger(inventoryPlayer, inventory), inventory, "textures/gui/charger.png");
 
     }
 

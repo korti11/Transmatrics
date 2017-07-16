@@ -22,7 +22,7 @@ import java.util.List;
 public class GuiPulverizer extends GuiCrafting {
 
     public GuiPulverizer(InventoryPlayer inventoryPlayer, TileEntityInventory tilePulverizer) {
-        super(new ContainerPulverizer(inventoryPlayer, tilePulverizer), tilePulverizer, "textures/gui/Pulverizer.png");
+        super(new ContainerPulverizer(inventoryPlayer, tilePulverizer), tilePulverizer, "textures/gui/pulverizer.png");
     }
 
     @Override

@@ -1,0 +1,6 @@
+{
+  "parent": "transmatrics:block/generator",
+  "textures": {
+    "north": "transmatrics:blocks/lava_generator_front_active"
+  }
+}

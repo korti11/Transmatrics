@@ -1,0 +1,6 @@
+{
+  "parent": "transmatrics:block/machine",
+  "textures":{
+    "up": "transmatrics:blocks/switch_top"
+  }
+}

@@ -42,7 +42,7 @@ public class PulverizerRecipeCategory implements IRecipeCategory {
     @Override
     public IDrawable getBackground() {
         return TransmatricsPlugin.jeiHelper.getGuiHelper().createDrawable(
-                new ResourceLocation(Constants.Mod.MODID + ":textures/gui/Pulverizer.png"), 55, 16, 82, 54);
+                new ResourceLocation(Constants.Mod.MODID + ":textures/gui/pulverizer.png"), 55, 16, 82, 54);
     }
 
     @Override

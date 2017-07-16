@@ -29,7 +29,7 @@ public class ContainerLiquidCaster extends FluidItemCraftingContainer {
 
     @Override
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
-        ItemStack itemStack = null;
+        ItemStack itemStack = ItemStack.EMPTY;
         Slot slot =  this.inventorySlots.get(index);
 
         if (slot != null && slot.getHasStack()) {
@@ -38,7 +38,7 @@ public class ContainerLiquidCaster extends FluidItemCraftingContainer {
 
             if (InventoryHelper.isOutputSlot(craftingRegistry, index)) {
                 if (!this.mergeItemStack(tempStack, playerMinIndex, playerMaxIndex, true)) {
-                    return null;
+                    return ItemStack.EMPTY;
                 }
 
                 slot.onSlotChange(tempStack, itemStack);
@@ -48,27 +48,27 @@ public class ContainerLiquidCaster extends FluidItemCraftingContainer {
                     int startIndex = InventoryHelper.getMinIndex(craftingRegistry.getInputSlotsIds());
                     int endIndex = InventoryHelper.getMaxIndex(craftingRegistry.getInputSlotsIds());
                     if (!this.mergeItemStack(tempStack, startIndex, endIndex + 1, false)) {
-                        return null;
+                        return ItemStack.EMPTY;
                     }
                 } else if (index >= playerMinIndex && index < playerMaxIndex - 9) {
                     if (!this.mergeItemStack(tempStack, playerMaxIndex - 9, playerMaxIndex, false)) {
-                        return null;
+                        return ItemStack.EMPTY;
                     }
                 } else if (index >= playerMaxIndex - 9 && index < playerMaxIndex && !this.mergeItemStack(tempStack, playerMinIndex, playerMaxIndex - 9, false)) {
-                    return null;
+                    return ItemStack.EMPTY;
                 }
             } else if (!this.mergeItemStack(tempStack, playerMinIndex, playerMaxIndex, false)) {
-                return null;
+                return ItemStack.EMPTY;
             }
 
             if (tempStack.getCount() == 0) {
-                slot.putStack(null);
+                slot.putStack(ItemStack.EMPTY);
             } else {
                 slot.onSlotChanged();
             }
 
             if (tempStack.getCount() == itemStack.getCount()) {
-                return null;
+                return ItemStack.EMPTY;
             }
 
             slot.onTake(playerIn, tempStack);

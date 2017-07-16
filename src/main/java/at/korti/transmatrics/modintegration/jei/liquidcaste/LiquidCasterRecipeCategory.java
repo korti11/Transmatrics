@@ -46,7 +46,7 @@ public class LiquidCasterRecipeCategory implements IRecipeCategory {
     @Override
     public IDrawable getBackground() {
         return TransmatricsPlugin.jeiHelper.getGuiHelper().createDrawable(
-                new ResourceLocation(Constants.Mod.MODID + ":textures/gui/LiquidCaster.png"), 55, 9, 82, 66
+                new ResourceLocation(Constants.Mod.MODID + ":textures/gui/liquid_caster.png"), 55, 9, 82, 66
         );
     }
 

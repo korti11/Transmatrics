@@ -316,26 +316,26 @@ public final class Constants {
     }
 
     public enum TransmatricsBlock {
-        SOLAR_PANEL("SolarPanel"),
-        ADVANCED_SOLAR_PANEL("AdvancedSolarPanel"),
-        LAVA_GENERATOR("LavaGenerator"),
-        THERMAL_GENERATOR("ThermalGenerator"),
-        WINDMILL("Windmill"),
-        WATERMILL("Watermill"),
-        SMALL_SWITCH("SmallSwitch"),
-        MEDIUM_SWITCH("MediumSwitch"),
-        LARGE_SWITCH("LargeSwitch"),
-        CONTROLLER("Controller"),
-        PULVERIZER("Pulverizer"),
-        POWERED_FURNACE("PoweredFurnace"),
-        MAGNETIC_SMELTERY("MagneticSmeltery"),
-        LIQUID_CASTER("LiquidCaster"),
-        ALLOY_MIXER("AlloyMixer"),
-        CHARGER("Charger"),
-        ORE_BLOCK("Ore"),
-        MACHINE_CASING("MachineCasing"),
-        RF_CONVERTER("RFConverter"),
-        QUANTUM_BRIDGE("QuantumBridge");
+        SOLAR_PANEL("solar_panel"),
+        ADVANCED_SOLAR_PANEL("advanced_solar_panel"),
+        LAVA_GENERATOR("lava_generator"),
+        THERMAL_GENERATOR("thermal_generator"),
+        WINDMILL("windmill"),
+        WATERMILL("watermill"),
+        SMALL_SWITCH("small_switch"),
+        MEDIUM_SWITCH("medium_switch"),
+        LARGE_SWITCH("large_switch"),
+        CONTROLLER("controller"),
+        PULVERIZER("pulverizer"),
+        POWERED_FURNACE("powered_furnace"),
+        MAGNETIC_SMELTERY("magnetic_smeltery"),
+        LIQUID_CASTER("liquid_caster"),
+        ALLOY_MIXER("alloy_mixer"),
+        CHARGER("charger"),
+        ORE_BLOCK("ore"),
+        MACHINE_CASING("machine_casing"),
+        RF_CONVERTER("rf_converter"),
+        QUANTUM_BRIDGE("quantum_bridges");
 
         private final String regName;
 
@@ -353,18 +353,18 @@ public final class Constants {
     }
 
     public enum TransmatricsItem {
-        WRENCH("Wrench"),
-        CONNECTOR("Connector"),
-        PULVERIZED_DUST("PulverizedDust"),
-        INGOT("Ingot"),
-        GEAR("Gear"),
-        CAST("Cast"),
-        ELECTRONICS("Electronics"),
-        PLATE("Plate"),
-        HAMMER("Hammer"),
-        LEAD_CAPACITOR("LeadCapacitor"),
-        INVAR_CAPACITOR("InvarCapacitor"),
-        ELECTRUM_CAPACITOR("ElectrumCapacitor");
+        WRENCH("wrench"),
+        CONNECTOR("connector"),
+        PULVERIZED_DUST("pulverized_dust"),
+        INGOT("ingot"),
+        GEAR("gear"),
+        CAST("cast"),
+        ELECTRONICS("electronics"),
+        PLATE("plate"),
+        HAMMER("hammer"),
+        LEAD_CAPACITOR("lead_capacitor"),
+        INVAR_CAPACITOR("invar_capacitor"),
+        ELECTRUM_CAPACITOR("electrum_capacitor");
 
         private final String regName;
 
@@ -413,13 +413,13 @@ public final class Constants {
     }
 
     public enum TransmatricsFluid{
-        MOLTEN_COPPER("MoltenCopper"),
-        MOLTEN_TIN("MoltenTin"),
-        MOLTEN_SILVER("MoltenSilver"),
-        MOLTEN_LEAD("MoltenLead"),
-        MOLTEN_NICKEL("MoltenNickel"),
-        MOLTEN_INVAR("MoltenInvar"),
-        MOLTEN_ELECTRUM("MoltenElectrum");
+        MOLTEN_COPPER("molten_copper"),
+        MOLTEN_TIN("molten_tin"),
+        MOLTEN_SILVER("molten_silver"),
+        MOLTEN_LEAD("molten_lead"),
+        MOLTEN_NICKEL("molten_nickel"),
+        MOLTEN_INVAR("molten_invar"),
+        MOLTEN_ELECTRUM("molten_electrum");
 
         private final String regName;
 

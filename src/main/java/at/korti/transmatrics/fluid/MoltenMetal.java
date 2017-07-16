@@ -11,8 +11,8 @@ import net.minecraftforge.fluids.FluidStack;
  */
 public class MoltenMetal extends Fluid {
 
-    public static final ResourceLocation ICON_FLUID_STILL = new ResourceLocation(Mod.MODID, "blocks/MoltenMetalStill");
-    public static final ResourceLocation ICON_FLUID_FLOWING = new ResourceLocation(Mod.MODID, "blocks/MoltenMetalFlowing");
+    public static final ResourceLocation ICON_FLUID_STILL = new ResourceLocation(Mod.MODID, "blocks/molten_metal_still");
+    public static final ResourceLocation ICON_FLUID_FLOWING = new ResourceLocation(Mod.MODID, "blocks/molten_metal_flowing");
 
     private final int color;
 
@@ -34,12 +34,6 @@ public class MoltenMetal extends Fluid {
     @Override
     public int getColor() {
         return color;
-    }
-
-    @Override
-    public String getLocalizedName(FluidStack stack) {
-        String s = this.getUnlocalizedName();
-        return s == null ? "" : TextHelper.localize(s + ".name");
     }
 
 }

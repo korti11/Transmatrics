@@ -1,0 +1,32 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "transmatrics:liquid_caster"
+  },
+  "variants": {
+    "facing": {
+      "north": { },
+      "south": {
+        "y": 180
+      },
+      "west": {
+        "y": 270
+      },
+      "east": {
+        "y": 90
+      }
+    },
+    "active": {
+      "true":{
+        "textures":{
+          "north": "transmatrics:blocks/liquid_caster_front_active"
+        }
+      },
+      "false":{
+        "textures":{
+          "north": "transmatrics:blocks/liquid_caster_front_deactivate"
+        }
+      }
+    }
+  }
+}

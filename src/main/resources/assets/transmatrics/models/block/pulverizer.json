@@ -1,0 +1,7 @@
+{
+  "parent": "transmatrics:block/machine",
+  "textures":{
+    "up": "transmatrics:blocks/generator_top",
+    "north": "transmatrics:blocks/pulverizer_front_deactivate"
+  }
+}

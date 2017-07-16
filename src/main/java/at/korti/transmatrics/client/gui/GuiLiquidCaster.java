@@ -20,7 +20,7 @@ public class GuiLiquidCaster extends GuiCrafting {
 
     public GuiLiquidCaster(InventoryPlayer inventoryPlayer, TileEntityInventory inventory) {
         super(new ContainerLiquidCaster(inventoryPlayer, inventory),
-                inventory, "textures/gui/LiquidCaster.png");
+                inventory, "textures/gui/liquid_caster.png");
     }
 
     @Override

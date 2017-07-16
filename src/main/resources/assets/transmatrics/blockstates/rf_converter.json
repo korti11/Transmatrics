@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "normal": { "model": "transmatrics:rf_converter" }
+  }
+}

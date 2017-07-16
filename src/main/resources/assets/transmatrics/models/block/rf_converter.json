@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures":{
+    "all": "transmatrics:blocks/rf_converter_side"
+  }
+}

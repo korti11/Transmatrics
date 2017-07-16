@@ -103,16 +103,18 @@ public final class MagneticSmelteryCraftingRegistry implements IFluidCraftingReg
     }
 
     public MagneticSmelteryCraftingEntry get(ItemStack stack) {
-        String[] oreDicts = ItemStackHelper.getOreDictionaryNames(stack);
-        for (ICraftingEntry<ItemStack, FluidStack> entry : recipes) {
-            if (stack != null && stack.getItem().equals(entry.getInputs()[0].getItem()) &&
-                    stack.getItemDamage() == entry.getInputs()[0].getItemDamage()) {
-                return (MagneticSmelteryCraftingEntry) entry;
-            }
-            for (String oreDictRecipe : entry.getInputsOreDictionary()) {
-                for (String oreDictEntry : oreDicts) {
-                    if (oreDictRecipe.equals(oreDictEntry)) {
-                        return (MagneticSmelteryCraftingEntry) entry;
+        if(!stack.isEmpty()) {
+            String[] oreDicts = ItemStackHelper.getOreDictionaryNames(stack);
+            for (ICraftingEntry<ItemStack, FluidStack> entry : recipes) {
+                if (stack != null && stack.getItem().equals(entry.getInputs()[0].getItem()) &&
+                        stack.getItemDamage() == entry.getInputs()[0].getItemDamage()) {
+                    return (MagneticSmelteryCraftingEntry) entry;
+                }
+                for (String oreDictRecipe : entry.getInputsOreDictionary()) {
+                    for (String oreDictEntry : oreDicts) {
+                        if (oreDictRecipe.equals(oreDictEntry)) {
+                            return (MagneticSmelteryCraftingEntry) entry;
+                        }
                     }
                 }
             }

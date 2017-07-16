@@ -144,7 +144,7 @@ public abstract class TileEntityFluidItemCraftingMachine extends TileEntityInven
     protected boolean areInputSlotsEmpty() {
         int[] inputSlots = craftingRegistry.getInputSlotsIds();
         for (int slot : inputSlots) {
-            if (getStackInSlot(slot) != null) {
+            if (!getStackInSlot(slot).isEmpty()) {
                 return false;
             }
         }
@@ -154,7 +154,7 @@ public abstract class TileEntityFluidItemCraftingMachine extends TileEntityInven
     protected boolean areOutputSlotsEmpty() {
         int[] inputSlots = craftingRegistry.getOutputSlotsIds();
         for (int slot : inputSlots) {
-            if (getStackInSlot(slot) != null) {
+            if (!getStackInSlot(slot).isEmpty()) {
                 return false;
             }
         }
@@ -232,7 +232,7 @@ public abstract class TileEntityFluidItemCraftingMachine extends TileEntityInven
     protected boolean equalInventoryOutputs(ItemStack[] outputs) {
         ItemStack[] outputContent = getInventoryOutputs();
         for (int i = 0; i < outputContent.length && i < outputs.length; i++) {
-            if (outputContent[i] != null && !outputContent[i].isItemEqual(outputs[i])) {
+            if (!outputContent[i].isItemEqual(outputs[i])) {
                 return false;
             }
         }
@@ -260,7 +260,7 @@ public abstract class TileEntityFluidItemCraftingMachine extends TileEntityInven
     protected boolean checkOutputStackSize(ItemStack[] outputs) {
         ItemStack[] outputContent = getInventoryOutputs();
         for (int i = 0; i < outputContent.length && i < outputs.length; i++) {
-            if (outputContent[i] != null) {
+            if (!outputContent[i].isEmpty()) {
                 int result = outputContent[i].getCount() + outputs[i].getCount();
                 if (result > getInventoryStackLimit() || result > outputContent[i].getMaxStackSize()) {
                     return false;
@@ -336,7 +336,7 @@ public abstract class TileEntityFluidItemCraftingMachine extends TileEntityInven
 
     protected void craftItem(int outputSlot, ItemStack output) {
         if (CraftingHelper.chanceToCraft(craftingRegistry, outputSlot, getFluidsInput(), getInventoryInputs())) {
-            if (getStackInSlot(outputSlot) == null) {
+            if (getStackInSlot(outputSlot).isEmpty()) {
                 setInventorySlotContents(outputSlot, output.copy());
             } else if (getStackInSlot(outputSlot).isItemEqual(output)) {
                 ItemStack outStack = getStackInSlot(outputSlot);
@@ -355,7 +355,7 @@ public abstract class TileEntityFluidItemCraftingMachine extends TileEntityInven
                 ItemStack stackInSlot = getStackInSlot(slot);
                 stackInSlot.setCount(stackInSlot.getCount() - stack.getCount());
                 if (stackInSlot.getCount() <= 0) {
-                    setInventorySlotContents(slot, null);
+                    setInventorySlotContents(slot, ItemStack.EMPTY);
                 }
             }
         }
@@ -436,14 +436,14 @@ public abstract class TileEntityFluidItemCraftingMachine extends TileEntityInven
 
     @Override
     public void setInventorySlotContents(int index, ItemStack stack) {
-        boolean isSameItem = stack != null && stack.isItemEqual(getStackInSlot(index)) && ItemStack.areItemStackTagsEqual(stack, getStackInSlot(index));
+        boolean isSameItem = !stack.isEmpty() && stack.isItemEqual(getStackInSlot(index)) && ItemStack.areItemStackTagsEqual(stack, getStackInSlot(index));
         super.setInventorySlotContents(index, stack);
         ICraftingRegistry.ICraftingEntry entry = craftingRegistry.get(getFluidsInput(), getInventoryInputs());
         if (InventoryHelper.isInputSlot(craftingRegistry, index) && entry != null && !isSameItem) {
             this.totalCraftingTime = entry.getCraftingTime();
             craftingTime = 0;
             this.markDirty();
-        } else if (InventoryHelper.isInputSlot(craftingRegistry, index) && stack == null) {
+        } else if (InventoryHelper.isInputSlot(craftingRegistry, index) && stack.isEmpty()) {
             this.totalCraftingTime = 0;
             this.craftingTime = 0;
             this.efficiency = 0;

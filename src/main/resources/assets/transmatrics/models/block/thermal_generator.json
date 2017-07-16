@@ -1,0 +1,6 @@
+{
+  "parent": "transmatrics:block/generator",
+  "textures": {
+    "north": "transmatrics:blocks/thermal_generator_front_active"
+  }
+}

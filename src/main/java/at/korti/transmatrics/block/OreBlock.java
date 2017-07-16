@@ -1,6 +1,7 @@
 package at.korti.transmatrics.block;
 
 import at.korti.transmatrics.api.Constants.TransmatricsBlock;
+import at.korti.transmatrics.util.IVariant;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
@@ -11,6 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.NonNullList;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -40,7 +42,7 @@ public class OreBlock extends ModBlock {
 
     @Override
     public int getMetaFromState(IBlockState state) {
-        return state.getValue(TYPE).meta;
+        return state.getValue(TYPE).getMeta();
     }
 
     @Override
@@ -68,7 +70,13 @@ public class OreBlock extends ModBlock {
         }
     }
 
-    public enum OreType implements IStringSerializable {
+    public String getMetaName(ItemStack stack) {
+        final int metadata = stack.getMetadata();
+
+        return getFromMeta(metadata).getName();
+    }
+
+    public enum OreType implements IVariant {
         copper(1),
         tin(1),
         silver(2),
@@ -86,6 +94,12 @@ public class OreBlock extends ModBlock {
         @Override
         public String getName() {
             return this.toString();
+        }
+
+
+        @Override
+        public int getMeta() {
+            return meta;
         }
     }
 }

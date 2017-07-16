@@ -8,7 +8,7 @@ import at.korti.transmatrics.item.ModMetaItem;
  */
 public class ItemElectronics extends ModMetaItem {
 
-    public static final String[] extensions = {"basicCircuit", "advancedCircuit", "shortTransmitter", "transmitter", "longTransmitter"};
+    public static final String[] extensions = {"basic_circuit", "advanced_circuit", "short_transmitter", "transmitter", "long_transmitter"};
 
     public ItemElectronics() {
         super(TransmatricsItem.ELECTRONICS.getRegName(), extensions);

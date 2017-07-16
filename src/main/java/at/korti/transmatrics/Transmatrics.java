@@ -51,19 +51,11 @@ public class Transmatrics {
     @Mod.EventHandler
     public static void preInit(FMLPreInitializationEvent event) {
         logger = event.getModLog();
-        Config.loadConfig(event.getSuggestedConfigurationFile());
-        ModIntegrationManager.initManager();
-        Fluids.registerFluids();
-        TileEntities.registerTileEntities();
-        GameRegistry.registerWorldGenerator(new OreGeneration(), 1);
         proxy.preInit(event);
     }
 
     @Mod.EventHandler
     public static void init(FMLInitializationEvent event) {
-        Crafting.register();
-        TransmatricsPacketHandler.init();
-        NetworkRegistry.INSTANCE.registerGuiHandler(Transmatrics.instance, new GuiHandler());
         proxy.init(event);
     }
 

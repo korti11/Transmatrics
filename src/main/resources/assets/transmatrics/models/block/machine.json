@@ -1,0 +1,10 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "particle": "transmatrics:blocks/machine_side",
+    "down": "transmatrics:blocks/machine_side",
+    "south": "transmatrics:blocks/machine_side",
+    "west": "transmatrics:blocks/machine_side",
+    "east": "transmatrics:blocks/machine_side"
+  }
+}

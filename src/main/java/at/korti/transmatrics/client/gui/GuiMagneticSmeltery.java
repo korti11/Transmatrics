@@ -21,7 +21,7 @@ import java.util.List;
 public class GuiMagneticSmeltery extends GuiCrafting {
 
     public GuiMagneticSmeltery(InventoryPlayer inventoryPlayer, TileEntityInventory inventory) {
-        super(new ContainerMagneticSmeltery(inventoryPlayer, inventory), inventory, "textures/gui/MagneticSmeltery.png");
+        super(new ContainerMagneticSmeltery(inventoryPlayer, inventory), inventory, "textures/gui/magnetic_smeltery.png");
     }
 
     @Override

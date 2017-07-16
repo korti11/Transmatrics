@@ -11,7 +11,7 @@ import net.minecraft.inventory.IInventory;
 public class GuiPoweredFurnace extends GuiCrafting {
 
     public GuiPoweredFurnace(InventoryPlayer inventoryPlayer, TileEntityInventory inventory) {
-        super(new ContainerPoweredFurnace(inventoryPlayer, inventory), inventory, "textures/gui/PoweredFurnace.png");
+        super(new ContainerPoweredFurnace(inventoryPlayer, inventory), inventory, "textures/gui/powered_furnace.png");
     }
 
     @Override

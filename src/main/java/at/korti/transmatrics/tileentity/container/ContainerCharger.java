@@ -85,7 +85,7 @@ public class ContainerCharger extends Container{
 
     @Override
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
-        ItemStack itemStack = null;
+        ItemStack itemStack = ItemStack.EMPTY;
         Slot slot =  this.inventorySlots.get(index);
 
         if (slot != null && slot.getHasStack()) {
@@ -94,34 +94,34 @@ public class ContainerCharger extends Container{
 
             if (index == 1) {
                 if (!this.mergeItemStack(tempStack, 2, 38, true)) {
-                    return null;
+                    return ItemStack.EMPTY;
                 }
 
                 slot.onSlotChange(tempStack, itemStack);
             } else if (index != 0) {
                 if (tempStack.getItem() instanceof IChargeable) {
                     if (!this.mergeItemStack(tempStack, 0, 1, false)) {
-                        return null;
+                        return ItemStack.EMPTY;
                     }
                 } else if (index >= 2 && index < 29) {
                     if (!this.mergeItemStack(tempStack, 29, 38, false)) {
-                        return null;
+                        return ItemStack.EMPTY;
                     }
                 } else if (index >= 29 && index < 38 && !this.mergeItemStack(tempStack, 2, 38, false)) {
-                    return null;
+                    return ItemStack.EMPTY;
                 }
             } else if (!this.mergeItemStack(tempStack, 2, 38, false)) {
-                return null;
+                return ItemStack.EMPTY;
             }
 
             if (tempStack.getCount() == 0) {
-                slot.putStack(null);
+                slot.putStack(ItemStack.EMPTY);
             } else {
                 slot.onSlotChanged();
             }
 
             if (tempStack.getCount() == itemStack.getCount()) {
-                return null;
+                return ItemStack.EMPTY;
             }
 
             slot.onTake(playerIn, tempStack);

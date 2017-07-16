@@ -1,0 +1,7 @@
+{
+  "parent": "transmatrics:block/solar_panel",
+  "textures": {
+    "particle": "transmatrics:blocks/advanced_solar_panel_top",
+    "SolarPanelTop": "transmatrics:blocks/advanced_solar_panel_top"
+  }
+}

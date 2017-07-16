@@ -322,74 +322,74 @@ public final class Crafting {
     }
 
     private static void registerMagneticSmelteryCrafting() {
-        MagneticSmelteryCraftingRegistry.getInstance().register(new ItemStack(INGOT.getItem(), 1, 0), Fluids.moltenCopper, FLUID_AMOUNT_PER_INGOT, 20 * 8);
-        MagneticSmelteryCraftingRegistry.getInstance().register(new ItemStack(INGOT.getItem(), 1, 1), Fluids.moltenTin, FLUID_AMOUNT_PER_INGOT, 20 * 8);
-        MagneticSmelteryCraftingRegistry.getInstance().register(new ItemStack(INGOT.getItem(), 1, 2), Fluids.moltenSilver, FLUID_AMOUNT_PER_INGOT, 20 * 10);
-        MagneticSmelteryCraftingRegistry.getInstance().register(new ItemStack(INGOT.getItem(), 1, 3), Fluids.moltenLead, FLUID_AMOUNT_PER_INGOT, 20 * 10);
-        MagneticSmelteryCraftingRegistry.getInstance().register(new ItemStack(INGOT.getItem(), 1, 4), Fluids.moltenNickel, FLUID_AMOUNT_PER_INGOT, 20 * 9);
-        MagneticSmelteryCraftingRegistry.getInstance().register(new ItemStack(INGOT.getItem(), 1, 5), Fluids.moltenInvar, FLUID_AMOUNT_PER_INGOT, 20 * 9);
-        MagneticSmelteryCraftingRegistry.getInstance().register(new ItemStack(INGOT.getItem(), 1, 6), Fluids.moltenElectrum, FLUID_AMOUNT_PER_INGOT, 20 * 9);
+        MagneticSmelteryCraftingRegistry.getInstance().register(new ItemStack(INGOT.getItem(), 1, 0), ModFluids.MOLTEN_COPPER, FLUID_AMOUNT_PER_INGOT, 20 * 8);
+        MagneticSmelteryCraftingRegistry.getInstance().register(new ItemStack(INGOT.getItem(), 1, 1), ModFluids.MOLTEN_TIN, FLUID_AMOUNT_PER_INGOT, 20 * 8);
+        MagneticSmelteryCraftingRegistry.getInstance().register(new ItemStack(INGOT.getItem(), 1, 2), ModFluids.MOLTEN_SILVER, FLUID_AMOUNT_PER_INGOT, 20 * 10);
+        MagneticSmelteryCraftingRegistry.getInstance().register(new ItemStack(INGOT.getItem(), 1, 3), ModFluids.MOLTEN_LEAD, FLUID_AMOUNT_PER_INGOT, 20 * 10);
+        MagneticSmelteryCraftingRegistry.getInstance().register(new ItemStack(INGOT.getItem(), 1, 4), ModFluids.MOLTEN_NICKEL, FLUID_AMOUNT_PER_INGOT, 20 * 9);
+        MagneticSmelteryCraftingRegistry.getInstance().register(new ItemStack(INGOT.getItem(), 1, 5), ModFluids.MOLTEN_INVAR, FLUID_AMOUNT_PER_INGOT, 20 * 9);
+        MagneticSmelteryCraftingRegistry.getInstance().register(new ItemStack(INGOT.getItem(), 1, 6), ModFluids.MOLTEN_ELECTRUM, FLUID_AMOUNT_PER_INGOT, 20 * 9);
 
-        MagneticSmelteryCraftingRegistry.getInstance().register(new ItemStack(ORE_BLOCK.getBlock(), 1, 0), Fluids.moltenCopper, FLUID_AMOUNT_PER_INGOT * 2, 20 * 16);
-        MagneticSmelteryCraftingRegistry.getInstance().register(new ItemStack(ORE_BLOCK.getBlock(), 1, 1), Fluids.moltenTin, FLUID_AMOUNT_PER_INGOT * 2, 20 * 16);
-        MagneticSmelteryCraftingRegistry.getInstance().register(new ItemStack(ORE_BLOCK.getBlock(), 1, 2), Fluids.moltenSilver, FLUID_AMOUNT_PER_INGOT * 2, 20 * 20);
-        MagneticSmelteryCraftingRegistry.getInstance().register(new ItemStack(ORE_BLOCK.getBlock(), 1, 3), Fluids.moltenLead, FLUID_AMOUNT_PER_INGOT * 2, 20 * 20);
-        MagneticSmelteryCraftingRegistry.getInstance().register(new ItemStack(ORE_BLOCK.getBlock(), 1, 4), Fluids.moltenNickel, FLUID_AMOUNT_PER_INGOT * 2, 20 * 18);
+        MagneticSmelteryCraftingRegistry.getInstance().register(new ItemStack(ORE_BLOCK.getBlock(), 1, 0), ModFluids.MOLTEN_COPPER, FLUID_AMOUNT_PER_INGOT * 2, 20 * 16);
+        MagneticSmelteryCraftingRegistry.getInstance().register(new ItemStack(ORE_BLOCK.getBlock(), 1, 1), ModFluids.MOLTEN_TIN, FLUID_AMOUNT_PER_INGOT * 2, 20 * 16);
+        MagneticSmelteryCraftingRegistry.getInstance().register(new ItemStack(ORE_BLOCK.getBlock(), 1, 2), ModFluids.MOLTEN_SILVER, FLUID_AMOUNT_PER_INGOT * 2, 20 * 20);
+        MagneticSmelteryCraftingRegistry.getInstance().register(new ItemStack(ORE_BLOCK.getBlock(), 1, 3), ModFluids.MOLTEN_LEAD, FLUID_AMOUNT_PER_INGOT * 2, 20 * 20);
+        MagneticSmelteryCraftingRegistry.getInstance().register(new ItemStack(ORE_BLOCK.getBlock(), 1, 4), ModFluids.MOLTEN_NICKEL, FLUID_AMOUNT_PER_INGOT * 2, 20 * 18);
     }
 
     private static void registerLiquidCasterCrafting() {
         LiquidCasterCraftingRegistry.getInstance().register(
-                new FluidStack(Fluids.moltenCopper, FLUID_AMOUNT_PER_INGOT * 4), new ItemStack(CAST.getItem(), 1, 1),
+                new FluidStack(ModFluids.MOLTEN_COPPER, FLUID_AMOUNT_PER_INGOT * 4), new ItemStack(CAST.getItem(), 1, 1),
                 new ItemStack(GEAR.getItem(), 1, 0), 20 * 8
         );
         LiquidCasterCraftingRegistry.getInstance().register(
-                new FluidStack(Fluids.moltenTin, FLUID_AMOUNT_PER_INGOT * 4), new ItemStack(CAST.getItem(), 1, 1),
+                new FluidStack(ModFluids.MOLTEN_TIN, FLUID_AMOUNT_PER_INGOT * 4), new ItemStack(CAST.getItem(), 1, 1),
                 new ItemStack(GEAR.getItem(), 1, 1), 20 * 8
         );
         LiquidCasterCraftingRegistry.getInstance().register(
-                new FluidStack(Fluids.moltenSilver, FLUID_AMOUNT_PER_INGOT * 4), new ItemStack(CAST.getItem(), 1, 1),
+                new FluidStack(ModFluids.MOLTEN_SILVER, FLUID_AMOUNT_PER_INGOT * 4), new ItemStack(CAST.getItem(), 1, 1),
                 new ItemStack(GEAR.getItem(), 1, 2), 20 * 8
         );
         LiquidCasterCraftingRegistry.getInstance().register(
-                new FluidStack(Fluids.moltenLead, FLUID_AMOUNT_PER_INGOT * 4), new ItemStack(CAST.getItem(), 1, 1),
+                new FluidStack(ModFluids.MOLTEN_LEAD, FLUID_AMOUNT_PER_INGOT * 4), new ItemStack(CAST.getItem(), 1, 1),
                 new ItemStack(GEAR.getItem(), 1, 3), 20 * 8
         );
 
         LiquidCasterCraftingRegistry.getInstance().register(
-                new FluidStack(Fluids.moltenCopper, FLUID_AMOUNT_PER_INGOT), new ItemStack(CAST.getItem(), 1, 0),
+                new FluidStack(ModFluids.MOLTEN_COPPER, FLUID_AMOUNT_PER_INGOT), new ItemStack(CAST.getItem(), 1, 0),
                 new ItemStack(INGOT.getItem(), 1, 0), 20 * 8
         );
         LiquidCasterCraftingRegistry.getInstance().register(
-                new FluidStack(Fluids.moltenTin, FLUID_AMOUNT_PER_INGOT), new ItemStack(CAST.getItem(), 1, 0),
+                new FluidStack(ModFluids.MOLTEN_TIN, FLUID_AMOUNT_PER_INGOT), new ItemStack(CAST.getItem(), 1, 0),
                 new ItemStack(INGOT.getItem(), 1, 1), 20 * 8
         );
         LiquidCasterCraftingRegistry.getInstance().register(
-                new FluidStack(Fluids.moltenSilver, FLUID_AMOUNT_PER_INGOT), new ItemStack(CAST.getItem(), 1, 0),
+                new FluidStack(ModFluids.MOLTEN_SILVER, FLUID_AMOUNT_PER_INGOT), new ItemStack(CAST.getItem(), 1, 0),
                 new ItemStack(INGOT.getItem(), 1, 2), 20 * 8
         );
         LiquidCasterCraftingRegistry.getInstance().register(
-                new FluidStack(Fluids.moltenLead, FLUID_AMOUNT_PER_INGOT), new ItemStack(CAST.getItem(), 1, 0),
+                new FluidStack(ModFluids.MOLTEN_LEAD, FLUID_AMOUNT_PER_INGOT), new ItemStack(CAST.getItem(), 1, 0),
                 new ItemStack(INGOT.getItem(), 1, 3), 20 * 8
         );
         LiquidCasterCraftingRegistry.getInstance().register(
-                new FluidStack(Fluids.moltenNickel, FLUID_AMOUNT_PER_INGOT), new ItemStack(CAST.getItem(), 1, 0),
+                new FluidStack(ModFluids.MOLTEN_NICKEL, FLUID_AMOUNT_PER_INGOT), new ItemStack(CAST.getItem(), 1, 0),
                 new ItemStack(INGOT.getItem(), 1, 4), 20 * 8
         );
         LiquidCasterCraftingRegistry.getInstance().register(
-                new FluidStack(Fluids.moltenInvar, FLUID_AMOUNT_PER_INGOT), new ItemStack(CAST.getItem(), 1, 0),
+                new FluidStack(ModFluids.MOLTEN_INVAR, FLUID_AMOUNT_PER_INGOT), new ItemStack(CAST.getItem(), 1, 0),
                 new ItemStack(INGOT.getItem(), 1, 5), 20 * 8
         );
         LiquidCasterCraftingRegistry.getInstance().register(
-                new FluidStack(Fluids.moltenElectrum, FLUID_AMOUNT_PER_INGOT), new ItemStack(CAST.getItem(), 1, 0),
+                new FluidStack(ModFluids.MOLTEN_ELECTRUM, FLUID_AMOUNT_PER_INGOT), new ItemStack(CAST.getItem(), 1, 0),
                 new ItemStack(INGOT.getItem(), 1, 6), 20 * 8
         );
 
         LiquidCasterCraftingRegistry.getInstance().register(
-                new FluidStack(Fluids.moltenCopper, FLUID_AMOUNT_PER_INGOT), new ItemStack(CAST.getItem(), 1, 2),
+                new FluidStack(ModFluids.MOLTEN_COPPER, FLUID_AMOUNT_PER_INGOT), new ItemStack(CAST.getItem(), 1, 2),
                 new ItemStack(PLATE.getItem(), 1, 1), 20 * 8
         );
         LiquidCasterCraftingRegistry.getInstance().register(
-                new FluidStack(Fluids.moltenTin, FLUID_AMOUNT_PER_INGOT), new ItemStack(CAST.getItem(), 1, 2),
+                new FluidStack(ModFluids.MOLTEN_TIN, FLUID_AMOUNT_PER_INGOT), new ItemStack(CAST.getItem(), 1, 2),
                 new ItemStack(PLATE.getItem(), 1, 2), 20 * 8
         );
     }

@@ -1,101 +1,102 @@
 ﻿itemGroup.transmatrics=Transmatrics
 
 #Blocks
-tile.Transmatrics.SolarPanel.name=Solar Panel
-tile.Transmatrics.AdvancedSolarPanel.name=Advanced Solar Panel
-tile.Transmatrics.LavaGenerator.name=Lava Generator
-tile.Transmatrics.ThermalGenerator.name=Thermal Generator
-tile.Transmatrics.HydrogenGenerator.name=Hydrogen Generator
-tile.Transmatrics.Windmill.name=Windmill
-tile.Transmatrics.Watermill.name=Watermill
-tile.Transmatrics.SmallSwitch.name=Small Switch
-tile.Transmatrics.MediumSwitch.name=Medium Switch
-tile.Transmatrics.LargeSwitch.name=Large Switch
-tile.Transmatrics.Controller.name=Controller
-tile.Transmatrics.Pulverizer.name=Pulverizer
-tile.Transmatrics.PoweredFurnace.name=Powered Furnace
-tile.Transmatrics.MagneticSmeltery.name=Magnetic Smeltery
-tile.Transmatrics.LiquidCaster.name=Liquid Caster
-tile.Transmatrics.MachineCasing.name=Machine Casing
-tile.Transmatrics.AlloyMixer.name=Alloy Mixer
-tile.Transmatrics.Charger.name=Energised Charger
-tile.Transmatrics.RFConverter.name=Energised RF-Converter
+tile.transmatrics.solar_panel.name=Solar Panel
+tile.transmatrics.advanced_solar_panel.name=Advanced Solar Panel
+tile.transmatrics.lava_generator.name=Lava Generator
+tile.transmatrics.thermal_generator.name=Thermal Generator
+tile.transmatrics.windmill.name=Windmill
+tile.transmatrics.watermill.name=Watermill
+tile.transmatrics.small_switch.name=Small Switch
+tile.transmatrics.medium_switch.name=Medium Switch
+tile.transmatrics.large_switch.name=Large Switch
+tile.transmatrics.controller.name=Controller
+tile.transmatrics.pulverizer.name=Pulverizer
+tile.transmatrics.powered_furnace.name=Powered Furnace
+tile.transmatrics.magnetic_smeltery.name=Magnetic Smeltery
+tile.transmatrics.liquid_caster.name=Liquid Caster
+tile.transmatrics.machine_casing.name=Machine Casing
+tile.transmatrics.alloy_mixer.name=Alloy Mixer
+tile.transmatrics.charger.name=Energised Charger
+tile.transmatrics.rf_converter.name=Energised RF-Converter
 
 #Ore
-tile.Transmatrics.Ore.copper.name=Copper Ore
-tile.Transmatrics.Ore.tin.name=Tin Ore
-tile.Transmatrics.Ore.silver.name=Silver Ore
-tile.Transmatrics.Ore.lead.name=Lead Ore
-tile.Transmatrics.Ore.nickel.name=Nickel Ore
+tile.transmatrics.ore.copper.name=Copper Ore
+tile.transmatrics.ore.tin.name=Tin Ore
+tile.transmatrics.ore.silver.name=Silver Ore
+tile.transmatrics.ore.lead.name=Lead Ore
+tile.transmatrics.ore.nickel.name=Nickel Ore
 
 #Items
-item.Transmatrics.Wrench.name=Wrench
-item.Transmatrics.Connector.name=Connector
-item.Transmatrics.Hammer.name=Hammer
+item.transmatrics.wrench.name=Wrench
+item.transmatrics.connector.name=Connector
+item.transmatrics.hammer.name=Hammer
 
 #Dusts
-item.Transmatrics.PulverizedDust.iron.name=Pulverized Iron
-item.Transmatrics.PulverizedDust.gold.name=Pulverized Gold
-item.Transmatrics.PulverizedDust.copper.name=Pulverized Copper
-item.Transmatrics.PulverizedDust.tin.name=Pulverized Tin
-item.Transmatrics.PulverizedDust.silver.name=Pulverized Silver
-item.Transmatrics.PulverizedDust.lead.name=Pulverized Lead
-item.Transmatrics.PulverizedDust.nickel.name=Pulverized Nickel
-item.Transmatrics.PulverizedDust.invar.name=Pulverized Invar
-item.Transmatrics.PulverizedDust.electrum.name=Pulverized Electrum
+item.transmatrics.pulverized_dust.iron.name=Pulverized Iron
+item.transmatrics.pulverized_dust.gold.name=Pulverized Gold
+item.transmatrics.pulverized_dust.copper.name=Pulverized Copper
+item.transmatrics.pulverized_dust.tin.name=Pulverized Tin
+item.transmatrics.pulverized_dust.silver.name=Pulverized Silver
+item.transmatrics.pulverized_dust.lead.name=Pulverized Lead
+item.transmatrics.pulverized_dust.nickel.name=Pulverized Nickel
+item.transmatrics.pulverized_dust.invar.name=Pulverized Invar
+item.transmatrics.pulverized_dust.electrum.name=Pulverized Electrum
 
 #Ingots
-item.Transmatrics.Ingot.copper.name=Copper Ingot
-item.Transmatrics.Ingot.tin.name=Tin Ingot
-item.Transmatrics.Ingot.silver.name=Silver Ingot
-item.Transmatrics.Ingot.lead.name=Lead Ingot
-item.Transmatrics.Ingot.nickel.name=Nickel Ingot
-item.Transmatrics.Ingot.invar.name=Invar Ingot
-item.Transmatrics.Ingot.electrum.name=Electrum Ingot
+item.transmatrics.ingot.copper.name=Copper Ingot
+item.transmatrics.ingot.tin.name=Tin Ingot
+item.transmatrics.ingot.silver.name=Silver Ingot
+item.transmatrics.ingot.lead.name=Lead Ingot
+item.transmatrics.ingot.nickel.name=Nickel Ingot
+item.transmatrics.ingot.invar.name=Invar Ingot
+item.transmatrics.ingot.electrum.name=Electrum Ingot
 
 #Gears
-item.Transmatrics.Gear.copper.name=Copper Gear
-item.Transmatrics.Gear.tin.name=Tin Gear
-item.Transmatrics.Gear.silver.name=Silver Gear
-item.Transmatrics.Gear.lead.name=Lead Gear
+item.transmatrics.gear.copper.name=Copper Gear
+item.transmatrics.gear.tin.name=Tin Gear
+item.transmatrics.gear.silver.name=Silver Gear
+item.transmatrics.gear.lead.name=Lead Gear
 
 #Plates
-item.Transmatrics.Plate.iron.name=Iron Plate
-item.Transmatrics.Plate.copper.name=Copper Plate
-item.Transmatrics.Plate.tin.name=Tin Plate
+item.transmatrics.plate.iron.name=Iron Plate
+item.transmatrics.plate.copper.name=Copper Plate
+item.transmatrics.plate.tin.name=Tin Plate
 
 #Cast
-item.Transmatrics.Cast.ingot.name=Ingot Cast
-item.Transmatrics.Cast.gear.name=Gear Cast
-item.Transmatrics.Cast.plate.name=Plate Cast
+item.transmatrics.cast.ingot.name=Ingot Cast
+item.transmatrics.cast.gear.name=Gear Cast
+item.transmatrics.cast.plate.name=Plate Cast
 
 #Electronics
-item.Transmatrics.Electronics.basicCircuit.name=Basic Circuit
-item.Transmatrics.Electronics.advancedCircuit.name=Advanced Circuit
-item.Transmatrics.Electronics.shortTransmitter.name=Short Transmitter
-item.Transmatrics.Electronics.transmitter.name=Transmitter
-item.Transmatrics.Electronics.longTransmitter.name=Long Transmitter
+item.transmatrics.electronics.basic_circuit.name=Basic Circuit
+item.transmatrics.electronics.advanced_circuit.name=Advanced Circuit
+item.transmatrics.electronics.short_transmitter.name=Short Transmitter
+item.transmatrics.electronics.transmitter.name=Transmitter
+item.transmatrics.electronics.long_transmitter.name=Long Transmitter
 
 #Capacitors
-item.Transmatrics.LeadCapacitor.name=Lead Capacitor
-item.Transmatrics.InvarCapacitor.name=Invar Capacitor
-item.Transmatrics.ElectrumCapacitor.name=Electrum Capacitor
+item.transmatrics.lead_capacitor.name=Lead Capacitor
+item.transmatrics.invar_capacitor.name=Invar Capacitor
+item.transmatrics.electrum_capacitor.name=Electrum Capacitor
 
 #Fluids
-fluid.Transmatrics.moltencopper.name=Molten Copper
-tile.Transmatrics.moltencopper.name=Molten Copper
-fluid.Transmatrics.moltentin.name=Molten Tin
-tile.Transmatrics.moltentin.name=Molten Tin
-fluid.Transmatrics.moltensilver.name=Molten Silver
-tile.Transmatrics.moltensilver.name=Molten Silver
-fluid.Transmatrics.moltenlead.name=Molten Lead
-tile.Transmatrics.moltenlead.name=Molten Lead
-fluid.Transmatrics.moltennickel.name=Molten Nickel
-tile.Transmatrics.moltennickel.name=Molten Nickel
-fluid.Transmatrics.molteninvar.name=Molten Invar
-tile.Transmatrics.molteninvar.name=Molten Invar
-fluid.Transmatrics.moltenelectrum.name=Molten Electrum
-tile.Transmatrics.moltenelectrum.name=Molten Electrum
+fluid.molten_copper=Molten Copper
+fluid.molten_tin=Molten Tin
+fluid.molten_silver=Molten Silver
+fluid.molten_lead=Molten Lead
+fluid.molten_nickel=Molten Nickel
+fluid.molten_invar=Molten Invar
+fluid.molten_electrum=Molten Electrum
+
+#Fuild Blocks
+tile.transmatrics.molten_copper.name=Molten Copper
+tile.transmatrics.molten_tin.name=Molten Tin
+tile.transmatrics.molten_silver.name=Molten Silver
+tile.transmatrics.molten_lead.name=Molten Lead
+tile.transmatrics.molten_nickel.name=Molten Nickel
+tile.transmatrics.molten_invar.name=Molten Invar
+tile.transmatrics.molten_electrum.name=Molten Electrum
 
 #Network
 network.max_connections.message=[Network] The max connection points are reached. Max connections: %d
@@ -127,5 +128,5 @@ jei.category.magneticsmeltery.title=Magnetic Smeltery
 jei.category.liquidcaster.title=Liquid Caster
 
 #TConstruct Modifiers
-modifier.Transmatrics.energetic=Energetic
+modifier.transmatrics.energetic=Energetic
 modifier.energetic.desc=§oCharged!§r\nUse first energy instead of durability.

@@ -28,6 +28,8 @@ public class TransmatricsPlugin implements IModPlugin {
 
     @Override
     public void register(@Nonnull IModRegistry registry) {
+        jeiHelper = registry.getJeiHelpers();
+
         registry.addRecipes(PulverizerRecipeMaker.getRecipes(), Constants.JEI.Categories.PULVERIZER);
         registry.addRecipes(MagneticSmelteryRecipeMaker.getRecipes(), Constants.JEI.Categories.MAGNETIC_SMELTERY);
         registry.addRecipes(LiquidCasterRecipeMaker.getRecipes(), Constants.JEI.Categories.LIQUID_CASTER);

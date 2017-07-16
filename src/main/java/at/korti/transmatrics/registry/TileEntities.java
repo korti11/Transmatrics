@@ -1,6 +1,5 @@
 package at.korti.transmatrics.registry;
 
-import at.korti.transmatrics.config.Config;
 import at.korti.transmatrics.tileentity.crafting.*;
 import at.korti.transmatrics.tileentity.energy.TileEntityCharger;
 import at.korti.transmatrics.tileentity.generator.*;

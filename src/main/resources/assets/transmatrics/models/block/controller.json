@@ -1,0 +1,663 @@
+{
+"textures": {
+    "particle": "transmatrics:blocks/machine_side",
+    "MachineSide": "transmatrics:blocks/machine_side",
+    "ControllerPorts": "transmatrics:blocks/controller_ports",
+    "ControllerCable": "transmatrics:blocks/controller_cable",
+    "ControllerCore": "transmatrics:blocks/controller_core"
+},
+"elements": [ 
+{
+    "from": [ 0, 0, 0 ],
+    "to": [ 16, 1, 16 ],
+    "faces": {
+        "down":  { "uv": [ 16, 16, 0, 0 ], "texture": "#MachineSide", "cullface": "down" },
+        "up":    { "uv": [ 0, 0, 16, 16 ], "texture": "#MachineSide" },
+        "north": { "uv": [ 0, 15, 16, 16 ], "texture": "#MachineSide", "cullface": "north" },
+        "south": { "uv": [ 0, 15, 16, 16 ], "texture": "#MachineSide", "cullface": "south" },
+        "west":  { "uv": [ 0, 15, 16, 16 ], "texture": "#MachineSide", "cullface": "west" },
+        "east":  { "uv": [ 0, 15, 16, 16 ], "texture": "#MachineSide", "cullface": "east" }
+    }
+},
+{
+    "from": [ 0, 1, 0 ],
+    "to": [ 1, 15, 16 ],
+    "faces": {
+        "north": { "uv": [ 15, 1, 16, 15 ], "texture": "#MachineSide", "cullface": "north" },
+        "south": { "uv": [ 0, 1, 1, 15 ], "texture": "#MachineSide", "cullface": "south" },
+        "west":  { "uv": [ 0, 1, 16, 15 ], "texture": "#MachineSide", "cullface": "west" },
+        "east":  { "uv": [ 0, 1, 16, 15 ], "texture": "#MachineSide" }
+    }
+},
+{
+    "from": [ 15, 1, 0 ],
+    "to": [ 16, 15, 16 ],
+    "faces": {
+        "north": { "uv": [ 0, 1, 1, 15 ], "texture": "#MachineSide", "cullface": "north" },
+        "south": { "uv": [ 15, 1, 16, 15 ], "texture": "#MachineSide", "cullface": "south" },
+        "west":  { "uv": [ 0, 1, 16, 15 ], "texture": "#MachineSide" },
+        "east":  { "uv": [ 0, 1, 16, 15 ], "texture": "#MachineSide", "cullface": "east" }
+    }
+},
+{
+    "from": [ 0, 15, 0 ],
+    "to": [ 16, 16, 16 ],
+    "faces": {
+        "down":  { "uv": [ 16, 16, 0, 0 ], "texture": "#MachineSide" },
+        "up":    { "uv": [ 0, 0, 16, 16 ], "texture": "#MachineSide", "cullface": "up" },
+        "north": { "uv": [ 0, 0, 16, 1 ], "texture": "#MachineSide", "cullface": "north" },
+        "south": { "uv": [ 0, 0, 16, 1 ], "texture": "#MachineSide", "cullface": "south" },
+        "west":  { "uv": [ 0, 0, 16, 1 ], "texture": "#MachineSide", "cullface": "west" },
+        "east":  { "uv": [ 0, 0, 16, 1 ], "texture": "#MachineSide", "cullface": "east" }
+    }
+},
+{
+    "from": [ 6, 10, 6 ],
+    "to": [ 10, 15, 10 ],
+    "faces": {
+        "north": { "uv": [ 6, 1, 10, 6 ], "texture": "#ControllerCore" },
+        "south": { "uv": [ 6, 1, 10, 6 ], "texture": "#ControllerCore" },
+        "west":  { "uv": [ 6, 1, 10, 6 ], "texture": "#ControllerCore" },
+        "east":  { "uv": [ 6, 1, 10, 6 ], "texture": "#ControllerCore" }
+    }
+},
+{
+    "from": [ 6, 1, 6 ],
+    "to": [ 10, 6, 10 ],
+    "faces": {
+        "north": { "uv": [ 6, 10, 10, 15 ], "texture": "#ControllerCore" },
+        "south": { "uv": [ 6, 10, 10, 15 ], "texture": "#ControllerCore" },
+        "west":  { "uv": [ 6, 10, 10, 15 ], "texture": "#ControllerCore" },
+        "east":  { "uv": [ 6, 10, 10, 15 ], "texture": "#ControllerCore" }
+    }
+},
+{
+    "from": [ 5, 6, 5 ],
+    "to": [ 11, 10, 11 ],
+    "faces": {
+        "down":  { "uv": [ 11, 11, 5, 5 ], "texture": "#ControllerCore" },
+        "up":    { "uv": [ 5, 5, 11, 11 ], "texture": "#ControllerCore" },
+        "north": { "uv": [ 5, 6, 11, 10 ], "texture": "#ControllerCore" },
+        "south": { "uv": [ 5, 6, 11, 10 ], "texture": "#ControllerCore" },
+        "west":  { "uv": [ 5, 6, 11, 10 ], "texture": "#ControllerCore" },
+        "east":  { "uv": [ 5, 6, 11, 10 ], "texture": "#ControllerCore" }
+    }
+},
+{
+    "__comment": "Port",
+    "from": [ 1, 11, 2 ],
+    "to": [ 2, 14, 5 ],
+    "faces": {
+        "down":  { "uv": [ 2, 9, 1, 6 ], "texture": "#ControllerPorts" },
+        "up":    { "uv": [ 14, 6, 15, 9 ], "texture": "#ControllerPorts" },
+        "north": { "uv": [ 1, 12, 2, 15 ], "texture": "#ControllerPorts" },
+        "south": { "uv": [ 14, 12, 15, 15 ], "texture": "#ControllerPorts" },
+        "east":  { "uv": [ 7, 11, 10, 14 ], "texture": "#ControllerPorts" }
+    }
+},
+{
+    "__comment": "Port",
+    "from": [ 1, 11, 6.5 ],
+    "to": [ 2, 14, 9.5 ],
+    "faces": {
+        "down":  { "uv": [ 2, 9, 1, 6 ], "texture": "#ControllerPorts" },
+        "up":    { "uv": [ 14, 6, 15, 9 ], "texture": "#ControllerPorts" },
+        "north": { "uv": [ 1, 12, 2, 15 ], "texture": "#ControllerPorts" },
+        "south": { "uv": [ 14, 12, 15, 15 ], "texture": "#ControllerPorts" },
+        "east":  { "uv": [ 7, 11, 10, 14 ], "texture": "#ControllerPorts" }
+    }
+},
+{
+    "__comment": "Port",
+    "from": [ 1, 11, 11 ],
+    "to": [ 2, 14, 14 ],
+    "faces": {
+        "down":  { "uv": [ 2, 9, 1, 6 ], "texture": "#ControllerPorts" },
+        "up":    { "uv": [ 14, 6, 15, 9 ], "texture": "#ControllerPorts" },
+        "north": { "uv": [ 1, 12, 2, 15 ], "texture": "#ControllerPorts" },
+        "south": { "uv": [ 14, 12, 15, 15 ], "texture": "#ControllerPorts" },
+        "east":  { "uv": [ 7, 11, 10, 14 ], "texture": "#ControllerPorts" }
+    }
+},
+{
+    "__comment": "Port",
+    "from": [ 1, 6.5, 2 ],
+    "to": [ 2, 9.5, 5 ],
+    "faces": {
+        "down":  { "uv": [ 2, 9, 1, 6 ], "texture": "#ControllerPorts" },
+        "up":    { "uv": [ 14, 6, 15, 9 ], "texture": "#ControllerPorts" },
+        "north": { "uv": [ 1, 12, 2, 15 ], "texture": "#ControllerPorts" },
+        "south": { "uv": [ 14, 12, 15, 15 ], "texture": "#ControllerPorts" },
+        "east":  { "uv": [ 7, 11, 10, 14 ], "texture": "#ControllerPorts" }
+    }
+},
+{
+    "__comment": "Port",
+    "from": [ 1, 6.5, 6.5 ],
+    "to": [ 2, 9.5, 9.5 ],
+    "faces": {
+        "down":  { "uv": [ 2, 9, 1, 6 ], "texture": "#ControllerPorts" },
+        "up":    { "uv": [ 14, 6, 15, 9 ], "texture": "#ControllerPorts" },
+        "north": { "uv": [ 1, 12, 2, 15 ], "texture": "#ControllerPorts" },
+        "south": { "uv": [ 14, 12, 15, 15 ], "texture": "#ControllerPorts" },
+        "east":  { "uv": [ 7, 11, 10, 14 ], "texture": "#ControllerPorts" }
+    }
+},
+{
+    "__comment": "Port",
+    "from": [ 1, 6.5, 11 ],
+    "to": [ 2, 9.5, 14 ],
+    "faces": {
+        "down":  { "uv": [ 2, 9, 1, 6 ], "texture": "#ControllerPorts" },
+        "up":    { "uv": [ 14, 6, 15, 9 ], "texture": "#ControllerPorts" },
+        "north": { "uv": [ 1, 12, 2, 15 ], "texture": "#ControllerPorts" },
+        "south": { "uv": [ 14, 12, 15, 15 ], "texture": "#ControllerPorts" },
+        "east":  { "uv": [ 7, 11, 10, 14 ], "texture": "#ControllerPorts" }
+    }
+},
+{
+    "__comment": "Port",
+    "from": [ 1, 2, 2 ],
+    "to": [ 2, 5, 5 ],
+    "faces": {
+        "down":  { "uv": [ 2, 9, 1, 6 ], "texture": "#ControllerPorts" },
+        "up":    { "uv": [ 14, 6, 15, 9 ], "texture": "#ControllerPorts" },
+        "north": { "uv": [ 1, 12, 2, 15 ], "texture": "#ControllerPorts" },
+        "south": { "uv": [ 14, 12, 15, 15 ], "texture": "#ControllerPorts" },
+        "east":  { "uv": [ 7, 11, 10, 14 ], "texture": "#ControllerPorts" }
+    }
+},
+{
+    "__comment": "Port",
+    "from": [ 1, 2, 6.5 ],
+    "to": [ 2, 5, 9.5 ],
+    "faces": {
+        "down":  { "uv": [ 2, 9, 1, 6 ], "texture": "#ControllerPorts" },
+        "up":    { "uv": [ 14, 6, 15, 9 ], "texture": "#ControllerPorts" },
+        "north": { "uv": [ 1, 12, 2, 15 ], "texture": "#ControllerPorts" },
+        "south": { "uv": [ 14, 12, 15, 15 ], "texture": "#ControllerPorts" },
+        "east":  { "uv": [ 7, 11, 10, 14 ], "texture": "#ControllerPorts" }
+    }
+},
+{
+    "__comment": "Port",
+    "from": [ 1, 2, 11 ],
+    "to": [ 2, 5, 14 ],
+    "faces": {
+        "down":  { "uv": [ 2, 9, 1, 6 ], "texture": "#ControllerPorts" },
+        "up":    { "uv": [ 14, 6, 15, 9 ], "texture": "#ControllerPorts" },
+        "north": { "uv": [ 1, 12, 2, 15 ], "texture": "#ControllerPorts" },
+        "south": { "uv": [ 14, 12, 15, 15 ], "texture": "#ControllerPorts" },
+        "east":  { "uv": [ 7, 11, 10, 14 ], "texture": "#ControllerPorts" }
+    }
+},
+{
+    "__comment": "Port",
+    "from": [ 14, 11, 2 ],
+    "to": [ 15, 14, 5 ],
+    "faces": {
+        "down":  { "uv": [ 2, 9, 1, 6 ], "texture": "#ControllerPorts" },
+        "up":    { "uv": [ 14, 6, 15, 9 ], "texture": "#ControllerPorts" },
+        "north": { "uv": [ 1, 12, 2, 15 ], "texture": "#ControllerPorts" },
+        "south": { "uv": [ 14, 12, 15, 15 ], "texture": "#ControllerPorts" },
+        "west":  { "uv": [ 7, 11, 10, 14 ], "texture": "#ControllerPorts" }
+    }
+},
+{
+    "__comment": "Port",
+    "from": [ 14, 11, 6.5 ],
+    "to": [ 15, 14, 9.5 ],
+    "faces": {
+        "down":  { "uv": [ 2, 9, 1, 6 ], "texture": "#ControllerPorts" },
+        "up":    { "uv": [ 14, 6, 15, 9 ], "texture": "#ControllerPorts" },
+        "north": { "uv": [ 1, 12, 2, 15 ], "texture": "#ControllerPorts" },
+        "south": { "uv": [ 14, 12, 15, 15 ], "texture": "#ControllerPorts" },
+        "west":  { "uv": [ 7, 11, 10, 14 ], "texture": "#ControllerPorts" }
+    }
+},
+{
+    "__comment": "Port",
+    "from": [ 14, 11, 11 ],
+    "to": [ 15, 14, 14 ],
+    "faces": {
+        "down":  { "uv": [ 2, 9, 1, 6 ], "texture": "#ControllerPorts" },
+        "up":    { "uv": [ 14, 6, 15, 9 ], "texture": "#ControllerPorts" },
+        "north": { "uv": [ 1, 12, 2, 15 ], "texture": "#ControllerPorts" },
+        "south": { "uv": [ 14, 12, 15, 15 ], "texture": "#ControllerPorts" },
+        "west":  { "uv": [ 7, 11, 10, 14 ], "texture": "#ControllerPorts" }
+    }
+},
+{
+    "__comment": "Port",
+    "from": [ 14, 6.5, 2 ],
+    "to": [ 15, 9.5, 5 ],
+    "faces": {
+        "down":  { "uv": [ 2, 9, 1, 6 ], "texture": "#ControllerPorts" },
+        "up":    { "uv": [ 14, 6, 15, 9 ], "texture": "#ControllerPorts" },
+        "north": { "uv": [ 1, 12, 2, 15 ], "texture": "#ControllerPorts" },
+        "south": { "uv": [ 14, 12, 15, 15 ], "texture": "#ControllerPorts" },
+        "west":  { "uv": [ 7, 11, 10, 14 ], "texture": "#ControllerPorts" }
+    }
+},
+{
+    "__comment": "Port",
+    "from": [ 14, 6.5, 6.5 ],
+    "to": [ 15, 9.5, 9.5 ],
+    "faces": {
+        "down":  { "uv": [ 2, 9, 1, 6 ], "texture": "#ControllerPorts" },
+        "up":    { "uv": [ 14, 6, 15, 9 ], "texture": "#ControllerPorts" },
+        "north": { "uv": [ 1, 12, 2, 15 ], "texture": "#ControllerPorts" },
+        "south": { "uv": [ 14, 12, 15, 15 ], "texture": "#ControllerPorts" },
+        "west":  { "uv": [ 7, 11, 10, 14 ], "texture": "#ControllerPorts" }
+    }
+},
+{
+    "__comment": "Port",
+    "from": [ 14, 6.5, 11 ],
+    "to": [ 15, 9.5, 14 ],
+    "faces": {
+        "down":  { "uv": [ 2, 9, 1, 6 ], "texture": "#ControllerPorts" },
+        "up":    { "uv": [ 14, 6, 15, 9 ], "texture": "#ControllerPorts" },
+        "north": { "uv": [ 1, 12, 2, 15 ], "texture": "#ControllerPorts" },
+        "south": { "uv": [ 14, 12, 15, 15 ], "texture": "#ControllerPorts" },
+        "west":  { "uv": [ 7, 11, 10, 14 ], "texture": "#ControllerPorts" }
+    }
+},
+{
+    "__comment": "Port",
+    "from": [ 14, 2, 2 ],
+    "to": [ 15, 5, 5 ],
+    "faces": {
+        "down":  { "uv": [ 2, 9, 1, 6 ], "texture": "#ControllerPorts" },
+        "up":    { "uv": [ 14, 6, 15, 9 ], "texture": "#ControllerPorts" },
+        "north": { "uv": [ 1, 12, 2, 15 ], "texture": "#ControllerPorts" },
+        "south": { "uv": [ 14, 12, 15, 15 ], "texture": "#ControllerPorts" },
+        "west":  { "uv": [ 7, 11, 10, 14 ], "texture": "#ControllerPorts" }
+    }
+},
+{
+    "__comment": "Port",
+    "from": [ 14, 2, 6.5 ],
+    "to": [ 15, 5, 9.5 ],
+    "faces": {
+        "down":  { "uv": [ 2, 9, 1, 6 ], "texture": "#ControllerPorts" },
+        "up":    { "uv": [ 14, 6, 15, 9 ], "texture": "#ControllerPorts" },
+        "north": { "uv": [ 1, 12, 2, 15 ], "texture": "#ControllerPorts" },
+        "south": { "uv": [ 14, 12, 15, 15 ], "texture": "#ControllerPorts" },
+        "west":  { "uv": [ 7, 11, 10, 14 ], "texture": "#ControllerPorts" }
+    }
+},
+{
+    "__comment": "Port",
+    "from": [ 14, 2, 11 ],
+    "to": [ 15, 5, 14 ],
+    "faces": {
+        "down":  { "uv": [ 2, 9, 1, 6 ], "texture": "#ControllerPorts" },
+        "up":    { "uv": [ 14, 6, 15, 9 ], "texture": "#ControllerPorts" },
+        "north": { "uv": [ 1, 12, 2, 15 ], "texture": "#ControllerPorts" },
+        "south": { "uv": [ 14, 12, 15, 15 ], "texture": "#ControllerPorts" },
+        "west":  { "uv": [ 7, 11, 10, 14 ], "texture": "#ControllerPorts" }
+    }
+},
+{
+    "__comment": "CabelPort",
+    "from": [ 1.5, 12, 3 ],
+    "to": [ 2.5, 13, 4 ],
+    "faces": {
+        "down":  { "uv": [ 8, 15, 7, 14 ], "texture": "#ControllerCable" },
+        "up":    { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" },
+        "north": { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" },
+        "south": { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" },
+        "west":  { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" }
+    }
+},
+{
+    "__comment": "CabelPort",
+    "from": [ 1.5, 12, 7.5 ],
+    "to": [ 2.5, 13, 8.5 ],
+    "faces": {
+        "down":  { "uv": [ 8, 15, 7, 14 ], "texture": "#ControllerCable" },
+        "up":    { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" },
+        "north": { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" },
+        "south": { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" },
+        "west":  { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" }
+    }
+},
+{
+    "__comment": "CabelPort",
+    "from": [ 1.5, 12, 12 ],
+    "to": [ 2.5, 13, 13 ],
+    "faces": {
+        "down":  { "uv": [ 8, 15, 7, 14 ], "texture": "#ControllerCable" },
+        "up":    { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" },
+        "north": { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" },
+        "south": { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" },
+        "west":  { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" }
+    }
+},
+{
+    "__comment": "CabelPort",
+    "from": [ 1.5, 7.5, 3 ],
+    "to": [ 2.5, 8.5, 4 ],
+    "faces": {
+        "down":  { "uv": [ 8, 15, 7, 14 ], "texture": "#ControllerCable" },
+        "up":    { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" },
+        "north": { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" },
+        "south": { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" },
+        "west":  { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" }
+    }
+},
+{
+    "__comment": "CabelPort",
+    "from": [ 1.5, 7.5, 7.5 ],
+    "to": [ 2.5, 8.5, 8.5 ],
+    "faces": {
+        "down":  { "uv": [ 8, 15, 7, 14 ], "texture": "#ControllerCable" },
+        "up":    { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" },
+        "north": { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" },
+        "south": { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" },
+        "west":  { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" }
+    }
+},
+{
+    "__comment": "CabelPort",
+    "from": [ 1.5, 7.5, 12 ],
+    "to": [ 2.5, 8.5, 13 ],
+    "faces": {
+        "down":  { "uv": [ 8, 15, 7, 14 ], "texture": "#ControllerCable" },
+        "up":    { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" },
+        "north": { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" },
+        "south": { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" },
+        "west":  { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" }
+    }
+},
+{
+    "__comment": "CabelPort",
+    "from": [ 1.5, 3, 3 ],
+    "to": [ 2.5, 4, 4 ],
+    "faces": {
+        "down":  { "uv": [ 8, 15, 7, 14 ], "texture": "#ControllerCable" },
+        "up":    { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" },
+        "north": { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" },
+        "south": { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" },
+        "west":  { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" }
+    }
+},
+{
+    "__comment": "CabelPort",
+    "from": [ 1.5, 3, 7.5 ],
+    "to": [ 2.5, 4, 8.5 ],
+    "faces": {
+        "down":  { "uv": [ 8, 15, 7, 14 ], "texture": "#ControllerCable" },
+        "up":    { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" },
+        "north": { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" },
+        "south": { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" },
+        "west":  { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" }
+    }
+},
+{
+    "__comment": "CabelPort",
+    "from": [ 1.5, 3, 12 ],
+    "to": [ 2.5, 4, 13 ],
+    "faces": {
+        "down":  { "uv": [ 8, 15, 7, 14 ], "texture": "#ControllerCable" },
+        "up":    { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" },
+        "north": { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" },
+        "south": { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" },
+        "west":  { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" }
+    }
+},
+{
+    "__comment": "CabelPort",
+    "from": [ 13.5, 12, 3 ],
+    "to": [ 14.5, 13, 4 ],
+    "faces": {
+        "down":  { "uv": [ 8, 15, 7, 14 ], "texture": "#ControllerCable" },
+        "up":    { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" },
+        "north": { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" },
+        "south": { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" },
+        "east":  { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" }
+    }
+},
+{
+    "__comment": "CabelPort",
+    "from": [ 13.5, 12, 7.5 ],
+    "to": [ 14.5, 13, 8.5 ],
+    "faces": {
+        "down":  { "uv": [ 8, 15, 7, 14 ], "texture": "#ControllerCable" },
+        "up":    { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" },
+        "north": { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" },
+        "south": { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" },
+        "east":  { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" }
+    }
+},
+{
+    "__comment": "CabelPort",
+    "from": [ 13.5, 12, 12 ],
+    "to": [ 14.5, 13, 13 ],
+    "faces": {
+        "down":  { "uv": [ 8, 15, 7, 14 ], "texture": "#ControllerCable" },
+        "up":    { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" },
+        "north": { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" },
+        "south": { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" },
+        "east":  { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" }
+    }
+},
+{
+    "__comment": "CabelPort",
+    "from": [ 13.5, 7.5, 3 ],
+    "to": [ 14.5, 8.5, 4 ],
+    "faces": {
+        "down":  { "uv": [ 8, 15, 7, 14 ], "texture": "#ControllerCable" },
+        "up":    { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" },
+        "north": { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" },
+        "south": { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" },
+        "east":  { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" }
+    }
+},
+{
+    "__comment": "CabelPort",
+    "from": [ 13.5, 7.5, 7.5 ],
+    "to": [ 14.5, 8.5, 8.5 ],
+    "faces": {
+        "down":  { "uv": [ 8, 15, 7, 14 ], "texture": "#ControllerCable" },
+        "up":    { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" },
+        "north": { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" },
+        "south": { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" },
+        "east":  { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" }
+    }
+},
+{
+    "__comment": "CabelPort",
+    "from": [ 13.5, 7.5, 12 ],
+    "to": [ 14.5, 8.5, 13 ],
+    "faces": {
+        "down":  { "uv": [ 8, 15, 7, 14 ], "texture": "#ControllerCable" },
+        "up":    { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" },
+        "north": { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" },
+        "south": { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" },
+        "east":  { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" }
+    }
+},
+{
+    "__comment": "CabelPort",
+    "from": [ 13.5, 3, 3 ],
+    "to": [ 14.5, 4, 4 ],
+    "faces": {
+        "down":  { "uv": [ 8, 15, 7, 14 ], "texture": "#ControllerCable" },
+        "up":    { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" },
+        "north": { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" },
+        "south": { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" },
+        "east":  { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" }
+    }
+},
+{
+    "__comment": "CabelPort",
+    "from": [ 13.5, 3, 7.5 ],
+    "to": [ 14.5, 4, 8.5 ],
+    "faces": {
+        "down":  { "uv": [ 8, 15, 7, 14 ], "texture": "#ControllerCable" },
+        "up":    { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" },
+        "north": { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" },
+        "south": { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" },
+        "east":  { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" }
+    }
+},
+{
+    "__comment": "CabelPort",
+    "from": [ 13.5, 3, 12 ],
+    "to": [ 14.5, 4, 13 ],
+    "faces": {
+        "down":  { "uv": [ 8, 15, 7, 14 ], "texture": "#ControllerCable" },
+        "up":    { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" },
+        "north": { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" },
+        "south": { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" },
+        "east":  { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" }
+    }
+},
+{
+    "__comment": "Cabel",
+    "from": [ 2.5, 12, 3 ],
+    "to": [ 3.5, 13, 13 ],
+    "faces": {
+        "down":  { "uv": [ 8, 14, 7, 4 ], "texture": "#ControllerCable" },
+        "up":    { "uv": [ 7, 4, 8, 14 ], "texture": "#ControllerCable" },
+        "north": { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" },
+        "south": { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" },
+        "west":  { "uv": [ 3, 14, 13, 15 ], "texture": "#ControllerCable" },
+        "east":  { "uv": [ 3, 14, 13, 15 ], "texture": "#ControllerCable" }
+    }
+},
+{
+    "__comment": "Cabel",
+    "from": [ 2.5, 7.5, 3 ],
+    "to": [ 3.5, 8.5, 13 ],
+    "faces": {
+        "down":  { "uv": [ 8, 14, 7, 4 ], "texture": "#ControllerCable" },
+        "up":    { "uv": [ 7, 4, 8, 14 ], "texture": "#ControllerCable" },
+        "north": { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" },
+        "south": { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" },
+        "west":  { "uv": [ 3, 14, 13, 15 ], "texture": "#ControllerCable" },
+        "east":  { "uv": [ 3, 14, 13, 15 ], "texture": "#ControllerCable" }
+    }
+},
+{
+    "__comment": "Cabel",
+    "from": [ 2.5, 3, 3 ],
+    "to": [ 3.5, 4, 13 ],
+    "faces": {
+        "down":  { "uv": [ 8, 14, 7, 4 ], "texture": "#ControllerCable" },
+        "up":    { "uv": [ 7, 4, 8, 14 ], "texture": "#ControllerCable" },
+        "north": { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" },
+        "south": { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" },
+        "west":  { "uv": [ 3, 14, 13, 15 ], "texture": "#ControllerCable" },
+        "east":  { "uv": [ 3, 14, 13, 15 ], "texture": "#ControllerCable" }
+    }
+},
+{
+    "__comment": "CabelMedium",
+    "from": [ 2.5, 4, 7.5 ],
+    "to": [ 3.5, 7.5, 8.5 ],
+    "faces": {
+        "north": { "uv": [ 7, 10.5, 8, 14 ], "texture": "#ControllerCable" },
+        "south": { "uv": [ 7, 10.5, 8, 14 ], "texture": "#ControllerCable" },
+        "west":  { "uv": [ 7, 10.5, 8, 14 ], "texture": "#ControllerCable" },
+        "east":  { "uv": [ 7, 10.5, 8, 14 ], "texture": "#ControllerCable" }
+    }
+},
+{
+    "__comment": "CabelMedium",
+    "from": [ 2.5, 8.5, 7.5 ],
+    "to": [ 3.5, 12, 8.5 ],
+    "faces": {
+        "north": { "uv": [ 7, 10.5, 8, 14 ], "texture": "#ControllerCable" },
+        "south": { "uv": [ 7, 10.5, 8, 14 ], "texture": "#ControllerCable" },
+        "west":  { "uv": [ 7, 10.5, 8, 14 ], "texture": "#ControllerCable" },
+        "east":  { "uv": [ 7, 10.5, 8, 14 ], "texture": "#ControllerCable" }
+    }
+},
+{
+    "__comment": "CabelShort",
+    "from": [ 3.5, 7.5, 7.5 ],
+    "to": [ 5, 8.5, 8.5 ],
+    "faces": {
+        "down":  { "uv": [ 8.5, 15, 7, 14 ], "texture": "#ControllerCable" },
+        "up":    { "uv": [ 7, 14, 8.5, 15 ], "texture": "#ControllerCable" },
+        "north": { "uv": [ 7, 14, 8.5, 15 ], "texture": "#ControllerCable" },
+        "south": { "uv": [ 7, 14, 8.5, 15 ], "texture": "#ControllerCable" }
+    }
+},
+{
+    "__comment": "Cabel",
+    "from": [ 12.5, 12, 3 ],
+    "to": [ 13.5, 13, 13 ],
+    "faces": {
+        "down":  { "uv": [ 8, 14, 7, 4 ], "texture": "#ControllerCable" },
+        "up":    { "uv": [ 7, 4, 8, 14 ], "texture": "#ControllerCable" },
+        "north": { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" },
+        "south": { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" },
+        "west":  { "uv": [ 3, 14, 13, 15 ], "texture": "#ControllerCable" },
+        "east":  { "uv": [ 3, 14, 13, 15 ], "texture": "#ControllerCable" }
+    }
+},
+{
+    "__comment": "Cabel",
+    "from": [ 12.5, 7.5, 3 ],
+    "to": [ 13.5, 8.5, 13 ],
+    "faces": {
+        "down":  { "uv": [ 8, 14, 7, 4 ], "texture": "#ControllerCable" },
+        "up":    { "uv": [ 7, 4, 8, 14 ], "texture": "#ControllerCable" },
+        "north": { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" },
+        "south": { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" },
+        "west":  { "uv": [ 3, 14, 13, 15 ], "texture": "#ControllerCable" },
+        "east":  { "uv": [ 3, 14, 13, 15 ], "texture": "#ControllerCable" }
+    }
+},
+{
+    "__comment": "Cabel",
+    "from": [ 12.5, 3, 3 ],
+    "to": [ 13.5, 4, 13 ],
+    "faces": {
+        "down":  { "uv": [ 8, 14, 7, 4 ], "texture": "#ControllerCable" },
+        "up":    { "uv": [ 7, 4, 8, 14 ], "texture": "#ControllerCable" },
+        "north": { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" },
+        "south": { "uv": [ 7, 14, 8, 15 ], "texture": "#ControllerCable" },
+        "west":  { "uv": [ 3, 14, 13, 15 ], "texture": "#ControllerCable" },
+        "east":  { "uv": [ 3, 14, 13, 15 ], "texture": "#ControllerCable" }
+    }
+},
+{
+    "__comment": "CabelMedium",
+    "from": [ 12.5, 4, 7.5 ],
+    "to": [ 13.5, 7.5, 8.5 ],
+    "faces": {
+        "north": { "uv": [ 7, 10.5, 8, 14 ], "texture": "#ControllerCable" },
+        "south": { "uv": [ 7, 10.5, 8, 14 ], "texture": "#ControllerCable" },
+        "west":  { "uv": [ 7, 10.5, 8, 14 ], "texture": "#ControllerCable" },
+        "east":  { "uv": [ 7, 10.5, 8, 14 ], "texture": "#ControllerCable" }
+    }
+},
+{
+    "__comment": "CabelMedium",
+    "from": [ 12.5, 8.5, 7.5 ],
+    "to": [ 13.5, 12, 8.5 ],
+    "faces": {
+        "north": { "uv": [ 7, 10.5, 8, 14 ], "texture": "#ControllerCable" },
+        "south": { "uv": [ 7, 10.5, 8, 14 ], "texture": "#ControllerCable" },
+        "west":  { "uv": [ 7, 10.5, 8, 14 ], "texture": "#ControllerCable" },
+        "east":  { "uv": [ 7, 10.5, 8, 14 ], "texture": "#ControllerCable" }
+    }
+},
+{
+    "__comment": "CabelShort",
+    "from": [ 11, 7.5, 7.5 ],
+    "to": [ 12.5, 8.5, 8.5 ],
+    "faces": {
+        "down":  { "uv": [ 8.5, 15, 7, 14 ], "texture": "#ControllerCable" },
+        "up":    { "uv": [ 7, 14, 8.5, 15 ], "texture": "#ControllerCable" },
+        "north": { "uv": [ 7, 14, 8.5, 15 ], "texture": "#ControllerCable" },
+        "south": { "uv": [ 7, 14, 8.5, 15 ], "texture": "#ControllerCable" }
+    }
+}
+]
+}

@@ -21,7 +21,7 @@ import java.util.List;
 public class GuiAlloyMixer extends GuiCrafting {
 
     public GuiAlloyMixer(InventoryPlayer inventoryPlayer, TileEntityInventory inventory) {
-        super(new ContainerAlloyMixer(inventoryPlayer, inventory), inventory, "textures/gui/AlloyMixer.png");
+        super(new ContainerAlloyMixer(inventoryPlayer, inventory), inventory, "textures/gui/alloy_mixer.png");
     }
 
     @Override

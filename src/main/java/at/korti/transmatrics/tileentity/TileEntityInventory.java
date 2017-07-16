@@ -36,9 +36,16 @@ public abstract class TileEntityInventory extends TileEntityEnergyNode implement
         if (capacitorSlot) {
             this.capacitorSlot = inventorySize++;
         }
-        this.inventory = new ItemStack[inventorySize];
+        initInventory(inventorySize);
         this.stackLimit = stackLimit;
         this.name = name;
+    }
+
+    protected void initInventory(int inventorySize) {
+        this.inventory = new ItemStack[inventorySize];
+        for(int i = 0; i < inventorySize; i++) {
+            this.inventory[i] = ItemStack.EMPTY;
+        }
     }
 
     @Override
@@ -60,7 +67,7 @@ public abstract class TileEntityInventory extends TileEntityEnergyNode implement
         NBTTagList itemList = new NBTTagList();
         for (int i = 0; i < getSizeInventory(); i++) {
             ItemStack stack = getStackInSlot(i);
-            if (stack != null) {
+            if (!stack.isEmpty()) {
                 NBTTagCompound item = new NBTTagCompound();
                 stack.writeToNBT(item);
                 item.setShort(Constants.NBT.SLOT, (short) i);
@@ -76,7 +83,7 @@ public abstract class TileEntityInventory extends TileEntityEnergyNode implement
         super.update();
         if (!getWorld().isRemote && capacitorSlot != -1) {
             ItemStack stack = getStackInSlot(capacitorSlot);
-            if (stack != null && stack.getItem() instanceof IDischargeable) {
+            if (stack.getItem() instanceof IDischargeable) {
                 IDischargeable item = (IDischargeable) stack.getItem();
                 int energy = item.discharge(stack, Constants.Energy.DISCHARGE_RATE, true);
                 energy = energyStorage.receiveEnergy(energy, false);
@@ -127,9 +134,9 @@ public abstract class TileEntityInventory extends TileEntityEnergyNode implement
     @Override
     public ItemStack decrStackSize(int index, int count) {
         ItemStack stack = getStackInSlot(index);
-        if (stack != null) {
+        if (!stack.isEmpty()) {
             if (stack.getCount() <= count) {
-                setInventorySlotContents(index, null);
+                setInventorySlotContents(index, ItemStack.EMPTY);
             } else {
                 stack = stack.splitStack(count);
             }
@@ -142,7 +149,7 @@ public abstract class TileEntityInventory extends TileEntityEnergyNode implement
     @Override
     public ItemStack removeStackFromSlot(int index) {
         ItemStack stack = getStackInSlot(index);
-        setInventorySlotContents(index, null);
+        setInventorySlotContents(index, ItemStack.EMPTY);
         syncClient();
         return stack;
     }
@@ -183,13 +190,13 @@ public abstract class TileEntityInventory extends TileEntityEnergyNode implement
 
     @Override
     public void clear() {
-        this.inventory = new ItemStack[getSizeInventory()];
+        initInventory(getSizeInventory());
     }
 
     @Override
     public boolean isEmpty() {
         for (ItemStack stack : inventory) {
-            if (stack != null) {
+            if (!stack.isEmpty()) {
                 return false;
             }
         }

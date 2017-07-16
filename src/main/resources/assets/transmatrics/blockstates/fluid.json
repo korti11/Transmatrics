@@ -1,0 +1,29 @@
+{
+  "forge_marker": 1,
+  "defaults":{
+    "model": "forge:fluid"
+  },
+  "variants": {
+    "molten_copper":[{
+      "custom": {"fluid": "molten_copper"}
+    }],
+    "molten_tin":[{
+      "custom": {"fluid": "molten_tin"}
+    }],
+    "molten_silver":[{
+      "custom": {"fluid": "molten_silver"}
+    }],
+    "molten_lead":[{
+      "custom": {"fluid": "molten_lead"}
+    }],
+    "molten_nickel":[{
+      "custom": {"fluid": "molten_nickel"}
+    }],
+    "molten_invar":[{
+      "custom": {"fluid": "molten_invar"}
+    }],
+    "molten_electrum":[{
+      "custom": {"fluid": "molten_electrum"}
+    }]
+  }
+}

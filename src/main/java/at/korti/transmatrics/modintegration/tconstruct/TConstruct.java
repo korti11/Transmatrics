@@ -4,10 +4,7 @@ import at.korti.transmatrics.api.Constants.TransmatricsTileEntity;
 import at.korti.transmatrics.modintegration.IIntegration;
 import at.korti.transmatrics.modintegration.tconstruct.block.AlloyMixer;
 import at.korti.transmatrics.modintegration.tconstruct.config.TConstructConfig;
-import at.korti.transmatrics.modintegration.tconstruct.helper.CraftingCrossOverHelper;
 import at.korti.transmatrics.modintegration.tconstruct.tileentity.TileEntityAlloyMixer;
-import at.korti.transmatrics.registry.Crafting;
-import at.korti.transmatrics.registry.Fluids;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -15,7 +12,6 @@ import net.minecraft.item.Item;
 
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;

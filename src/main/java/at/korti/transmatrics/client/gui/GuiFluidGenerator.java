@@ -28,7 +28,7 @@ import java.util.List;
 public class GuiFluidGenerator extends GuiContainer {
 
     private TileEntityFluidGenerator fluidGenerator;
-    private String guiTexture = "textures/gui/FluidGenerator.png";
+    private String guiTexture = "textures/gui/fluid_generator.png";
 
     public GuiFluidGenerator(InventoryPlayer inventoryPlayer, TileEntityFluidGenerator fluidGenerator) {
         super(new ContainerFluidGenerator(inventoryPlayer, fluidGenerator));

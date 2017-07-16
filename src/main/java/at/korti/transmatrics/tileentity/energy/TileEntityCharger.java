@@ -67,7 +67,7 @@ public class TileEntityCharger extends TileEntityInventory {
         boolean isCharging = false;
 
         if (!getWorld().isRemote) {
-            if (energyStorage.getEnergyStored() - energyUse >= 0 && getStackInSlot(0) != null) {
+            if (energyStorage.getEnergyStored() - energyUse >= 0 && !getStackInSlot(0).isEmpty()) {
                 if(canCharge()) {
                     ItemStack stack = getStackInSlot(0);
                     IChargeable chargeable = null;
@@ -81,7 +81,7 @@ public class TileEntityCharger extends TileEntityInventory {
                         isCharging = true;
                         if (chargeable.getEnergy(stack) == chargeable.getCapacity(stack)) {
                             setInventorySlotContents(1, stack);
-                            setInventorySlotContents(0, null);
+                            setInventorySlotContents(0, ItemStack.EMPTY);
                         }
                     }
                 }
@@ -103,7 +103,7 @@ public class TileEntityCharger extends TileEntityInventory {
 
     private boolean canCharge() {
         ItemStack stack = getStackInSlot(0);
-        if (stack == null) {
+        if (stack.isEmpty()) {
             return false;
         }
         return true;
