@@ -41,7 +41,7 @@ public class Transmatrics {
         FluidRegistry.enableUniversalBucket();
     }
 
-    public static CreativeTabs creativeTab = new CreativeTabs(Constants.Mod.CREATIVE_TAB_LABEL) {
+    public static CreativeTabs creativeTab = new CreativeTabs(Constants.Mod.MODID) {
         @Override
         public ItemStack getTabIconItem() {
             return new ItemStack(TransmatricsItem.WRENCH.getItem());

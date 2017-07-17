@@ -3,6 +3,8 @@ package at.korti.transmatrics.registry;
 import at.korti.transmatrics.api.Constants;
 import at.korti.transmatrics.api.Constants.Energy;
 import at.korti.transmatrics.api.Constants.TransmatricsItem;
+import at.korti.transmatrics.item.ModMetaColorItem;
+import at.korti.transmatrics.item.ModMetaItem;
 import at.korti.transmatrics.item.crafting.ItemCast;
 import at.korti.transmatrics.item.crafting.ItemElectronics;
 import at.korti.transmatrics.item.crafting.ItemGear;
@@ -15,9 +17,12 @@ import at.korti.transmatrics.item.tool.ItemHammer;
 import at.korti.transmatrics.item.tool.ItemWrench;
 import net.minecraft.item.Item;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.registries.IForgeRegistry;
 
 import java.util.HashSet;
@@ -95,6 +100,17 @@ public class ModItems {
             }
 
             OreDicts.registerOreDictItems();
+        }
+
+        @SideOnly(Side.CLIENT)
+        public static void registerItemColors() {
+            ITEMS.forEach(item -> {
+                if (item instanceof ModMetaColorItem) {
+                    ModMetaColorItem metaItem = (ModMetaColorItem) item;
+                    FMLClientHandler.instance().getClient().getItemColors()
+                            .registerItemColorHandler(metaItem.colorHandler, metaItem);
+                }
+            });
         }
     }
 }

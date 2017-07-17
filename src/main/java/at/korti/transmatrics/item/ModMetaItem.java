@@ -21,36 +21,17 @@ import java.util.List;
 public abstract class ModMetaItem extends ModItem {
 
     private final String[] extensions;
-    @SideOnly(Side.CLIENT)
-    public ModMetaItemColorHandler colorHandler;
+
 
     public ModMetaItem(String name, TextFormatting nameColor, String... extensions) {
         super(name, nameColor);
 
         this.setHasSubtypes(true);
         this.extensions = extensions;
-        if(FMLCommonHandler.instance().getSide() == Side.CLIENT) {
-            this.colorHandler = new ModMetaItemColorHandler();
-        }
     }
 
     public ModMetaItem(String name, String... extensions) {
         this(name, TextFormatting.WHITE, extensions);
-    }
-
-    @SideOnly(Side.CLIENT)
-    protected void addColor(int index, int color) {
-        colorHandler.addColor(index, color);
-    }
-
-    @SideOnly(Side.CLIENT)
-    protected void addColor(int color) {
-        colorHandler.addColor(color);
-    }
-
-    @SideOnly(Side.CLIENT)
-    protected void addColors(Integer[] colors) {
-        this.colorHandler.addColors(colors);
     }
 
     @Override
@@ -73,36 +54,6 @@ public abstract class ModMetaItem extends ModItem {
     public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
         for (int i = 0; i < extensions.length; i++) {
             items.add(new ItemStack(this, 1, i));
-        }
-    }
-
-    @SideOnly(Side.CLIENT)
-    public static class ModMetaItemColorHandler implements IItemColor {
-
-        private List<Integer> colors;
-
-        public ModMetaItemColorHandler() {
-            colors = new LinkedList<>();
-        }
-
-        public void addColor(int index, int color) {
-            colors.add(index, color);
-        }
-
-        public void addColor(int color) {
-            colors.add(color);
-        }
-
-        public void addColors(Integer[] colors) {
-            this.colors.addAll(Arrays.asList(colors));
-        }
-
-        @Override
-        public int getColorFromItemstack(ItemStack stack, int tintIndex) {
-            if (stack.getItemDamage() < colors.size()) {
-                return colors.get(stack.getItemDamage());
-            }
-            return 0;
         }
     }
 }
