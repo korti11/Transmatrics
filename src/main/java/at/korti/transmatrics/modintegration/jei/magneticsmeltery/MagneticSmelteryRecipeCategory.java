@@ -67,6 +67,6 @@ public class MagneticSmelteryRecipeCategory implements IRecipeCategory {
                 tankCapacity, true, null);
 
         recipeLayout.getItemStacks().set(INPUT_SLOT, ingredients.getInputs(ItemStack.class).get(0));
-        recipeLayout.getFluidStacks().set(OUTPUT_SLOT, ingredients.getInputs(FluidStack.class).get(0));
+        recipeLayout.getFluidStacks().set(OUTPUT_SLOT, ingredients.getOutputs(FluidStack.class).get(0));
     }
 }

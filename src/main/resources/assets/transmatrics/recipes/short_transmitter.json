@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "P",
+    "I"
+  ],
+  "key": {
+    "P": {
+      "type": "forge:ore_dict",
+      "ore": "enderpearl"
+    },
+    "I": {
+      "type": "forge:ore_dict",
+      "ore": "ingotIron"
+    }
+  },
+  "result": {
+    "item": "transmatrics:electronics",
+    "data": 2
+  }
+}

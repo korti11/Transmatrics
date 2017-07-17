@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SLS",
+    "LCL",
+    "SLS"
+  ],
+  "key": {
+    "S": {
+      "type": "forge:ore_dict",
+      "ore": "ingotSilver"
+    },
+    "L": {
+      "type": "forge:ore_dict",
+      "ore": "gemLapis"
+    },
+    "C": {
+      "item": "transmatrics:electronics",
+      "data": 0
+    }
+  },
+  "result": {
+    "item": "transmatrics:electronics",
+    "data": 1
+  }
+}

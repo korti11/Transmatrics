@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ILI",
+    "IMI",
+    "ICI"
+  ],
+  "key": {
+    "C": {
+      "item": "transmatrics:electronics",
+      "data": 0
+    },
+    "I": {
+      "type": "forge:ore_dict",
+      "ore": "ingotIron"
+    },
+    "M": {
+      "item": "transmatrics:machine_casing"
+    },
+    "L": {
+      "item": "minecraft:lava_bucket"
+    }
+  },
+  "result": {
+    "item": "transmatrics:magnetic_smeltery"
+  }
+}

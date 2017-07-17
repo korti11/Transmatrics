@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ICI",
+    "CMC",
+    "ITI"
+  ],
+  "key": {
+    "C": {
+      "item": "transmatrics:electronics",
+      "data": 0
+    },
+    "I": {
+      "type": "forge:ore_dict",
+      "ore": "ingotIron"
+    },
+    "M": {
+      "item": "transmatrics:machine_casing"
+    },
+    "T": {
+      "item": "transmatrics:electronics",
+      "data": 2
+    }
+  },
+  "result": {
+    "item": "transmatrics:small_switch"
+  }
+}

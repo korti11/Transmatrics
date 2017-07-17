@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "IAI",
+    "IMI",
+    "ICI"
+  ],
+  "key": {
+    "C": {
+      "item": "transmatrics:electronics",
+      "data": 0
+    },
+    "I": {
+      "type": "forge:ore_dict",
+      "ore": "ingotIron"
+    },
+    "M": {
+      "item": "transmatrics:machine_casing"
+    },
+    "A": {
+      "type": "forge:ore_dict",
+      "ore": "tmCastCrafting"
+    }
+  },
+  "result": {
+    "item": "transmatrics:liquid_caster"
+  }
+}

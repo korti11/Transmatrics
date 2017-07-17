@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "transmatrics:hammer",
+      "data": 32767
+    },
+    {
+      "type": "forge:ore_dict",
+      "ore": "ingotTin"
+    }
+  ],
+  "result": {
+    "item": "transmatrics:plate",
+    "data": 2
+  }
+}

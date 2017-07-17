@@ -37,18 +37,23 @@ public class OreDicts {
         OreDictionary.registerOre(DUST_ELECTRUM, new ItemStack(PULVERIZED_DUST.getItem(), 1, 8));
 
         // plates
-        OreDictionary.registerOre(OreDictionaryEntry.PLATE, new ItemStack(PLATE.getItem(), 1, 0));
-        OreDictionary.registerOre(OreDictionaryEntry.PLATE, new ItemStack(PLATE.getItem(), 1, 1));
-        OreDictionary.registerOre(OreDictionaryEntry.PLATE, new ItemStack(PLATE.getItem(), 1, 2));
         OreDictionary.registerOre(PLATE_IRON, new ItemStack(PLATE.getItem(), 1, 0));
         OreDictionary.registerOre(PLATE_COPPER, new ItemStack(PLATE.getItem(), 1, 1));
         OreDictionary.registerOre(PLATE_TIN, new ItemStack(PLATE.getItem(), 1, 2));
+        OreDictionary.registerOre(OreDictionaryEntry.PLATE, new ItemStack(PLATE.getItem(), 1, 0));
+        OreDictionary.registerOre(OreDictionaryEntry.PLATE, new ItemStack(PLATE.getItem(), 1, 1));
+        OreDictionary.registerOre(OreDictionaryEntry.PLATE, new ItemStack(PLATE.getItem(), 1, 2));
 
         // gears
         OreDictionary.registerOre(GEAR_COPPER, new ItemStack(GEAR.getItem(), 1, 0));
         OreDictionary.registerOre(GEAR_TIN, new ItemStack(GEAR.getItem(), 1, 1));
         OreDictionary.registerOre(GEAR_SILVER, new ItemStack(GEAR.getItem(), 1, 2));
         OreDictionary.registerOre(GEAR_LEAD, new ItemStack(GEAR.getItem(), 1, 3));
+
+        // casts
+        OreDictionary.registerOre(CAST_CRAFTING, new ItemStack(CAST.getItem(), 1, 0));
+        OreDictionary.registerOre(CAST_CRAFTING, new ItemStack(CAST.getItem(), 1, 1));
+        OreDictionary.registerOre(CAST_CRAFTING, new ItemStack(CAST.getItem(), 1, 2));
     }
 
     public static void registerOreDictBlocks() {

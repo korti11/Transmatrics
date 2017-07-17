@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "   ",
+    "T  ",
+    "PCP"
+  ],
+  "key": {
+    "P": {
+      "type": "forge:ore_dict",
+      "ore": "plateIron"
+    },
+    "T": {
+      "item": "transmatrics:electronics",
+      "data": 3
+    },
+    "C": {
+      "item": "transmatrics:electronics",
+      "data": 0
+    }
+  },
+  "result": {
+    "item": "transmatrics:connector"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "TRT",
+    "RPR",
+    "TRT"
+  ],
+  "key": {
+    "T": {
+      "type": "forge:ore_dict",
+      "ore": "plateTin"
+    },
+    "R": {
+      "type": "forge:ore_dict",
+      "ore": "dustRedstone"
+    },
+    "P": {
+      "type": "forge:ore_dict",
+      "ore": "plateCopper"
+    }
+  },
+  "result": {
+    "item": "transmatrics:electronics",
+    "data": 0
+  }
+}

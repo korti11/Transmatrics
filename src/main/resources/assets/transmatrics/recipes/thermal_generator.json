@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "III",
+    "LML",
+    "ICI"
+  ],
+  "key": {
+    "C": {
+      "item": "transmatrics:electronics",
+      "data": 1
+    },
+    "I": {
+      "type": "forge:ore_dict",
+      "ore": "ingotIron"
+    },
+    "M": {
+      "item": "transmatrics:machine_casing"
+    },
+    "L": {
+      "item": "minecraft:lava_bucket"
+    }
+  },
+  "result": {
+    "item": "transmatrics:thermal_generator"
+  }
+}

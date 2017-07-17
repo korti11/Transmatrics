@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "IWI",
+    "GMG",
+    "ICI"
+  ],
+  "key": {
+    "I": {
+      "type": "forge:ore_dict",
+      "ore": "ingotIron"
+    },
+    "W": {
+      "item": "minecraft:water_bucket"
+    },
+    "G": {
+      "type": "forge:ore_dict",
+      "ore": "gearTin"
+    },
+    "M": {
+      "item": "transmatrics:machine_casing"
+    },
+    "C": {
+      "item": "transmatrics:electronics",
+      "data": 0
+    }
+  },
+  "result": {
+    "item": "transmatrics:watermill"
+  }
+}

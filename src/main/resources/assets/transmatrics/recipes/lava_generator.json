@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "IBI",
+    "BMB",
+    "ICI"
+  ],
+  "key": {
+    "B": {
+      "item": "minecraft:bucket"
+    },
+    "M": {
+      "item": "transmatrics:machine_casing"
+    },
+    "C": {
+      "item": "transmatrics:electronics",
+      "data": 0
+    },
+    "I": {
+      "type": "forge:ore_dict",
+      "ore": "ingotIron"
+    }
+  },
+  "result": {
+    "item": "transmatrics:lava_generator"
+  }
+}

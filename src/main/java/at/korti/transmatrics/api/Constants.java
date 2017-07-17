@@ -313,6 +313,9 @@ public final class Constants {
         public static final String ORE_SILVER = "oreSilver";
         public static final String ORE_LEAD = "oreLead";
         public static final String ORE_NICKEL = "oreNickel";
+
+        // casts
+        public static final String CAST_CRAFTING = "tmCastCrafting";
     }
 
     public enum TransmatricsBlock {

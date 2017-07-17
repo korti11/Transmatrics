@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "III",
+    "GMG",
+    "ICI"
+  ],
+  "key": {
+    "C": {
+      "item": "transmatrics:electronics",
+      "data": 0
+    },
+    "I": {
+      "type": "forge:ore_dict",
+      "ore": "ingotIron"
+    },
+    "M": {
+      "item": "transmatrics:machine_casing"
+    },
+    "G": {
+      "type": "forge:ore_dict",
+      "ore": "gearTin"
+    }
+  },
+  "result": {
+    "item": "transmatrics:windmill"
+  }
+}
