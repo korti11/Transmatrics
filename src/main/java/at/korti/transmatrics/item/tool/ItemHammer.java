@@ -35,6 +35,7 @@ public class ItemHammer extends ModItem {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public boolean hasContainerItem(ItemStack stack) {
         return stack.getItemDamage() < getMaxDamage() - 1;
     }

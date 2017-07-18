@@ -3,14 +3,11 @@ package at.korti.transmatrics.modintegration.jei.pulverizer;
 import at.korti.transmatrics.registry.crafting.PulverizerCraftingRegistry;
 import at.korti.transmatrics.util.helper.TextHelper;
 import mezz.jei.api.ingredients.IIngredients;
-import mezz.jei.api.recipe.BlankRecipeWrapper;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-import javax.annotation.Nonnull;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 

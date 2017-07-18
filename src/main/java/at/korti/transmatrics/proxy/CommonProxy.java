@@ -2,7 +2,6 @@ package at.korti.transmatrics.proxy;
 
 import at.korti.transmatrics.Transmatrics;
 import at.korti.transmatrics.client.gui.GuiHandler;
-import at.korti.transmatrics.config.Config;
 import at.korti.transmatrics.event.EventHandler;
 import at.korti.transmatrics.modintegration.ModIntegrationManager;
 import at.korti.transmatrics.network.TransmatricsPacketHandler;
@@ -23,7 +22,6 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class CommonProxy {
 
     public void preInit(FMLPreInitializationEvent event) {
-        Config.loadConfig(event.getSuggestedConfigurationFile());
         ModIntegrationManager.initManager();
         TileEntities.registerTileEntities();
         GameRegistry.registerWorldGenerator(new OreGeneration(), 1);

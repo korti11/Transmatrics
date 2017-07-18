@@ -24,6 +24,7 @@ public class SolarPanel extends MachineBlock {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
         return new AxisAlignedBB(0f, 0f, 0f, 1f, 0.25f, 1f);
     }
@@ -39,11 +40,13 @@ public class SolarPanel extends MachineBlock {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public boolean isFullBlock(IBlockState state) {
         return false;
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public boolean isOpaqueCube(IBlockState state) {
         return false;
     }

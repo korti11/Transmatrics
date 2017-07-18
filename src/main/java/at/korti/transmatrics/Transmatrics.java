@@ -2,15 +2,8 @@ package at.korti.transmatrics;
 
 import at.korti.transmatrics.api.Constants;
 import at.korti.transmatrics.api.Constants.TransmatricsItem;
-import at.korti.transmatrics.client.gui.GuiHandler;
-import at.korti.transmatrics.config.Config;
-import at.korti.transmatrics.modintegration.ModIntegrationManager;
-import at.korti.transmatrics.network.TransmatricsPacketHandler;
 import at.korti.transmatrics.proxy.CommonProxy;
-import at.korti.transmatrics.registry.*;
-import at.korti.transmatrics.world.OreGeneration;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod;
@@ -18,8 +11,6 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.network.NetworkRegistry;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import org.apache.logging.log4j.Logger;
 
 /**

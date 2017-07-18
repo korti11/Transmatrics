@@ -64,6 +64,7 @@ public abstract class MachineBlock extends ModBlockContainer implements IDismant
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public IBlockState getStateFromMeta(int meta) {
         if(isRotatable()) {
             EnumFacing enumFacing = EnumFacing.getFront(meta);

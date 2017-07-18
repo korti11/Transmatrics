@@ -32,6 +32,7 @@ public class OreGeneration implements IWorldGenerator {
         generateOre(TransmatricsBlock.ORE_BLOCK.getBlock(), 4, world, random, x, z, 5);
     }
 
+    @SuppressWarnings("deprecation")
     public void generateOre(Block ore, int meta, World world, Random random, int blockXPos, int blockZPos, int maxVeinSize){
 
         int seaLevel = world.provider.getAverageGroundLevel() + 1;

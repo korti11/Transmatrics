@@ -1,6 +1,5 @@
 package at.korti.transmatrics.util.helper;
 
-
 import net.minecraft.util.text.translation.I18n;
 
 /**
@@ -8,6 +7,7 @@ import net.minecraft.util.text.translation.I18n;
  */
 public class TextHelper {
 
+    @SuppressWarnings("deprecation")
     public static String localize(String input, Object... format) {
         return I18n.translateToLocalFormatted(input, format);
     }

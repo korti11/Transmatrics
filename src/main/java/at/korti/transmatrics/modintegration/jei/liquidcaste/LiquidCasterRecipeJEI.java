@@ -2,15 +2,11 @@ package at.korti.transmatrics.modintegration.jei.liquidcaste;
 
 import at.korti.transmatrics.registry.crafting.LiquidCasterCraftingRegistry.LiquidCasterCraftingEntry;
 import mezz.jei.api.ingredients.IIngredients;
-import mezz.jei.api.recipe.BlankRecipeWrapper;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
-import javax.annotation.Nonnull;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 
 /**
  * Created by Korti on 14.04.2016.

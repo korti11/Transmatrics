@@ -58,6 +58,7 @@ public class ItemCapacitor extends ModItem implements IRechargeable{
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public int getCapacity() {
         return this.getMaxDamage();
     }
@@ -68,6 +69,7 @@ public class ItemCapacitor extends ModItem implements IRechargeable{
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
         super.getSubItems(tab, items);
         items.add(new ItemStack(this, 1, this.getMaxDamage()));

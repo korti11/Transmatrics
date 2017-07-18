@@ -46,6 +46,7 @@ public class OreBlock extends ModBlock {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(TYPE, getFromMeta(meta));
     }
