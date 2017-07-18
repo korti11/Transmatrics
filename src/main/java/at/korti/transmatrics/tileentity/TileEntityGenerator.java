@@ -1,14 +1,18 @@
 package at.korti.transmatrics.tileentity;
 
-import at.korti.transmatrics.api.energy.*;
+import at.korti.transmatrics.api.energy.EnergyHandler;
+import at.korti.transmatrics.api.energy.IEnergyInfo;
+import at.korti.transmatrics.api.energy.IEnergyProducer;
 import at.korti.transmatrics.api.network.INetworkNode;
 import at.korti.transmatrics.tileentity.network.TileEntityController;
+import cofh.redstoneflux.api.IEnergyReceiver;
+import cofh.redstoneflux.impl.EnergyStorage;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -20,12 +24,13 @@ import javax.annotation.Nullable;
 /**
  * Created by Korti on 25.02.2016.
  */
-public abstract class TileEntityGenerator extends TileEntityNetworkNode implements IEnergyProducer, IEnergyInfo, ITickable {
+public abstract class TileEntityGenerator extends TileEntityEnergyNode implements IEnergyProducer, IEnergyInfo, ITickable {
 
     protected int energyPerTick;
     private EnergyStorage energyStorage;
 
     public TileEntityGenerator(int energyPerTick, int capacity, int maxExtract) {
+        super(capacity, 0);
         this.energyPerTick = energyPerTick;
         this.energyStorage = new EnergyStorage(capacity, 0, maxExtract);
     }
@@ -52,13 +57,13 @@ public abstract class TileEntityGenerator extends TileEntityNetworkNode implemen
         super.update();
         if(!getWorld().isRemote) {
             if (canProduceEnergy()) {
-                energyStorage.modifyEnergy(energyPerTick);
+                energyStorage.modifyEnergyStored(energyPerTick);
             }
-            if (canProvideEnergy() && networkNode != null && getNetworkNode() != null) {
+            if (networkNode != null && getNetworkNode() != null) {
                 INetworkNode node = getNetworkNode();
                 if (node.getController() == null) {
-                    if (node instanceof IEnergyConsumer) {
-                        IEnergyConsumer consumer = (IEnergyConsumer) node;
+                    if (node instanceof IEnergyReceiver) {
+                        IEnergyReceiver consumer = (IEnergyReceiver) node;
                         EnergyHandler.transferEnergy(this, consumer);
                     }
                 } else {
@@ -78,13 +83,23 @@ public abstract class TileEntityGenerator extends TileEntityNetworkNode implemen
     }
 
     @Override
-    public int extractEnergy(int energy, boolean simulate) {
+    public int extractEnergy(EnumFacing enumFacing, int energy, boolean simulate) {
         return energyStorage.extractEnergy(energy, simulate);
     }
 
     @Override
-    public int getEnergyPerTick() {
-        return energyPerTick;
+    public int getEnergyStored(EnumFacing enumFacing) {
+        return energyStorage.getEnergyStored();
+    }
+
+    @Override
+    public int getMaxEnergyStored(EnumFacing enumFacing) {
+        return energyStorage.getMaxEnergyStored();
+    }
+
+    @Override
+    public boolean canConnectEnergy(EnumFacing enumFacing) {
+        return false;
     }
 
     @Override
@@ -97,14 +112,8 @@ public abstract class TileEntityGenerator extends TileEntityNetworkNode implemen
         return energyStorage.getMaxEnergyStored();
     }
 
-    @Override
-    public boolean canProvideEnergy() {
-        return energyStorage.getEnergyStored() > 0;
-    }
-
-    @Override
-    public boolean canProduceEnergy() {
-        return getEnergyStored() < getMaxEnergyStored();
+    protected boolean canProduceEnergy() {
+        return this.getEnergyStored() < this.getMaxEnergyStored();
     }
 
     @Nullable

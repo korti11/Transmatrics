@@ -8,6 +8,7 @@ import at.korti.transmatrics.util.helper.WorldHelper;
 import at.korti.transmatrics.util.math.DimensionBlockPos;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 
 import java.util.LinkedList;
@@ -219,17 +220,19 @@ public class TileEntityController extends TileEntityEnergySwitch {
     //endregion
 
     //region Tile Entity Energy Switch
+
+
     @Override
-    public int receiveEnergy(int energy, boolean simulate) {
+    public int receiveEnergy(EnumFacing enumFacing, int energy, boolean simulate) {
         if (isMaster) {
-            int received = super.receiveEnergy(energy, simulate);
+            int received = super.receiveEnergy(enumFacing, energy, simulate);
             // Calculate the left energy.
             int leftEnergy = energy - received;
             // Iterate over all extensions and store the left energy in them.
             for (DimensionBlockPos extension : extensions) {
                 TileEntityController controller = getController(extension);
                 if (controller != null) {
-                    received += controller.extReceiveEnergy(leftEnergy, simulate);
+                    received += controller.extReceiveEnergy(enumFacing, leftEnergy, simulate);
                     leftEnergy = energy - received;
                     if (leftEnergy == 0) {
                         break;
@@ -238,25 +241,25 @@ public class TileEntityController extends TileEntityEnergySwitch {
             }
             return received;
         } else {
-            return getMaster().receiveEnergy(energy, simulate);
+            return getMaster().receiveEnergy(enumFacing, energy, simulate);
         }
     }
 
-    private int extReceiveEnergy(int energy, boolean simulate) {
-        return super.receiveEnergy(energy, simulate);
+    private int extReceiveEnergy(EnumFacing enumFacing, int energy, boolean simulate) {
+        return super.receiveEnergy(enumFacing, energy, simulate);
     }
 
     @Override
-    public int extractEnergy(int energy, boolean simulate) {
+    public int extractEnergy(EnumFacing enumFacing, int energy, boolean simulate) {
         if (isMaster) {
-            int extract = super.extractEnergy(energy, simulate);
+            int extract = super.extractEnergy(enumFacing, energy, simulate);
             // Calculate the left energy.
             int leftEnergy = energy - extract;
             // Iterate over all extensions and extract the left energy of them.
             for (DimensionBlockPos extension : extensions) {
                 TileEntityController controller = getController(extension);
                 if (controller != null) {
-                    extract += controller.extExtractEnergy(leftEnergy, simulate);
+                    extract += controller.extExtractEnergy(enumFacing, leftEnergy, simulate);
                     leftEnergy = energy - extract;
                     if (leftEnergy == 0) {
                         break;
@@ -265,12 +268,17 @@ public class TileEntityController extends TileEntityEnergySwitch {
             }
             return extract;
         } else {
-            return getMaster().extractEnergy(energy, simulate);
+            return getMaster().extractEnergy(enumFacing, energy, simulate);
         }
     }
 
-    private int extExtractEnergy(int energy, boolean simulate) {
-        return super.extractEnergy(energy, simulate);
+    private int extExtractEnergy(EnumFacing enumFacing, int energy, boolean simulate) {
+        return super.extractEnergy(enumFacing, energy, simulate);
+    }
+
+    @Override
+    public int getEnergyStored(EnumFacing enumFacing) {
+        return getEnergyStored();
     }
 
     @Override
@@ -291,6 +299,11 @@ public class TileEntityController extends TileEntityEnergySwitch {
     }
 
     @Override
+    public int getMaxEnergyStored(EnumFacing enumFacing) {
+        return getMaxEnergyStored();
+    }
+
+    @Override
     public int getMaxEnergyStored() {
         if (isMaster) {
             // Calculate the capacity of all tile entities.
@@ -305,30 +318,6 @@ public class TileEntityController extends TileEntityEnergySwitch {
         } else {
             return getMaster().getMaxEnergyStored();
         }
-    }
-
-    @Override
-    public boolean canProvideEnergy() {
-        if(isMaster) {
-            for (DimensionBlockPos pos : extensions) {
-                TileEntityController controller = getController(pos);
-                if (controller.superCanProvideEnergy()) {
-                    return true;
-                }
-            }
-            return false; //TODO: fix if there is only one controller
-        } else {
-            TileEntityController master = getMaster();
-            if(master != null) {
-                return getMaster().canProvideEnergy();
-            } else {
-                return false;
-            }
-        }
-    }
-
-    private boolean superCanProvideEnergy() {
-        return super.canProvideEnergy();
     }
     //endregion
 
@@ -405,7 +394,7 @@ public class TileEntityController extends TileEntityEnergySwitch {
                     reconnectToMaster(this.getDimPos(), this.pos);
                 }
             }
-            energyStorage.modifyEnergy(energy);
+            energyStorage.modifyEnergyStored(energy);
             for (DimensionBlockPos extension : copy) {
                 if (!extensions.contains(extension)) {
                     TileEntityController controller = getController(extension);
@@ -452,14 +441,14 @@ public class TileEntityController extends TileEntityEnergySwitch {
 
     public void modifyEnergy(int energy) {
         if(isMaster) {
-            int canStore = Math.min(energyStorage.getCapacity() - energyStorage.getEnergyStored(), energy);
-            energyStorage.modifyEnergy(canStore);
+            int canStore = Math.min(energyStorage.getMaxEnergyStored() - energyStorage.getEnergyStored(), energy);
+            energyStorage.modifyEnergyStored(canStore);
             energy -= canStore;
             for (DimensionBlockPos extension : extensions) {
                 TileEntityController controller = getController(extension);
                 if (controller != null) {
-                    canStore = Math.min(controller.energyStorage.getCapacity() - energyStorage.getEnergyStored(), energy);
-                    energyStorage.modifyEnergy(canStore);
+                    canStore = Math.min(controller.energyStorage.getMaxEnergyStored() - energyStorage.getEnergyStored(), energy);
+                    energyStorage.modifyEnergyStored(canStore);
                     energy -= canStore;
                     if (energy == 0) {
                         break;

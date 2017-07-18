@@ -1,18 +1,15 @@
 package at.korti.transmatrics.tileentity;
 
 import at.korti.transmatrics.api.Constants;
-import at.korti.transmatrics.api.energy.IDischargeable;
 import at.korti.transmatrics.util.helper.TextHelper;
-import net.minecraft.block.state.IBlockState;
+import cofh.redstoneflux.api.IEnergyContainerItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryHelper;
-import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
@@ -83,11 +80,11 @@ public abstract class TileEntityInventory extends TileEntityEnergyNode implement
         super.update();
         if (!getWorld().isRemote && capacitorSlot != -1) {
             ItemStack stack = getStackInSlot(capacitorSlot);
-            if (stack.getItem() instanceof IDischargeable) {
-                IDischargeable item = (IDischargeable) stack.getItem();
-                int energy = item.discharge(stack, Constants.Energy.DISCHARGE_RATE, true);
+            if (stack.getItem() instanceof IEnergyContainerItem) {
+                IEnergyContainerItem item = (IEnergyContainerItem) stack.getItem();
+                int energy = item.extractEnergy(stack, Constants.Energy.DISCHARGE_RATE, true);
                 energy = energyStorage.receiveEnergy(energy, false);
-                item.discharge(stack, energy, false);
+                item.extractEnergy(stack, energy, false);
                 syncClient();
             }
         }

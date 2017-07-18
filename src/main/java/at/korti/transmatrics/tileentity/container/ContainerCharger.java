@@ -1,7 +1,7 @@
 package at.korti.transmatrics.tileentity.container;
 
-import at.korti.transmatrics.api.energy.IChargeable;
 import at.korti.transmatrics.tileentity.container.slot.OutputSlot;
+import cofh.redstoneflux.api.IEnergyContainerItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -99,7 +99,7 @@ public class ContainerCharger extends Container{
 
                 slot.onSlotChange(tempStack, itemStack);
             } else if (index != 0) {
-                if (tempStack.getItem() instanceof IChargeable) {
+                if (tempStack.getItem() instanceof IEnergyContainerItem) {
                     if (!this.mergeItemStack(tempStack, 0, 1, false)) {
                         return ItemStack.EMPTY;
                     }

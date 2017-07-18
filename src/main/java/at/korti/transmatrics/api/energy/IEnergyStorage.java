@@ -3,6 +3,11 @@ package at.korti.transmatrics.api.energy;
 /**
  * Created by Korti on 25.02.2016.
  */
+
+/**
+ * @deprecated since Transmatrics 1.3.0. Use Redstone Flux API {@link cofh.redstoneflux.api.IEnergyStorage}
+ */
+@Deprecated
 public interface IEnergyStorage {
 
     /**

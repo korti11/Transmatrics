@@ -117,7 +117,7 @@ tooltip.connector.connection.pos=Pos: [x: %d, y: %d, z: %d]
 tooltip.pulverizer.output.chance=Chance:
 tooltip.hammer.uses.left=Uses left: %d
 tooltip.capacitor.energy.label=Energy:
-tooltip.capacitor.energy=%d/%d TF
+tooltip.capacitor.energy=%d/%d RF
 tooltip.selected.mode=Mode: %s
 
 #Gui

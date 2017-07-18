@@ -1,6 +1,6 @@
 package at.korti.transmatrics.tileentity.container.slot;
 
-import at.korti.transmatrics.api.energy.IDischargeable;
+import cofh.redstoneflux.api.IEnergyContainerItem;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
@@ -21,6 +21,6 @@ public class CapacitorSlot extends Slot {
 
     @Override
     public boolean isItemValid(ItemStack stack) {
-        return stack != null ? stack.getItem() instanceof IDischargeable : true;
+        return stack == null || stack.getItem() instanceof IEnergyContainerItem;
     }
 }

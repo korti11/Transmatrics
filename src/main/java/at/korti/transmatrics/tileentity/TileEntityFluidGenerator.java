@@ -57,11 +57,6 @@ public abstract class TileEntityFluidGenerator extends TileEntityGenerator imple
     }
 
     @Override
-    public boolean canProduceEnergy() {
-        return internalTank.getFluid() != null && internalTank.getFluid().amount > 0 && super.canProduceEnergy();
-    }
-
-    @Override
     public IFluidTankProperties[] getTankProperties() {
         return internalTank.getTankProperties();
     }

@@ -33,16 +33,6 @@ public abstract class TileEntityHeightGenerator extends TileEntityGenerator {
         super.energyPerTick = calcEnergyPerTick(minEnergyPerTick, maxEnergyPerTick, pos.getY(), minHeight, maxHeight, direction);
     }
 
-    @Override
-    public boolean canProduceEnergy() {
-        if (direction.equals(AxisDirection.POSITIVE)) {
-            return pos.getY() >= minHeight && pos.getY() <= maxHeight && super.canProduceEnergy();
-        } else if (direction.equals(AxisDirection.NEGATIVE)) {
-            return pos.getY() <= minHeight && pos.getY() >= maxHeight && super.canProduceEnergy();
-        }
-        return false;
-    }
-
     private static int calcEnergyPerTick(int minEnergyPerTick, int maxEnergyPerTick, int y, int minHeight, int maxHeight, AxisDirection direction) {
         int heightDifferenceMinY = 0;
         int heightDifferenceMinMax = 0;

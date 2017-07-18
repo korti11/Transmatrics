@@ -5,6 +5,11 @@ import net.minecraft.item.ItemStack;
 /**
  * Created by Korti on 13.05.2016.
  */
+
+/**
+ * @deprecated since Transmatrics 1.3.0. Use Redstone Flux Api {@link cofh.redstoneflux.api.IEnergyContainerItem}
+ */
+@Deprecated
 public interface IChargeable {
 
     /**

@@ -6,6 +6,11 @@ import net.minecraft.nbt.NBTTagCompound;
 /**
  * Created by Korti on 25.02.2016.
  */
+
+/**
+ * @deprecated since Transmatrics 1.3.0. Use Redstone Flux API {@link cofh.redstoneflux.impl.EnergyStorage}
+ */
+@Deprecated
 public class EnergyStorage implements IEnergyStorage {
 
     protected int energy;

@@ -1,15 +1,12 @@
 package at.korti.transmatrics.client.gui;
 
-import at.korti.transmatrics.api.Constants;
 import at.korti.transmatrics.api.Constants.Mod;
-import at.korti.transmatrics.api.energy.IEnergyHandler;
-import at.korti.transmatrics.tileentity.TileEntityCraftingMachine;
-import at.korti.transmatrics.tileentity.container.CraftingContainer;
+import cofh.redstoneflux.api.IEnergyHandler;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 
 import java.util.LinkedList;
@@ -42,7 +39,7 @@ public abstract class GuiCrafting extends GuiContainer{
     protected void addInformation(int mouseX, int mouseY, List<String> textLines) {
         if (inventory instanceof IEnergyHandler && isInRect(mouseX, mouseY, 17, 10, 17 + 16, 10 + 43)) {
             IEnergyHandler machine = (IEnergyHandler) inventory;
-            textLines.add(String.format("%d/%d TF", machine.getEnergyStored(), machine.getMaxEnergyStored()));
+            textLines.add(String.format("%d/%d RF", machine.getEnergyStored(EnumFacing.NORTH), machine.getMaxEnergyStored(EnumFacing.NORTH)));
         }
     }
 

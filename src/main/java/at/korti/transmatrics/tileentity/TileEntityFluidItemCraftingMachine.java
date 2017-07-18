@@ -93,16 +93,12 @@ public abstract class TileEntityFluidItemCraftingMachine extends TileEntityInven
         boolean markDirty = false;
         boolean isCrafting = false;
 
-        if (!canProvideEnergy()) {
-            return;
-        }
-
         if (!getWorld().isRemote) {
             if (this.energyStorage.getEnergyStored() - energyUse >= 0 && !areTanksEmpty(true) && !areInputSlotsEmpty()) {
                 if (canCraft()) {
-                    this.efficiency = energyStorage.getEnergyStored() / (energyStorage.getCapacity() / maxEfficiency);
+                    this.efficiency = energyStorage.getEnergyStored() / (energyStorage.getMaxEnergyStored() / maxEfficiency);
                     this.craftingTime += efficiency;
-                    this.energyStorage.modifyEnergy(-energyUse);
+                    this.energyStorage.modifyEnergyStored(-energyUse);
                     isCrafting = true;
                     if (this.craftingTime >= this.totalCraftingTime) {
                         this.craftingTime = 0;
@@ -383,7 +379,7 @@ public abstract class TileEntityFluidItemCraftingMachine extends TileEntityInven
     }
 
     protected void calculateMaxEfficiency() {
-        this.maxEfficiency = energyStorage.getCapacity() / Constants.Energy.EFFICIENCY_DIVIDER;
+        this.maxEfficiency = energyStorage.getMaxEnergyStored() / Constants.Energy.EFFICIENCY_DIVIDER;
     }
     //endregion
 

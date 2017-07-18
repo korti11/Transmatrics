@@ -2,7 +2,7 @@ package at.korti.transmatrics.event;
 
 import at.korti.transmatrics.api.crafting.ICraftingRegistry;
 import at.korti.transmatrics.api.crafting.ICraftingRegistry.ICraftingEntry;
-import at.korti.transmatrics.api.energy.IEnergyHandler;
+import cofh.redstoneflux.api.IEnergyHandler;
 import net.minecraft.inventory.IInventory;
 import net.minecraftforge.fml.common.eventhandler.Event;
 

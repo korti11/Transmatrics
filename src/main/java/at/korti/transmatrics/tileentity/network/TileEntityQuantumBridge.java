@@ -1,21 +1,17 @@
 package at.korti.transmatrics.tileentity.network;
 
 import at.korti.transmatrics.Transmatrics;
-import at.korti.transmatrics.api.Constants;
 import at.korti.transmatrics.api.Constants.Energy;
-import at.korti.transmatrics.api.Constants.Mod;
 import at.korti.transmatrics.api.Constants.NBT;
 import at.korti.transmatrics.api.Constants.Network;
 import at.korti.transmatrics.api.energy.EnergyHandler;
-import at.korti.transmatrics.api.energy.IEnergyConsumer;
 import at.korti.transmatrics.api.network.INetworkNode;
 import at.korti.transmatrics.api.network.INetworkSwitch;
 import at.korti.transmatrics.api.network.quantum.QuantumBridgeHandler;
-import at.korti.transmatrics.tileentity.TileEntityEnergyNode;
 import at.korti.transmatrics.tileentity.TileEntityEnergySwitch;
-import at.korti.transmatrics.tileentity.TileEntityNetworkSwitch;
 import at.korti.transmatrics.util.helper.WorldHelper;
 import at.korti.transmatrics.util.math.DimensionBlockPos;
+import cofh.redstoneflux.api.IEnergyReceiver;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -98,12 +94,12 @@ public class TileEntityQuantumBridge extends TileEntityEnergySwitch {
     public void update() {
         super.update();
         if(!getWorld().isRemote) {
-            if (canProvideEnergy()) {
-                energyStorage.modifyEnergy(-energyUse);
+            if (energyStorage.getEnergyStored() >= energyUse) {
+                energyStorage.modifyEnergyStored(-energyUse);
             }
             for(INetworkNode node : getConnections()){
-                if (node instanceof IEnergyConsumer) {
-                    IEnergyConsumer consumer = (IEnergyConsumer) node;
+                if (node instanceof IEnergyReceiver) {
+                    IEnergyReceiver consumer = (IEnergyReceiver) node;
                     if (node.getConnectionPriority() > this.getConnectionPriority() || (node.getConnectionPriority() == 0 && this.getConnectionPriority() == 0)) {
                         EnergyHandler.transferEnergy(this, consumer);
                     }

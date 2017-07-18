@@ -6,7 +6,6 @@ import at.korti.transmatrics.api.block.IChangeMode;
 import at.korti.transmatrics.api.block.IModeInfo;
 import at.korti.transmatrics.api.block.modes.InOutMode;
 import at.korti.transmatrics.api.energy.EnergyHandler;
-import at.korti.transmatrics.api.energy.IEnergyConsumer;
 import at.korti.transmatrics.api.network.INetworkNode;
 import at.korti.transmatrics.tileentity.TileEntityEnergyNode;
 import at.korti.transmatrics.tileentity.network.TileEntityController;
@@ -48,13 +47,13 @@ public class TileEntityEnergyConverter extends TileEntityEnergyNode implements I
     public void update() {
         super.update();
 
-        if(canProvideEnergy() && !getWorld().isRemote) {
+        if(!getWorld().isRemote) {
             if(mode == InOutMode.OUT) {
                 for (EnumFacing facing : EnumFacing.VALUES) {
                     IEnergyReceiver receiver = WorldHelper.getNeighbor(getWorld(), pos, facing, IEnergyReceiver.class);
                     if (receiver != null) {
                         int energy = receiver.receiveEnergy(facing.getOpposite(), energyStorage.getMaxExtract(), true);
-                        energy = extractEnergy(energy, false);
+                        energy = extractEnergy(facing, energy, false);
                         receiver.receiveEnergy(facing.getOpposite(), energy, false);
                     }
                 }
@@ -62,8 +61,8 @@ public class TileEntityEnergyConverter extends TileEntityEnergyNode implements I
                 if (networkNode != null && getNetworkNode() != null) {
                     INetworkNode node = getNetworkNode();
                     if (node.getController() == null) {
-                        if (node instanceof IEnergyConsumer) {
-                            IEnergyConsumer consumer = (IEnergyConsumer) node;
+                        if (node instanceof IEnergyReceiver) {
+                            IEnergyReceiver consumer = (IEnergyReceiver) node;
                             EnergyHandler.transferEnergy(this, consumer);
                         }
                     } else {
@@ -72,15 +71,6 @@ public class TileEntityEnergyConverter extends TileEntityEnergyNode implements I
                     }
                 }
             }
-        }
-    }
-
-    @Override
-    public int receiveEnergy(int energy, boolean simulate) {
-        if (mode != InOutMode.IN) {
-            return super.receiveEnergy(energy, simulate);
-        } else {
-            return 0;
         }
     }
 

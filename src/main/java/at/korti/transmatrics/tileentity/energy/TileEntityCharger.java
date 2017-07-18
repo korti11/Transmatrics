@@ -3,9 +3,9 @@ package at.korti.transmatrics.tileentity.energy;
 import at.korti.transmatrics.api.Constants.Energy;
 import at.korti.transmatrics.api.Constants.NBT;
 import at.korti.transmatrics.api.Constants.TransmatricsTileEntity;
-import at.korti.transmatrics.api.energy.IChargeable;
 import at.korti.transmatrics.block.ActiveMachineBlock;
 import at.korti.transmatrics.tileentity.TileEntityInventory;
+import cofh.redstoneflux.api.IEnergyContainerItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -41,27 +41,23 @@ public class TileEntityCharger extends TileEntityInventory {
     @Override
     public void setInventorySlotContents(int index, ItemStack stack) {
         super.setInventorySlotContents(index, stack);
-        IChargeable item = null;
-        if (stack != null && stack.getItem() instanceof IChargeable && index == 0) {
-            item = (IChargeable) stack.getItem();
+        IEnergyContainerItem item = null;
+        if (stack != null && stack.getItem() instanceof IEnergyContainerItem && index == 0) {
+            item = (IEnergyContainerItem) stack.getItem();
         } else if (stack == null && index == 0) {
             this.storedEnergy = 0;
             this.maxStoreEnergy = 0;
             return;
         }
         if (item != null) {
-            this.storedEnergy = item.getEnergy(stack);
-            this.maxStoreEnergy = item.getCapacity(stack);
+            this.storedEnergy = item.getEnergyStored(stack);
+            this.maxStoreEnergy = item.getMaxEnergyStored(stack);
         }
     }
 
     @Override
     public void update() {
         super.update();
-
-        if (!canProvideEnergy()) {
-            return;
-        }
 
         boolean markDirty = false;
         boolean isCharging = false;
@@ -70,16 +66,16 @@ public class TileEntityCharger extends TileEntityInventory {
             if (energyStorage.getEnergyStored() - energyUse >= 0 && !getStackInSlot(0).isEmpty()) {
                 if(canCharge()) {
                     ItemStack stack = getStackInSlot(0);
-                    IChargeable chargeable = null;
-                    if (stack.getItem() instanceof IChargeable) {
-                        chargeable = (IChargeable) stack.getItem();
+                    IEnergyContainerItem chargeable = null;
+                    if (stack.getItem() instanceof IEnergyContainerItem) {
+                        chargeable = (IEnergyContainerItem) stack.getItem();
                     }
                     if (chargeable != null) {
-                        chargeable.charge(stack, energyUse, false);
-                        this.storedEnergy = chargeable.getEnergy(stack);
+                        chargeable.receiveEnergy(stack, energyUse, false);
+                        this.storedEnergy = chargeable.getEnergyStored(stack);
                         markDirty = true;
                         isCharging = true;
-                        if (chargeable.getEnergy(stack) == chargeable.getCapacity(stack)) {
+                        if (chargeable.getEnergyStored(stack) == chargeable.getMaxEnergyStored(stack)) {
                             setInventorySlotContents(1, stack);
                             setInventorySlotContents(0, ItemStack.EMPTY);
                         }
@@ -119,7 +115,7 @@ public class TileEntityCharger extends TileEntityInventory {
             case 2:
                 return energyStorage.getEnergyStored();
             case 3:
-                return energyStorage.getCapacity();
+                return energyStorage.getMaxEnergyStored();
             default:
                 return 0;
         }

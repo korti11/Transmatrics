@@ -1,21 +1,16 @@
 package at.korti.transmatrics.client.gui;
 
-import at.korti.transmatrics.api.Constants;
 import at.korti.transmatrics.api.Constants.Mod;
-import at.korti.transmatrics.api.energy.IEnergyHandler;
-import at.korti.transmatrics.api.energy.IEnergyProducer;
 import at.korti.transmatrics.client.util.RenderHelper;
 import at.korti.transmatrics.tileentity.TileEntityFluidGenerator;
 import at.korti.transmatrics.tileentity.container.ContainerFluidGenerator;
 import at.korti.transmatrics.util.helper.TextHelper;
+import cofh.redstoneflux.api.IEnergyProvider;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidTankProperties;
 
@@ -45,9 +40,10 @@ public class GuiFluidGenerator extends GuiContainer {
     }
 
     protected void addInformation(int mouseX, int mouseY, List<String> textLines) {
-        if (fluidGenerator instanceof IEnergyProducer && isInRect(mouseX, mouseY, 17, 10, 17 + 16, 10 + 64)) {
-            IEnergyProducer machine = fluidGenerator;
-            textLines.add(String.format("%d/%d TF", machine.getEnergyStored(), machine.getMaxEnergyStored()));
+        if (fluidGenerator instanceof IEnergyProvider && isInRect(mouseX, mouseY, 17, 10, 17 + 16, 10 + 64)) {
+            IEnergyProvider machine = fluidGenerator;
+            textLines.add(String.format("%d/%d TF", machine.getEnergyStored(EnumFacing.NORTH),
+                    machine.getMaxEnergyStored(EnumFacing.NORTH)));
         }
 
         if (fluidGenerator instanceof IFluidHandler &&
