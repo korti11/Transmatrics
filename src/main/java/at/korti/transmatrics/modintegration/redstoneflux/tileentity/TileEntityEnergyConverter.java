@@ -57,19 +57,6 @@ public class TileEntityEnergyConverter extends TileEntityEnergyNode implements I
                         receiver.receiveEnergy(facing.getOpposite(), energy, false);
                     }
                 }
-            } else if (mode == InOutMode.IN) {
-                if (networkNode != null && getNetworkNode() != null) {
-                    INetworkNode node = getNetworkNode();
-                    if (node.getController() == null) {
-                        if (node instanceof IEnergyReceiver) {
-                            IEnergyReceiver consumer = (IEnergyReceiver) node;
-                            EnergyHandler.transferEnergy(this, consumer);
-                        }
-                    } else {
-                        TileEntityController controller = getNetworkNode().getController();
-                        EnergyHandler.transferEnergy(this, controller);
-                    }
-                }
             }
         }
     }

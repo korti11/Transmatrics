@@ -1,6 +1,7 @@
 package at.korti.transmatrics.tileentity;
 
 import at.korti.transmatrics.api.energy.IEnergyInfo;
+import at.korti.transmatrics.api.network.networkpackages.EnergyRequestNetworkPackage;
 import cofh.redstoneflux.api.IEnergyHandler;
 import cofh.redstoneflux.api.IEnergyProvider;
 import cofh.redstoneflux.api.IEnergyReceiver;
@@ -40,6 +41,14 @@ public abstract class TileEntityEnergyNode extends TileEntityNetworkNode impleme
     public void readFromNBT(NBTTagCompound compound) {
         super.readFromNBT(compound);
         energyStorage.readFromNBT(compound);
+    }
+
+    @Override
+    public void update() {
+        super.update();
+        if (getEnergyStored() < getMaxEnergyStored()) {
+            sendNetworkPackage(new EnergyRequestNetworkPackage(this));
+        }
     }
 
     @Override

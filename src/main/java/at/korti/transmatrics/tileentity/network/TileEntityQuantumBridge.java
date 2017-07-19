@@ -4,14 +4,10 @@ import at.korti.transmatrics.Transmatrics;
 import at.korti.transmatrics.api.Constants.Energy;
 import at.korti.transmatrics.api.Constants.NBT;
 import at.korti.transmatrics.api.Constants.Network;
-import at.korti.transmatrics.api.energy.EnergyHandler;
-import at.korti.transmatrics.api.network.INetworkNode;
-import at.korti.transmatrics.api.network.INetworkSwitch;
 import at.korti.transmatrics.api.network.quantum.QuantumBridgeHandler;
 import at.korti.transmatrics.tileentity.TileEntityEnergySwitch;
 import at.korti.transmatrics.util.helper.WorldHelper;
 import at.korti.transmatrics.util.math.DimensionBlockPos;
-import cofh.redstoneflux.api.IEnergyReceiver;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -97,15 +93,6 @@ public class TileEntityQuantumBridge extends TileEntityEnergySwitch {
             if (energyStorage.getEnergyStored() >= energyUse) {
                 energyStorage.modifyEnergyStored(-energyUse);
             }
-            for(INetworkNode node : getConnections()){
-                if (node instanceof IEnergyReceiver) {
-                    IEnergyReceiver consumer = (IEnergyReceiver) node;
-                    if (node.getConnectionPriority() > this.getConnectionPriority() || (node.getConnectionPriority() == 0 && this.getConnectionPriority() == 0)) {
-                        EnergyHandler.transferEnergy(this, consumer);
-                    }
-                }
-            }
-            System.out.println("Chunk loaded - Bridge ID: " + quantumBridgeMapName + ", Dimension ID: " + getWorld().provider.getDimension());
             if(!brigdeConnected){
                 connectQuantumBridge();
             } else {
@@ -122,7 +109,6 @@ public class TileEntityQuantumBridge extends TileEntityEnergySwitch {
         TileEntityQuantumBridge quantumBridge = getDifferentQuantumNode();
         if (quantumBridge != null) {
             this.energyStorage = quantumBridge.energyStorage;
-            this.setController(quantumBridge);
             this.brigdeConnected = true;
             quantumBridge.brigdeConnected = true;
         }
@@ -147,22 +133,6 @@ public class TileEntityQuantumBridge extends TileEntityEnergySwitch {
             }
         }
         return null;
-    }
-
-    private void setController(TileEntityQuantumBridge tileEntity){
-        if (this.getController() == null && tileEntity.getController() != null) {
-            this.connectToController(tileEntity.getController().getDimPos(), tileEntity.connectionPriority);
-        } else if (this.getController() != null && tileEntity.getController() == null) {
-            tileEntity.connectToController(this.getController().getDimPos(), this.connectionPriority);
-        }
-    }
-
-    @Override
-    public boolean reconnectToController(INetworkSwitch startNode, INetworkSwitch prevNode) {
-        TileEntityQuantumBridge quantumBridge = getDifferentQuantumNode();
-        boolean flag = super.reconnectToController(startNode, prevNode) &&
-                quantumBridge.reconnectToController(quantumBridge, quantumBridge);
-        return flag;
     }
 
     private void forceChunks() {

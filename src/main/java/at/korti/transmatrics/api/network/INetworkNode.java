@@ -37,12 +37,16 @@ public interface INetworkNode {
      */
     INetworkNode getConnection();
 
-    TileEntityController getController();
+    /**
+     * Send a network package to the connected node.
+     * @param networkPackage Network package to send.
+     */
+    void sendNetworkPackage(INetworkPackage networkPackage);
 
-    int getConnectionPriority();
-
-    void connectToController(DimensionBlockPos controllerPos, int connectionPriority);
-
-    void disconnectFromController();
+    /**
+     * Receives a network package from the connected node.
+     * @param networkPackage Network package to receive.
+     */
+    void receiveNetworkPackage(INetworkPackage networkPackage);
 
 }

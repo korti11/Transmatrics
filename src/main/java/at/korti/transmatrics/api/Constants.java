@@ -21,7 +21,6 @@ public final class Constants {
 
     public static class ModIntegrationIds{
         public static final String WAILA = "Waila";
-        public static final String JEI = "JEI";
         public static final String TCONSTRUCT = "tconstruct";
         public static final String BUILDCRAFT = "BuildCraft|Core";
     }
@@ -32,12 +31,6 @@ public final class Constants {
             public static final String MAGNETIC_SMELTERY = Mod.MODID + ":MagneticSmeltery";
             public static final String LIQUID_CASTER = Mod.MODID + ":LiquidCaster";
         }
-    }
-
-    public static class TConstructModifiers{
-        //Energetic
-        public static final String ENERGETIC_IDENTIFIER = "energetic";
-        public static final int ENERGETIC_COLOR = 0xffff33;
     }
 
     public static class NBT {
@@ -59,10 +52,6 @@ public final class Constants {
         public static final String NETWORK_NODES = "network_nodes";
         public static final String CLEAR_STORED_NETWORK = "clear_stored_network";
         public static final String NETWORK_CONNECTED = "network_connected";
-        public static final String CONNECTION_PRIORITY = "connection_priority";
-        public static final String CONTROLLER_X = "cx";
-        public static final String CONTROLLER_Y = "cy";
-        public static final String CONTROLLER_Z = "cz";
 
         //Controller
         public static final String IS_MASTER = "is_master";
@@ -112,6 +101,8 @@ public final class Constants {
         public static final String OUT_OF_RANGE = "network.out_of_range.message";
         public static final String SAME_NODE = "network.same_node.message";
         public static final String ALREADY_CONNECTED = "network.already_connected.message";
+
+        public static final String CAN_NOT_HANDLE_PACKAGE = "network.can_not_handle_package.message";
     }
 
     public static class ToolTips{
@@ -167,18 +158,6 @@ public final class Constants {
         public static final int THERMAL_GENERATOR_MAX_HEIGHT = 12;
         public static final int THERMAL_GENERATOR_CAPACITY = 50000;
         public static final int THERMAL_GENERATOR_EXTRACTION = 1000;
-
-        //Small Switch
-        public static final int SMALL_SWITCH_CAPACITY = 12500;
-        public static final int SMALL_SWITCH_TRANSFER = 1250;
-
-        //Medium Switch
-        public static final int MEDIUM_SWITCH_CAPACITY = 25000;
-        public static final int MEDIUM_SWITCH_TRANSFER = 2500;
-
-        //Large Switch
-        public static final int LARGE_SWITCH_CAPACITY = 50000;
-        public static final int LARGE_SWITCH_TRANSFER = 5000;
 
         //Controller
         public static final int CONTROLLER_CAPACITY = 100000;

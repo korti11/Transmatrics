@@ -1,9 +1,6 @@
 package at.korti.transmatrics.tileentity;
 
-import at.korti.transmatrics.api.energy.EnergyHandler;
 import at.korti.transmatrics.api.energy.IEnergyInfo;
-import at.korti.transmatrics.api.network.INetworkNode;
-import at.korti.transmatrics.api.network.INetworkSwitch;
 import cofh.redstoneflux.api.IEnergyHandler;
 import cofh.redstoneflux.api.IEnergyProvider;
 import cofh.redstoneflux.api.IEnergyReceiver;
@@ -11,8 +8,6 @@ import cofh.redstoneflux.impl.EnergyStorage;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
-
-import java.util.List;
 
 /**
  * Created by Korti on 06.03.2016.
@@ -46,27 +41,6 @@ public abstract class TileEntityEnergySwitch extends TileEntityNetworkSwitch imp
     public void readFromNBT(NBTTagCompound compound) {
         super.readFromNBT(compound);
         energyStorage.readFromNBT(compound);
-    }
-
-    @Override
-    public void update() {
-        super.update();
-        if (!getWorld().isRemote) {
-            List<INetworkNode> nodes = getNetworkNodes();
-            if(nodes != null) {
-                for (INetworkNode node : nodes) {
-                    if (node instanceof IEnergyReceiver) {
-                        IEnergyReceiver consumer = (IEnergyReceiver) node;
-                        if (node.getConnectionPriority() > this.getConnectionPriority() || (node.getConnectionPriority() == 0 && this.getConnectionPriority() == 0 && !(node instanceof INetworkSwitch))) {
-//                        if (consumer.getMaxEnergyStored() - consumer.getEnergyStored() <= energyStorage.getMaxEnergyStored() - energyStorage.getEnergyStored()) {
-//                            continue;
-//                        }
-                            EnergyHandler.transferEnergy(this, consumer);
-                        }
-                    }
-                }
-            }
-        }
     }
 
     @Override

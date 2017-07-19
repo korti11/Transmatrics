@@ -34,7 +34,6 @@ public class TileEntityController extends TileEntityEnergySwitch {
 
         this.isMaster = false;
         this.extensions = new LinkedList<>();
-        this.connectionPriority = 0;
     }
 
     //region Tile Entity
@@ -112,8 +111,6 @@ public class TileEntityController extends TileEntityEnergySwitch {
         if(!simulate) {
             message = super.connectToNode(node, isSecond, false);
             if (message.isSuccessful()) {
-                node.disconnectFromController();
-                node.connectToController(getDimPosForTileEntity(this), connectionPriority + 1);
                 return message;
             }
             TileEntityController master = getMaster();
@@ -125,15 +122,10 @@ public class TileEntityController extends TileEntityEnergySwitch {
                         if (controller != null) {
                             IStatusMessage subMessage = controller.superConnectToNode(node, false, false);   // Connect to the extension controller, if it is possible
                             if (subMessage.isSuccessful()) {        // If the node did connect to the extension controller, return a status with successful and a message with SUCCESSFUL_CONNECTED message. If not check the next extension controller.
-                                node.disconnectFromController();
-                                node.connectToController(controller.getDimPos(), controller.connectionPriority + 1);
                                 return subMessage;
                             }
                         }
                     }
-                } else {
-                    node.disconnectFromController();
-                    node.connectToController(master.getDimPos(), master.connectionPriority + 1);
                 }
             }
         }
@@ -182,7 +174,7 @@ public class TileEntityController extends TileEntityEnergySwitch {
             for (DimensionBlockPos extension : extensions) {
                 TileEntityController controller = getController(extension);
                 if (controller != null) {
-                    connections += controller.networkNodes.size();
+                    connections += controller.getNetworkNodes().size();
                 }
             }
             return connections;
@@ -207,21 +199,9 @@ public class TileEntityController extends TileEntityEnergySwitch {
             return getMaster().getMaxNetworkConnections();
         }
     }
-
-    @Override
-    public TileEntityController getController() {
-        return this;
-    }
-
-    @Override
-    public int getConnectionPriority() {
-        return 0;
-    }
     //endregion
 
     //region Tile Entity Energy Switch
-
-
     @Override
     public int receiveEnergy(EnumFacing enumFacing, int energy, boolean simulate) {
         if (isMaster) {

@@ -12,7 +12,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;
@@ -23,7 +22,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 import static net.minecraftforge.common.MinecraftForge.EVENT_BUS;
 
@@ -32,18 +33,18 @@ import static net.minecraftforge.common.MinecraftForge.EVENT_BUS;
  */
 public abstract class TileEntityNetworkSwitch extends TileEntity implements INetworkSwitch, INetworkSwitchInfo, ITickable{
 
-    protected List<BlockPos> networkNodes;
+    private List<BlockPos> networkNodes;
     protected final int maxConnections;
-    protected final boolean canConnectToMachines;
-    protected final int range;
-    private DimensionBlockPos controller;
-    protected int connectionPriority;
+    private final boolean canConnectToMachines;
+    private final int range;
+    private Queue<INetworkPackage> packageQueue;
 
     public TileEntityNetworkSwitch(int maxConnections, boolean canConnectToMachines, int range) {
         this.networkNodes = new ArrayList<>();
         this.maxConnections = maxConnections;
         this.canConnectToMachines = canConnectToMachines;
         this.range = range;
+        this.packageQueue = new LinkedList<>();
     }
 
     protected List<INetworkNode> getNetworkNodes() {
@@ -54,12 +55,6 @@ public abstract class TileEntityNetworkSwitch extends TileEntity implements INet
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
         compound = super.writeToNBT(compound);
         writeNodesToNBT(compound);
-        compound.setInteger(NBT.CONNECTION_PRIORITY, getConnectionPriority());
-        if(controller != null) {
-            compound.setInteger(NBT.CONTROLLER_X, controller.getX());
-            compound.setInteger(NBT.CONTROLLER_Y, controller.getY());
-            compound.setInteger(NBT.CONTROLLER_Z, controller.getZ());
-        }
         return compound;
     }
 
@@ -86,14 +81,6 @@ public abstract class TileEntityNetworkSwitch extends TileEntity implements INet
     public void readFromNBT(NBTTagCompound compound) {
         super.readFromNBT(compound);
         readNodesFromNBT(compound);
-        connectionPriority = compound.getInteger(NBT.CONNECTION_PRIORITY);
-        if(compound.hasKey(NBT.CONTROLLER_X)) {
-            int x = compound.getInteger(NBT.CONTROLLER_X);
-            int y = compound.getInteger(NBT.CONTROLLER_Y);
-            int z = compound.getInteger(NBT.CONTROLLER_Z);
-            int dimID = compound.getInteger(NBT.DIM_ID);
-            controller = new DimensionBlockPos(x, y, z, dimID);
-        }
     }
 
     public void readNodesFromNBT(NBTTagCompound tagCompound) {
@@ -115,7 +102,20 @@ public abstract class TileEntityNetworkSwitch extends TileEntity implements INet
 
     @Override
     public void update() {
+        if(!getWorld().isRemote) {
+            handlePackageQueue();
+        }
+    }
 
+    protected void handlePackageQueue() {
+        if (!this.packageQueue.isEmpty()) {
+            INetworkPackage networkPackage = this.packageQueue.poll();
+            if (networkPackage.canHandlePackage(this)) {
+                networkPackage.handlePackage(this);
+            } else {
+                broadcastNetworkPackage(networkPackage);
+            }
+        }
     }
 
     protected void syncClient() {
@@ -160,7 +160,7 @@ public abstract class TileEntityNetworkSwitch extends TileEntity implements INet
         }
         if (node instanceof TileEntity && !isSecond) {
             if(!this.isInRange(node) &&
-                    (node instanceof INetworkSwitch ? !((INetworkSwitch) node).isInRange(this) : true)) {
+                    (!(node instanceof INetworkSwitch) || !((INetworkSwitch) node).isInRange(this))) {
                 return new StatusMessage(false, NetworkMessages.OUT_OF_RANGE);
             }
         }
@@ -172,9 +172,6 @@ public abstract class TileEntityNetworkSwitch extends TileEntity implements INet
         }
         if (!simulate && node instanceof TileEntity) {
             networkNodes.add(((TileEntity) node).getPos());
-            if (node.getController() != null && this.controller == null) {
-                this.connectToController(node.getController().getMaster().getDimPos(), node.getConnectionPriority() + 1);
-            }
             syncClient();
         }
         return new StatusMessage(true, NetworkMessages.SUCCESSFUL_CONNECTED);
@@ -194,13 +191,6 @@ public abstract class TileEntityNetworkSwitch extends TileEntity implements INet
         }
         if (!simulate && node instanceof TileEntity) {
             networkNodes.remove(((TileEntity) node).getPos());
-            if(!isSecond) {
-                if(node.getConnectionPriority() > connectionPriority) {
-                    node.disconnectFromController();
-                } else if (node.getConnectionPriority() < connectionPriority) {
-                    this.disconnectFromController();
-                }
-            }
             syncClient();
         }
         return new StatusMessage(true, NetworkMessages.SUCCESSFUL_DISCONNECTED);
@@ -243,79 +233,8 @@ public abstract class TileEntityNetworkSwitch extends TileEntity implements INet
         return NetworkHandler.getController(pos);
     }
 
-    @Override
-    public TileEntityController getController() {
-        return getController(controller);
-    }
-
-    @Override
-    public int getConnectionPriority() {
-        return connectionPriority;
-    }
-
-    @Override
-    public void connectToController(DimensionBlockPos controllerPos, int connectionPriority) {
-        controller = controllerPos;
-        this.connectionPriority = connectionPriority;
-        List<INetworkNode> nodes = getNetworkNodes();
-        for (INetworkNode node : nodes) {
-            if (node.getController() == null) {
-                node.connectToController(controllerPos, connectionPriority + 1);
-            }
-        }
-    }
-
     public DimensionBlockPos getDimPos() {
         return new DimensionBlockPos(this.getPos(), getWorld().provider.getDimension());
-    }
-
-    private void overrideController(DimensionBlockPos controllerPos, int connectionPriority, INetworkNode preventedNode) {
-        controller = controllerPos;
-        this.connectionPriority = connectionPriority;
-        List<INetworkNode> nodes = getNetworkNodes();
-        for (INetworkNode node : nodes) {
-            if (!preventedNode.equals(node)) {
-                node.connectToController(controllerPos, connectionPriority + 1);
-            }
-        }
-    }
-
-    @Override
-    public boolean reconnectToController(INetworkSwitch startNode, INetworkSwitch prevNode) {
-        List<INetworkNode> nodes = getNetworkNodes();
-        boolean flag = false;
-        INetworkNode foundNode = null;
-        for(INetworkNode node : nodes) {
-            if (node instanceof INetworkSwitch) {
-                if (startNode == this || this.getConnectionPriority() < prevNode.getConnectionPriority()) {
-                    flag = ((INetworkSwitch) node).reconnectToController(startNode,this);
-                } else {
-                    return true;
-                }
-            }
-            if (flag) {
-                foundNode = node;
-                break;
-            }
-        }
-        if (flag && startNode == this) {
-            overrideController(foundNode.getController().getDimPos(), foundNode.getConnectionPriority() + 1, foundNode);
-        }
-        return flag;
-    }
-
-    @Override
-    public void disconnectFromController() {
-        if(!reconnectToController(this,this)) {
-            List<INetworkNode> nodes = getNetworkNodes();
-            for (INetworkNode node : nodes) {
-                if (node.getController() != null && node.getConnectionPriority() > connectionPriority) {
-                    node.disconnectFromController();
-                }
-            }
-            controller = null;
-            connectionPriority = 0;
-        }
     }
 
     @Override
@@ -333,5 +252,20 @@ public abstract class TileEntityNetworkSwitch extends TileEntity implements INet
         tagCompound.setInteger(NBT.NETWORK_X, pos.getX());
         tagCompound.setInteger(NBT.NETWORK_Y, pos.getY());
         tagCompound.setInteger(NBT.NETWORK_Z, pos.getZ());
+    }
+
+    @Override
+    public void broadcastNetworkPackage(INetworkPackage networkPackage) {
+        getConnections().forEach(node -> node.receiveNetworkPackage(networkPackage));
+    }
+
+    @Override
+    public void sendNetworkPackage(INetworkPackage networkPackage) {
+        broadcastNetworkPackage(networkPackage);
+    }
+
+    @Override
+    public void receiveNetworkPackage(INetworkPackage networkPackage) {
+        this.packageQueue.add(networkPackage);
     }
 }

@@ -4,6 +4,7 @@ import at.korti.transmatrics.api.Constants.NBT;
 import at.korti.transmatrics.api.Constants.NetworkMessages;
 import at.korti.transmatrics.api.energy.IEnergyProducer;
 import at.korti.transmatrics.api.network.*;
+import at.korti.transmatrics.api.network.networkpackages.ErrorNetworkPackage;
 import at.korti.transmatrics.event.ConnectNetworkNodesEvent;
 import at.korti.transmatrics.event.DisconnectNetworkNodesEvent;
 import at.korti.transmatrics.tileentity.network.TileEntityController;
@@ -23,6 +24,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 import static net.minecraftforge.common.MinecraftForge.EVENT_BUS;
 
 /**
@@ -30,9 +34,12 @@ import static net.minecraftforge.common.MinecraftForge.EVENT_BUS;
  */
 public abstract class TileEntityNetworkNode extends TileEntity implements INetworkNode, ITickable, INetworkNodeInfo {
 
-    protected BlockPos networkNode;
-    private DimensionBlockPos controller;
-    protected int connectionPriority;
+    private BlockPos networkNode;
+    private Queue<INetworkPackage> packageQueue;
+
+    public TileEntityNetworkNode() {
+        this.packageQueue = new LinkedList<>();
+    }
 
     protected INetworkNode getNetworkNode(){
         return NetworkHandler.getNetworkNode(getWorld(), networkNode);
@@ -42,13 +49,6 @@ public abstract class TileEntityNetworkNode extends TileEntity implements INetwo
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
         compound = super.writeToNBT(compound);
         writeNetworkNodeToNBT(compound);
-        compound.setInteger(NBT.CONNECTION_PRIORITY, connectionPriority);
-        if(controller != null) {
-            compound.setInteger(NBT.CONTROLLER_X, controller.getX());
-            compound.setInteger(NBT.CONTROLLER_Y, controller.getY());
-            compound.setInteger(NBT.CONTROLLER_Z, controller.getZ());
-            compound.setInteger(NBT.DIM_ID, controller.getDimensionID());
-        }
         return compound;
     }
 
@@ -64,15 +64,7 @@ public abstract class TileEntityNetworkNode extends TileEntity implements INetwo
     @Override
     public void readFromNBT(NBTTagCompound compound) {
         super.readFromNBT(compound);
-        connectionPriority = compound.getInteger(NBT.CONNECTION_PRIORITY);
         readNetworkNodeFromNBT(compound);
-        if(compound.hasKey(NBT.CONTROLLER_X)) {
-            int x = compound.getInteger(NBT.CONTROLLER_X);
-            int y = compound.getInteger(NBT.CONTROLLER_Y);
-            int z = compound.getInteger(NBT.CONTROLLER_Z);
-            int dimID = compound.getInteger(NBT.DIM_ID);
-            controller = new DimensionBlockPos(x, y, z, dimID);
-        }
     }
 
     private void readNetworkNodeFromNBT(NBTTagCompound compound) {
@@ -93,7 +85,20 @@ public abstract class TileEntityNetworkNode extends TileEntity implements INetwo
 
     @Override
     public void update() {
+        if(!getWorld().isRemote) {
+            handlePackageQueue();
+        }
+    }
 
+    protected void handlePackageQueue() {
+        if(!this.packageQueue.isEmpty()) {
+            INetworkPackage networkPackage = this.packageQueue.poll();
+            if (networkPackage.canHandlePackage(this)) {
+                networkPackage.handlePackage(this);
+            } else {
+                networkPackage.getSender().receiveNetworkPackage(new ErrorNetworkPackage(this));
+            }
+        }
     }
 
     @Nullable
@@ -126,9 +131,9 @@ public abstract class TileEntityNetworkNode extends TileEntity implements INetwo
             return new StatusMessage(false, NetworkMessages.CAN_NOT_CONNECTED);
         } else if (this == node) {
             return new StatusMessage(false, NetworkMessages.SAME_NODE);
-        } else if ((!(this instanceof IEnergyProducer) && !(node instanceof IEnergyProducer)) &&
-                node instanceof INetworkNode && !(node instanceof INetworkSwitch) ||
-                ((this instanceof IEnergyProducer) && (node instanceof IEnergyProducer))) {
+        } else if (!(this instanceof IEnergyProducer) && !(node instanceof IEnergyProducer) &&
+                !(node instanceof INetworkSwitch) ||
+                this instanceof IEnergyProducer && node instanceof IEnergyProducer) {
             return new StatusMessage(false, NetworkMessages.MACHINES_CAN_NOT_CONNECTED);
         }
         if (!isSecond) {
@@ -142,10 +147,6 @@ public abstract class TileEntityNetworkNode extends TileEntity implements INetwo
                 disconnectFromNode();
             }
             networkNode = ((TileEntity)node).getPos();
-            if (node.getController() != null && this.controller == null) {
-                controller = node.getController().getDimPos();
-                connectionPriority = node.getConnectionPriority() + 1;
-            }
             syncClient();
         }
         return new StatusMessage(true, NetworkMessages.SUCCESSFUL_CONNECTED);
@@ -182,28 +183,6 @@ public abstract class TileEntityNetworkNode extends TileEntity implements INetwo
     }
 
     @Override
-    public TileEntityController getController() {
-        return NetworkHandler.getController(controller);
-    }
-
-    @Override
-    public int getConnectionPriority() {
-        return connectionPriority;
-    }
-
-    @Override
-    public void connectToController(DimensionBlockPos controllerPos, int connectionPriority) {
-        controller = controllerPos;
-        this.connectionPriority = connectionPriority;
-    }
-
-    @Override
-    public void disconnectFromController() {
-        controller = null;
-        connectionPriority = 0;
-    }
-
-    @Override
     public void writeSelfToNBT(NBTTagCompound tagCompound) {
         tagCompound.setInteger(NBT.NETWORK_X, pos.getX());
         tagCompound.setInteger(NBT.NETWORK_Y, pos.getY());
@@ -213,5 +192,17 @@ public abstract class TileEntityNetworkNode extends TileEntity implements INetwo
     @Override
     public boolean isConnected() {
         return networkNode != null;
+    }
+
+    @Override
+    public void sendNetworkPackage(INetworkPackage networkPackage) {
+        if(getConnection() != null) {
+            getConnection().receiveNetworkPackage(networkPackage);
+        }
+    }
+
+    @Override
+    public void receiveNetworkPackage(INetworkPackage networkPackage) {
+        this.packageQueue.add(networkPackage);
     }
 }
