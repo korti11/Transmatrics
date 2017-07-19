@@ -1,15 +1,13 @@
 version: 2
-
 jobs:
   build:
-    working-directory: ~/
-
+    working_directory: ~/
     steps:
       - checkout
       - run:
         name: executable-gradle
         command: chmod +x gradlew
-      - restore_cache
+      - restore_cache:
         key: dependency-cache
       - run:
         name: build-jar
