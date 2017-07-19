@@ -7,7 +7,7 @@ jobs:
     steps:
       - run:
           name: gradle-fix
-          command: export TERM=dumb
+          command: export TERM="dumb"
       - checkout
       - run:
           name: executable-gradle
