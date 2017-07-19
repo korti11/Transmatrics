@@ -5,24 +5,24 @@ jobs:
     steps:
       - checkout
       - run:
-        name: executable-gradle
-        command: chmod +x gradlew
+          name: executable-gradle
+          command: chmod +x gradlew
       - restore_cache:
-        key: dependency-cache
+          key: dependency-cache
       - run:
-        name: build-jar
-        command: ./gradlew build
+          name: build-jar
+          command: ./gradlew build
       - run:
-        name: create-source-jar
-        command: ./gradlew sourceJar
+          name: create-source-jar
+          command: ./gradlew sourceJar
       - run:
-        name: copy-artifacts
-        command: cp build/libs/*.jar $CIRCLE_ARTIFACTS
+          name: copy-artifacts
+          command: cp build/libs/*.jar $CIRCLE_ARTIFACTS
       - save_cache:
-        key: dependency-cache
-        paths:
-          - ~/.gradle/caches/minecraft/deobfedDeps
-          - .gradle/minecraft
+          key: dependency-cache
+          paths:
+            - ~/.gradle/caches/minecraft/deobfedDeps
+            - .gradle/minecraft
 
 workflows:
   version: 2
