@@ -1,0 +1,20 @@
+version: 2
+
+steps:
+  - run:
+    name: Executable Gradle
+    command: chmod +x gradlew
+  - save_cache:
+    key: dependency-cache
+    paths:
+      - vendor/bundle
+  - restore_cache
+  - run:
+    name: Build Jar
+    command: ./gradlew build
+  - run:
+    name: Create Source Jar
+    command: ./gradlew sourceJar
+  - run:
+    name: Copy Artifacts
+    command: cp build/libs/*.jar $CIRCLE_ARTIFACTS
