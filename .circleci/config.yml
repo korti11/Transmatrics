@@ -5,6 +5,9 @@ jobs:
     docker:
       - image: circleci/openjdk:8-jdk-browsers
     steps:
+      - run:
+          name: gradle-fix
+          command: export TERM=dumb
       - checkout
       - run:
           name: executable-gradle
@@ -17,9 +20,8 @@ jobs:
       - run:
           name: create-source-jar
           command: ./gradlew sourceJar
-      - run:
-          name: copy-artifacts
-          command: cp build/libs/*.jar $CIRCLE_ARTIFACTS
+      - store_artifacts:
+          path: build/libs
       - save_cache:
           key: dependency-cache
           paths:
