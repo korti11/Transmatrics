@@ -15,6 +15,9 @@ jobs:
       - restore_cache:
           key: dependency-cache
       - run:
+          name: echo
+          command: echo $TERM
+      - run:
           name: build-jar
           command: ./gradlew build
       - run:
