@@ -5,9 +5,6 @@ jobs:
     docker:
       - image: circleci/openjdk:8-jdk-browsers
     steps:
-      - run:
-          name: gradle-fix
-          command: export TERM="dumb"
       - checkout
       - run:
           name: executable-gradle
@@ -28,7 +25,7 @@ jobs:
       - save_cache:
           key: dependency-cache
           paths:
-            - ~/.gradle/caches/minecraft/deobfedDeps
+            - ~/.gradle
             - .gradle/minecraft
 
 workflows:
