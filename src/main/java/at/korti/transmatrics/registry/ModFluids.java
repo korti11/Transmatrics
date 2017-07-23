@@ -40,6 +40,12 @@ public class ModFluids {
      */
     public static final Set<IFluidBlock> MOD_FLUID_BLOCKS = new HashSet<>();
 
+    public static final Fluid MOLTEN_IRON = createMoltenMetal(TransmatricsFluid.MOLTEN_IRON.getRegName(),
+            0xff0000, 600, fluid -> {}, fluid -> new BlockFluidClassic(fluid, new MaterialLiquid(MapColor.ADOBE)));
+
+    public static final Fluid MOLTEN_GOLD = createMoltenMetal(TransmatricsFluid.MOLTEN_GOLD.getRegName(),
+            0xd4af37, 600, fluid -> {}, fluid -> new BlockFluidClassic(fluid, new MaterialLiquid(MapColor.ADOBE)));
+
     public static final Fluid MOLTEN_COPPER = createMoltenMetal(TransmatricsFluid.MOLTEN_COPPER.getRegName(),
             0xef7e0c, 600, fluid -> {}, fluid -> new BlockFluidClassic(fluid, new MaterialLiquid(MapColor.ADOBE)));
 

@@ -1,5 +1,7 @@
 package at.korti.transmatrics.registry;
 
+import at.korti.transmatrics.block.crafting.LiquidCaster;
+import at.korti.transmatrics.block.crafting.MagneticSmeltery;
 import at.korti.transmatrics.registry.crafting.LiquidCasterCraftingRegistry;
 import at.korti.transmatrics.registry.crafting.MagneticSmelteryCraftingRegistry;
 import at.korti.transmatrics.registry.crafting.PulverizerCraftingRegistry;
@@ -74,6 +76,8 @@ public final class Crafting {
     }
 
     private static void registerMagneticSmelteryCrafting() {
+        MagneticSmelteryCraftingRegistry.getInstance().register(new ItemStack(Items.IRON_INGOT), ModFluids.MOLTEN_IRON, FLUID_AMOUNT_PER_INGOT, 20 * 9);
+        MagneticSmelteryCraftingRegistry.getInstance().register(new ItemStack(Items.GOLD_INGOT), ModFluids.MOLTEN_GOLD, FLUID_AMOUNT_PER_INGOT, 20 * 10);
         MagneticSmelteryCraftingRegistry.getInstance().register(new ItemStack(INGOT.getItem(), 1, 0), ModFluids.MOLTEN_COPPER, FLUID_AMOUNT_PER_INGOT, 20 * 8);
         MagneticSmelteryCraftingRegistry.getInstance().register(new ItemStack(INGOT.getItem(), 1, 1), ModFluids.MOLTEN_TIN, FLUID_AMOUNT_PER_INGOT, 20 * 8);
         MagneticSmelteryCraftingRegistry.getInstance().register(new ItemStack(INGOT.getItem(), 1, 2), ModFluids.MOLTEN_SILVER, FLUID_AMOUNT_PER_INGOT, 20 * 10);
@@ -82,6 +86,8 @@ public final class Crafting {
         MagneticSmelteryCraftingRegistry.getInstance().register(new ItemStack(INGOT.getItem(), 1, 5), ModFluids.MOLTEN_INVAR, FLUID_AMOUNT_PER_INGOT, 20 * 9);
         MagneticSmelteryCraftingRegistry.getInstance().register(new ItemStack(INGOT.getItem(), 1, 6), ModFluids.MOLTEN_ELECTRUM, FLUID_AMOUNT_PER_INGOT, 20 * 9);
 
+        MagneticSmelteryCraftingRegistry.getInstance().register(new ItemStack(Blocks.IRON_ORE), ModFluids.MOLTEN_IRON, FLUID_AMOUNT_PER_INGOT * 2, 20 * 18);
+        MagneticSmelteryCraftingRegistry.getInstance().register(new ItemStack(Blocks.GOLD_ORE), ModFluids.MOLTEN_GOLD, FLUID_AMOUNT_PER_INGOT * 2, 20 * 20);
         MagneticSmelteryCraftingRegistry.getInstance().register(new ItemStack(ORE_BLOCK.getBlock(), 1, 0), ModFluids.MOLTEN_COPPER, FLUID_AMOUNT_PER_INGOT * 2, 20 * 16);
         MagneticSmelteryCraftingRegistry.getInstance().register(new ItemStack(ORE_BLOCK.getBlock(), 1, 1), ModFluids.MOLTEN_TIN, FLUID_AMOUNT_PER_INGOT * 2, 20 * 16);
         MagneticSmelteryCraftingRegistry.getInstance().register(new ItemStack(ORE_BLOCK.getBlock(), 1, 2), ModFluids.MOLTEN_SILVER, FLUID_AMOUNT_PER_INGOT * 2, 20 * 20);
@@ -107,6 +113,14 @@ public final class Crafting {
                 new ItemStack(GEAR.getItem(), 1, 3), 20 * 8
         );
 
+        LiquidCasterCraftingRegistry.getInstance().register(
+                new FluidStack(ModFluids.MOLTEN_IRON, FLUID_AMOUNT_PER_INGOT), new ItemStack(CAST.getItem(), 1, 0),
+                new ItemStack(Items.IRON_INGOT), 20 * 8
+        );
+        LiquidCasterCraftingRegistry.getInstance().register(
+                new FluidStack(ModFluids.MOLTEN_GOLD, FLUID_AMOUNT_PER_INGOT), new ItemStack(CAST.getItem(), 1, 0),
+                new ItemStack(Items.GOLD_INGOT), 20 * 8
+        );
         LiquidCasterCraftingRegistry.getInstance().register(
                 new FluidStack(ModFluids.MOLTEN_COPPER, FLUID_AMOUNT_PER_INGOT), new ItemStack(CAST.getItem(), 1, 0),
                 new ItemStack(INGOT.getItem(), 1, 0), 20 * 8
@@ -136,6 +150,10 @@ public final class Crafting {
                 new ItemStack(INGOT.getItem(), 1, 6), 20 * 8
         );
 
+        LiquidCasterCraftingRegistry.getInstance().register(
+                new FluidStack(ModFluids.MOLTEN_IRON, FLUID_AMOUNT_PER_INGOT), new ItemStack(CAST.getItem(), 1, 2),
+                new ItemStack(PLATE.getItem(), 1, 0), 20 * 8
+        );
         LiquidCasterCraftingRegistry.getInstance().register(
                 new FluidStack(ModFluids.MOLTEN_COPPER, FLUID_AMOUNT_PER_INGOT), new ItemStack(CAST.getItem(), 1, 2),
                 new ItemStack(PLATE.getItem(), 1, 1), 20 * 8

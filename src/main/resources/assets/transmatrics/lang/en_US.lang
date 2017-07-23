@@ -82,6 +82,8 @@ item.transmatrics.invar_capacitor.name=Invar Capacitor
 item.transmatrics.electrum_capacitor.name=Electrum Capacitor
 
 #Fluids
+fluid.molten_iron=Molten Iron
+fluid.molten_gold=Molten Gold
 fluid.molten_copper=Molten Copper
 fluid.molten_tin=Molten Tin
 fluid.molten_silver=Molten Silver
@@ -91,6 +93,8 @@ fluid.molten_invar=Molten Invar
 fluid.molten_electrum=Molten Electrum
 
 #Fuild Blocks
+tile.transmatrics.molten_iron.name=Molten Iron
+tile.transmatrics.molten_gold.name=Molten Gold
 tile.transmatrics.molten_copper.name=Molten Copper
 tile.transmatrics.molten_tin.name=Molten Tin
 tile.transmatrics.molten_silver.name=Molten Silver

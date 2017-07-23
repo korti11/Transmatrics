@@ -393,6 +393,8 @@ public final class Constants {
     }
 
     public enum TransmatricsFluid{
+        MOLTEN_IRON("molten_iron"),
+        MOLTEN_GOLD("molten_gold"),
         MOLTEN_COPPER("molten_copper"),
         MOLTEN_TIN("molten_tin"),
         MOLTEN_SILVER("molten_silver"),

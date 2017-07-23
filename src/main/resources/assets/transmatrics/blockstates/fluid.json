@@ -4,6 +4,12 @@
     "model": "forge:fluid"
   },
   "variants": {
+    "molten_iron":[{
+      "custom": {"fluid": "molten_iron"}
+    }],
+    "molten_gold":[{
+      "custom": {"fluid": "molten_gold"}
+    }],
     "molten_copper":[{
       "custom": {"fluid": "molten_copper"}
     }],
