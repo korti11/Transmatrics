@@ -29,7 +29,9 @@ public abstract class GuiCrafting extends GuiContainer{
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+        this.drawDefaultBackground();
         super.drawScreen(mouseX, mouseY, partialTicks);
+        this.renderHoveredToolTip(mouseX, mouseY);
 
         List<String> textLines = new LinkedList<>();
         this.addInformation(mouseX, mouseY, textLines);
