@@ -1,14 +1,11 @@
-package at.korti.transmatrics.modintegration.tconstruct.tileentity;
+package at.korti.transmatrics.tileentity.crafting;
 
 import at.korti.transmatrics.api.Constants.Energy;
 import at.korti.transmatrics.api.Constants.TransmatricsTileEntity;
-import at.korti.transmatrics.api.crafting.ICraftingRegistry;
 import at.korti.transmatrics.api.crafting.ICraftingRegistry.ICraftingEntry;
-import at.korti.transmatrics.api.crafting.IFluidCraftingRegistry;
 import at.korti.transmatrics.event.MachineCraftingEvent;
-import at.korti.transmatrics.modintegration.tconstruct.crafting.AlloyMixerCraftingRegistry;
+import at.korti.transmatrics.registry.crafting.AlloyMixerCraftingRegistry;
 import at.korti.transmatrics.tileentity.TileEntityFluidCraftingMachine;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 

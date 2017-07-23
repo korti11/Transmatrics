@@ -1,4 +1,4 @@
-package at.korti.transmatrics.modintegration.tconstruct.crafting;
+package at.korti.transmatrics.registry.crafting;
 
 import at.korti.transmatrics.Transmatrics;
 import at.korti.transmatrics.api.crafting.ICraftingRegistry;

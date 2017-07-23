@@ -1,7 +1,6 @@
 package at.korti.transmatrics.client.gui;
 
-import at.korti.transmatrics.modintegration.tconstruct.client.GuiAlloyMixer;
-import at.korti.transmatrics.modintegration.tconstruct.tileentity.ContainerAlloyMixer;
+import at.korti.transmatrics.tileentity.container.ContainerAlloyMixer;
 import at.korti.transmatrics.tileentity.TileEntityFluidGenerator;
 import at.korti.transmatrics.tileentity.TileEntityInventory;
 import at.korti.transmatrics.tileentity.container.*;
@@ -9,7 +8,6 @@ import at.korti.transmatrics.tileentity.crafting.*;
 import at.korti.transmatrics.tileentity.energy.TileEntityCharger;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;

@@ -1,5 +1,5 @@
 {
-  "parent": "transmatrics:block/AlloyMixer",
+  "parent": "transmatrics:block/alloy_mixer",
   "display": {
     "thirdperson": {
       "rotation": [10, -45, 170],

@@ -1,15 +1,12 @@
-package at.korti.transmatrics.modintegration.tconstruct.client;
+package at.korti.transmatrics.client.gui;
 
 import at.korti.transmatrics.client.gui.GuiCrafting;
 import at.korti.transmatrics.client.util.RenderHelper;
-import at.korti.transmatrics.modintegration.tconstruct.tileentity.ContainerAlloyMixer;
+import at.korti.transmatrics.tileentity.container.ContainerAlloyMixer;
 import at.korti.transmatrics.tileentity.TileEntityFluidCraftingMachine;
 import at.korti.transmatrics.tileentity.TileEntityInventory;
 import at.korti.transmatrics.util.helper.TextHelper;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.util.EnumFacing;
-import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidTankProperties;
 

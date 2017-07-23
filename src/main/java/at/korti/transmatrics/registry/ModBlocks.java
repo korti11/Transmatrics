@@ -4,10 +4,7 @@ import at.korti.transmatrics.api.Constants;
 import at.korti.transmatrics.block.MachineBlock;
 import at.korti.transmatrics.block.MachineCasing;
 import at.korti.transmatrics.block.OreBlock;
-import at.korti.transmatrics.block.crafting.LiquidCaster;
-import at.korti.transmatrics.block.crafting.MagneticSmeltery;
-import at.korti.transmatrics.block.crafting.PoweredFurnace;
-import at.korti.transmatrics.block.crafting.Pulverizer;
+import at.korti.transmatrics.block.crafting.*;
 import at.korti.transmatrics.block.energy.Charger;
 import at.korti.transmatrics.block.generator.*;
 import at.korti.transmatrics.block.network.*;
@@ -69,6 +66,8 @@ public class ModBlocks {
     public static LiquidCaster LIQUID_CASTER = new LiquidCaster();
 
     public static Charger CHARGER = new Charger();
+
+    public static AlloyMixer ALLOY_MIXER = new AlloyMixer();
     //endregion
 
     public static OreBlock ORE_BLOCK = new OreBlock();
@@ -100,6 +99,7 @@ public class ModBlocks {
                     MAGNETIC_SMELTERY,
                     LIQUID_CASTER,
                     CHARGER,
+                    ALLOY_MIXER,
                     ORE_BLOCK,
                     MACHINE_CASING
             };
@@ -128,6 +128,7 @@ public class ModBlocks {
                     new ItemBlock(MAGNETIC_SMELTERY),
                     new ItemBlock(LIQUID_CASTER),
                     new ItemBlock(CHARGER),
+                    new ItemBlock(ALLOY_MIXER),
                     new ItemMultiTexture(ORE_BLOCK, ORE_BLOCK, ORE_BLOCK::getMetaName),
                     new ItemBlock(MACHINE_CASING)
             };

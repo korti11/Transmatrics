@@ -1,9 +1,8 @@
-package at.korti.transmatrics.modintegration.tconstruct.block;
+package at.korti.transmatrics.block.crafting;
 
 import at.korti.transmatrics.api.Constants.GuiIds;
 import at.korti.transmatrics.api.Constants.TransmatricsBlock;
-import at.korti.transmatrics.block.crafting.FluidCraftingMachineBlock;
-import at.korti.transmatrics.modintegration.tconstruct.tileentity.TileEntityAlloyMixer;
+import at.korti.transmatrics.tileentity.crafting.TileEntityAlloyMixer;
 import net.minecraft.block.material.Material;
 
 /**

@@ -29,6 +29,7 @@ public final class TileEntities {
         registerTileEntity(TileEntityMagneticSmeltery.class, MAGNETIC_SMELTERY.getRegName());
         registerTileEntity(TileEntityLiquidCaster.class, LIQUID_CASTER.getRegName());
         registerTileEntity(TileEntityCharger.class, CHARGER.getRegName());
+        registerTileEntity(TileEntityAlloyMixer.class, ALLOY_MIXER.getRegName());
         registerTileEntity(TileEntityQuantumBridge.class, QUANTUM_BRIDGE.getRegName());
     }
 
