@@ -29,7 +29,7 @@ public abstract class CraftingMachineBlock extends ActiveMachineBlock{
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
         ItemStack currentItem = playerIn.getHeldItem(hand);
         if (currentItem.getItem() instanceof ItemConnector || currentItem.getItem() instanceof ItemWrench) {
-            return super.onBlockActivated(worldIn, pos, state, playerIn, hand, side, hitX, hitY, hitZ);
+            return true;
         }
         if (worldIn.getTileEntity(pos).getClass().equals(tileEntityClass) && !playerIn.isSneaking()) {
             playerIn.openGui(Transmatrics.instance, guiId, worldIn, pos.getX(), pos.getY(), pos.getZ());

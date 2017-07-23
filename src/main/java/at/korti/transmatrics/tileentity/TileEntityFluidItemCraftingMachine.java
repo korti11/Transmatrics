@@ -15,9 +15,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumFacing;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidTankProperties;
 
@@ -74,6 +76,23 @@ public abstract class TileEntityFluidItemCraftingMachine extends TileEntityInven
             NBTTagCompound nbtTank = tanks.getCompoundTagAt(i);
             this.tanks[i].readFromNBT(nbtTank);
         }
+    }
+
+    @Override
+    public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing) {
+        if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
+            return true;
+        }
+        return super.hasCapability(capability, facing);
+    }
+
+    @Nullable
+    @Override
+    public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing) {
+        if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
+            return (T) this;
+        }
+        return super.getCapability(capability, facing);
     }
     //endregion
 
@@ -460,30 +479,33 @@ public abstract class TileEntityFluidItemCraftingMachine extends TileEntityInven
     @Override
     public int fill(FluidStack resource, boolean doFill) {
         FluidTank tank = getTankForFluid(true, resource.getFluid());
-        int result = tank.fill(resource, doFill);
-        syncClient();
-        return result;
+        if(tank != null) {
+            int result = tank.fill(resource, doFill);
+            syncClient();
+            return result;
+        }
+        return 0;
     }
 
     @Nullable
     @Override
     public FluidStack drain(FluidStack resource, boolean doDrain) {
         FluidTank tank = getTankForFluid(false, resource.getFluid());
-        FluidStack stack = tank.drain(resource, doDrain);
-        syncClient();
-        return stack;
+        if(tank != null) {
+            FluidStack stack = tank.drain(resource, doDrain);
+            syncClient();
+            return stack;
+        }
+        return null;
     }
 
     @Nullable
     @Override
     public FluidStack drain(int maxDrain, boolean doDrain) {
         FluidTank tank = firstFilledTank(false);
-        FluidStack stack;
+        FluidStack stack = null;
         if (tank != null) {
             stack = tank.drain(maxDrain, doDrain);
-            syncClient();
-        } else {
-            stack = findEmptyTank(false).drain(maxDrain, doDrain);
             syncClient();
         }
         return stack;
