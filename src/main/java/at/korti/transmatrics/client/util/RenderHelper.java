@@ -6,6 +6,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GlStateManager.SourceFactor;
 import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -92,16 +93,16 @@ public class RenderHelper {
         float green = (color >> 8 & 0xFF) / 255.0F;
         float blue = (color & 0xFF) / 255.0F;
 
-        GlStateManager.color(red, green, blue, 1.0F);
+        GlStateManager.color(red, green, blue, 1F);
     }
 
     @SideOnly(Side.CLIENT)
     public static void renderBlockBoundary(World worldIn, EntityPlayer player, BlockPos pos, int color, float partialTicks){
 
         GlStateManager.enableBlend();
-        GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
-        setGLColorFromInt(color);
-        GL11.glLineWidth(2.0F);
+        GlStateManager.tryBlendFuncSeparate(SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA,
+                SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+        GL11.glLineWidth(2F);
         GlStateManager.disableTexture2D();
         GlStateManager.depthMask(false);
         IBlockState state = worldIn.getBlockState(pos);
@@ -109,7 +110,12 @@ public class RenderHelper {
         double d0 = player.lastTickPosX + (player.posX - player.lastTickPosX) * (double)partialTicks;
         double d1 = player.lastTickPosY + (player.posY - player.lastTickPosY) * (double)partialTicks;
         double d2 = player.lastTickPosZ + (player.posZ - player.lastTickPosZ) * (double)partialTicks;
-        RenderGlobal.drawSelectionBoundingBox(state.getSelectedBoundingBox(worldIn, pos).expand(0.0020000000949949026D, 0.0020000000949949026D, 0.0020000000949949026D).offset(-d0, -d1, -d2), 0F, 0F, 0F, 0.4F);
+        float red = (color >> 16 & 0xFF) / 255.0F;
+        float green = (color >> 8 & 0xFF) / 255.0F;
+        float blue = (color & 0xFF) / 255.0F;
+
+        RenderGlobal.drawSelectionBoundingBox(state.getSelectedBoundingBox(worldIn, pos).grow(0.0020000000949949026D)
+                .offset(-d0, -d1, -d2), red, green, blue, 0.4F);
 
         GlStateManager.depthMask(true);
         GlStateManager.enableTexture2D();

@@ -30,7 +30,7 @@ public class ClientEventHandler {
 
     @SubscribeEvent
     @SideOnly(Side.CLIENT)
-    public void renderBlockBoundry(RenderWorldLastEvent event) {
+    public void renderBlockBoundary(RenderWorldLastEvent event) {
         Minecraft minecraft = Minecraft.getMinecraft();
         EntityPlayerSP player = minecraft.player;
         World world = player.world;
