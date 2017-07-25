@@ -20,7 +20,7 @@ public final class Constants {
     }
 
     public static class ModIntegrationIds{
-        public static final String WAILA = "Waila";
+        public static final String WAILA = "waila";
         public static final String TCONSTRUCT = "tconstruct";
         public static final String BUILDCRAFT = "BuildCraft|Core";
     }
