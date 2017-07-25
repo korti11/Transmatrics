@@ -118,6 +118,10 @@ public abstract class TileEntityNetworkSwitch extends TileEntity implements INet
         }
     }
 
+    protected Queue<INetworkPackage> getPackageQueue() {
+        return packageQueue;
+    }
+
     protected void syncClient() {
         if (!getWorld().isRemote) {
             markDirty();

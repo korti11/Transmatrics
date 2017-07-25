@@ -19,7 +19,7 @@ public final class Constants {
         public static final String COMMON_PROXY = "at.korti.transmatrics.proxy.CommonProxy";
         public static final String CLIENT_PROXY = "at.korti.transmatrics.proxy.ClientProxy";
 
-        public static final String DEPENDENCIES = RedstoneFlux.VERSION_GROUP + ", after:" + ModIntegrationIds.TCONSTRUCT;
+        public static final String DEPENDENCIES = RedstoneFlux.VERSION_GROUP + "after:" + ModIntegrationIds.TCONSTRUCT;
     }
 
     public static class ModIntegrationIds{
@@ -109,7 +109,7 @@ public final class Constants {
     }
 
     public static class ToolTips{
-        //Connector
+        //EnergyBridge
         public static final String CONNECTION_NAME = "tooltip.connector.connection.name";
         public static final String CONNECTION_POS = "tooltip.connector.connection.pos";
 
@@ -201,7 +201,7 @@ public final class Constants {
         public static final int CHARGER_RECEIVE = 5000;
         public static final int CHARGER_ENERGY_USE = 5;
 
-        //RF Converter
+        //RF EnergyBridge
         public static final int RF_CONVERTER_CAPACITY = 50000;
         public static final int RF_CONVERTER_TRANSFER = 5000;
 
@@ -317,8 +317,8 @@ public final class Constants {
         CHARGER("charger"),
         ORE_BLOCK("ore"),
         MACHINE_CASING("machine_casing"),
-        RF_CONVERTER("rf_converter"),
-        QUANTUM_BRIDGE("quantum_bridges");
+        ENERGY_BRIDGE("energy_bridge"),
+        QUANTUM_BRIDGE("quantum_bridge");
 
         private final String regName;
 
@@ -381,7 +381,7 @@ public final class Constants {
         LIQUID_CASTER("TMTileLiquidCaster"),
         ALLOY_MIXER("TMTileAlloyMixer"),
         CHARGER("TMTileCharger"),
-        RF_CONVERTER("TMTileRFConverter"),
+        ENERGY_BRIDGE("TMTileEnergyBridge"),
         QUANTUM_BRIDGE("TMTileQuantumBridge");
 
         private final String regName;

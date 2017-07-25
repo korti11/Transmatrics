@@ -46,6 +46,10 @@ public abstract class TileEntityEnergyNode extends TileEntityNetworkNode impleme
     @Override
     public void update() {
         super.update();
+        requestEnergy();
+    }
+
+    protected void requestEnergy() {
         if (getEnergyStored() < getMaxEnergyStored()) {
             sendNetworkPackage(new EnergyRequestNetworkPackage(this));
         }

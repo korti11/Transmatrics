@@ -1,7 +1,6 @@
 package at.korti.transmatrics.modintegration;
 
 import at.korti.transmatrics.api.Constants.ModIntegrationIds;
-import at.korti.transmatrics.modintegration.redstoneflux.RedstoneFlux;
 import at.korti.transmatrics.modintegration.tconstruct.TConstruct;
 import at.korti.transmatrics.modintegration.waila.Waila;
 import net.minecraftforge.fml.common.Loader;

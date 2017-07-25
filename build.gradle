@@ -35,10 +35,6 @@ repositories{
         name = "CoFH Maven"
         url = "http://maven.covers1624.net"
     }
-    ivy{
-        name "BuildCraft"
-        artifactPattern "http://www.mod-buildcraft.com/releases/BuildCraft/[revision]/[module]-[revision](-[classifier]).[ext]"
-    }
 }
 
 minecraft {
@@ -61,7 +57,6 @@ dependencies {
     deobfProvided "mcp.mobius.waila:Hwyla:${wailaVersion}_${minecraftVersion}"
 
     runtime "mezz.jei:jei_${minecraftVersion}:${jeiVersion}"
-
 }
 
 processResources

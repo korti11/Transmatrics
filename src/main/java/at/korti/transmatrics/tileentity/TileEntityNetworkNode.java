@@ -101,6 +101,10 @@ public abstract class TileEntityNetworkNode extends TileEntity implements INetwo
         }
     }
 
+    protected Queue<INetworkPackage> getPackageQueue() {
+        return packageQueue;
+    }
+
     @Nullable
     @Override
     public SPacketUpdateTileEntity getUpdatePacket() {

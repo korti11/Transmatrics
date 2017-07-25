@@ -6,6 +6,7 @@ import at.korti.transmatrics.block.MachineCasing;
 import at.korti.transmatrics.block.OreBlock;
 import at.korti.transmatrics.block.crafting.*;
 import at.korti.transmatrics.block.energy.Charger;
+import at.korti.transmatrics.block.energy.EnergyBridge;
 import at.korti.transmatrics.block.generator.*;
 import at.korti.transmatrics.block.network.*;
 import com.google.common.base.Preconditions;
@@ -30,7 +31,7 @@ import java.util.Set;
 @GameRegistry.ObjectHolder(Constants.Mod.MODID)
 public class ModBlocks {
 
-    //region Power Generation Blocks
+    //region Energy Blocks
     public static SolarPanel SOLAR_PANEL = new SolarPanel();
 
     public static AdvancedSolarPanel ADVANCED_SOLAR_PANEL = new AdvancedSolarPanel();
@@ -42,6 +43,8 @@ public class ModBlocks {
     public static Windmill WINDMILL = new Windmill();
 
     public static Watermill WATERMILL = new Watermill();
+
+    public static EnergyBridge ENERGY_BRIDGE = new EnergyBridge();
     //endregion
 
     //region Network Blocks
@@ -89,6 +92,7 @@ public class ModBlocks {
                     THERMAL_GENERATOR,
                     WINDMILL,
                     WATERMILL,
+                    ENERGY_BRIDGE,
                     SMALL_SWITCH,
                     MEDIUM_SWITCH,
                     LARGE_SWITCH,
@@ -118,6 +122,7 @@ public class ModBlocks {
                     new ItemBlock(THERMAL_GENERATOR),
                     new ItemBlock(WINDMILL),
                     new ItemBlock(WATERMILL),
+                    new ItemBlock(ENERGY_BRIDGE),
                     new ItemBlock(SMALL_SWITCH),
                     new ItemBlock(MEDIUM_SWITCH),
                     new ItemBlock(LARGE_SWITCH),

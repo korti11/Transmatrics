@@ -86,13 +86,14 @@ public class ModModelManager {
     }
 
     private void registerBlockModels() {
-        //region Generator Blocks
+        //region Energy Blocks
         registerBlockItemModel(ModBlocks.SOLAR_PANEL.getDefaultState());
         registerBlockItemModel(ModBlocks.ADVANCED_SOLAR_PANEL.getDefaultState());
         registerBlockItemModel(ModBlocks.LAVA_GENERATOR.getDefaultState());
         registerBlockItemModel(ModBlocks.THERMAL_GENERATOR.getDefaultState());
         registerBlockItemModel(ModBlocks.WINDMILL.getDefaultState());
         registerBlockItemModel(ModBlocks.WATERMILL.getDefaultState());
+        registerBlockItemModel(ModBlocks.ENERGY_BRIDGE.getDefaultState());
         //endregion
         //region Network Blocks
         registerBlockItemModel(ModBlocks.SMALL_SWITCH.getDefaultState());

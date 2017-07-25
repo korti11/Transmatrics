@@ -1,10 +1,12 @@
-package at.korti.transmatrics.modintegration.redstoneflux.tileentity;
+package at.korti.transmatrics.tileentity.energy;
 
 import at.korti.transmatrics.api.Constants.Energy;
 import at.korti.transmatrics.api.Constants.NBT;
 import at.korti.transmatrics.api.block.IChangeMode;
 import at.korti.transmatrics.api.block.IModeInfo;
 import at.korti.transmatrics.api.block.modes.InOutMode;
+import at.korti.transmatrics.api.network.INetworkPackage;
+import at.korti.transmatrics.api.network.networkpackages.EnergyRequestNetworkPackage;
 import at.korti.transmatrics.tileentity.TileEntityEnergyNode;
 import at.korti.transmatrics.util.helper.TextHelper;
 import at.korti.transmatrics.util.helper.WorldHelper;
@@ -17,11 +19,11 @@ import net.minecraft.util.text.TextFormatting;
 /**
  * Created by Korti on 30.05.2016.
  */
-public class TileEntityEnergyConverter extends TileEntityEnergyNode implements IEnergyProvider, IEnergyReceiver, IChangeMode<InOutMode>, IModeInfo<InOutMode>{
+public class TileEntityEnergyBridge extends TileEntityEnergyNode implements IChangeMode<InOutMode>, IModeInfo<InOutMode>{
 
     private InOutMode mode;
 
-    public TileEntityEnergyConverter() {
+    public TileEntityEnergyBridge() {
         super(Energy.RF_CONVERTER_CAPACITY, Energy.RF_CONVERTER_TRANSFER);
         this.mode = InOutMode.OUT;
     }
@@ -54,8 +56,26 @@ public class TileEntityEnergyConverter extends TileEntityEnergyNode implements I
                         receiver.receiveEnergy(facing.getOpposite(), energy, false);
                     }
                 }
+
             }
         }
+    }
+
+    @Override
+    protected void requestEnergy() {
+        if(mode == InOutMode.OUT) {
+            super.requestEnergy();
+        }
+    }
+
+    @Override
+    protected void handlePackageQueue() {
+        INetworkPackage networkPackage = getPackageQueue().peek();
+        if(networkPackage instanceof EnergyRequestNetworkPackage && mode == InOutMode.IN) {
+            getPackageQueue().poll();
+            return;
+        }
+        super.handlePackageQueue();
     }
 
     //region IEnergyProvider/IEnergyReceiver
@@ -66,21 +86,7 @@ public class TileEntityEnergyConverter extends TileEntityEnergyNode implements I
 
     @Override
     public int receiveEnergy(EnumFacing enumFacing, int i, boolean b) {
-        if (mode == InOutMode.IN) {
-            return energyStorage.receiveEnergy(i, b);
-        } else {
-            return 0;
-        }
-    }
-
-    @Override
-    public int getEnergyStored(EnumFacing enumFacing) {
-        return getEnergyStored();
-    }
-
-    @Override
-    public int getMaxEnergyStored(EnumFacing enumFacing) {
-        return getMaxEnergyStored();
+        return energyStorage.receiveEnergy(i, b);
     }
 
     @Override
