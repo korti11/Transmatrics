@@ -1,5 +1,6 @@
 package at.korti.transmatrics.api;
 
+import cofh.redstoneflux.RedstoneFlux;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraftforge.fluids.Fluid;
@@ -17,12 +18,13 @@ public final class Constants {
 
         public static final String COMMON_PROXY = "at.korti.transmatrics.proxy.CommonProxy";
         public static final String CLIENT_PROXY = "at.korti.transmatrics.proxy.ClientProxy";
+
+        public static final String DEPENDENCIES = RedstoneFlux.VERSION_GROUP + ", after:" + ModIntegrationIds.TCONSTRUCT;
     }
 
     public static class ModIntegrationIds{
         public static final String WAILA = "waila";
         public static final String TCONSTRUCT = "tconstruct";
-        public static final String BUILDCRAFT = "BuildCraft|Core";
     }
 
     public static class JEI{

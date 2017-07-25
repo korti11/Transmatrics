@@ -26,7 +26,6 @@ public class ModIntegrationManager {
         try {
             integrationClasses.put(ModIntegrationIds.WAILA, Waila.class);
             integrationClasses.put(ModIntegrationIds.TCONSTRUCT, TConstruct.class);
-            integrationClasses.put(ModIntegrationIds.BUILDCRAFT, RedstoneFlux.class);
         } catch (Throwable throwable) {
             throwable.printStackTrace();
         }
