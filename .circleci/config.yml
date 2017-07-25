@@ -10,7 +10,7 @@ jobs:
           name: executable-gradle
           command: chmod +x gradlew
       - restore_cache:
-          key: dependency-cache
+          key: dependency-cache-{{ checksum "build.gradle" }}-{{ checksum "gradle.properties" }}
       - run:
           name: echo
           command: echo $TERM
@@ -23,7 +23,7 @@ jobs:
       - store_artifacts:
           path: build/libs
       - save_cache:
-          key: dependency-cache
+          key: dependency-cache-{{ checksum "build.gradle" }}-{{ checksum "gradle.properties" }}
           paths:
             - ~/.gradle
             - .gradle/minecraft
