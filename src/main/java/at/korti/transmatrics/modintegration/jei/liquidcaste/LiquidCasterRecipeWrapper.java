@@ -11,14 +11,14 @@ import java.util.Collections;
 /**
  * Created by Korti on 14.04.2016.
  */
-public class LiquidCasterRecipeJEI implements IRecipeWrapper {
+public class LiquidCasterRecipeWrapper implements IRecipeWrapper {
 
     private final FluidStack fluidInput;
     private final ItemStack itemInput;
 
     private final ItemStack output;
 
-    public LiquidCasterRecipeJEI(LiquidCasterCraftingEntry entry) {
+    public LiquidCasterRecipeWrapper(LiquidCasterCraftingEntry entry) {
         this.fluidInput = entry.getInputs()[0];
         this.itemInput = entry.getSecondInputs()[0];
         this.output = entry.getOutputs()[0];

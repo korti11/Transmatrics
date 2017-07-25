@@ -25,20 +25,14 @@ import java.util.List;
 public class CraftingCrossOverHelper {
 
     public static void loadSmelteryCrossOver() {
-        for (int i = 0; i < MagneticSmelteryCraftingRegistry.getInstance().size(); i++) {
-            MagneticSmelteryCraftingEntry entry = (MagneticSmelteryCraftingEntry)
-                    MagneticSmelteryCraftingRegistry.getInstance().get(i);
-            if (TinkerRegistry.getMelting(entry.getInputs()[0]) != null) {
-                MagneticSmelteryCraftingRegistry.getInstance().remove(entry);
-            }
-        }
-
         List<MeltingRecipe> meltingRecipes = TinkerRegistry.getAllMeltingRecipies();
         for (MeltingRecipe meltingRecipe : meltingRecipes) {
             List<ItemStack> inputs = meltingRecipe.input.getInputs();
             FluidStack output = meltingRecipe.getResult();
             for(ItemStack input : inputs) {
-                MagneticSmelteryCraftingRegistry.getInstance().register(input.copy(), output.copy(), 200);
+                if(MagneticSmelteryCraftingRegistry.getInstance().get(input) == null) {
+                    MagneticSmelteryCraftingRegistry.getInstance().register(input.copy(), output.copy(), 200);
+                }
             }
         }
     }

@@ -82,26 +82,26 @@ item.transmatrics.invar_capacitor.name=Invar Capacitor
 item.transmatrics.electrum_capacitor.name=Electrum Capacitor
 
 #Fluids
-fluid.molten_iron=Molten Iron
-fluid.molten_gold=Molten Gold
-fluid.molten_copper=Molten Copper
-fluid.molten_tin=Molten Tin
-fluid.molten_silver=Molten Silver
-fluid.molten_lead=Molten Lead
-fluid.molten_nickel=Molten Nickel
-fluid.molten_invar=Molten Invar
-fluid.molten_electrum=Molten Electrum
+fluid.iron=Molten Iron
+fluid.gold=Molten Gold
+fluid.copper=Molten Copper
+fluid.tin=Molten Tin
+fluid.silver=Molten Silver
+fluid.lead=Molten Lead
+fluid.nickel=Molten Nickel
+fluid.invar=Molten Invar
+fluid.electrum=Molten Electrum
 
 #Fuild Blocks
-tile.transmatrics.molten_iron.name=Molten Iron
-tile.transmatrics.molten_gold.name=Molten Gold
-tile.transmatrics.molten_copper.name=Molten Copper
-tile.transmatrics.molten_tin.name=Molten Tin
-tile.transmatrics.molten_silver.name=Molten Silver
-tile.transmatrics.molten_lead.name=Molten Lead
-tile.transmatrics.molten_nickel.name=Molten Nickel
-tile.transmatrics.molten_invar.name=Molten Invar
-tile.transmatrics.molten_electrum.name=Molten Electrum
+tile.transmatrics.iron.name=Molten Iron
+tile.transmatrics.gold.name=Molten Gold
+tile.transmatrics.copper.name=Molten Copper
+tile.transmatrics.tin.name=Molten Tin
+tile.transmatrics.silver.name=Molten Silver
+tile.transmatrics.lead.name=Molten Lead
+tile.transmatrics.nickel.name=Molten Nickel
+tile.transmatrics.invar.name=Molten Invar
+tile.transmatrics.electrum.name=Molten Electrum
 
 #Network
 network.max_connections.message=[Network] The max connection points are reached. Max connections: %d
@@ -134,7 +134,4 @@ gui.tank.empty=Empty
 jei.category.pulverizer.title=Pulverizer
 jei.category.magneticsmeltery.title=Magnetic Smeltery
 jei.category.liquidcaster.title=Liquid Caster
-
-#TConstruct Modifiers
-modifier.transmatrics.energetic=Energetic
-modifier.energetic.desc=§oCharged!§r\nUse first energy instead of durability.
+jei.category.alloymixer.title=Alloy Mixer

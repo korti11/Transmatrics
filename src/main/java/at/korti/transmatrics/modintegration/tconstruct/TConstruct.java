@@ -1,5 +1,7 @@
 package at.korti.transmatrics.modintegration.tconstruct;
 
+import at.korti.transmatrics.api.Constants;
+import at.korti.transmatrics.api.Constants.OreDictionaryEntry;
 import at.korti.transmatrics.api.Constants.TransmatricsTileEntity;
 import at.korti.transmatrics.modintegration.IIntegration;
 import at.korti.transmatrics.block.crafting.AlloyMixer;
@@ -75,6 +77,49 @@ public class TConstruct implements IIntegration {
     }
 
     private void initCrafting() {
+        //region Ores
+        TinkerRegistry.registerMelting(OreDictionaryEntry.ORE_COPPER, ModFluids.MOLTEN_COPPER, Material.VALUE_Ingot * 2);
+        TinkerRegistry.registerMelting(OreDictionaryEntry.ORE_LEAD, ModFluids.MOLTEN_LEAD, Material.VALUE_Ingot * 2);
+        TinkerRegistry.registerMelting(OreDictionaryEntry.ORE_NICKEL, ModFluids.MOLTEN_NICKEL, Material.VALUE_Ingot * 2);
+        TinkerRegistry.registerMelting(OreDictionaryEntry.ORE_SILVER, ModFluids.MOLTEN_SILVER, Material.VALUE_Ingot * 2);
+        TinkerRegistry.registerMelting(OreDictionaryEntry.ORE_TIN, ModFluids.MOLTEN_TIN, Material.VALUE_Ingot * 2);
+        //endregion
+
+        //region Ingots
+        TinkerRegistry.registerMelting(OreDictionaryEntry.INGOT_COPPER, ModFluids.MOLTEN_COPPER, Material.VALUE_Ingot);
+        TinkerRegistry.registerMelting(OreDictionaryEntry.INGOT_LEAD, ModFluids.MOLTEN_LEAD, Material.VALUE_Ingot);
+        TinkerRegistry.registerMelting(OreDictionaryEntry.INGOT_NICKEL, ModFluids.MOLTEN_NICKEL, Material.VALUE_Ingot);
+        TinkerRegistry.registerMelting(OreDictionaryEntry.INGOT_SILVER, ModFluids.MOLTEN_SILVER, Material.VALUE_Ingot);
+        TinkerRegistry.registerMelting(OreDictionaryEntry.INGOT_TIN, ModFluids.MOLTEN_TIN, Material.VALUE_Ingot);
+        TinkerRegistry.registerMelting(OreDictionaryEntry.INGOT_INVAR, ModFluids.MOLTEN_INVAR, Material.VALUE_Ingot);
+        TinkerRegistry.registerMelting(OreDictionaryEntry.INGOT_ELECTRUM, ModFluids.MOLTEN_ELECTRUM, Material.VALUE_Ingot);
+        //endregion
+
+        //region Dusts
+        TinkerRegistry.registerMelting(OreDictionaryEntry.DUST_IRON, ModFluids.MOLTEN_IRON, Material.VALUE_Ingot);
+        TinkerRegistry.registerMelting(OreDictionaryEntry.DUST_GOLD, ModFluids.MOLTEN_GOLD, Material.VALUE_Ingot);
+        TinkerRegistry.registerMelting(OreDictionaryEntry.DUST_COPPER, ModFluids.MOLTEN_COPPER, Material.VALUE_Ingot);
+        TinkerRegistry.registerMelting(OreDictionaryEntry.DUST_LEAD, ModFluids.MOLTEN_LEAD, Material.VALUE_Ingot);
+        TinkerRegistry.registerMelting(OreDictionaryEntry.DUST_NICKEL, ModFluids.MOLTEN_NICKEL, Material.VALUE_Ingot);
+        TinkerRegistry.registerMelting(OreDictionaryEntry.DUST_SILVER, ModFluids.MOLTEN_SILVER, Material.VALUE_Ingot);
+        TinkerRegistry.registerMelting(OreDictionaryEntry.DUST_TIN, ModFluids.MOLTEN_TIN, Material.VALUE_Ingot);
+        TinkerRegistry.registerMelting(OreDictionaryEntry.DUST_INVAR, ModFluids.MOLTEN_INVAR, Material.VALUE_Ingot);
+        TinkerRegistry.registerMelting(OreDictionaryEntry.DUST_ELECTRUM, ModFluids.MOLTEN_ELECTRUM, Material.VALUE_Ingot);
+        //endregion
+
+        //region Gears
+        TinkerRegistry.registerMelting(OreDictionaryEntry.GEAR_COPPER, ModFluids.MOLTEN_COPPER, Material.VALUE_Ingot * 4);
+        TinkerRegistry.registerMelting(OreDictionaryEntry.GEAR_LEAD, ModFluids.MOLTEN_LEAD, Material.VALUE_Ingot * 4);
+        TinkerRegistry.registerMelting(OreDictionaryEntry.GEAR_SILVER, ModFluids.MOLTEN_SILVER, Material.VALUE_Ingot * 4);
+        TinkerRegistry.registerMelting(OreDictionaryEntry.GEAR_TIN, ModFluids.MOLTEN_TIN, Material.VALUE_Ingot * 4);
+        //endregion
+
+        //region Plates
+        TinkerRegistry.registerMelting(OreDictionaryEntry.PLATE_IRON, ModFluids.MOLTEN_IRON, Material.VALUE_Ingot);
+        TinkerRegistry.registerMelting(OreDictionaryEntry.PLATE_COPPER, ModFluids.MOLTEN_COPPER, Material.VALUE_Ingot);
+        TinkerRegistry.registerMelting(OreDictionaryEntry.PLATE_TIN, ModFluids.MOLTEN_TIN, Material.VALUE_Ingot);
+        //endregion
+
         TinkerRegistry.registerAlloy(new FluidStack(ModFluids.MOLTEN_INVAR, Crafting.FLUID_AMOUNT_PER_INGOT * 3),
                 new FluidStack(ModFluids.MOLTEN_NICKEL, Crafting.FLUID_AMOUNT_PER_INGOT),
                 new FluidStack(TinkerFluids.iron, Crafting.FLUID_AMOUNT_PER_INGOT * 2));

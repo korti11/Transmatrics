@@ -10,7 +10,6 @@ import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeCategory;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
@@ -57,7 +56,7 @@ public class PulverizerRecipeCategory implements IRecipeCategory {
 
     @Override
     public void setRecipe(IRecipeLayout recipeLayout, IRecipeWrapper recipeWrapper, IIngredients ingredients) {
-        if (!(recipeWrapper instanceof PulverizerRecipeJEI)) {
+        if (!(recipeWrapper instanceof PulverizerRecipeWrapper)) {
             return;
         }
 

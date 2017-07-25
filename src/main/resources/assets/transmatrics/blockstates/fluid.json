@@ -4,32 +4,32 @@
     "model": "forge:fluid"
   },
   "variants": {
-    "molten_iron":[{
-      "custom": {"fluid": "molten_iron"}
+    "iron":[{
+      "custom": {"fluid": "iron"}
     }],
-    "molten_gold":[{
-      "custom": {"fluid": "molten_gold"}
+    "gold":[{
+      "custom": {"fluid": "gold"}
     }],
-    "molten_copper":[{
-      "custom": {"fluid": "molten_copper"}
+    "copper":[{
+      "custom": {"fluid": "copper"}
     }],
-    "molten_tin":[{
-      "custom": {"fluid": "molten_tin"}
+    "tin":[{
+      "custom": {"fluid": "tin"}
     }],
-    "molten_silver":[{
-      "custom": {"fluid": "molten_silver"}
+    "silver":[{
+      "custom": {"fluid": "silver"}
     }],
-    "molten_lead":[{
-      "custom": {"fluid": "molten_lead"}
+    "lead":[{
+      "custom": {"fluid": "lead"}
     }],
-    "molten_nickel":[{
-      "custom": {"fluid": "molten_nickel"}
+    "nickel":[{
+      "custom": {"fluid": "nickel"}
     }],
-    "molten_invar":[{
-      "custom": {"fluid": "molten_invar"}
+    "invar":[{
+      "custom": {"fluid": "invar"}
     }],
-    "molten_electrum":[{
-      "custom": {"fluid": "molten_electrum"}
+    "electrum":[{
+      "custom": {"fluid": "electrum"}
     }]
   }
 }

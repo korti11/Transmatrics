@@ -1,7 +1,6 @@
 package at.korti.transmatrics.registry;
 
-import at.korti.transmatrics.block.crafting.LiquidCaster;
-import at.korti.transmatrics.block.crafting.MagneticSmeltery;
+import at.korti.transmatrics.registry.crafting.AlloyMixerCraftingRegistry;
 import at.korti.transmatrics.registry.crafting.LiquidCasterCraftingRegistry;
 import at.korti.transmatrics.registry.crafting.MagneticSmelteryCraftingRegistry;
 import at.korti.transmatrics.registry.crafting.PulverizerCraftingRegistry;
@@ -27,6 +26,7 @@ public final class Crafting {
         registerFurnaceCrafting();
         registerMagneticSmelteryCrafting();
         registerLiquidCasterCrafting();
+        registerAlloyMixerCrafting();
     }
 
     private static void registerPulverizerCrafting() {
@@ -161,6 +161,20 @@ public final class Crafting {
         LiquidCasterCraftingRegistry.getInstance().register(
                 new FluidStack(ModFluids.MOLTEN_TIN, FLUID_AMOUNT_PER_INGOT), new ItemStack(CAST.getItem(), 1, 2),
                 new ItemStack(PLATE.getItem(), 1, 2), 20 * 8
+        );
+    }
+
+    private static void registerAlloyMixerCrafting() {
+        AlloyMixerCraftingRegistry.getInstance().register(
+                new FluidStack(ModFluids.MOLTEN_INVAR, FLUID_AMOUNT_PER_INGOT * 3),
+                new FluidStack(ModFluids.MOLTEN_IRON, FLUID_AMOUNT_PER_INGOT * 2),
+                new FluidStack(ModFluids.MOLTEN_NICKEL, FLUID_AMOUNT_PER_INGOT)
+        );
+
+        AlloyMixerCraftingRegistry.getInstance().register(
+                new FluidStack(ModFluids.MOLTEN_ELECTRUM, FLUID_AMOUNT_PER_INGOT * 2),
+                new FluidStack(ModFluids.MOLTEN_GOLD, FLUID_AMOUNT_PER_INGOT),
+                new FluidStack(ModFluids.MOLTEN_SILVER, FLUID_AMOUNT_PER_INGOT)
         );
     }
 }

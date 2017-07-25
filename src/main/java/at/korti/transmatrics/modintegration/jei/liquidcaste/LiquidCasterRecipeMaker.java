@@ -11,13 +11,13 @@ import java.util.List;
  */
 public class LiquidCasterRecipeMaker {
 
-    public static List<LiquidCasterRecipeJEI> getRecipes() {
+    public static List<LiquidCasterCraftingEntry> getRecipes() {
         LiquidCasterCraftingRegistry registry = LiquidCasterCraftingRegistry.getInstance();
 
-        List<LiquidCasterRecipeJEI> recipes = new LinkedList<>();
+        List<LiquidCasterCraftingEntry> recipes = new LinkedList<>();
 
         for (int i = 0; i < registry.size(); i++) {
-            recipes.add(new LiquidCasterRecipeJEI((LiquidCasterCraftingEntry) registry.get(i)));
+            recipes.add((LiquidCasterCraftingEntry) registry.get(i));
         }
 
         return recipes;

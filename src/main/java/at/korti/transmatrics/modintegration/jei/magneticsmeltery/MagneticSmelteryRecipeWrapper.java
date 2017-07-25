@@ -9,13 +9,13 @@ import net.minecraftforge.fluids.FluidStack;
 /**
  * Created by Korti on 14.04.2016.
  */
-public class MagneticSmelteryRecipeJEI implements IRecipeWrapper {
+public class MagneticSmelteryRecipeWrapper implements IRecipeWrapper {
 
     private final ItemStack input;
 
     private final FluidStack output;
 
-    public MagneticSmelteryRecipeJEI(MagneticSmelteryCraftingEntry entry) {
+    public MagneticSmelteryRecipeWrapper(MagneticSmelteryCraftingEntry entry) {
         this.input = entry.getInputs()[0];
         this.output = entry.getOutputs()[0];
     }

@@ -9,21 +9,16 @@ import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeCategory;
-import mezz.jei.api.recipe.IRecipeWrapper;
-import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Created by Korti on 14.04.2016.
  */
-public class LiquidCasterRecipeCategory implements IRecipeCategory {
+public class LiquidCasterRecipeCategory implements IRecipeCategory<LiquidCasterRecipeWrapper> {
 
     private final int FLUID_INPUT_SLOT = 0;
     private final int ITEM_INPUT_SLOT = 1;
@@ -56,11 +51,7 @@ public class LiquidCasterRecipeCategory implements IRecipeCategory {
     }
 
     @Override
-    public void setRecipe(IRecipeLayout recipeLayout, IRecipeWrapper recipeWrapper, IIngredients ingredients) {
-        if(!(recipeWrapper instanceof LiquidCasterRecipeJEI)){
-            return;
-        }
-
+    public void setRecipe(IRecipeLayout recipeLayout, LiquidCasterRecipeWrapper recipeWrapper, IIngredients ingredients) {
         int capacity = LiquidCasterCraftingRegistry.getInstance().getFluidCapacities()[0];
 
         recipeLayout.getFluidStacks().init(FLUID_INPUT_SLOT, true, 1, 1, 16, 64, capacity, true, null);

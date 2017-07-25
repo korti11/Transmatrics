@@ -57,7 +57,7 @@ public class MagneticSmelteryRecipeCategory implements IRecipeCategory {
 
     @Override
     public void setRecipe(IRecipeLayout recipeLayout, IRecipeWrapper recipeWrapper, IIngredients ingredients) {
-        if (!(recipeWrapper instanceof MagneticSmelteryRecipeJEI)) {
+        if (!(recipeWrapper instanceof MagneticSmelteryRecipeWrapper)) {
             return;
         }
 

@@ -12,15 +12,13 @@ import java.util.List;
  */
 public class PulverizerRecipeMaker {
 
-    public static List<PulverizerRecipeJEI> getRecipes() {
+    public static List<PulverizerCraftingEntry> getRecipes() {
         PulverizerCraftingRegistry registry = PulverizerCraftingRegistry.getInstance();
 
-        List<PulverizerRecipeJEI> recipes = new LinkedList<>();
+        List<PulverizerCraftingEntry> recipes = new LinkedList<>();
 
         for (int i = 0; i < registry.size(); i++) {
-            PulverizerRecipeJEI recipe = new PulverizerRecipeJEI((PulverizerCraftingEntry) registry.get(i));
-            recipes.add(recipe);
-            MinecraftForge.EVENT_BUS.register(recipe);
+            recipes.add((PulverizerCraftingEntry) registry.get(i));
         }
 
         return recipes;

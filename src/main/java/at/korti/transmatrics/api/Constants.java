@@ -30,6 +30,7 @@ public final class Constants {
             public static final String PULVERIZER = Mod.MODID + ":Pulverizer";
             public static final String MAGNETIC_SMELTERY = Mod.MODID + ":MagneticSmeltery";
             public static final String LIQUID_CASTER = Mod.MODID + ":LiquidCaster";
+            public static final String ALLOY_MIXER = Mod.MODID + ":AlloyMixer";
         }
     }
 
@@ -393,15 +394,15 @@ public final class Constants {
     }
 
     public enum TransmatricsFluid{
-        MOLTEN_IRON("molten_iron"),
-        MOLTEN_GOLD("molten_gold"),
-        MOLTEN_COPPER("molten_copper"),
-        MOLTEN_TIN("molten_tin"),
-        MOLTEN_SILVER("molten_silver"),
-        MOLTEN_LEAD("molten_lead"),
-        MOLTEN_NICKEL("molten_nickel"),
-        MOLTEN_INVAR("molten_invar"),
-        MOLTEN_ELECTRUM("molten_electrum");
+        MOLTEN_IRON("iron"),
+        MOLTEN_GOLD("gold"),
+        MOLTEN_COPPER("copper"),
+        MOLTEN_TIN("tin"),
+        MOLTEN_SILVER("silver"),
+        MOLTEN_LEAD("lead"),
+        MOLTEN_NICKEL("nickel"),
+        MOLTEN_INVAR("invar"),
+        MOLTEN_ELECTRUM("electrum");
 
         private final String regName;
 

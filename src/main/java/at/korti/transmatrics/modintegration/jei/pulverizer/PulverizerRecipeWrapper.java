@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Created by Korti on 14.04.2016.
  */
-public class PulverizerRecipeJEI implements IRecipeWrapper {
+public class PulverizerRecipeWrapper implements IRecipeWrapper {
 
     private final ItemStack input;
 
@@ -22,7 +22,7 @@ public class PulverizerRecipeJEI implements IRecipeWrapper {
     private final ItemStack secondaryOutput;
     private final float secondOutputChance;
 
-    public PulverizerRecipeJEI(PulverizerCraftingRegistry.PulverizerCraftingEntry craftingEntry) {
+    public PulverizerRecipeWrapper(PulverizerCraftingRegistry.PulverizerCraftingEntry craftingEntry) {
         this.input = craftingEntry.getInputs()[0];
         this.outputs = new LinkedList<>();
         this.outputs.add(craftingEntry.getOutputs()[0]);

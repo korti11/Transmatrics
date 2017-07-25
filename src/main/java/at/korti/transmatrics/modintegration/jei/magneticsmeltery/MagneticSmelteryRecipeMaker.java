@@ -11,12 +11,13 @@ import java.util.List;
  */
 public class MagneticSmelteryRecipeMaker {
 
-    public static List<MagneticSmelteryRecipeJEI> getRecipes() {
+    public static List<MagneticSmelteryCraftingEntry> getRecipes() {
         MagneticSmelteryCraftingRegistry registry = MagneticSmelteryCraftingRegistry.getInstance();
-        List<MagneticSmelteryRecipeJEI> recipes = new LinkedList<>();
+
+        List<MagneticSmelteryCraftingEntry> recipes = new LinkedList<>();
 
         for (int i = 0; i < registry.size(); i++) {
-            recipes.add(new MagneticSmelteryRecipeJEI((MagneticSmelteryCraftingEntry) registry.get(i)));
+            recipes.add((MagneticSmelteryCraftingEntry) registry.get(i));
         }
 
         return recipes;
