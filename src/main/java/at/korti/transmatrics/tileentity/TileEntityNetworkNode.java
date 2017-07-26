@@ -7,9 +7,6 @@ import at.korti.transmatrics.api.network.*;
 import at.korti.transmatrics.api.network.networkpackages.ErrorNetworkPackage;
 import at.korti.transmatrics.event.ConnectNetworkNodesEvent;
 import at.korti.transmatrics.event.DisconnectNetworkNodesEvent;
-import at.korti.transmatrics.tileentity.network.TileEntityController;
-import at.korti.transmatrics.util.math.DimensionBlockPos;
-import cofh.redstoneflux.api.IEnergyProvider;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
@@ -23,7 +20,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
-
 import java.util.LinkedList;
 import java.util.Queue;
 

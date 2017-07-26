@@ -10,6 +10,7 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import org.apache.logging.log4j.Logger;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -84,7 +85,7 @@ public final class AlloyMixerCraftingRegistry implements IFluidCraftingRegistry<
             recipes.add((AlloyMixerCraftingEntry) entry);
         } catch (Exception e) {
             logger.error(String.format("Can't register alloy mixer recipe with the inputs=%s.",
-                    entry.getInputs().toString()), e);
+                    Arrays.toString(entry.getInputs())), e);
         }
         return this;
     }
@@ -101,8 +102,7 @@ public final class AlloyMixerCraftingRegistry implements IFluidCraftingRegistry<
             for (int i = 0; i < entry.getInputs().length; i++) {
                 flag = false;
                 FluidStack need = entry.getInputs()[i];
-                for (int l = 0; l < inputs.length; l++) {
-                    FluidStack get = inputs[l];
+                for (FluidStack get : inputs) {
                     if (get != null) {
                         if (get.containsFluid(need)) {
                             flag = true;

@@ -42,9 +42,9 @@ public class TileEntityCharger extends TileEntityInventory {
     public void setInventorySlotContents(int index, ItemStack stack) {
         super.setInventorySlotContents(index, stack);
         IEnergyContainerItem item = null;
-        if (stack != null && stack.getItem() instanceof IEnergyContainerItem && index == 0) {
+        if (stack.getItem() instanceof IEnergyContainerItem && index == 0) {
             item = (IEnergyContainerItem) stack.getItem();
-        } else if (stack == null && index == 0) {
+        } else if (stack == ItemStack.EMPTY && index == 0) {
             this.storedEnergy = 0;
             this.maxStoreEnergy = 0;
             return;
@@ -99,10 +99,7 @@ public class TileEntityCharger extends TileEntityInventory {
 
     private boolean canCharge() {
         ItemStack stack = getStackInSlot(0);
-        if (stack.isEmpty()) {
-            return false;
-        }
-        return true;
+        return !stack.isEmpty();
     }
 
     @Override

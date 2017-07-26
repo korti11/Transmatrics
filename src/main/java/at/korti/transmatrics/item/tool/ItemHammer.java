@@ -5,7 +5,6 @@ import at.korti.transmatrics.api.Constants.TransmatricsItem;
 import at.korti.transmatrics.item.ModItem;
 import at.korti.transmatrics.util.helper.TextHelper;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;

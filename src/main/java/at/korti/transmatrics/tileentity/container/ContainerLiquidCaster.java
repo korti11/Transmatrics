@@ -44,17 +44,7 @@ public class ContainerLiquidCaster extends FluidItemCraftingContainer {
                 slot.onSlotChange(tempStack, itemStack);
             } else if (!InventoryHelper.isInputSlot(craftingRegistry, index)) {
                 LiquidCasterCraftingEntry entry = ((LiquidCasterCraftingRegistry) craftingRegistry).find(tempStack);
-                if (entry != null) {
-                    int startIndex = InventoryHelper.getMinIndex(craftingRegistry.getInputSlotsIds());
-                    int endIndex = InventoryHelper.getMaxIndex(craftingRegistry.getInputSlotsIds());
-                    if (!this.mergeItemStack(tempStack, startIndex, endIndex + 1, false)) {
-                        return ItemStack.EMPTY;
-                    }
-                } else if (index >= playerMinIndex && index < playerMaxIndex - 9) {
-                    if (!this.mergeItemStack(tempStack, playerMaxIndex - 9, playerMaxIndex, false)) {
-                        return ItemStack.EMPTY;
-                    }
-                } else if (index >= playerMaxIndex - 9 && index < playerMaxIndex && !this.mergeItemStack(tempStack, playerMinIndex, playerMaxIndex - 9, false)) {
+                if (checkCraftingEntry(entry, tempStack, index)) {
                     return ItemStack.EMPTY;
                 }
             } else if (!this.mergeItemStack(tempStack, playerMinIndex, playerMaxIndex, false)) {

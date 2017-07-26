@@ -1,6 +1,5 @@
 package at.korti.transmatrics.api.crafting;
 
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 

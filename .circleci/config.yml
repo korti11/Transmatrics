@@ -12,9 +12,6 @@ jobs:
       - restore_cache:
           key: dependency-cache-{{ checksum "build.gradle" }}-{{ checksum "gradle.properties" }}
       - run:
-          name: echo
-          command: echo $TERM
-      - run:
           name: build-jar
           command: ./gradlew build
       - run:

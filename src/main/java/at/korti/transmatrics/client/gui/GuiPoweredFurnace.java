@@ -3,7 +3,6 @@ package at.korti.transmatrics.client.gui;
 import at.korti.transmatrics.tileentity.TileEntityInventory;
 import at.korti.transmatrics.tileentity.container.ContainerPoweredFurnace;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.IInventory;
 
 /**
  * Created by Korti on 30.03.2016.

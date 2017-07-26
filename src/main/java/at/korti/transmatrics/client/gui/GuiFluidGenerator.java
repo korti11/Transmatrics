@@ -40,7 +40,7 @@ public class GuiFluidGenerator extends GuiContainer {
     }
 
     protected void addInformation(int mouseX, int mouseY, List<String> textLines) {
-        if (fluidGenerator instanceof IEnergyProvider && isInRect(mouseX, mouseY, 17, 10, 17 + 16, 10 + 64)) {
+        if (fluidGenerator != null && isInRect(mouseX, mouseY, 17, 10, 17 + 16, 10 + 64)) {
             IEnergyProvider machine = fluidGenerator;
             textLines.add(String.format("%d/%d TF", machine.getEnergyStored(EnumFacing.NORTH),
                     machine.getMaxEnergyStored(EnumFacing.NORTH)));
@@ -68,7 +68,7 @@ public class GuiFluidGenerator extends GuiContainer {
         int energyBar = getEnergyBar(64);
         this.drawTexturedModalRect(i + 17, j + 10 + 64 - energyBar, 176, 31 + 64 - energyBar, 16, energyBar + 1);
 
-        if (fluidGenerator instanceof IFluidHandler) {
+        if (fluidGenerator != null) {
             IFluidHandler fluidCraftingMachine = fluidGenerator;
             IFluidTankProperties tankInfo = fluidCraftingMachine.getTankProperties()[0];
             RenderHelper.drawGuiFluid(tankInfo.getContents(), i + 143, j + 10, zLevel, 16, 64, tankInfo.getCapacity());

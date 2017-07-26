@@ -7,6 +7,8 @@ import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -58,18 +60,21 @@ public class ModIntegrationManager {
         }
     }
 
+    @SideOnly(Side.CLIENT)
     public static void clientPreInit() {
         for (IIntegration mod : integrationMods) {
             mod.clientPreInit();
         }
     }
 
+    @SideOnly(Side.CLIENT)
     public static void clientInit() {
         for (IIntegration mod : integrationMods) {
             mod.clientInit();
         }
     }
 
+    @SideOnly(Side.CLIENT)
     public static void clientPostInit() {
         for (IIntegration mod : integrationMods) {
             mod.clientPostInit();

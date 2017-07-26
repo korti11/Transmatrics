@@ -5,16 +5,15 @@ import at.korti.transmatrics.api.Constants.TransmatricsTileEntity;
 import at.korti.transmatrics.api.crafting.ICraftingRegistry.ICraftingEntry;
 import at.korti.transmatrics.event.MachineCraftingEvent;
 import at.korti.transmatrics.registry.crafting.AlloyMixerCraftingRegistry;
-import at.korti.transmatrics.tileentity.TileEntityFluidCraftingMachine;
+import at.korti.transmatrics.tileentity.TileEntityFluidStackFluidCraftingMachine;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTank;
 
 import static net.minecraftforge.common.MinecraftForge.EVENT_BUS;
 
 /**
  * Created by Korti on 12.05.2016.
  */
-public class TileEntityAlloyMixer extends TileEntityFluidCraftingMachine {
+public class TileEntityAlloyMixer extends TileEntityFluidStackFluidCraftingMachine {
 
     public TileEntityAlloyMixer() {
         super(Energy.ALLOY_MIXER_CAPACITY, Energy.ALLOY_MIXER_RECEIVE, Energy.ALLOY_MIXER_ENERGY_USE, true,
@@ -22,18 +21,13 @@ public class TileEntityAlloyMixer extends TileEntityFluidCraftingMachine {
     }
 
     @Override
-    protected boolean isFluidInput() {
-        return true;
-    }
-
-    @Override
     @SuppressWarnings("unchecked")
     protected void craft() {
         if (this.canCraft()) {
-            ICraftingEntry<FluidStack, FluidStack> entry = craftingRegistry.get(getInputFluids());
+            ICraftingEntry<FluidStack, FluidStack> entry = getCraftingRegistry().get(getInputs());
             FluidStack output = entry.getOutputs()[0].copy();
             FluidStack[] inputs = new FluidStack[entry.getInputs().length];
-            EVENT_BUS.post(new MachineCraftingEvent.Pre<>(entry, craftingRegistry, this, this));
+            EVENT_BUS.post(new MachineCraftingEvent.Pre<>(entry, getCraftingRegistry(), this, this));
             int i = 0;
             int multi = calcMultiplier(entry);
             for (FluidStack stack : entry.getInputs()) {
@@ -41,18 +35,18 @@ public class TileEntityAlloyMixer extends TileEntityFluidCraftingMachine {
                 i++;
             }
             output.amount = output.amount * multi;
-            craftFluid(output);
+            craftingTank.fill(true, output, true);
             decreaseInputs(inputs);
-            EVENT_BUS.post(new MachineCraftingEvent.Post<>(entry, craftingRegistry, this, this));
+            EVENT_BUS.post(new MachineCraftingEvent.Post<>(entry, getCraftingRegistry(), this, this));
         }
     }
 
     private int calcMultiplier(ICraftingEntry<FluidStack, FluidStack> entry) {
         int multi = Integer.MAX_VALUE;
         for (FluidStack stack : entry.getInputs()) {
-            FluidTank tank = getTankForFluid(true, stack.getFluid());
-            int rest = tank.getFluidAmount() % stack.amount;
-            FluidStack tempStack = new FluidStack(stack, tank.getFluidAmount() - rest);
+            int fluidAmount = craftingTank.getAmountForFluid(true, stack);
+            int rest = fluidAmount % stack.amount;
+            FluidStack tempStack = new FluidStack(stack, fluidAmount - rest);
             if (multi > tempStack.amount / stack.amount) {
                 multi = tempStack.amount / stack.amount;
             }

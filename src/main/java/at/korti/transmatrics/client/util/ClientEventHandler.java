@@ -1,7 +1,6 @@
 package at.korti.transmatrics.client.util;
 
 import at.korti.transmatrics.api.Constants;
-import at.korti.transmatrics.api.TransmatricsApi;
 import at.korti.transmatrics.api.network.INetworkNode;
 import at.korti.transmatrics.api.network.INetworkSwitch;
 import at.korti.transmatrics.item.tool.ItemConnector;
@@ -19,8 +18,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -55,7 +53,7 @@ public class ClientEventHandler {
                         if (node instanceof INetworkSwitch) {
                             connections = ((INetworkSwitch) node).getConnections();
                         } else {
-                            connections = Arrays.asList(node.getConnection());
+                            connections = Collections.singletonList(node.getConnection());
                         }
                         for (INetworkNode networkNode : connections) {
                             if (networkNode instanceof TileEntity) {

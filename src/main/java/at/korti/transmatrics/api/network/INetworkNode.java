@@ -1,9 +1,6 @@
 package at.korti.transmatrics.api.network;
 
-import at.korti.transmatrics.tileentity.network.TileEntityController;
-import at.korti.transmatrics.util.math.DimensionBlockPos;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.math.BlockPos;
 
 /**
  * Created by Korti on 06.03.2016.

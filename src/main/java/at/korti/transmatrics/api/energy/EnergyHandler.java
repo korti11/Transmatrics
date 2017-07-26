@@ -24,21 +24,4 @@ public final class EnergyHandler {
         return toExtract;
     }
 
-    public static int storeEnergy(ItemStack stack, int energy, boolean simulate) {
-        int toStore = Math.min(energy, stack.getItemDamage());
-        if (!simulate) {
-            stack.setItemDamage(stack.getItemDamage() - toStore);
-        }
-        return toStore;
-    }
-
-    public static void modifyEnergy(ItemStack stack, int energy, boolean simulate) {
-        stack.setItemDamage(stack.getItemDamage() + energy);
-        if (stack.getItemDamage() > stack.getMaxDamage()) {
-            stack.setItemDamage(stack.getMaxDamage());
-        } else if (stack.getItemDamage() < 0) {
-            stack.setItemDamage(0);
-        }
-    }
-
 }

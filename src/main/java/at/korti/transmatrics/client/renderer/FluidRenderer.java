@@ -1,6 +1,5 @@
 package at.korti.transmatrics.client.renderer;
 
-import com.google.common.collect.Maps;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraftforge.client.event.TextureStitchEvent;
@@ -8,6 +7,8 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,6 +16,7 @@ import java.util.Map;
 /**
  * Created by Korti on 01.04.2016.
  */
+@SideOnly(Side.CLIENT)
 public final class FluidRenderer {
 
     private static FluidRenderer instance;
@@ -48,7 +50,7 @@ public final class FluidRenderer {
         textureMap.clear();
 
         for (FluidType type : FluidType.values()) {
-            textureMap.put(type, new HashMap<Fluid, TextureAtlasSprite>());
+            textureMap.put(type, new HashMap<>());
         }
 
         for (Fluid fluid : FluidRegistry.getRegisteredFluids().values()) {
@@ -91,7 +93,7 @@ public final class FluidRenderer {
             return missingIcon;
         }
         Map<Fluid, TextureAtlasSprite> map = instance().textureMap.get(type);
-        return map.containsKey(fluid) ? map.get(fluid) : missingIcon;
+        return map.getOrDefault(fluid, missingIcon);
     }
 
 }

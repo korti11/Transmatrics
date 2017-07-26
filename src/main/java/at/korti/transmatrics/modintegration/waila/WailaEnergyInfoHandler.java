@@ -32,7 +32,7 @@ public class  WailaEnergyInfoHandler implements IWailaDataProvider {
     @Override
     public List<String> getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config) {
         NBTTagCompound compound = accessor.getNBTData();
-        currenttip.add("Energy: " + compound.getInteger(NBT.ENERGY) + "/" + compound.getInteger(NBT.CAPACITY) + " TF");
+        currenttip.add("Energy: " + compound.getInteger(NBT.ENERGY) + "/" + compound.getInteger(NBT.CAPACITY) + " RF");
         return currenttip;
     }
 

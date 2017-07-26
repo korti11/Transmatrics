@@ -4,7 +4,6 @@ import at.korti.transmatrics.api.Constants;
 import at.korti.transmatrics.api.Constants.Energy;
 import at.korti.transmatrics.api.Constants.TransmatricsItem;
 import at.korti.transmatrics.item.ModMetaColorItem;
-import at.korti.transmatrics.item.ModMetaItem;
 import at.korti.transmatrics.item.crafting.ItemCast;
 import at.korti.transmatrics.item.crafting.ItemElectronics;
 import at.korti.transmatrics.item.crafting.ItemGear;

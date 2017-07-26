@@ -14,8 +14,6 @@ import net.minecraft.util.math.BlockPos;
 import java.util.LinkedList;
 import java.util.List;
 
-import static at.korti.transmatrics.util.helper.WorldHelper.getDimPosForTileEntity;
-
 /**
  * Created by Korti on 08.03.2016.
  */

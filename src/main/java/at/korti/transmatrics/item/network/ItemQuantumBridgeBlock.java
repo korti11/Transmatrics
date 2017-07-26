@@ -6,7 +6,6 @@ import at.korti.transmatrics.network.TransmatricsPacketHandler;
 import at.korti.transmatrics.network.message.CreateQuantumIdMessage;
 import at.korti.transmatrics.tileentity.network.TileEntityQuantumBridge;
 import at.korti.transmatrics.util.helper.InventoryHelper;
-import at.korti.transmatrics.util.helper.WorldHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -18,7 +17,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 

@@ -1,11 +1,7 @@
 package at.korti.transmatrics.item.crafting;
 
-import at.korti.transmatrics.api.Constants;
 import at.korti.transmatrics.api.Constants.TransmatricsItem;
 import at.korti.transmatrics.item.ModMetaColorItem;
-import at.korti.transmatrics.item.ModMetaItem;
-import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.fml.relauncher.Side;
 
 /**
  * Created by Korti on 27.04.2016.

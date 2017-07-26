@@ -10,7 +10,6 @@ import at.korti.transmatrics.api.network.networkpackages.EnergyRequestNetworkPac
 import at.korti.transmatrics.tileentity.TileEntityEnergyNode;
 import at.korti.transmatrics.util.helper.TextHelper;
 import at.korti.transmatrics.util.helper.WorldHelper;
-import cofh.redstoneflux.api.IEnergyProvider;
 import cofh.redstoneflux.api.IEnergyReceiver;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;

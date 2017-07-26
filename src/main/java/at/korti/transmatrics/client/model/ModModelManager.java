@@ -1,7 +1,6 @@
 package at.korti.transmatrics.client.model;
 
 import at.korti.transmatrics.api.Constants;
-import at.korti.transmatrics.block.ModBlock;
 import at.korti.transmatrics.block.OreBlock;
 import at.korti.transmatrics.item.crafting.ItemCast;
 import at.korti.transmatrics.item.crafting.ItemElectronics;
@@ -26,7 +25,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.function.ToIntFunction;

@@ -1,12 +1,12 @@
 package at.korti.transmatrics.client.gui;
 
-import at.korti.transmatrics.client.gui.GuiCrafting;
 import at.korti.transmatrics.client.util.RenderHelper;
-import at.korti.transmatrics.tileentity.container.ContainerAlloyMixer;
 import at.korti.transmatrics.tileentity.TileEntityFluidCraftingMachine;
 import at.korti.transmatrics.tileentity.TileEntityInventory;
+import at.korti.transmatrics.tileentity.container.ContainerAlloyMixer;
 import at.korti.transmatrics.util.helper.TextHelper;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidTankProperties;
 
@@ -26,7 +26,8 @@ public class GuiAlloyMixer extends GuiCrafting {
         super.addInformation(mouseX, mouseY, textLines);
         if (inventory instanceof TileEntityFluidCraftingMachine && isInRect(mouseX, mouseY, 148, 10, 148 + 16, 10 + 64)) {
             TileEntityFluidCraftingMachine machine = (TileEntityFluidCraftingMachine) inventory;
-            IFluidTankProperties tankInfo = machine.getTankProperties()[3];
+            IFluidHandler fluidHandler = (IFluidHandler) machine.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null);
+            IFluidTankProperties tankInfo = fluidHandler.getTankProperties()[3];
             textLines.add(tankInfo.getContents() != null ? tankInfo.getContents().getLocalizedName() : TextHelper.localize("gui.tank.empty"));
             textLines.add(String.format("%d/%d mB",
                     tankInfo.getContents() != null ? tankInfo.getContents().amount : 0, tankInfo.getCapacity()));
@@ -73,7 +74,8 @@ public class GuiAlloyMixer extends GuiCrafting {
 
         if (inventory instanceof TileEntityFluidCraftingMachine) {
             TileEntityFluidCraftingMachine fluidCraftingMachine = (TileEntityFluidCraftingMachine) inventory;
-            IFluidTankProperties[] tankInfos = fluidCraftingMachine.getTankProperties();
+            IFluidHandler fluidHandler = (IFluidHandler) fluidCraftingMachine.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null);
+            IFluidTankProperties[] tankInfos = fluidHandler.getTankProperties();
             for (int l = 0; l < tankInfos.length - 1; l++) {
                 RenderHelper.drawGuiFluid(tankInfos[l], i + 56 + ((16 + 5) * l), j + 10, zLevel, 16, 64);
             }

@@ -43,10 +43,11 @@ public class WailaModeInfoHandler implements IWailaDataProvider {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public NBTTagCompound getNBTData(EntityPlayerMP player, TileEntity te, NBTTagCompound tag, World world, BlockPos pos) {
         if(te instanceof IModeInfo && te instanceof IChangeMode){
-            IChangeMode<Enum> changeMode = (IChangeMode<Enum>) te;
-            IModeInfo<Enum> modeInfo = (IModeInfo<Enum>) te;
+            IChangeMode changeMode = (IChangeMode) te;
+            IModeInfo modeInfo = (IModeInfo) te;
             tag.setString(NBT.MODE_NAME,
                     modeInfo.getColorForMode(changeMode.getCurrentMode()) + modeInfo.getCurrentModeName()
                             + TextFormatting.RESET);

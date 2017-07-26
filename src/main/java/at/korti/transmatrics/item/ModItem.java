@@ -2,14 +2,9 @@ package at.korti.transmatrics.item;
 
 import at.korti.transmatrics.Transmatrics;
 import at.korti.transmatrics.api.Constants.Mod;
-import at.korti.transmatrics.util.helper.TextHelper;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
-
-
-import java.util.List;
 
 /**
  * Created by Korti on 29.02.2016.

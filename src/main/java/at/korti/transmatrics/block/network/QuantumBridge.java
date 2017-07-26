@@ -1,6 +1,5 @@
 package at.korti.transmatrics.block.network;
 
-import at.korti.transmatrics.api.Constants;
 import at.korti.transmatrics.api.Constants.NBT;
 import at.korti.transmatrics.api.Constants.TransmatricsBlock;
 import at.korti.transmatrics.api.network.quantum.QuantumBridgeHandler;
@@ -9,13 +8,9 @@ import at.korti.transmatrics.tileentity.network.TileEntityQuantumBridge;
 import at.korti.transmatrics.util.helper.ItemStackHelper;
 import at.korti.transmatrics.util.math.DimensionBlockPos;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 

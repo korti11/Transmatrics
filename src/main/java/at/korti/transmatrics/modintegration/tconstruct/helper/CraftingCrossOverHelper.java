@@ -3,7 +3,6 @@ package at.korti.transmatrics.modintegration.tconstruct.helper;
 import at.korti.transmatrics.registry.crafting.AlloyMixerCraftingRegistry;
 import at.korti.transmatrics.registry.crafting.LiquidCasterCraftingRegistry;
 import at.korti.transmatrics.registry.crafting.MagneticSmelteryCraftingRegistry;
-import at.korti.transmatrics.registry.crafting.MagneticSmelteryCraftingRegistry.MagneticSmelteryCraftingEntry;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.library.TinkerRegistry;
@@ -11,13 +10,14 @@ import slimeknights.tconstruct.library.smeltery.AlloyRecipe;
 import slimeknights.tconstruct.library.smeltery.CastingRecipe;
 import slimeknights.tconstruct.library.smeltery.ICastingRecipe;
 import slimeknights.tconstruct.library.smeltery.MeltingRecipe;
+
+import java.util.List;
+
 //import slimeknights.tconstruct.library.TinkerRegistry;
 //import slimeknights.tconstruct.library.smeltery.AlloyRecipe;
 //import slimeknights.tconstruct.library.smeltery.CastingRecipe;
 //import slimeknights.tconstruct.library.smeltery.ICastingRecipe;
 //import slimeknights.tconstruct.library.smeltery.MeltingRecipe;
-
-import java.util.List;
 
 /**
  * Created by Korti on 11.05.2016.

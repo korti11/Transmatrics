@@ -2,25 +2,22 @@ package at.korti.transmatrics.modintegration.jei.magneticsmeltery;
 
 import at.korti.transmatrics.api.Constants;
 import at.korti.transmatrics.api.Constants.JEI;
-import at.korti.transmatrics.registry.crafting.MagneticSmelteryCraftingRegistry;
 import at.korti.transmatrics.modintegration.jei.TransmatricsPlugin;
+import at.korti.transmatrics.registry.crafting.MagneticSmelteryCraftingRegistry;
 import at.korti.transmatrics.util.helper.TextHelper;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeCategory;
-import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fluids.FluidStack;
 
 import javax.annotation.Nonnull;
 
 /**
  * Created by Korti on 14.04.2016.
  */
-public class MagneticSmelteryRecipeCategory implements IRecipeCategory {
+public class MagneticSmelteryRecipeCategory implements IRecipeCategory<MagneticSmelteryRecipeWrapper> {
 
     private final int INPUT_SLOT = 0;
     private final int OUTPUT_SLOT = 1;
@@ -56,17 +53,13 @@ public class MagneticSmelteryRecipeCategory implements IRecipeCategory {
     }
 
     @Override
-    public void setRecipe(IRecipeLayout recipeLayout, IRecipeWrapper recipeWrapper, IIngredients ingredients) {
-        if (!(recipeWrapper instanceof MagneticSmelteryRecipeWrapper)) {
-            return;
-        }
-
+    public void setRecipe(IRecipeLayout recipeLayout, MagneticSmelteryRecipeWrapper recipeWrapper, IIngredients ingredients) {
         int tankCapacity = MagneticSmelteryCraftingRegistry.getInstance().getFluidCapacities()[0];
         recipeLayout.getItemStacks().init(INPUT_SLOT, true, 0, 24);
         recipeLayout.getFluidStacks().init(OUTPUT_SLOT, false, 52, 1, 16, 64,
                 tankCapacity, true, null);
 
-        recipeLayout.getItemStacks().set(INPUT_SLOT, ingredients.getInputs(ItemStack.class).get(0));
-        recipeLayout.getFluidStacks().set(OUTPUT_SLOT, ingredients.getOutputs(FluidStack.class).get(0));
+        recipeLayout.getItemStacks().set(ingredients);
+        recipeLayout.getFluidStacks().set(ingredients);
     }
 }

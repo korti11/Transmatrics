@@ -11,6 +11,7 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import org.apache.logging.log4j.Logger;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -87,7 +88,7 @@ public final class MagneticSmelteryCraftingRegistry implements IFluidCraftingReg
             recipes.add((MagneticSmelteryCraftingEntry) entry);
         } catch (Exception e) {
             logger.error(String.format("Can't register magnetic smeltery recipe with the inputs=%s.",
-                    entry.getInputs().toString()), e);
+                    Arrays.toString(entry.getInputs())), e);
         }
         return this;
     }
@@ -106,8 +107,7 @@ public final class MagneticSmelteryCraftingRegistry implements IFluidCraftingReg
         if(!stack.isEmpty()) {
             String[] oreDicts = ItemStackHelper.getOreDictionaryNames(stack);
             for (ICraftingEntry<ItemStack, FluidStack> entry : recipes) {
-                if (stack != null && stack.getItem().equals(entry.getInputs()[0].getItem()) &&
-                        stack.getItemDamage() == entry.getInputs()[0].getItemDamage()) {
+                if (stack.getItem().equals(entry.getInputs()[0].getItem()) && stack.getItemDamage() == entry.getInputs()[0].getItemDamage()) {
                     return (MagneticSmelteryCraftingEntry) entry;
                 }
                 for (String oreDictRecipe : entry.getInputsOreDictionary()) {

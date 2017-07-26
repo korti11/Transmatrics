@@ -45,13 +45,11 @@ public class CreateQuantumIdMessage implements IMessage {
                 EntityPlayer player = ctx.getServerHandler().player;
                 ItemStack stack = player.inventory.getStackInSlot(message.slot);
                 NBTTagCompound compound;
-                if(stack != null) {
-                    if ((compound = stack.getTagCompound()) == null) {
-                        stack.setTagCompound(compound = new NBTTagCompound());
-                    }
-                    if (!compound.hasKey(Constants.NBT.QUANTUM_BRIDGE_MAP_NAME)) {
-                        compound.setString(Constants.NBT.QUANTUM_BRIDGE_MAP_NAME, QuantumBridgeHandler.createQuantumBridge());
-                    }
+                if ((compound = stack.getTagCompound()) == null) {
+                    stack.setTagCompound(compound = new NBTTagCompound());
+                }
+                if (!compound.hasKey(Constants.NBT.QUANTUM_BRIDGE_MAP_NAME)) {
+                    compound.setString(Constants.NBT.QUANTUM_BRIDGE_MAP_NAME, QuantumBridgeHandler.createQuantumBridge());
                 }
             }
             return null;

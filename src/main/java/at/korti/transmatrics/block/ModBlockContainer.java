@@ -37,9 +37,7 @@ public abstract class ModBlockContainer extends BlockContainer {
     public TileEntity createNewTileEntity(World worldIn, int meta) {
         try {
             return tileEntityClass.newInstance();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
+        } catch (InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
         }
         return null;

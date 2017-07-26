@@ -1,6 +1,5 @@
 package at.korti.transmatrics.tileentity.generator;
 
-import at.korti.transmatrics.api.Constants;
 import at.korti.transmatrics.api.Constants.Energy;
 import at.korti.transmatrics.block.MachineBlock;
 import at.korti.transmatrics.tileentity.TileEntityGenerator;

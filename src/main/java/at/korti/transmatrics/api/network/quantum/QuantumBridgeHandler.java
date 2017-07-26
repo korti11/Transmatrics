@@ -72,15 +72,12 @@ public final class QuantumBridgeHandler {
 
     private static String generateBridgeMapName() {
         QuantumBridgeHandler instance = instance();
-        StringBuilder builder = new StringBuilder("tm_quantum_bridge_");
-        builder.append(instance.mapper.bridgeCount);
         instance.mapper.bridgeCount++;
-        return builder.toString();
+        return "tm_quantum_bridge_" + instance.mapper.bridgeCount;
     }
 
     public static QuantumBridgePair getQuantumBridgePair(String bridgeMapName) {
-        QuantumBridgeHandler instance = instance();
-        World world = instance.getWorld();
+        World world = getWorld();
         if (world == null) {
             throw new RuntimeException("Couldn't load quantum bridge!");
         }

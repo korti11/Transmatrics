@@ -29,7 +29,7 @@ public class ContainerCharger extends Container{
         addPlayerSlots(inventoryPlayer);
     }
 
-    public void addPlayerSlots(InventoryPlayer inventoryPlayer) {
+    private void addPlayerSlots(InventoryPlayer inventoryPlayer) {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 9; j++) {
                 addSlotToContainer(new Slot(inventoryPlayer, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
@@ -56,9 +56,7 @@ public class ContainerCharger extends Container{
     public void detectAndSendChanges() {
         super.detectAndSendChanges();
 
-        for (int i = 0; i < this.listeners.size(); i++) {
-            IContainerListener listener = this.listeners.get(i);
-
+        for (IContainerListener listener : this.listeners) {
             if (this.chargingProgress != inventory.getField(0)) {
                 listener.sendWindowProperty(this, 0, this.chargingProgress = inventory.getField(0));
             }

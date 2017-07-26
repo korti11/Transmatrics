@@ -1,10 +1,8 @@
 package at.korti.transmatrics.fluid;
 
 import at.korti.transmatrics.api.Constants.Mod;
-import at.korti.transmatrics.util.helper.TextHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidStack;
 
 /**
  * Created by Korti on 31.03.2016.

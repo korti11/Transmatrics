@@ -1,6 +1,5 @@
 package at.korti.transmatrics.modintegration.jei.alloymixer;
 
-import at.korti.transmatrics.registry.crafting.AlloyMixerCraftingRegistry;
 import at.korti.transmatrics.registry.crafting.AlloyMixerCraftingRegistry.AlloyMixerCraftingEntry;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeWrapper;

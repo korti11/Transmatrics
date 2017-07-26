@@ -8,11 +8,19 @@ import net.minecraftforge.fml.common.eventhandler.Event;
  */
 public class ConnectNetworkNodesEvent extends Event {
 
-    public final INetworkNode nodeOne;
-    public final INetworkNode nodeTwo;
+    private final INetworkNode nodeOne;
+    private final INetworkNode nodeTwo;
 
     public ConnectNetworkNodesEvent(INetworkNode nodeOne, INetworkNode nodeTwo) {
         this.nodeOne = nodeOne;
         this.nodeTwo = nodeTwo;
+    }
+
+    public INetworkNode getNodeOne() {
+        return nodeOne;
+    }
+
+    public INetworkNode getNodeTwo() {
+        return nodeTwo;
     }
 }

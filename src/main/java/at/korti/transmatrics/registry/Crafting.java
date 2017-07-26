@@ -10,9 +10,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraftforge.fluids.FluidStack;
 
-import static at.korti.transmatrics.api.Constants.TransmatricsBlock.*;
+import static at.korti.transmatrics.api.Constants.TransmatricsBlock.ORE_BLOCK;
 import static at.korti.transmatrics.api.Constants.TransmatricsItem.*;
-import static at.korti.transmatrics.api.Constants.TransmatricsItem.PLATE;
 
 /**
  * Created by Korti on 16.03.2016.

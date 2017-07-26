@@ -1,8 +1,6 @@
 package at.korti.transmatrics.tileentity.network;
 
-import at.korti.transmatrics.api.Constants.Energy;
 import at.korti.transmatrics.api.Constants.Network;
-import at.korti.transmatrics.tileentity.TileEntityEnergySwitch;
 import at.korti.transmatrics.tileentity.TileEntityNetworkSwitch;
 
 /**

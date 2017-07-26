@@ -1,16 +1,7 @@
 package at.korti.transmatrics.item.ore;
 
 import at.korti.transmatrics.api.Constants.TransmatricsItem;
-import at.korti.transmatrics.item.ModItem;
 import at.korti.transmatrics.item.ModMetaColorItem;
-import at.korti.transmatrics.item.ModMetaItem;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.fml.relauncher.Side;
-
-import java.util.List;
 
 /**
  * Created by Korti on 16.03.2016.

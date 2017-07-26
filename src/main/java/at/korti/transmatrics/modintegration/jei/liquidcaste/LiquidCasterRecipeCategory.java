@@ -2,16 +2,14 @@ package at.korti.transmatrics.modintegration.jei.liquidcaste;
 
 import at.korti.transmatrics.api.Constants;
 import at.korti.transmatrics.api.Constants.JEI;
-import at.korti.transmatrics.registry.crafting.LiquidCasterCraftingRegistry;
 import at.korti.transmatrics.modintegration.jei.TransmatricsPlugin;
+import at.korti.transmatrics.registry.crafting.LiquidCasterCraftingRegistry;
 import at.korti.transmatrics.util.helper.TextHelper;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeCategory;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fluids.FluidStack;
 
 import javax.annotation.Nonnull;
 
@@ -59,8 +57,7 @@ public class LiquidCasterRecipeCategory implements IRecipeCategory<LiquidCasterR
         recipeLayout.getItemStacks().init(ITEM_INPUT_SLOT, true, 26, 5);
         recipeLayout.getItemStacks().init(OUTPUT_SLOT, false, 60, 25);
 
-        recipeLayout.getFluidStacks().set(FLUID_INPUT_SLOT, ingredients.getInputs(FluidStack.class).get(0));
-        recipeLayout.getItemStacks().set(ITEM_INPUT_SLOT, ingredients.getInputs(ItemStack.class).get(0));
-        recipeLayout.getItemStacks().set(OUTPUT_SLOT, ingredients.getOutputs(ItemStack.class).get(0));
+        recipeLayout.getFluidStacks().set(ingredients);
+        recipeLayout.getItemStacks().set(ingredients);
     }
 }

@@ -1,6 +1,5 @@
 package at.korti.transmatrics.modintegration.waila;
 
-import at.korti.transmatrics.api.Constants;
 import at.korti.transmatrics.api.Constants.NBT;
 import at.korti.transmatrics.tileentity.network.TileEntityQuantumBridge;
 import mcp.mobius.waila.api.IWailaConfigHandler;

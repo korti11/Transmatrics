@@ -17,8 +17,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.ForgeChunkManager.Ticket;
 
-import java.util.List;
-
 /**
  * Created by Korti on 27.06.2016.
  */
@@ -33,12 +31,7 @@ public class TileEntityQuantumBridge extends TileEntityEnergySwitch {
         super(Network.SMALL_SWITCH_MAX_CONNECTIONS, Network.LARGE_SWITCH_MACHINES_CONNECT,
                 Network.LARGE_SWITCH_RANGE, Energy.QUANTUM_BRIDGE_CAPACITY, Energy.QUANTUM_BRIDGE_TRANSFER);
         this.energyUse = Energy.QUANTUM_BRIDGE_ENERGY_USE;
-        ForgeChunkManager.setForcedChunkLoadingCallback(Transmatrics.instance, new ForgeChunkManager.LoadingCallback() {
-            @Override
-            public void ticketsLoaded(List<Ticket> tickets, World world) {
-
-            }
-        });
+        ForgeChunkManager.setForcedChunkLoadingCallback(Transmatrics.instance, (tickets, world) -> {});
     }
 
     @Override
@@ -102,6 +95,7 @@ public class TileEntityQuantumBridge extends TileEntityEnergySwitch {
     }
 
     private void updateQuantumBridge() {
+        //TODO: Check if it's not needed
         //TODO: Update if needed connection, priority and energy storage
     }
 

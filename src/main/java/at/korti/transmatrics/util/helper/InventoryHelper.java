@@ -1,16 +1,19 @@
 package at.korti.transmatrics.util.helper;
 
 import at.korti.transmatrics.api.crafting.ICraftingRegistry;
+import at.korti.transmatrics.api.crafting.ICraftingRegistry.ICraftingEntry;
 import at.korti.transmatrics.api.crafting.IFluidCraftingRegistry;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * Created by Korti on 15.03.2016.
@@ -35,11 +38,12 @@ public class InventoryHelper {
     }
 
     public static ItemStack getStackFromHandForItem(EntityPlayer player, Item item) {
-        return player.getHeldItemMainhand() != null && player.getHeldItemMainhand().getItem() == item ?
-                player.getHeldItemMainhand() : player.getHeldItemOffhand() != null &&
-                player.getHeldItemOffhand().getItem() == item ? player.getHeldItemOffhand() : null;
+        return player.getHeldItemMainhand().getItem() == item ?
+                player.getHeldItemMainhand() : player.getHeldItemOffhand().getItem() == item ? player.getHeldItemOffhand()
+                : null;
     }
 
+    @SideOnly(Side.CLIENT)
     public static boolean isInInventory(EntityPlayer player, ItemStack stack) {
         InventoryPlayer inventoryPlayer = player.inventory;
         return inventoryPlayer.getSlotFor(stack) != -1;
@@ -123,6 +127,29 @@ public class InventoryHelper {
                 }
             }
             return max;
+        }
+    }
+
+    public static <I> boolean checkOutputStackSize(ICraftingEntry<I, ItemStack> entry, int inventoryStackLimit,
+                                                   ItemStack[] outputContent) {
+        for(int i = 0; i < outputContent.length && i < entry.getOutputs().length; i++) {
+            if (!outputContent[i].isEmpty()) {
+                int result = outputContent[i].getCount() + entry.getOutputs()[i].getCount();
+                if (result > inventoryStackLimit || result > outputContent[i].getMaxStackSize()) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public static <I> void decreaseInputForSlot(int slot, ItemStack stack, ICraftingRegistry<I> registry, IInventory inventory) {
+        if (slot != -1 && registry.decreaseItemForSlot(slot)) {
+            ItemStack stackInSlot = inventory.getStackInSlot(slot);
+            stackInSlot.setCount(stackInSlot.getCount() - stack.getCount());
+            if (stackInSlot.getCount() <= 0) {
+                inventory.setInventorySlotContents(slot, ItemStack.EMPTY);
+            }
         }
     }
 

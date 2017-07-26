@@ -58,7 +58,7 @@ public abstract class TileEntityNetworkSwitch extends TileEntity implements INet
         return compound;
     }
 
-    public void writeNodesToNBT(NBTTagCompound tagCompound) {
+    private void writeNodesToNBT(NBTTagCompound tagCompound) {
         List<INetworkNode> nodes = getNetworkNodes();
         if(nodes != null) {
             NBTTagList tagList = new NBTTagList();
@@ -83,7 +83,7 @@ public abstract class TileEntityNetworkSwitch extends TileEntity implements INet
         readNodesFromNBT(compound);
     }
 
-    public void readNodesFromNBT(NBTTagCompound tagCompound) {
+    private void readNodesFromNBT(NBTTagCompound tagCompound) {
         networkNodes.clear();
         NBTTagList tagList = tagCompound.getTagList(NBT.NETWORK_NODES, 10);
         for (int i = 0; i < tagList.tagCount(); i++) {

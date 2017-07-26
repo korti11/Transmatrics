@@ -1,6 +1,5 @@
 package at.korti.transmatrics.modintegration.jei;
 
-import at.korti.transmatrics.api.Constants;
 import at.korti.transmatrics.api.Constants.JEI;
 import at.korti.transmatrics.api.Constants.TransmatricsBlock;
 import at.korti.transmatrics.modintegration.jei.alloymixer.AlloyMixerRecipeCategory;
@@ -9,20 +8,20 @@ import at.korti.transmatrics.modintegration.jei.alloymixer.AlloyMixerRecipeMaker
 import at.korti.transmatrics.modintegration.jei.liquidcaste.LiquidCasterRecipeCategory;
 import at.korti.transmatrics.modintegration.jei.liquidcaste.LiquidCasterRecipeFactory;
 import at.korti.transmatrics.modintegration.jei.liquidcaste.LiquidCasterRecipeMaker;
-import at.korti.transmatrics.modintegration.jei.magneticsmeltery.MagneticSmeleryRecipeFacotry;
 import at.korti.transmatrics.modintegration.jei.magneticsmeltery.MagneticSmelteryRecipeCategory;
+import at.korti.transmatrics.modintegration.jei.magneticsmeltery.MagneticSmelteryRecipeFacotry;
 import at.korti.transmatrics.modintegration.jei.magneticsmeltery.MagneticSmelteryRecipeMaker;
 import at.korti.transmatrics.modintegration.jei.pulverizer.PulverizerRecipeCategory;
 import at.korti.transmatrics.modintegration.jei.pulverizer.PulverizerRecipeFactory;
 import at.korti.transmatrics.modintegration.jei.pulverizer.PulverizerRecipeMaker;
 import at.korti.transmatrics.registry.crafting.AlloyMixerCraftingRegistry.AlloyMixerCraftingEntry;
-import at.korti.transmatrics.registry.crafting.LiquidCasterCraftingRegistry;
 import at.korti.transmatrics.registry.crafting.LiquidCasterCraftingRegistry.LiquidCasterCraftingEntry;
-import at.korti.transmatrics.registry.crafting.MagneticSmelteryCraftingRegistry;
 import at.korti.transmatrics.registry.crafting.MagneticSmelteryCraftingRegistry.MagneticSmelteryCraftingEntry;
-import at.korti.transmatrics.registry.crafting.PulverizerCraftingRegistry;
 import at.korti.transmatrics.registry.crafting.PulverizerCraftingRegistry.PulverizerCraftingEntry;
-import mezz.jei.api.*;
+import mezz.jei.api.IJeiHelpers;
+import mezz.jei.api.IModPlugin;
+import mezz.jei.api.IModRegistry;
+import mezz.jei.api.JEIPlugin;
 import mezz.jei.api.recipe.IRecipeCategoryRegistration;
 import mezz.jei.api.recipe.VanillaRecipeCategoryUid;
 import net.minecraft.item.ItemStack;
@@ -48,7 +47,7 @@ public class TransmatricsPlugin implements IModPlugin {
         jeiHelper = registry.getJeiHelpers();
 
         registry.handleRecipes(PulverizerCraftingEntry.class, new PulverizerRecipeFactory(), JEI.Categories.PULVERIZER);
-        registry.handleRecipes(MagneticSmelteryCraftingEntry.class, new MagneticSmeleryRecipeFacotry(), JEI.Categories.MAGNETIC_SMELTERY);
+        registry.handleRecipes(MagneticSmelteryCraftingEntry.class, new MagneticSmelteryRecipeFacotry(), JEI.Categories.MAGNETIC_SMELTERY);
         registry.handleRecipes(LiquidCasterCraftingEntry.class, new LiquidCasterRecipeFactory(), JEI.Categories.LIQUID_CASTER);
         registry.handleRecipes(AlloyMixerCraftingEntry.class, new AlloyMixerRecipeFactory(), JEI.Categories.ALLOY_MIXER);
 

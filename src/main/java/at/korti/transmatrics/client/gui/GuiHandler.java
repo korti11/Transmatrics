@@ -1,16 +1,20 @@
 package at.korti.transmatrics.client.gui;
 
-import at.korti.transmatrics.tileentity.container.ContainerAlloyMixer;
 import at.korti.transmatrics.tileentity.TileEntityFluidGenerator;
 import at.korti.transmatrics.tileentity.TileEntityInventory;
 import at.korti.transmatrics.tileentity.container.*;
-import at.korti.transmatrics.tileentity.crafting.*;
+import at.korti.transmatrics.tileentity.crafting.TileEntityLiquidCaster;
+import at.korti.transmatrics.tileentity.crafting.TileEntityMagneticSmeltery;
+import at.korti.transmatrics.tileentity.crafting.TileEntityPoweredFurnace;
+import at.korti.transmatrics.tileentity.crafting.TileEntityPulverizer;
 import at.korti.transmatrics.tileentity.energy.TileEntityCharger;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import static at.korti.transmatrics.api.Constants.GuiIds.*;
 
@@ -43,6 +47,7 @@ public class GuiHandler implements IGuiHandler {
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         if(world instanceof WorldClient) {
             BlockPos pos = new BlockPos(x, y, z);

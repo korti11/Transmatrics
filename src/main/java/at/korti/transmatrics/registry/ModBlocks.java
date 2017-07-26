@@ -1,7 +1,6 @@
 package at.korti.transmatrics.registry;
 
 import at.korti.transmatrics.api.Constants;
-import at.korti.transmatrics.block.MachineBlock;
 import at.korti.transmatrics.block.MachineCasing;
 import at.korti.transmatrics.block.OreBlock;
 import at.korti.transmatrics.block.crafting.*;
@@ -9,6 +8,7 @@ import at.korti.transmatrics.block.energy.Charger;
 import at.korti.transmatrics.block.energy.EnergyBridge;
 import at.korti.transmatrics.block.generator.*;
 import at.korti.transmatrics.block.network.*;
+import at.korti.transmatrics.item.network.ItemQuantumBridgeBlock;
 import com.google.common.base.Preconditions;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -127,7 +127,7 @@ public class ModBlocks {
                     new ItemBlock(MEDIUM_SWITCH),
                     new ItemBlock(LARGE_SWITCH),
                     new ItemBlock(CONTROLLER),
-                    new ItemBlock(QUANTUM_BRIDGE),
+                    new ItemQuantumBridgeBlock(QUANTUM_BRIDGE),
                     new ItemBlock(PULVERIZER),
                     new ItemBlock(POWERED_FURNACE),
                     new ItemBlock(MAGNETIC_SMELTERY),

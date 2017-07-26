@@ -1,6 +1,5 @@
 package at.korti.transmatrics.registry;
 
-import at.korti.transmatrics.api.Constants;
 import at.korti.transmatrics.api.Constants.OreDictionaryEntry;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;

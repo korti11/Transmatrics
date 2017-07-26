@@ -7,7 +7,6 @@ import at.korti.transmatrics.api.network.INetworkSwitch;
 import at.korti.transmatrics.util.helper.WorldHelper;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -21,7 +20,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
-import java.util.List;
 
 /**
  * Created by Korti on 27.02.2016.
@@ -98,13 +96,6 @@ public abstract class MachineBlock extends ModBlockContainer implements IDismant
     public void dismantleBlock(EntityPlayer playerIn, World worldIn, BlockPos pos, IBlockState state) {
         if(isDismantable() && !worldIn.isRemote) {
             ItemStack stack = new ItemStack(this);
-            TileEntity tileEntity = worldIn.getTileEntity(pos);
-//            if(shouldSaveBlockNBT()) {
-//                if (stack.getTagCompound() == null) {
-//                    stack.setTagCompound(new NBTTagCompound());
-//                }
-//                tileEntity.writeToNBT(stack.getTagCompound());
-//            }
             breakBlock(worldIn, pos, state, stack);
             worldIn.setBlockToAir(pos);
         }
