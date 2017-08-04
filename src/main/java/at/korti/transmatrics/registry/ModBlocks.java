@@ -109,8 +109,6 @@ public class ModBlocks {
             };
 
             registry.registerAll(blocks);
-
-            OreDicts.registerOreDictBlocks();
         }
 
         @SubscribeEvent
@@ -148,7 +146,7 @@ public class ModBlocks {
                 ITEM_BLOCKS.add(item);
             }
 
-
+            OreDicts.registerOreDictBlocks();
         }
     }
 }

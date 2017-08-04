@@ -5,10 +5,13 @@ import at.korti.transmatrics.api.Constants.NBT;
 import at.korti.transmatrics.api.crafting.ICraftingRegistry;
 import at.korti.transmatrics.api.crafting.ICraftingRegistry.ICraftingEntry;
 import at.korti.transmatrics.block.ActiveMachineBlock;
+import at.korti.transmatrics.util.helper.ItemStackHelper;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
+
+import java.lang.reflect.Array;
 
 /**
  * Created by Korti on 26.07.2017.
@@ -197,8 +200,16 @@ public abstract class TileEntityBasicCraftingMachine<I, O> extends TileEntityInv
     protected int getSlotForStack(boolean input, ItemStack stack) {
         int[] slots = input ? getCraftingRegistry().getInputSlotsIds() : getCraftingRegistry().getOutputSlotsIds();
         for (int slot : slots) {
-            if (getStackInSlot(slot).isItemEqual(stack)) {
+            ItemStack slotStack = getStackInSlot(slot);
+            if (slotStack.isItemEqual(stack)) {
                 return slot;
+            }
+            for (String slotOreName : ItemStackHelper.getOreDictionaryNames(slotStack)) {
+                for (String stackOreName : ItemStackHelper.getOreDictionaryNames(stack)) {
+                    if (slotOreName.equals(stackOreName)) {
+                        return slot;
+                    }
+                }
             }
         }
         return -1;
@@ -207,7 +218,7 @@ public abstract class TileEntityBasicCraftingMachine<I, O> extends TileEntityInv
     @SuppressWarnings("unchecked")
     protected boolean canCraft() {
         if (!areInputsEmpty()) {
-            ICraftingEntry<I, O> entry = craftingRegistry.get(getInputs());
+            ICraftingEntry<I, O> entry = getCraftingEntry();
             if(entry == null) {
                 return false;
             } else if(areOutputsEmpty()) {
@@ -220,21 +231,18 @@ public abstract class TileEntityBasicCraftingMachine<I, O> extends TileEntityInv
         return false;
     }
 
+    @SuppressWarnings("unchecked")
+    protected ICraftingEntry<I, O> getCraftingEntry() {
+        return craftingRegistry.get(getInputs());
+    }
+
     protected abstract boolean checkOutputIsFull(ICraftingEntry<I, O> entry);
 
     public abstract I[] getInputs();
 
     public abstract O[] getOutputs();
 
-    protected boolean equalOutputs(ICraftingEntry<I, O> entry) {
-        O[] outputContent = getOutputs();
-        for(int i = 0; i < outputContent.length && i < entry.getOutputs().length; i++) {
-            if (!outputContent[i].equals(entry.getOutputs()[i])) {
-                return false;
-            }
-        }
-        return true;
-    }
+    protected abstract boolean equalOutputs(ICraftingEntry<I, O> entry);
 
     protected void updateStoredEnergy() {
         if(useEnergyOnUpdate()) {
@@ -252,7 +260,7 @@ public abstract class TileEntityBasicCraftingMachine<I, O> extends TileEntityInv
 
     @SuppressWarnings("unchecked")
     protected int getCraftingTime() {
-        ICraftingEntry<I, O> entry = craftingRegistry.get(getInputs());
+        ICraftingEntry<I, O> entry = getCraftingEntry();
         if(entry != null) {
             return entry.getCraftingTime();
         }

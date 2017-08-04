@@ -11,6 +11,5 @@ public class ItemMachineBlock extends ItemBlock {
 
     public ItemMachineBlock(Block block) {
         super(block);
-        this.setRegistryName(block.getRegistryName());
     }
 }

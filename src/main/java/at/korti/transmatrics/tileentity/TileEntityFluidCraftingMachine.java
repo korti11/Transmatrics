@@ -48,7 +48,7 @@ public abstract class TileEntityFluidCraftingMachine<O> extends TileEntityBasicC
     @Override
     public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing) {
         if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-            return (T) this;
+            return (T) craftingTank;
         }
         return super.getCapability(capability, facing);
     }

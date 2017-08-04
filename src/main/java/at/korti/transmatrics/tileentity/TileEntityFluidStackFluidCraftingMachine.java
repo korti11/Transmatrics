@@ -1,8 +1,10 @@
 package at.korti.transmatrics.tileentity;
 
+import at.korti.transmatrics.api.crafting.ICraftingRegistry;
 import at.korti.transmatrics.api.crafting.ICraftingRegistry.ICraftingEntry;
 import at.korti.transmatrics.api.crafting.IFluidCraftingRegistry;
 import at.korti.transmatrics.event.MachineCraftingEvent;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
 import static net.minecraftforge.common.MinecraftForge.EVENT_BUS;
@@ -20,7 +22,7 @@ public abstract class TileEntityFluidStackFluidCraftingMachine extends TileEntit
     @SuppressWarnings("unchecked")
     protected void craft() {
         if (this.canCraft()) {
-            ICraftingEntry<FluidStack, FluidStack> entry = getCraftingRegistry().get(getInputs());
+            ICraftingEntry<FluidStack, FluidStack> entry = getCraftingEntry();
             FluidStack[] outputs = entry.getOutputs();
             EVENT_BUS.post(new MachineCraftingEvent.Pre<>(entry, getCraftingRegistry(), this, this));
             for (FluidStack stack : outputs) {
@@ -44,5 +46,16 @@ public abstract class TileEntityFluidStackFluidCraftingMachine extends TileEntit
     @Override
     public FluidStack[] getOutputs() {
         return craftingTank.getFluids(false);
+    }
+
+    @Override
+    protected boolean equalOutputs(ICraftingEntry<FluidStack, FluidStack> entry) {
+        FluidStack[] outputContent = getOutputs();
+        for(int i = 0; i < outputContent.length && i < entry.getOutputs().length; i++) {
+            if (!outputContent[i].isFluidEqual(entry.getOutputs()[i])) {
+                return false;
+            }
+        }
+        return true;
     }
 }

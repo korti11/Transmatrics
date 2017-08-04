@@ -1,8 +1,11 @@
 package at.korti.transmatrics.tileentity;
 
+import at.korti.transmatrics.api.crafting.ICraftingRegistry;
+import at.korti.transmatrics.api.crafting.ICraftingRegistry.ICraftingEntry;
 import at.korti.transmatrics.api.crafting.IFluidItemCraftingRegistry;
 import at.korti.transmatrics.api.crafting.IFluidItemCraftingRegistry.IFluidItemCraftingEntry;
 import at.korti.transmatrics.event.MachineCraftingEvent;
+import at.korti.transmatrics.util.helper.CraftingHelper;
 import at.korti.transmatrics.util.helper.InventoryHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
@@ -26,7 +29,7 @@ public abstract class TileEntityItemStackFluidItemCraftingMachine extends TileEn
     @Override
     @SuppressWarnings("unchecked")
     protected void craft() {
-        IFluidItemCraftingEntry<ItemStack> entry = getCraftingRegistry().get(getInputs(), getInventoryInputs());
+        IFluidItemCraftingEntry<ItemStack> entry = (IFluidItemCraftingEntry<ItemStack>) getCraftingEntry();
         int[] outputSlots = getCraftingRegistry().getOutputSlotsIds();
         ItemStack[] outputs = entry.getOutputs();
         EVENT_BUS.post(new MachineCraftingEvent.Pre<>(entry, getCraftingRegistry(), this, this));
@@ -35,6 +38,17 @@ public abstract class TileEntityItemStackFluidItemCraftingMachine extends TileEn
         }
         decreaseInputs(entry.getInputs(), entry.getSecondInputs());
         EVENT_BUS.post(new MachineCraftingEvent.Post<>(entry, getCraftingRegistry(), this, this));
+    }
+
+    @Override
+    protected void craftItem(int slot, ItemStack stack) {
+        CraftingHelper.craftItem(slot, stack, getCraftingRegistry(), getInputs(), getInventoryInputs(), this);
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    protected ICraftingEntry<FluidStack, ItemStack> getCraftingEntry() {
+        return getCraftingRegistry().get(getInputs(), getInventoryInputs());
     }
 
     @Override
@@ -54,5 +68,16 @@ public abstract class TileEntityItemStackFluidItemCraftingMachine extends TileEn
             int slot = getSlotForStack(true, stack);
             InventoryHelper.decreaseInputForSlot(slot, stack, getCraftingRegistry(), this);
         }
+    }
+
+    @Override
+    protected boolean equalOutputs(ICraftingEntry<FluidStack, ItemStack> entry) {
+        ItemStack[] outputContent = getOutputs();
+        for(int i = 0; i < outputContent.length && i < entry.getOutputs().length; i++) {
+            if (!outputContent[i].isItemEqual(entry.getOutputs()[i]) && !outputContent[i].isEmpty()) {
+                return false;
+            }
+        }
+        return true;
     }
 }

@@ -1,6 +1,7 @@
 package at.korti.transmatrics.block.crafting;
 
 import at.korti.transmatrics.block.CraftingMachineBlock;
+import at.korti.transmatrics.tileentity.TileEntityFluidCraftingMachine;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -24,7 +25,7 @@ public abstract class FluidCraftingMachineBlock extends CraftingMachineBlock{
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
         TileEntity tile = worldIn.getTileEntity(pos);
-        if (tile instanceof IFluidHandler) {
+        if (tile instanceof TileEntityFluidCraftingMachine) {
             if (FluidUtil.interactWithFluidHandler(playerIn, hand, worldIn, pos, side)) {
                 return true;
             }

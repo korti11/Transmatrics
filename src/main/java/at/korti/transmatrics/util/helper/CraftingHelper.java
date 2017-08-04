@@ -46,13 +46,24 @@ public class CraftingHelper {
     public static <I> void craftItem(int slot, ItemStack stack, ICraftingRegistry<I> registry, I[] inputs,
                                         IInventory inventory) {
         if (chanceToCraft(registry, slot, inputs)) {
-            ItemStack slotStack = inventory.getStackInSlot(slot);
-            if (slotStack.isEmpty()) {
-                inventory.setInventorySlotContents(slot, stack.copy());
-            } else if (slotStack.isItemEqual(stack)) {
-                int stackSize = slotStack.getCount();
-                slotStack.setCount(stackSize + stack.getCount());
-            }
+            craftItem(slot, stack, inventory);
+        }
+    }
+
+    public static void craftItem(int slot, ItemStack stack, IFluidItemCraftingRegistry registry, FluidStack[] fluidInputs,
+                                 ItemStack[] itemInputs, IInventory inventory) {
+        if (chanceToCraft(registry, slot, fluidInputs, itemInputs)) {
+            craftItem(slot, stack, inventory);
+        }
+    }
+
+    private static void craftItem(int slot, ItemStack stack, IInventory inventory) {
+        ItemStack slotStack = inventory.getStackInSlot(slot);
+        if (slotStack.isEmpty()) {
+            inventory.setInventorySlotContents(slot, stack.copy());
+        } else if (slotStack.isItemEqual(stack)) {
+            int stackSize = slotStack.getCount();
+            slotStack.setCount(stackSize + stack.getCount());
         }
     }
 

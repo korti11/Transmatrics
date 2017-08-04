@@ -2,6 +2,7 @@ package at.korti.transmatrics.client.gui;
 
 import at.korti.transmatrics.client.util.RenderHelper;
 import at.korti.transmatrics.tileentity.TileEntityFluidCraftingMachine;
+import at.korti.transmatrics.tileentity.TileEntityFluidStackCraftingMachine;
 import at.korti.transmatrics.tileentity.TileEntityInventory;
 import at.korti.transmatrics.tileentity.container.ContainerMagneticSmeltery;
 import at.korti.transmatrics.util.helper.TextHelper;
@@ -24,9 +25,9 @@ public class GuiMagneticSmeltery extends GuiCrafting {
     @Override
     protected void addInformation(int mouseX, int mouseY, List<String> textLines) {
         super.addInformation(mouseX, mouseY, textLines);
-        if (inventory instanceof TileEntityFluidCraftingMachine && isInRect(mouseX, mouseY, 107, 10, 107 + 16, 10 + 64)) {
-            TileEntityFluidCraftingMachine machine = (TileEntityFluidCraftingMachine) inventory;
-            IFluidHandler fluidHandler = (IFluidHandler) machine.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null);
+        if (inventory instanceof TileEntityFluidStackCraftingMachine && isInRect(mouseX, mouseY, 107, 10, 107 + 16, 10 + 64)) {
+            TileEntityFluidStackCraftingMachine machine = (TileEntityFluidStackCraftingMachine) inventory;
+            IFluidHandler fluidHandler = machine.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null);
             IFluidTankProperties tankInfo = fluidHandler.getTankProperties()[0];
             textLines.add(tankInfo.getContents() != null ? tankInfo.getContents().getLocalizedName() : TextHelper.localize("gui.tank.empty"));
             textLines.add(String.format("%d/%d mB",
@@ -50,9 +51,9 @@ public class GuiMagneticSmeltery extends GuiCrafting {
         int efficiencyBar = getEfficiencyBar(14);
         this.drawTexturedModalRect(i + 56, j + 53 + 14 - efficiencyBar, 176, 14 - efficiencyBar, 14, efficiencyBar);
 
-        if (inventory instanceof TileEntityFluidCraftingMachine) {
-            TileEntityFluidCraftingMachine fluidCraftingMachine = (TileEntityFluidCraftingMachine) inventory;
-            IFluidHandler fluidHandler = (IFluidHandler) fluidCraftingMachine.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null);
+        if (inventory instanceof TileEntityFluidStackCraftingMachine) {
+            TileEntityFluidStackCraftingMachine fluidCraftingMachine = (TileEntityFluidStackCraftingMachine) inventory;
+            IFluidHandler fluidHandler = fluidCraftingMachine.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null);
             IFluidTankProperties tankInfo = fluidHandler.getTankProperties()[0];
             RenderHelper.drawGuiFluid(tankInfo.getContents(), i + 107, j + 10, zLevel, 16, 64, tankInfo.getCapacity());
         }

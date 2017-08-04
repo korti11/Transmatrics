@@ -1,5 +1,7 @@
 package at.korti.transmatrics.tileentity;
 
+import at.korti.transmatrics.api.crafting.ICraftingRegistry;
+import at.korti.transmatrics.api.crafting.ICraftingRegistry.ICraftingEntry;
 import at.korti.transmatrics.api.crafting.IFluidItemCraftingRegistry;
 import at.korti.transmatrics.api.crafting.IFluidItemCraftingRegistry.IFluidItemCraftingEntry;
 import at.korti.transmatrics.event.MachineCraftingEvent;
@@ -26,7 +28,7 @@ public abstract class TileEntityFluidStackFluidItemCraftingMachine extends TileE
     @Override
     @SuppressWarnings("unchecked")
     protected void craft() {
-        IFluidItemCraftingEntry<FluidStack> entry = getCraftingRegistry().get(getInputs(), getInventoryInputs());
+        IFluidItemCraftingEntry<FluidStack> entry = (IFluidItemCraftingEntry<FluidStack>) getCraftingEntry();
         FluidStack[] outputs = entry.getOutputs();
         EVENT_BUS.post(new MachineCraftingEvent.Pre<>(entry, getCraftingRegistry(), this, this));
         for (FluidStack stack : outputs) {
@@ -34,6 +36,12 @@ public abstract class TileEntityFluidStackFluidItemCraftingMachine extends TileE
         }
         decreaseInputs(entry.getInputs(), entry.getSecondInputs());
         EVENT_BUS.post(new MachineCraftingEvent.Post<>(entry, getCraftingRegistry(), this, this));
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    protected ICraftingEntry<FluidStack, FluidStack> getCraftingEntry() {
+        return getCraftingRegistry().get(getInputs(), getInventoryInputs());
     }
 
     @Override
@@ -53,5 +61,16 @@ public abstract class TileEntityFluidStackFluidItemCraftingMachine extends TileE
             int slot = getSlotForStack(true, stack);
             InventoryHelper.decreaseInputForSlot(slot, stack, getCraftingRegistry(), this);
         }
+    }
+
+    @Override
+    protected boolean equalOutputs(ICraftingEntry<FluidStack, FluidStack> entry) {
+        FluidStack[] outputContent = getOutputs();
+        for(int i = 0; i < outputContent.length && i < entry.getOutputs().length; i++) {
+            if (!outputContent[i].isFluidEqual(entry.getOutputs()[i])) {
+                return false;
+            }
+        }
+        return true;
     }
 }

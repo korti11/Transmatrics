@@ -35,7 +35,7 @@ public class TileEntityAlloyMixer extends TileEntityFluidStackFluidCraftingMachi
                 i++;
             }
             output.amount = output.amount * multi;
-            craftingTank.fill(true, output, true);
+            craftingTank.fill(false, output, true);
             decreaseInputs(inputs);
             EVENT_BUS.post(new MachineCraftingEvent.Post<>(entry, getCraftingRegistry(), this, this));
         }

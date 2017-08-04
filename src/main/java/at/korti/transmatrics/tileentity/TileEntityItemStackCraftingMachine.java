@@ -6,6 +6,7 @@ import at.korti.transmatrics.event.MachineCraftingEvent;
 import at.korti.transmatrics.util.helper.CraftingHelper;
 import at.korti.transmatrics.util.helper.InventoryHelper;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.FluidStack;
 
 import static net.minecraftforge.common.MinecraftForge.EVENT_BUS;
 
@@ -22,7 +23,7 @@ public abstract class TileEntityItemStackCraftingMachine extends TileEntityCraft
     @SuppressWarnings("unchecked")
     protected void craft() {
         if (this.canCraft()) {
-            ICraftingEntry<ItemStack, ItemStack> entry = getCraftingRegistry().get(getInputs());
+            ICraftingEntry<ItemStack, ItemStack> entry = getCraftingEntry();
             int[] outputSlots = getCraftingRegistry().getOutputSlotsIds();
             ItemStack[] outputs = entry.getOutputs();
             EVENT_BUS.post(new MachineCraftingEvent.Pre<>(entry, getCraftingRegistry(), this, this));
@@ -51,5 +52,16 @@ public abstract class TileEntityItemStackCraftingMachine extends TileEntityCraft
     @Override
     public ItemStack[] getOutputs() {
         return getContent(getCraftingRegistry().getOutputSlotsIds());
+    }
+
+    @Override
+    protected boolean equalOutputs(ICraftingEntry<ItemStack, ItemStack> entry) {
+        ItemStack[] outputContent = getOutputs();
+        for(int i = 0; i < outputContent.length && i < entry.getOutputs().length; i++) {
+            if (!outputContent[i].isItemEqual(entry.getOutputs()[i]) && !outputContent[i].isEmpty()) {
+                return false;
+            }
+        }
+        return true;
     }
 }

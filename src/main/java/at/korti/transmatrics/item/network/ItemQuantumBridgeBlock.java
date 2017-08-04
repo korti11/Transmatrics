@@ -43,7 +43,7 @@ public class ItemQuantumBridgeBlock extends ItemMachineBlock {
         if ((tagCompound = stack.getTagCompound()) == null) {
             stack.setTagCompound(tagCompound = new NBTTagCompound());
         }
-        if(InventoryHelper.isInInventory(player, stack)) {
+        if(player != null && InventoryHelper.isInInventory(player, stack)) {
             if (!tagCompound.hasKey(NBT.QUANTUM_BRIDGE_MAP_NAME)) {
                 TransmatricsPacketHandler.sendToServer(new CreateQuantumIdMessage(player.inventory.getSlotFor(stack)));
             }
