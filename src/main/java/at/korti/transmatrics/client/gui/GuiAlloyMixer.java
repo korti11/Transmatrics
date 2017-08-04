@@ -24,35 +24,36 @@ public class GuiAlloyMixer extends GuiCrafting {
     @Override
     protected void addInformation(int mouseX, int mouseY, List<String> textLines) {
         super.addInformation(mouseX, mouseY, textLines);
-        if (inventory instanceof TileEntityFluidCraftingMachine && isInRect(mouseX, mouseY, 148, 10, 148 + 16, 10 + 64)) {
-            TileEntityFluidCraftingMachine machine = (TileEntityFluidCraftingMachine) inventory;
-            IFluidHandler fluidHandler = (IFluidHandler) machine.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null);
+        if (!(inventory instanceof TileEntityFluidCraftingMachine)) {
+            return;
+        }
+
+        TileEntityFluidCraftingMachine machine = (TileEntityFluidCraftingMachine) inventory;
+        IFluidHandler fluidHandler = (IFluidHandler) machine.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null);
+
+        if (isInRect(mouseX, mouseY, 148, 10, 148 + 16, 10 + 64)) {
             IFluidTankProperties tankInfo = fluidHandler.getTankProperties()[3];
             textLines.add(tankInfo.getContents() != null ? tankInfo.getContents().getLocalizedName() : TextHelper.localize("gui.tank.empty"));
             textLines.add(String.format("%d/%d mB",
                     tankInfo.getContents() != null ? tankInfo.getContents().amount : 0, tankInfo.getCapacity()));
-        }
-        if (inventory instanceof IFluidHandler){
-            IFluidHandler machine = (IFluidHandler) inventory;
-            if(isInRect(mouseX, mouseY, 56, 10, 56 + 16, 10 + 64)){
-                IFluidTankProperties tankInfo = machine.getTankProperties()[0];
-                textLines.add(tankInfo.getContents() != null ? tankInfo.getContents().getLocalizedName() :
-                        TextHelper.localize("gui.tank.empty"));
-                textLines.add(String.format("%d/%d mB",
-                        tankInfo.getContents() != null ? tankInfo.getContents().amount : 0, tankInfo.getCapacity()));
-            } else if(isInRect(mouseX, mouseY, 77, 10, 77 + 16, 10 + 64)) {
-                IFluidTankProperties tankInfo = machine.getTankProperties()[1];
-                textLines.add(tankInfo.getContents() != null ? tankInfo.getContents().getLocalizedName() :
-                        TextHelper.localize("gui.tank.empty"));
-                textLines.add(String.format("%d/%d mB",
-                        tankInfo.getContents() != null ? tankInfo.getContents().amount : 0, tankInfo.getCapacity()));
-            } else if(isInRect(mouseX, mouseY, 98, 10, 98 + 16, 10 + 64)) {
-                IFluidTankProperties tankInfo = machine.getTankProperties()[2];
-                textLines.add(tankInfo.getContents() != null ? tankInfo.getContents().getLocalizedName() :
-                        TextHelper.localize("gui.tank.empty"));
-                textLines.add(String.format("%d/%d mB",
-                        tankInfo.getContents() != null ? tankInfo.getContents().amount : 0, tankInfo.getCapacity()));
-            }
+        } else if(isInRect(mouseX, mouseY, 56, 10, 56 + 16, 10 + 64)){
+            IFluidTankProperties tankInfo = fluidHandler.getTankProperties()[0];
+            textLines.add(tankInfo.getContents() != null ? tankInfo.getContents().getLocalizedName() :
+                    TextHelper.localize("gui.tank.empty"));
+            textLines.add(String.format("%d/%d mB",
+                    tankInfo.getContents() != null ? tankInfo.getContents().amount : 0, tankInfo.getCapacity()));
+        } else if(isInRect(mouseX, mouseY, 77, 10, 77 + 16, 10 + 64)) {
+            IFluidTankProperties tankInfo = fluidHandler.getTankProperties()[1];
+            textLines.add(tankInfo.getContents() != null ? tankInfo.getContents().getLocalizedName() :
+                    TextHelper.localize("gui.tank.empty"));
+            textLines.add(String.format("%d/%d mB",
+                    tankInfo.getContents() != null ? tankInfo.getContents().amount : 0, tankInfo.getCapacity()));
+        } else if(isInRect(mouseX, mouseY, 98, 10, 98 + 16, 10 + 64)) {
+            IFluidTankProperties tankInfo = fluidHandler.getTankProperties()[2];
+            textLines.add(tankInfo.getContents() != null ? tankInfo.getContents().getLocalizedName() :
+                    TextHelper.localize("gui.tank.empty"));
+            textLines.add(String.format("%d/%d mB",
+                    tankInfo.getContents() != null ? tankInfo.getContents().amount : 0, tankInfo.getCapacity()));
         }
     }
 
