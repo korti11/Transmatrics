@@ -63,6 +63,14 @@ public final class Constants {
         public static final String EXT_CONTROLLER_Y = "ecy";
         public static final String EXT_CONTROLLER_Z = "ecz";
 
+        // Multi block structer
+        public static final String IS_MASTER_NODE = "is_master_node";
+        public static final String CONNECTED_EXTENSION_NODE = "connected_extension_node";
+        public static final String EXTENSION_NODES = "extension_nodes";
+        public static final String EXTENSION_NODE_X = "extension_node_x";
+        public static final String EXTENSION_NODE_Y = "extension_node_y";
+        public static final String EXTENSION_NODE_Z = "extension_node_z";
+
         //Crafting machine
         public static final String CRAFTING_TIME = "crafting_time";
         public static final String TOTAL_CRAFTING_TIME = "total_crafting_time";

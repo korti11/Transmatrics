@@ -73,12 +73,12 @@ public abstract class TileEntityEnergyNode extends TileEntityNetworkNode impleme
 
     @Override
     public int getEnergyStored(EnumFacing enumFacing) {
-        return energyStorage.getEnergyStored();
+        return getEnergyStored();
     }
 
     @Override
     public int getMaxEnergyStored(EnumFacing enumFacing) {
-        return energyStorage.getMaxEnergyStored();
+        return getMaxEnergyStored();
     }
 
     @Override
