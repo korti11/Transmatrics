@@ -2,6 +2,7 @@ package at.korti.transmatrics.modintegration.waila;
 
 import at.korti.transmatrics.api.Constants.NBT;
 import at.korti.transmatrics.api.energy.IEnergyInfo;
+import at.korti.transmatrics.util.helper.EnergyUnitHelper;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 import mcp.mobius.waila.api.IWailaDataProvider;
@@ -32,7 +33,12 @@ public class  WailaEnergyInfoHandler implements IWailaDataProvider {
     @Override
     public List<String> getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config) {
         NBTTagCompound compound = accessor.getNBTData();
-        currenttip.add("Energy: " + compound.getInteger(NBT.ENERGY) + "/" + compound.getInteger(NBT.CAPACITY) + " RF");
+        int storedEnergy = compound.getInteger(NBT.ENERGY);
+        int capacity = compound.getInteger(NBT.CAPACITY);
+        String storedEnergyString = EnergyUnitHelper.fromatEnergy(storedEnergy,
+                !EnergyUnitHelper.hasTheSameUnit(storedEnergy, capacity));
+        String capacityString = EnergyUnitHelper.fromatEnergy(capacity, true);
+        currenttip.add("Energy: " + storedEnergyString + "/" + capacityString);
         return currenttip;
     }
 
