@@ -8,7 +8,6 @@ import at.korti.transmatrics.api.network.IStatusMessage;
 import at.korti.transmatrics.api.network.NetworkHandler;
 import at.korti.transmatrics.util.helper.WorldHelper;
 import cofh.redstoneflux.impl.EnergyStorage;
-import com.sun.istack.internal.NotNull;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -112,7 +111,7 @@ public class TileEntityMultiBlockEnergyNode extends TileEntityEnergyNode {
      * @param pos The block position that should be saved.
      * @return Given nbt tag compound with the saved block position.
      */
-    private NBTTagCompound writeExtensionNodeToNBT(@NotNull NBTTagCompound extensionNodeTag, BlockPos pos) {
+    private NBTTagCompound writeExtensionNodeToNBT(NBTTagCompound extensionNodeTag, BlockPos pos) {
         if(pos != null) {
             extensionNodeTag.setInteger(NBT.EXTENSION_NODE_X, pos.getX());
             extensionNodeTag.setInteger(NBT.EXTENSION_NODE_Y, pos.getY());
@@ -126,7 +125,7 @@ public class TileEntityMultiBlockEnergyNode extends TileEntityEnergyNode {
      * @param extensionNodeTag NBTTagCompound where the position should be read from.
      * @return Saved block position from the given nbt tag compound.
      */
-    private BlockPos readExtensionNodeFromNBT(@NotNull NBTTagCompound extensionNodeTag) {
+    private BlockPos readExtensionNodeFromNBT(NBTTagCompound extensionNodeTag) {
         if(extensionNodeTag.hasKey(NBT.EXTENSION_NODE_X) &&
                 extensionNodeTag.hasKey(NBT.EXTENSION_NODE_Y) &&
                 extensionNodeTag.hasKey(NBT.EXTENSION_NODE_Z)) {
