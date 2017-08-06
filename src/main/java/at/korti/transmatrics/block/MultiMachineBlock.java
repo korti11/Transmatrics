@@ -9,8 +9,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import java.util.List;
-
 /**
  * Created by Korti on 05.08.2017.
  */
@@ -31,17 +29,16 @@ public abstract class MultiMachineBlock extends MachineBlock {
         TileEntity tileEntity = worldIn.getTileEntity(pos);
         if (tileEntity instanceof TileEntityMultiBlockEnergyNode) {
             TileEntityMultiBlockEnergyNode node = (TileEntityMultiBlockEnergyNode) tileEntity;
-            List<BlockPos> neighbors = WorldHelper.hasNeighbors(worldIn, pos, this.getClass());
+            BlockPos neighbor = WorldHelper.hasNeighbor(worldIn, pos, this);
             boolean isConnected = false;
 
-            for (BlockPos neighborPos : neighbors) {
-                if (neighborPos != null) {
-                    TileEntity extensionTileEntity = worldIn.getTileEntity(neighborPos);
-                    if (extensionTileEntity instanceof TileEntityMultiBlockEnergyNode) {
-                        TileEntityMultiBlockEnergyNode extensionNode = (TileEntityMultiBlockEnergyNode) extensionTileEntity;
-                        extensionNode.addExtensionNode(node);
-                        isConnected = true;
-                    }
+            if (neighbor != null) {
+                TileEntity extensionTileEntity = worldIn.getTileEntity(neighbor);
+                if (extensionTileEntity instanceof TileEntityMultiBlockEnergyNode) {
+                    TileEntityMultiBlockEnergyNode extensionNode = (TileEntityMultiBlockEnergyNode) extensionTileEntity;
+                    extensionNode.addExtensionNode(node);
+                    extensionNode.validateConstruction();
+                    isConnected = true;
                 }
             }
 

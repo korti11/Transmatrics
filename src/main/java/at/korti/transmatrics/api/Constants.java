@@ -219,6 +219,10 @@ public final class Constants {
         public static final int INVAR_CAPACITOR_CAPACITY = 25000;
         public static final int ELECTRUM_CAPACITOR_CAPACITY = 50000;
 
+        //Storage Components
+        public static final int SMALL_STORAGE_COMPONENT_CAPACITY = 100000;
+        public static final int SMALL_STORAGE_COMPONENT_TRANSFER = 5000;
+
         //Efficiency
         public static final int EFFICIENCY_DIVIDER = 10000;
     }
@@ -326,7 +330,8 @@ public final class Constants {
         ORE_BLOCK("ore"),
         MACHINE_CASING("machine_casing"),
         ENERGY_BRIDGE("energy_bridge"),
-        QUANTUM_BRIDGE("quantum_bridge");
+        QUANTUM_BRIDGE("quantum_bridge"),
+        SMALL_STORAGE_COMPONENT("small_storage_component");
 
         private final String regName;
 
@@ -390,7 +395,8 @@ public final class Constants {
         ALLOY_MIXER("TMTileAlloyMixer"),
         CHARGER("TMTileCharger"),
         ENERGY_BRIDGE("TMTileEnergyBridge"),
-        QUANTUM_BRIDGE("TMTileQuantumBridge");
+        QUANTUM_BRIDGE("TMTileQuantumBridge"),
+        SMALL_STORAGE_COMPONENT("TMTileSmallStorageComponent");
 
         private final String regName;
 

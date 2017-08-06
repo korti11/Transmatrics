@@ -6,6 +6,7 @@ import at.korti.transmatrics.block.OreBlock;
 import at.korti.transmatrics.block.crafting.*;
 import at.korti.transmatrics.block.energy.Charger;
 import at.korti.transmatrics.block.energy.EnergyBridge;
+import at.korti.transmatrics.block.energy.SmallStorageComponent;
 import at.korti.transmatrics.block.generator.*;
 import at.korti.transmatrics.block.network.*;
 import at.korti.transmatrics.item.network.ItemQuantumBridgeBlock;
@@ -45,6 +46,8 @@ public class ModBlocks {
     public static Watermill WATERMILL = new Watermill();
 
     public static EnergyBridge ENERGY_BRIDGE = new EnergyBridge();
+
+    public static SmallStorageComponent SMALL_STORAGE_COMPONENT = new SmallStorageComponent();
     //endregion
 
     //region Network Blocks
@@ -93,6 +96,7 @@ public class ModBlocks {
                     WINDMILL,
                     WATERMILL,
                     ENERGY_BRIDGE,
+                    SMALL_STORAGE_COMPONENT,
                     SMALL_SWITCH,
                     MEDIUM_SWITCH,
                     LARGE_SWITCH,
@@ -121,6 +125,7 @@ public class ModBlocks {
                     new ItemBlock(WINDMILL),
                     new ItemBlock(WATERMILL),
                     new ItemBlock(ENERGY_BRIDGE),
+                    new ItemBlock(SMALL_STORAGE_COMPONENT),
                     new ItemBlock(SMALL_SWITCH),
                     new ItemBlock(MEDIUM_SWITCH),
                     new ItemBlock(LARGE_SWITCH),

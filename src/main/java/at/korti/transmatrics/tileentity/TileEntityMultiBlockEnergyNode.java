@@ -6,7 +6,6 @@ import at.korti.transmatrics.api.network.INetworkNode;
 import at.korti.transmatrics.api.network.INetworkPackage;
 import at.korti.transmatrics.api.network.IStatusMessage;
 import at.korti.transmatrics.api.network.NetworkHandler;
-import at.korti.transmatrics.block.MultiMachineBlock;
 import at.korti.transmatrics.util.helper.WorldHelper;
 import cofh.redstoneflux.impl.EnergyStorage;
 import com.sun.istack.internal.NotNull;
@@ -71,6 +70,8 @@ public class TileEntityMultiBlockEnergyNode extends TileEntityEnergyNode {
                     );
             compound.setTag(NBT.CONNECTED_EXTENSION_NODE,
                     connectedExtensionNodeNBT);
+            compound.setInteger(NBT.CAPACITY,
+                    this.energyStorage.getMaxEnergyStored());
         } else {                                                        // If this is a extension node then write the position of the master node to the nbt tag compound of the tile entity.
             writeExtensionNodeToNBT(compound, this.masterNode);         // Write the position of the master node to the nbt tag compound of the tile entity.
         }
@@ -97,6 +98,9 @@ public class TileEntityMultiBlockEnergyNode extends TileEntityEnergyNode {
             this.connectedExtensionNode = readExtensionNodeFromNBT(
                     compound.getCompoundTag(NBT.CONNECTED_EXTENSION_NODE)
             );
+            this.energyStorage.setCapacity(
+                    compound.getInteger(NBT.CAPACITY)
+            );
         } else {                                                        // If this is a extension node then read the position of the master node from the nbt tag compound of the tile entity.
             this.masterNode = readExtensionNodeFromNBT(compound);       // Read the position of the master node from the nbt tag compound of the tile entity.
         }
@@ -109,9 +113,11 @@ public class TileEntityMultiBlockEnergyNode extends TileEntityEnergyNode {
      * @return Given nbt tag compound with the saved block position.
      */
     private NBTTagCompound writeExtensionNodeToNBT(@NotNull NBTTagCompound extensionNodeTag, BlockPos pos) {
-        extensionNodeTag.setInteger(NBT.EXTENSION_NODE_X, pos.getX());
-        extensionNodeTag.setInteger(NBT.EXTENSION_NODE_Y, pos.getY());
-        extensionNodeTag.setInteger(NBT.EXTENSION_NODE_Z, pos.getZ());
+        if(pos != null) {
+            extensionNodeTag.setInteger(NBT.EXTENSION_NODE_X, pos.getX());
+            extensionNodeTag.setInteger(NBT.EXTENSION_NODE_Y, pos.getY());
+            extensionNodeTag.setInteger(NBT.EXTENSION_NODE_Z, pos.getZ());
+        }
         return extensionNodeTag;
     }
 
@@ -205,6 +211,7 @@ public class TileEntityMultiBlockEnergyNode extends TileEntityEnergyNode {
         if (this.isMasterNode) {
             IStatusMessage message = super.disconnectFromNode(node, isSecond, simulate);
             if (message.isSuccessful()) {
+                this.connectedExtensionNode = null;
                 return message;
             }
             for (BlockPos extensionNodePos : this.extensionNodes) {
@@ -212,6 +219,7 @@ public class TileEntityMultiBlockEnergyNode extends TileEntityEnergyNode {
                 if (extensionNode != null) {
                     IStatusMessage subMessage = extensionNode.superDisconnectFromNode(node, isSecond, simulate);
                     if (subMessage.isSuccessful()) {
+                        this.connectedExtensionNode = null;
                         return message;
                     }
                 }
@@ -266,6 +274,20 @@ public class TileEntityMultiBlockEnergyNode extends TileEntityEnergyNode {
             }
         }
     }
+
+    @Override
+    public boolean isConnected() {
+        if (this.isMasterNode) {
+            return this.connectedExtensionNode != null;
+        } else {
+            TileEntityMultiBlockEnergyNode masterNode = getMasterNode();
+            if (masterNode != null) {
+                return masterNode.isConnected();
+            }
+        }
+        return false;
+    }
+
     //endregion
 
     //region TileEntityEnergyNode
@@ -364,7 +386,7 @@ public class TileEntityMultiBlockEnergyNode extends TileEntityEnergyNode {
                 masterNode.addExtensionNode(extensionNode);
             }
         }
-        markDirty();
+        syncClient();
         return this;
     }
 
@@ -376,7 +398,7 @@ public class TileEntityMultiBlockEnergyNode extends TileEntityEnergyNode {
                 this.extensionNodes.remove(extensionNode.getPos());
                 extensionNode.masterNode = null;
                 this.energyStorage.setCapacity(
-                    this.energyStorage.getMaxEnergyStored() + extensionNode.energyStorage.getMaxEnergyStored()
+                    this.energyStorage.getMaxEnergyStored() - extensionNode.energyStorage.getMaxEnergyStored()
                 );
                 INetworkNode connectedNode = extensionNode.getNetworkNode();
                 if (connectedNode != null) {
@@ -401,6 +423,8 @@ public class TileEntityMultiBlockEnergyNode extends TileEntityEnergyNode {
                         node.masterNode = this.getPos();
                     }
                 }
+            } else {
+                this.disconnectFromNode();
             }
         } else {
             TileEntityMultiBlockEnergyNode masterNode = getMasterNode();
@@ -408,7 +432,7 @@ public class TileEntityMultiBlockEnergyNode extends TileEntityEnergyNode {
                 masterNode.removeExtensionNode(extensionNode);
             }
         }
-        markDirty();
+        syncClient();
         return this;
     }
 
@@ -430,7 +454,7 @@ public class TileEntityMultiBlockEnergyNode extends TileEntityEnergyNode {
                     this.removeExtensionNode(extensionNode);
                 }
             }
-            List<BlockPos> neighbors = WorldHelper.hasNeighbors(getWorld(), this.getPos(), MultiMachineBlock.class);
+            List<BlockPos> neighbors = WorldHelper.hasNeighbors(getWorld(), this.getPos(), this.getClass());
             for (BlockPos neighbor : neighbors) {
                 TileEntityMultiBlockEnergyNode neighborNode = getNetworkNode(neighbor);
                 if (neighborNode != null) {
@@ -460,7 +484,7 @@ public class TileEntityMultiBlockEnergyNode extends TileEntityEnergyNode {
         if (masterNode != null && masterNode != this) {
             masterNode.addExtensionNode(this);
         }
-        List<BlockPos> neigbors = WorldHelper.hasNeighbors(getWorld(), this.getPos(), MultiMachineBlock.class);
+        List<BlockPos> neigbors = WorldHelper.hasNeighbors(getWorld(), this.getPos(), this.getClass());
         for (BlockPos neighbor : neigbors) {
             TileEntityMultiBlockEnergyNode neighborNode = getNetworkNode(neighbor);
             if (neighborNode != null) {

@@ -3,6 +3,7 @@ package at.korti.transmatrics.registry;
 import at.korti.transmatrics.tileentity.crafting.*;
 import at.korti.transmatrics.tileentity.energy.TileEntityCharger;
 import at.korti.transmatrics.tileentity.energy.TileEntityEnergyBridge;
+import at.korti.transmatrics.tileentity.energy.TileEntitySmallStorageComponent;
 import at.korti.transmatrics.tileentity.generator.*;
 import at.korti.transmatrics.tileentity.network.*;
 
@@ -22,6 +23,7 @@ public final class TileEntities {
         registerTileEntity(TileEntityWindmill.class, WINDMILL.getRegName());
         registerTileEntity(TileEntityWatermill.class, WATERMILL.getRegName());
         registerTileEntity(TileEntityEnergyBridge.class, ENERGY_BRIDGE.getRegName());
+        registerTileEntity(TileEntitySmallStorageComponent.class, SMALL_STORAGE_COMPONENT.getRegName());
         registerTileEntity(TileEntitySmallSwitch.class, SMALL_SWITCH.getRegName());
         registerTileEntity(TileEntityMediumSwitch.class, MEDIUM_SWITCH.getRegName());
         registerTileEntity(TileEntityLargeSwitch.class, LARGE_SWITCH.getRegName());
