@@ -222,6 +222,12 @@ public final class Constants {
         //Storage Components
         public static final int SMALL_STORAGE_COMPONENT_CAPACITY = 100000;
         public static final int SMALL_STORAGE_COMPONENT_TRANSFER = 5000;
+        public static final int MEDIUM_STORAGE_COMPONENT_CAPACITY = 500000;
+        public static final int MEDIUM_STORAGE_COMPONENT_TRANSFER = 10000;
+        public static final int LARGE_STORAGE_COMPONENT_CAPACITY = (int) (2.5 * Math.pow(10, 6));
+        public static final int LARGE_STORAGE_COMPONENT_TRANSFER = 25000;
+        public static final int QUANTUM_STORAGE_COMPONENT_CAPACITY = (int) Math.pow(10, 9);
+        public static final int QUANTUM_STORAGE_COMPONENT_TRANSFER = 50000;
 
         //Efficiency
         public static final int EFFICIENCY_DIVIDER = 10000;
@@ -331,7 +337,10 @@ public final class Constants {
         MACHINE_CASING("machine_casing"),
         ENERGY_BRIDGE("energy_bridge"),
         QUANTUM_BRIDGE("quantum_bridge"),
-        SMALL_STORAGE_COMPONENT("small_storage_component");
+        SMALL_STORAGE_COMPONENT("small_storage_component"),
+        MEDIUM_STORAGE_COMPONENT("medium_storage_component"),
+        LARGE_STORAGE_COMPONENT("large_storage_component"),
+        QUANTUM_STORAGE_COMPONENT("quantum_storage_component");
 
         private final String regName;
 
@@ -396,7 +405,10 @@ public final class Constants {
         CHARGER("TMTileCharger"),
         ENERGY_BRIDGE("TMTileEnergyBridge"),
         QUANTUM_BRIDGE("TMTileQuantumBridge"),
-        SMALL_STORAGE_COMPONENT("TMTileSmallStorageComponent");
+        SMALL_STORAGE_COMPONENT("TMTileSmallStorageComponent"),
+        MEDIUM_STORAGE_COMPONENT("TMTileMediumStorageComponent"),
+        LARGE_STORAGE_COMPONENT("TMTileLargeStorageComponent"),
+        QUANTUM_STORAGE_COMPONENT("TMTileQuantumStorageComponent");
 
         private final String regName;
 

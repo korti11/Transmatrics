@@ -92,6 +92,10 @@ public class ModModelManager {
         registerBlockItemModel(ModBlocks.WINDMILL.getDefaultState());
         registerBlockItemModel(ModBlocks.WATERMILL.getDefaultState());
         registerBlockItemModel(ModBlocks.ENERGY_BRIDGE.getDefaultState());
+        registerBlockItemModel(ModBlocks.SMALL_STORAGE_COMPONENT.getDefaultState());
+        registerBlockItemModel(ModBlocks.MEDIUM_STORAGE_COMPONENT.getDefaultState());
+        registerBlockItemModel(ModBlocks.LARGE_STORAGE_COMPONENT.getDefaultState());
+        registerBlockItemModel(ModBlocks.QUANTUM_STORAGE_COMPONENT.getDefaultState());
         //endregion
         //region Network Blocks
         registerBlockItemModel(ModBlocks.SMALL_SWITCH.getDefaultState());
